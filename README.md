@@ -1,4 +1,4 @@
-# Victoria UI - releases
+# Victoria UI (official releases only)
 
 [Development Repository](https://github.com/victoriauniversity/vuw-styleguide) | [Documentation/Style Guide](static.victoria.ac.nz)
 

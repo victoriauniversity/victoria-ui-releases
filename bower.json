@@ -1,7 +1,7 @@
 {
   "name": "victoria-ui-library",
   "version": "0.9.1",
-  "description": "Set of modules providing base CSS, JavaScript and base assets (fonts, images) required to build websites and applications affiliated with Victoria University of Wellington",
+  "description": "Set of base CSS, JS and assets (fonts, images) required to build websites and applications affiliated with Victoria University of Wellington",
   "homepage": "https://static.victoria.ac.nz/",
   "keywords": [
     "toolkit",
@@ -21,8 +21,8 @@
     "UI"
   ],
   "main": [
-    "toolkit.min.js",
-    "toolkit.min.css"
+    "toolkit.js",
+    "toolkit.css"
   ],
   "author": "Victoria University of Wellington WebTeam",
   "repository": {

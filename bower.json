@@ -5,10 +5,10 @@
   "homepage": "https://static.victoria.ac.nz/",
   "keywords": [
     "toolkit",
-    "styleguide",
     "framework",
     "scaffold",
     "patterns",
+    "bootstrap",
     "library",
     "VUW",
     "Victoria University",
@@ -18,12 +18,11 @@
     "HTML",
     "JS",
     "CSS",
-    "UI",
-    "bootstrap"
+    "UI"
   ],
   "main": [
-    "toolkit.js",
-    "toolkit.css"
+    "toolkit.min.js",
+    "toolkit.min.css"
   ],
   "author": "Victoria University of Wellington WebTeam",
   "repository": {

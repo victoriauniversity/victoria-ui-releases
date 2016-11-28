@@ -1,4 +1,4 @@
-/** Version: 0.9.2 (build #023b419a941ee4955e0aa30b8cf43524712e4572) | Mon Nov 07 2016 0:58 */
+/** Version: 0.9.3 (build #5ac9003db49198ca4e2707445f135068d978bd2d) | Mon Nov 28 2016 0:30 */
 @charset "UTF-8";
 /*
 
@@ -1269,6 +1269,8 @@ table {
       margin: .5rem 0 .7rem; }
   .formatting ul li {
     list-style-type: square; }
+  .formatting ul ul li {
+    list-style-type: circle; }
   .formatting.block > img:first-child {
     margin-left: -1.25rem;
     width: calc(100% + 1.25rem * 2); }
@@ -2253,7 +2255,7 @@ ul.complex-list {
       margin-bottom: .35em; } }
 
 .logo-mini {
-  background-image: url("../images/logo-mini.svg");
+  background-image: url("./images/logo-mini.svg");
   background-position: left;
   background-repeat: no-repeat; }
 
@@ -2816,6 +2818,18 @@ a.tag.active:hover, a.tag.active:active, a.tag.active:focus {
         width: 22.316%; }
         .text-promo-panel .button-wrap:last-child {
           margin-right: 0; } }
+  .text-promo-panel.video .media .outside {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0; }
+  .text-promo-panel.video .outside h4 {
+    margin-bottom: 0;
+    padding: .65em .5em; }
+    .text-promo-panel.video .outside h4 i {
+      margin-left: .5em; }
 
 .homepage-intro::after {
   clear: both;
@@ -3528,6 +3542,8 @@ ul.meta .highlight {
         color: #FFF;
         float: left;
         padding: 0.45rem 0.8rem; }
+        .global [role=search] .input-wrapper input[type=text], .global [role=search] .input-wrapper input[type=submit] {
+          display: none; }
         .global [role=search] .input-wrapper input[type=text] {
           width: calc(100% - 4rem); }
         .global [role=search] .input-wrapper input[type=submit] {
@@ -3547,7 +3563,9 @@ ul.meta .highlight {
             background: #BBB;
             color: #242424; }
           .global [role=search] .input-wrapper.is-open {
-            transform: translateX(0); } }
+            transform: translateX(0); }
+            .global [role=search] .input-wrapper.is-open input[type=text], .global [role=search] .input-wrapper.is-open input[type=submit] {
+              display: inline-block; } }
   @media screen and (max-width: 61.8125em) {
     .global {
       padding: 0; } }
@@ -3558,13 +3576,14 @@ ul.meta .highlight {
       right: 0;
       bottom: 0; }
       .global .button-container a {
-        padding: 0;
+        display: block;
         margin: 2px 0;
+        padding: 0 .8rem;
         border: none;
         border-left: 1px solid rgba(255, 255, 255, 0.15);
-        display: block;
-        padding: 0 .8rem;
         text-align: right; }
+    .global [role=search] .input-wrapper input[type=text], .global [role=search] .input-wrapper input[type=submit] {
+      display: inline-block; }
     .global .menu {
       background: #115737;
       max-height: 75vh;

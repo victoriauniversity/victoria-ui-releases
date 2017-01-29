@@ -1,4 +1,4 @@
-/** Version: 0.9.3 (build #5ac9003db49198ca4e2707445f135068d978bd2d) | Mon Dec 05 2016 22:28 */
+/** Version: 0.9.4 (build #cdcd1addf8f97a9fcb14d80c98b452aaabd46f01) | Sun Jan 29 2017 22:27 */
 @charset "UTF-8";
 /*
 
@@ -1781,6 +1781,9 @@ a.link-more {
 img {
   vertical-align: middle; }
 
+img .a {
+  fill: #fff; }
+
 /*=========================================
 =      LAYOUTS, CONTAINERS & BLOCKS       =
 =========================================*/
@@ -2575,6 +2578,10 @@ a.tag.active:hover, a.tag.active:active, a.tag.active:focus {
     width: 70.14568%; }
     .events .summary:last-child {
       margin-right: 0; } }
+
+@media screen and (max-width: 43.6875em) {
+  .events .media img {
+    margin-bottom: .8rem; } }
 
 .events .highlight-strip {
   display: block;

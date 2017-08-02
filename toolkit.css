@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #dcaa3875fc7d7a0480bd0d689c7e32bfbdead443) | Tue Mar 21 2017 2:48 */
+/** Version: 0.9.4 (build #1dfad111893a10b4823ef55846b641cdcaac9965) | Wed Aug 02 2017 22:06 */
 @charset "UTF-8";
 /*
 
@@ -1976,6 +1976,7 @@ body > .layout {
 
 /* ===== PAGINATION =================================================== */
 .pagination {
+  display: flex;
   text-align: right; }
   .pagination::after {
     clear: both;
@@ -1993,10 +1994,7 @@ body > .layout {
       background-color: #0D4B2F; }
     .pagination .button > .icon {
       display: none; }
-  .pagination > .icon {
-    margin: 0 .5rem; }
   .pagination .previous {
-    float: left;
     margin-right: .3rem; }
     .pagination .previous:before {
       position: relative;
@@ -2004,22 +2002,35 @@ body > .layout {
       content: "<";
       margin-right: .5em; }
   .pagination .next {
-    float: right;
+    order: 3;
     margin-left: .3rem; }
     .pagination .next:after {
       position: relative;
       display: inline-block;
       content: ">";
       margin-left: .5em; }
+  .pagination .previous,
+  .pagination .next {
+    display: inline-block;
+    white-space: nowrap;
+    align-self: flex-start; }
   .pagination .pages {
-    float: left;
-    white-space: nowrap; }
+    order: 2;
+    flex-grow: 1;
+    padding: 0 .75em;
+    text-align: center; }
+    .pagination .pages > .icon {
+      margin: 0 .5rem; }
   @media screen and (max-width: 29.9375em) {
     .pagination {
+      display: block;
       text-align: center; }
       .pagination .previous,
       .pagination .next {
-        float: none; } }
+        float: none; }
+      .pagination .pages {
+        padding: initial;
+        text-align: inherit; } }
 
 /*=========================================
 =     QUOTES, CITATION, BIBLIOGRAPHY      =

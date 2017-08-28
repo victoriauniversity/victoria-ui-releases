@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #ef4e88329cf5bee5f5f93ca2a4081b3e4cdea698) | Mon Aug 28 2017 2:31 */
+/** Version: 0.9.4 (build #ef4e88329cf5bee5f5f93ca2a4081b3e4cdea698) | Mon Aug 28 2017 2:38 */
 @charset "UTF-8";
 /*
 
@@ -545,9 +545,9 @@ textarea {
   font: inherit;
   /* 2 */ }
 
-/*! Lity - v2.2.0 - 2016-10-08
+/*! Lity - v2.2.2 - 2017-07-17
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2017 Jan Sorgalla; Licensed MIT */
 .lity {
   z-index: 9990;
   position: fixed;
@@ -1835,8 +1835,7 @@ body {
   box-orient: vertical;
   box-direction: normal;
   -moz-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-direction: column; }
+  flex-direction: column; }
   body > footer {
     overflow: hidden; }
 
@@ -4080,7 +4079,6 @@ ul.meta .highlight {
     box-direction: normal;
     -moz-flex-direction: row;
     flex-direction: row;
-    -ms-flex-direction: row;
     box-pack: start;
     -moz-justify-content: flex-start;
     -ms-justify-content: flex-start;

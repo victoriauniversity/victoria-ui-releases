@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #ef4e88329cf5bee5f5f93ca2a4081b3e4cdea698) | Mon Aug 28 2017 2:31 */
+/** Version: 0.9.4 (build #ef4e88329cf5bee5f5f93ca2a4081b3e4cdea698) | Mon Aug 28 2017 2:38 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -43,7 +43,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -52,13 +52,13 @@
 	 */
 	
 	/* DEPENDENCIES & 3RD PARTY LIBRARIES IMPORTS */
-	var fastclick = __webpack_require__(3),
-	    Headroom = __webpack_require__(4),
-	    picturefill = __webpack_require__(7),
-	    lity = __webpack_require__(6),
-	    enquire = __webpack_require__(2);
+	var fastclick = __webpack_require__(7),
+	    Headroom = __webpack_require__(8),
+	    picturefill = __webpack_require__(11),
+	    lity = __webpack_require__(10),
+	    enquire = __webpack_require__(6);
 	
-	__webpack_require__(1); //TODO: set up multiple entry points for webpack bundles
+	__webpack_require__(2); //TODO: set up multiple entry points for webpack bundles
 	
 	
 	/* CONSTANT ATTRIBUTES */
@@ -186,9 +186,59 @@
 		removedUnusedTiles(); //TODO: Review - Can be removed after all the study areas are migrated
 	});
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
+
+	/**
+	 * Helper function for iterating over a collection
+	 *
+	 * @param collection
+	 * @param fn
+	 */
+	function each(collection, fn) {
+	    var i      = 0,
+	        length = collection.length,
+	        cont;
+	
+	    for(i; i < length; i++) {
+	        cont = fn(collection[i], i);
+	        if(cont === false) {
+	            break; //allow early exit
+	        }
+	    }
+	}
+	
+	/**
+	 * Helper function for determining whether target object is an array
+	 *
+	 * @param target the object under test
+	 * @return {Boolean} true if array, false otherwise
+	 */
+	function isArray(target) {
+	    return Object.prototype.toString.apply(target) === '[object Array]';
+	}
+	
+	/**
+	 * Helper function for determining whether target object is a function
+	 *
+	 * @param target the object under test
+	 * @return {Boolean} true if function, false otherwise
+	 */
+	function isFunction(target) {
+	    return typeof target === 'function';
+	}
+	
+	module.exports = {
+	    isFunction : isFunction,
+	    isArray : isArray,
+	    each : each
+	};
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -546,307 +596,287 @@
 		return ret;
 	};
 
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * enquire.js v2.1.1 - Awesome Media Queries in JavaScript
-	 * Copyright (c) 2014 Nick Williams - http://wicky.nillia.ms/enquire.js
-	 * License: MIT (http://www.opensource.org/licenses/mit-license.php)
-	 */
-	
-	;(function (name, context, factory) {
-		var matchMedia = window.matchMedia;
-	
-		if (typeof module !== 'undefined' && module.exports) {
-			module.exports = factory(matchMedia);
-		}
-		else if (true) {
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
-				return (context[name] = factory(matchMedia));
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		}
-		else {
-			context[name] = factory(matchMedia);
-		}
-	}('enquire', this, function (matchMedia) {
-	
-		'use strict';
-	
-	    /*jshint unused:false */
-	    /**
-	     * Helper function for iterating over a collection
-	     *
-	     * @param collection
-	     * @param fn
-	     */
-	    function each(collection, fn) {
-	        var i      = 0,
-	            length = collection.length,
-	            cont;
-	
-	        for(i; i < length; i++) {
-	            cont = fn(collection[i], i);
-	            if(cont === false) {
-	                break; //allow early exit
-	            }
-	        }
-	    }
-	
-	    /**
-	     * Helper function for determining whether target object is an array
-	     *
-	     * @param target the object under test
-	     * @return {Boolean} true if array, false otherwise
-	     */
-	    function isArray(target) {
-	        return Object.prototype.toString.apply(target) === '[object Array]';
-	    }
-	
-	    /**
-	     * Helper function for determining whether target object is a function
-	     *
-	     * @param target the object under test
-	     * @return {Boolean} true if function, false otherwise
-	     */
-	    function isFunction(target) {
-	        return typeof target === 'function';
-	    }
-	
-	    /**
-	     * Delegate to handle a media query being matched and unmatched.
-	     *
-	     * @param {object} options
-	     * @param {function} options.match callback for when the media query is matched
-	     * @param {function} [options.unmatch] callback for when the media query is unmatched
-	     * @param {function} [options.setup] one-time callback triggered the first time a query is matched
-	     * @param {boolean} [options.deferSetup=false] should the setup callback be run immediately, rather than first time query is matched?
-	     * @constructor
-	     */
-	    function QueryHandler(options) {
-	        this.options = options;
-	        !options.deferSetup && this.setup();
-	    }
-	    QueryHandler.prototype = {
-	
-	        /**
-	         * coordinates setup of the handler
-	         *
-	         * @function
-	         */
-	        setup : function() {
-	            if(this.options.setup) {
-	                this.options.setup();
-	            }
-	            this.initialised = true;
-	        },
-	
-	        /**
-	         * coordinates setup and triggering of the handler
-	         *
-	         * @function
-	         */
-	        on : function() {
-	            !this.initialised && this.setup();
-	            this.options.match && this.options.match();
-	        },
-	
-	        /**
-	         * coordinates the unmatch event for the handler
-	         *
-	         * @function
-	         */
-	        off : function() {
-	            this.options.unmatch && this.options.unmatch();
-	        },
-	
-	        /**
-	         * called when a handler is to be destroyed.
-	         * delegates to the destroy or unmatch callbacks, depending on availability.
-	         *
-	         * @function
-	         */
-	        destroy : function() {
-	            this.options.destroy ? this.options.destroy() : this.off();
-	        },
-	
-	        /**
-	         * determines equality by reference.
-	         * if object is supplied compare options, if function, compare match callback
-	         *
-	         * @function
-	         * @param {object || function} [target] the target for comparison
-	         */
-	        equals : function(target) {
-	            return this.options === target || this.options.match === target;
-	        }
-	
-	    };
-	    /**
-	     * Represents a single media query, manages it's state and registered handlers for this query
-	     *
-	     * @constructor
-	     * @param {string} query the media query string
-	     * @param {boolean} [isUnconditional=false] whether the media query should run regardless of whether the conditions are met. Primarily for helping older browsers deal with mobile-first design
-	     */
-	    function MediaQuery(query, isUnconditional) {
-	        this.query = query;
-	        this.isUnconditional = isUnconditional;
-	        this.handlers = [];
-	        this.mql = matchMedia(query);
-	
-	        var self = this;
-	        this.listener = function(mql) {
-	            self.mql = mql;
-	            self.assess();
-	        };
-	        this.mql.addListener(this.listener);
-	    }
-	    MediaQuery.prototype = {
-	
-	        /**
-	         * add a handler for this query, triggering if already active
-	         *
-	         * @param {object} handler
-	         * @param {function} handler.match callback for when query is activated
-	         * @param {function} [handler.unmatch] callback for when query is deactivated
-	         * @param {function} [handler.setup] callback for immediate execution when a query handler is registered
-	         * @param {boolean} [handler.deferSetup=false] should the setup callback be deferred until the first time the handler is matched?
-	         */
-	        addHandler : function(handler) {
-	            var qh = new QueryHandler(handler);
-	            this.handlers.push(qh);
-	
-	            this.matches() && qh.on();
-	        },
-	
-	        /**
-	         * removes the given handler from the collection, and calls it's destroy methods
-	         * 
-	         * @param {object || function} handler the handler to remove
-	         */
-	        removeHandler : function(handler) {
-	            var handlers = this.handlers;
-	            each(handlers, function(h, i) {
-	                if(h.equals(handler)) {
-	                    h.destroy();
-	                    return !handlers.splice(i,1); //remove from array and exit each early
-	                }
-	            });
-	        },
-	
-	        /**
-	         * Determine whether the media query should be considered a match
-	         * 
-	         * @return {Boolean} true if media query can be considered a match, false otherwise
-	         */
-	        matches : function() {
-	            return this.mql.matches || this.isUnconditional;
-	        },
-	
-	        /**
-	         * Clears all handlers and unbinds events
-	         */
-	        clear : function() {
-	            each(this.handlers, function(handler) {
-	                handler.destroy();
-	            });
-	            this.mql.removeListener(this.listener);
-	            this.handlers.length = 0; //clear array
-	        },
-	
-	        /*
-	         * Assesses the query, turning on all handlers if it matches, turning them off if it doesn't match
-	         */
-	        assess : function() {
-	            var action = this.matches() ? 'on' : 'off';
-	
-	            each(this.handlers, function(handler) {
-	                handler[action]();
-	            });
-	        }
-	    };
-	    /**
-	     * Allows for registration of query handlers.
-	     * Manages the query handler's state and is responsible for wiring up browser events
-	     *
-	     * @constructor
-	     */
-	    function MediaQueryDispatch () {
-	        if(!matchMedia) {
-	            throw new Error('matchMedia not present, legacy browsers require a polyfill');
-	        }
-	
-	        this.queries = {};
-	        this.browserIsIncapable = !matchMedia('only all').matches;
-	    }
-	
-	    MediaQueryDispatch.prototype = {
-	
-	        /**
-	         * Registers a handler for the given media query
-	         *
-	         * @param {string} q the media query
-	         * @param {object || Array || Function} options either a single query handler object, a function, or an array of query handlers
-	         * @param {function} options.match fired when query matched
-	         * @param {function} [options.unmatch] fired when a query is no longer matched
-	         * @param {function} [options.setup] fired when handler first triggered
-	         * @param {boolean} [options.deferSetup=false] whether setup should be run immediately or deferred until query is first matched
-	         * @param {boolean} [shouldDegrade=false] whether this particular media query should always run on incapable browsers
-	         */
-	        register : function(q, options, shouldDegrade) {
-	            var queries         = this.queries,
-	                isUnconditional = shouldDegrade && this.browserIsIncapable;
-	
-	            if(!queries[q]) {
-	                queries[q] = new MediaQuery(q, isUnconditional);
-	            }
-	
-	            //normalise to object in an array
-	            if(isFunction(options)) {
-	                options = { match : options };
-	            }
-	            if(!isArray(options)) {
-	                options = [options];
-	            }
-	            each(options, function(handler) {
-	                queries[q].addHandler(handler);
-	            });
-	
-	            return this;
-	        },
-	
-	        /**
-	         * unregisters a query and all it's handlers, or a specific handler for a query
-	         *
-	         * @param {string} q the media query to target
-	         * @param {object || function} [handler] specific handler to unregister
-	         */
-	        unregister : function(q, handler) {
-	            var query = this.queries[q];
-	
-	            if(query) {
-	                if(handler) {
-	                    query.removeHandler(handler);
-	                }
-	                else {
-	                    query.clear();
-	                    delete this.queries[q];
-	                }
-	            }
-	
-	            return this;
-	        }
-	    };
-	
-		return new MediaQueryDispatch();
-	
-	}));
-
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
+
+	var QueryHandler = __webpack_require__(5);
+	var each = __webpack_require__(1).each;
+	
+	/**
+	 * Represents a single media query, manages it's state and registered handlers for this query
+	 *
+	 * @constructor
+	 * @param {string} query the media query string
+	 * @param {boolean} [isUnconditional=false] whether the media query should run regardless of whether the conditions are met. Primarily for helping older browsers deal with mobile-first design
+	 */
+	function MediaQuery(query, isUnconditional) {
+	    this.query = query;
+	    this.isUnconditional = isUnconditional;
+	    this.handlers = [];
+	    this.mql = window.matchMedia(query);
+	
+	    var self = this;
+	    this.listener = function(mql) {
+	        // Chrome passes an MediaQueryListEvent object, while other browsers pass MediaQueryList directly
+	        self.mql = mql.currentTarget || mql;
+	        self.assess();
+	    };
+	    this.mql.addListener(this.listener);
+	}
+	
+	MediaQuery.prototype = {
+	
+	    constuctor : MediaQuery,
+	
+	    /**
+	     * add a handler for this query, triggering if already active
+	     *
+	     * @param {object} handler
+	     * @param {function} handler.match callback for when query is activated
+	     * @param {function} [handler.unmatch] callback for when query is deactivated
+	     * @param {function} [handler.setup] callback for immediate execution when a query handler is registered
+	     * @param {boolean} [handler.deferSetup=false] should the setup callback be deferred until the first time the handler is matched?
+	     */
+	    addHandler : function(handler) {
+	        var qh = new QueryHandler(handler);
+	        this.handlers.push(qh);
+	
+	        this.matches() && qh.on();
+	    },
+	
+	    /**
+	     * removes the given handler from the collection, and calls it's destroy methods
+	     *
+	     * @param {object || function} handler the handler to remove
+	     */
+	    removeHandler : function(handler) {
+	        var handlers = this.handlers;
+	        each(handlers, function(h, i) {
+	            if(h.equals(handler)) {
+	                h.destroy();
+	                return !handlers.splice(i,1); //remove from array and exit each early
+	            }
+	        });
+	    },
+	
+	    /**
+	     * Determine whether the media query should be considered a match
+	     *
+	     * @return {Boolean} true if media query can be considered a match, false otherwise
+	     */
+	    matches : function() {
+	        return this.mql.matches || this.isUnconditional;
+	    },
+	
+	    /**
+	     * Clears all handlers and unbinds events
+	     */
+	    clear : function() {
+	        each(this.handlers, function(handler) {
+	            handler.destroy();
+	        });
+	        this.mql.removeListener(this.listener);
+	        this.handlers.length = 0; //clear array
+	    },
+	
+	    /*
+	        * Assesses the query, turning on all handlers if it matches, turning them off if it doesn't match
+	        */
+	    assess : function() {
+	        var action = this.matches() ? 'on' : 'off';
+	
+	        each(this.handlers, function(handler) {
+	            handler[action]();
+	        });
+	    }
+	};
+	
+	module.exports = MediaQuery;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var MediaQuery = __webpack_require__(3);
+	var Util = __webpack_require__(1);
+	var each = Util.each;
+	var isFunction = Util.isFunction;
+	var isArray = Util.isArray;
+	
+	/**
+	 * Allows for registration of query handlers.
+	 * Manages the query handler's state and is responsible for wiring up browser events
+	 *
+	 * @constructor
+	 */
+	function MediaQueryDispatch () {
+	    if(!window.matchMedia) {
+	        throw new Error('matchMedia not present, legacy browsers require a polyfill');
+	    }
+	
+	    this.queries = {};
+	    this.browserIsIncapable = !window.matchMedia('only all').matches;
+	}
+	
+	MediaQueryDispatch.prototype = {
+	
+	    constructor : MediaQueryDispatch,
+	
+	    /**
+	     * Registers a handler for the given media query
+	     *
+	     * @param {string} q the media query
+	     * @param {object || Array || Function} options either a single query handler object, a function, or an array of query handlers
+	     * @param {function} options.match fired when query matched
+	     * @param {function} [options.unmatch] fired when a query is no longer matched
+	     * @param {function} [options.setup] fired when handler first triggered
+	     * @param {boolean} [options.deferSetup=false] whether setup should be run immediately or deferred until query is first matched
+	     * @param {boolean} [shouldDegrade=false] whether this particular media query should always run on incapable browsers
+	     */
+	    register : function(q, options, shouldDegrade) {
+	        var queries         = this.queries,
+	            isUnconditional = shouldDegrade && this.browserIsIncapable;
+	
+	        if(!queries[q]) {
+	            queries[q] = new MediaQuery(q, isUnconditional);
+	        }
+	
+	        //normalise to object in an array
+	        if(isFunction(options)) {
+	            options = { match : options };
+	        }
+	        if(!isArray(options)) {
+	            options = [options];
+	        }
+	        each(options, function(handler) {
+	            if (isFunction(handler)) {
+	                handler = { match : handler };
+	            }
+	            queries[q].addHandler(handler);
+	        });
+	
+	        return this;
+	    },
+	
+	    /**
+	     * unregisters a query and all it's handlers, or a specific handler for a query
+	     *
+	     * @param {string} q the media query to target
+	     * @param {object || function} [handler] specific handler to unregister
+	     */
+	    unregister : function(q, handler) {
+	        var query = this.queries[q];
+	
+	        if(query) {
+	            if(handler) {
+	                query.removeHandler(handler);
+	            }
+	            else {
+	                query.clear();
+	                delete this.queries[q];
+	            }
+	        }
+	
+	        return this;
+	    }
+	};
+	
+	module.exports = MediaQueryDispatch;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Delegate to handle a media query being matched and unmatched.
+	 *
+	 * @param {object} options
+	 * @param {function} options.match callback for when the media query is matched
+	 * @param {function} [options.unmatch] callback for when the media query is unmatched
+	 * @param {function} [options.setup] one-time callback triggered the first time a query is matched
+	 * @param {boolean} [options.deferSetup=false] should the setup callback be run immediately, rather than first time query is matched?
+	 * @constructor
+	 */
+	function QueryHandler(options) {
+	    this.options = options;
+	    !options.deferSetup && this.setup();
+	}
+	
+	QueryHandler.prototype = {
+	
+	    constructor : QueryHandler,
+	
+	    /**
+	     * coordinates setup of the handler
+	     *
+	     * @function
+	     */
+	    setup : function() {
+	        if(this.options.setup) {
+	            this.options.setup();
+	        }
+	        this.initialised = true;
+	    },
+	
+	    /**
+	     * coordinates setup and triggering of the handler
+	     *
+	     * @function
+	     */
+	    on : function() {
+	        !this.initialised && this.setup();
+	        this.options.match && this.options.match();
+	    },
+	
+	    /**
+	     * coordinates the unmatch event for the handler
+	     *
+	     * @function
+	     */
+	    off : function() {
+	        this.options.unmatch && this.options.unmatch();
+	    },
+	
+	    /**
+	     * called when a handler is to be destroyed.
+	     * delegates to the destroy or unmatch callbacks, depending on availability.
+	     *
+	     * @function
+	     */
+	    destroy : function() {
+	        this.options.destroy ? this.options.destroy() : this.off();
+	    },
+	
+	    /**
+	     * determines equality by reference.
+	     * if object is supplied compare options, if function, compare match callback
+	     *
+	     * @function
+	     * @param {object || function} [target] the target for comparison
+	     */
+	    equals : function(target) {
+	        return this.options === target || this.options.match === target;
+	    }
+	
+	};
+	
+	module.exports = QueryHandler;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var MediaQueryDispatch = __webpack_require__(4);
+	module.exports = new MediaQueryDispatch();
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
 		'use strict';
@@ -1691,13 +1721,13 @@
 	}());
 
 
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * headroom.js v0.9.3 - Give your page some headroom. Hide your header until you need it
-	 * Copyright (c) 2016 Nick Williams - http://wicky.nillia.ms/headroom.js
+	 * headroom.js v0.9.4 - Give your page some headroom. Hide your header until you need it
+	 * Copyright (c) 2017 Nick Williams - http://wicky.nillia.ms/headroom.js
 	 * License: MIT
 	 */
 	
@@ -1851,7 +1881,7 @@
 	      this.debouncer = new Debouncer(this.update.bind(this));
 	      this.elem.classList.add(this.classes.initial);
 	  
-	      // defer event registration to handle browser 
+	      // defer event registration to handle browser
 	      // potentially restoring previous scroll position
 	      setTimeout(this.attachEvent.bind(this), 100);
 	  
@@ -1865,7 +1895,13 @@
 	      var classes = this.classes;
 	  
 	      this.initialised = false;
-	      this.elem.classList.remove(classes.unpinned, classes.pinned, classes.top, classes.notTop, classes.initial);
+	  
+	      for (var key in classes) {
+	        if(classes.hasOwnProperty(key)) {
+	          this.elem.classList.remove(classes[key]);
+	        }
+	      }
+	  
 	      this.scroller.removeEventListener('scroll', this.debouncer, false);
 	    },
 	  
@@ -1882,14 +1918,14 @@
 	        this.debouncer.handleEvent();
 	      }
 	    },
-	    
+	  
 	    /**
 	     * Unpins the header if it's currently pinned
 	     */
 	    unpin : function() {
 	      var classList = this.elem.classList,
 	        classes = this.classes;
-	      
+	  
 	      if(classList.contains(classes.pinned) || !classList.contains(classes.unpinned)) {
 	        classList.add(classes.unpinned);
 	        classList.remove(classes.pinned);
@@ -1903,7 +1939,7 @@
 	    pin : function() {
 	      var classList = this.elem.classList,
 	        classes = this.classes;
-	      
+	  
 	      if(classList.contains(classes.unpinned)) {
 	        classList.remove(classes.unpinned);
 	        classList.add(classes.pinned);
@@ -1917,7 +1953,7 @@
 	    top : function() {
 	      var classList = this.elem.classList,
 	        classes = this.classes;
-	      
+	  
 	      if(!classList.contains(classes.top)) {
 	        classList.add(classes.top);
 	        classList.remove(classes.notTop);
@@ -1931,7 +1967,7 @@
 	    notTop : function() {
 	      var classList = this.elem.classList,
 	        classes = this.classes;
-	      
+	  
 	      if(!classList.contains(classes.notTop)) {
 	        classList.add(classes.notTop);
 	        classList.remove(classes.top);
@@ -1942,7 +1978,7 @@
 	    bottom : function() {
 	      var classList = this.elem.classList,
 	        classes = this.classes;
-	      
+	  
 	      if(!classList.contains(classes.bottom)) {
 	        classList.add(classes.bottom);
 	        classList.remove(classes.notBottom);
@@ -1956,7 +1992,7 @@
 	    notBottom : function() {
 	      var classList = this.elem.classList,
 	        classes = this.classes;
-	      
+	  
 	      if(!classList.contains(classes.notBottom)) {
 	        classList.add(classes.notBottom);
 	        classList.remove(classes.bottom);
@@ -2018,7 +2054,7 @@
 	    getDocumentHeight : function () {
 	      var body = document.body,
 	        documentElement = document.documentElement;
-	    
+	  
 	      return Math.max(
 	        body.scrollHeight, documentElement.scrollHeight,
 	        body.offsetHeight, documentElement.offsetHeight,
@@ -2057,7 +2093,7 @@
 	    isOutOfBounds : function (currentScrollY) {
 	      var pastTop  = currentScrollY < 0,
 	        pastBottom = currentScrollY + this.getScrollerPhysicalHeight() > this.getScrollerHeight();
-	      
+	  
 	      return pastTop || pastBottom;
 	    },
 	  
@@ -2157,22 +2193,22 @@
 	  return Headroom;
 	}));
 
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v3.1.1
+	 * jQuery JavaScript Library v3.2.1
 	 * https://jquery.com/
 	 *
 	 * Includes Sizzle.js
 	 * https://sizzlejs.com/
 	 *
-	 * Copyright jQuery Foundation and other contributors
+	 * Copyright JS Foundation and other contributors
 	 * Released under the MIT license
 	 * https://jquery.org/license
 	 *
-	 * Date: 2016-09-22T22:30Z
+	 * Date: 2017-03-20T18:59Z
 	 */
 	( function( global, factory ) {
 	
@@ -2251,7 +2287,7 @@
 	
 	
 	var
-		version = "3.1.1",
+		version = "3.2.1",
 	
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -2399,11 +2435,11 @@
 	
 					// Recurse if we're merging plain objects or arrays
 					if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
-						( copyIsArray = jQuery.isArray( copy ) ) ) ) {
+						( copyIsArray = Array.isArray( copy ) ) ) ) {
 	
 						if ( copyIsArray ) {
 							copyIsArray = false;
-							clone = src && jQuery.isArray( src ) ? src : [];
+							clone = src && Array.isArray( src ) ? src : [];
 	
 						} else {
 							clone = src && jQuery.isPlainObject( src ) ? src : {};
@@ -2441,8 +2477,6 @@
 		isFunction: function( obj ) {
 			return jQuery.type( obj ) === "function";
 		},
-	
-		isArray: Array.isArray,
 	
 		isWindow: function( obj ) {
 			return obj != null && obj === obj.window;
@@ -2516,10 +2550,6 @@
 		// Microsoft forgot to hump their vendor prefix (#9572)
 		camelCase: function( string ) {
 			return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-		},
-	
-		nodeName: function( elem, name ) {
-			return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 		},
 	
 		each: function( obj, callback ) {
@@ -5006,6 +5036,13 @@
 	
 	var rneedsContext = jQuery.expr.match.needsContext;
 	
+	
+	
+	function nodeName( elem, name ) {
+	
+	  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+	
+	};
 	var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
 	
 	
@@ -5357,7 +5394,18 @@
 			return siblings( elem.firstChild );
 		},
 		contents: function( elem ) {
-			return elem.contentDocument || jQuery.merge( [], elem.childNodes );
+	        if ( nodeName( elem, "iframe" ) ) {
+	            return elem.contentDocument;
+	        }
+	
+	        // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
+	        // Treat the template element as a regular one in browsers that
+	        // don't support it.
+	        if ( nodeName( elem, "template" ) ) {
+	            elem = elem.content || elem;
+	        }
+	
+	        return jQuery.merge( [], elem.childNodes );
 		}
 	}, function( name, fn ) {
 		jQuery.fn[ name ] = function( until, selector ) {
@@ -5455,7 +5503,7 @@
 			fire = function() {
 	
 				// Enforce single-firing
-				locked = options.once;
+				locked = locked || options.once;
 	
 				// Execute callbacks for all pending executions,
 				// respecting firingIndex overrides and runtime changes
@@ -5624,7 +5672,7 @@
 		throw ex;
 	}
 	
-	function adoptValue( value, resolve, reject ) {
+	function adoptValue( value, resolve, reject, noValue ) {
 		var method;
 	
 		try {
@@ -5640,9 +5688,10 @@
 			// Other non-thenables
 			} else {
 	
-				// Support: Android 4.0 only
-				// Strict mode functions invoked without .call/.apply get global-object context
-				resolve.call( undefined, value );
+				// Control `resolve` arguments by letting Array#slice cast boolean `noValue` to integer:
+				// * false: [ value ].slice( 0 ) => resolve( value )
+				// * true: [ value ].slice( 1 ) => resolve()
+				resolve.apply( undefined, [ value ].slice( noValue ) );
 			}
 	
 		// For Promises/A+, convert exceptions into rejections
@@ -5652,7 +5701,7 @@
 	
 			// Support: Android 4.0 only
 			// Strict mode functions invoked without .call/.apply get global-object context
-			reject.call( undefined, value );
+			reject.apply( undefined, [ value ] );
 		}
 	}
 	
@@ -5977,7 +6026,8 @@
 	
 			// Single- and empty arguments are adopted like Promise.resolve
 			if ( remaining <= 1 ) {
-				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject );
+				adoptValue( singleValue, master.done( updateFunc( i ) ).resolve, master.reject,
+					!remaining );
 	
 				// Use .then() to unwrap secondary thenables (cf. gh-3000)
 				if ( master.state() === "pending" ||
@@ -6048,15 +6098,6 @@
 		// A counter to track how many items to wait for before
 		// the ready event fires. See #6781
 		readyWait: 1,
-	
-		// Hold (or release) the ready event
-		holdReady: function( hold ) {
-			if ( hold ) {
-				jQuery.readyWait++;
-			} else {
-				jQuery.ready( true );
-			}
-		},
 	
 		// Handle when the DOM is ready
 		ready: function( wait ) {
@@ -6293,7 +6334,7 @@
 			if ( key !== undefined ) {
 	
 				// Support array or space separated string of keys
-				if ( jQuery.isArray( key ) ) {
+				if ( Array.isArray( key ) ) {
 	
 					// If key is an array of keys...
 					// We always set camelCase keys, so remove that.
@@ -6519,7 +6560,7 @@
 	
 				// Speed up dequeue by getting out quickly if this is just a lookup
 				if ( data ) {
-					if ( !queue || jQuery.isArray( data ) ) {
+					if ( !queue || Array.isArray( data ) ) {
 						queue = dataPriv.access( elem, type, jQuery.makeArray( data ) );
 					} else {
 						queue.push( data );
@@ -6896,7 +6937,7 @@
 			ret = [];
 		}
 	
-		if ( tag === undefined || tag && jQuery.nodeName( context, tag ) ) {
+		if ( tag === undefined || tag && nodeName( context, tag ) ) {
 			return jQuery.merge( [ context ], ret );
 		}
 	
@@ -7503,7 +7544,7 @@
 	
 				// For checkbox, fire native event so checked state will be right
 				trigger: function() {
-					if ( this.type === "checkbox" && this.click && jQuery.nodeName( this, "input" ) ) {
+					if ( this.type === "checkbox" && this.click && nodeName( this, "input" ) ) {
 						this.click();
 						return false;
 					}
@@ -7511,7 +7552,7 @@
 	
 				// For cross-browser consistency, don't fire native .click() on links
 				_default: function( event ) {
-					return jQuery.nodeName( event.target, "a" );
+					return nodeName( event.target, "a" );
 				}
 			},
 	
@@ -7788,11 +7829,12 @@
 		rscriptTypeMasked = /^true\/(.*)/,
 		rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 	
+	// Prefer a tbody over its parent table for containing new rows
 	function manipulationTarget( elem, content ) {
-		if ( jQuery.nodeName( elem, "table" ) &&
-			jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
+		if ( nodeName( elem, "table" ) &&
+			nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
 	
-			return elem.getElementsByTagName( "tbody" )[ 0 ] || elem;
+			return jQuery( ">tbody", elem )[ 0 ] || elem;
 		}
 	
 		return elem;
@@ -8322,12 +8364,18 @@
 	
 	function curCSS( elem, name, computed ) {
 		var width, minWidth, maxWidth, ret,
+	
+			// Support: Firefox 51+
+			// Retrieving style before computed somehow
+			// fixes an issue with getting wrong values
+			// on detached elements
 			style = elem.style;
 	
 		computed = computed || getStyles( elem );
 	
-		// Support: IE <=9 only
-		// getPropertyValue is only needed for .css('filter') (#12537)
+		// getPropertyValue is needed for:
+		//   .css('filter') (IE 9 only, #12537)
+		//   .css('--customProperty) (#3144)
 		if ( computed ) {
 			ret = computed.getPropertyValue( name ) || computed[ name ];
 	
@@ -8393,6 +8441,7 @@
 		// except "table", "table-cell", or "table-caption"
 		// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
 		rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+		rcustomProp = /^--/,
 		cssShow = { position: "absolute", visibility: "hidden", display: "block" },
 		cssNormalTransform = {
 			letterSpacing: "0",
@@ -8420,6 +8469,16 @@
 				return name;
 			}
 		}
+	}
+	
+	// Return a property mapped along what jQuery.cssProps suggests or to
+	// a vendor prefixed property.
+	function finalPropName( name ) {
+		var ret = jQuery.cssProps[ name ];
+		if ( !ret ) {
+			ret = jQuery.cssProps[ name ] = vendorPropName( name ) || name;
+		}
+		return ret;
 	}
 	
 	function setPositiveNumber( elem, value, subtract ) {
@@ -8482,43 +8541,30 @@
 	
 	function getWidthOrHeight( elem, name, extra ) {
 	
-		// Start with offset property, which is equivalent to the border-box value
-		var val,
-			valueIsBorderBox = true,
+		// Start with computed style
+		var valueIsBorderBox,
 			styles = getStyles( elem ),
+			val = curCSS( elem, name, styles ),
 			isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 	
-		// Support: IE <=11 only
-		// Running getBoundingClientRect on a disconnected node
-		// in IE throws an error.
-		if ( elem.getClientRects().length ) {
-			val = elem.getBoundingClientRect()[ name ];
+		// Computed unit is not pixels. Stop here and return.
+		if ( rnumnonpx.test( val ) ) {
+			return val;
 		}
 	
-		// Some non-html elements return undefined for offsetWidth, so check for null/undefined
-		// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
-		// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
-		if ( val <= 0 || val == null ) {
+		// Check for style in case a browser which returns unreliable values
+		// for getComputedStyle silently falls back to the reliable elem.style
+		valueIsBorderBox = isBorderBox &&
+			( support.boxSizingReliable() || val === elem.style[ name ] );
 	
-			// Fall back to computed then uncomputed css if necessary
-			val = curCSS( elem, name, styles );
-			if ( val < 0 || val == null ) {
-				val = elem.style[ name ];
-			}
-	
-			// Computed unit is not pixels. Stop here and return.
-			if ( rnumnonpx.test( val ) ) {
-				return val;
-			}
-	
-			// Check for style in case a browser which returns unreliable values
-			// for getComputedStyle silently falls back to the reliable elem.style
-			valueIsBorderBox = isBorderBox &&
-				( support.boxSizingReliable() || val === elem.style[ name ] );
-	
-			// Normalize "", auto, and prepare for extra
-			val = parseFloat( val ) || 0;
+		// Fall back to offsetWidth/Height when value is "auto"
+		// This happens for inline elements with no explicit setting (gh-3571)
+		if ( val === "auto" ) {
+			val = elem[ "offset" + name[ 0 ].toUpperCase() + name.slice( 1 ) ];
 		}
+	
+		// Normalize "", auto, and prepare for extra
+		val = parseFloat( val ) || 0;
 	
 		// Use the active box-sizing model to add/subtract irrelevant styles
 		return ( val +
@@ -8583,10 +8629,15 @@
 			// Make sure that we're working with the right name
 			var ret, type, hooks,
 				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name ),
 				style = elem.style;
 	
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to query the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 	
 			// Gets hook for the prefixed version, then unprefixed version
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -8622,7 +8673,11 @@
 				if ( !hooks || !( "set" in hooks ) ||
 					( value = hooks.set( elem, value, extra ) ) !== undefined ) {
 	
-					style[ name ] = value;
+					if ( isCustomProp ) {
+						style.setProperty( name, value );
+					} else {
+						style[ name ] = value;
+					}
 				}
 	
 			} else {
@@ -8641,11 +8696,15 @@
 	
 		css: function( elem, name, extra, styles ) {
 			var val, num, hooks,
-				origName = jQuery.camelCase( name );
+				origName = jQuery.camelCase( name ),
+				isCustomProp = rcustomProp.test( name );
 	
-			// Make sure that we're working with the right name
-			name = jQuery.cssProps[ origName ] ||
-				( jQuery.cssProps[ origName ] = vendorPropName( origName ) || origName );
+			// Make sure that we're working with the right name. We don't
+			// want to modify the value if it is a CSS custom property
+			// since they are user-defined.
+			if ( !isCustomProp ) {
+				name = finalPropName( origName );
+			}
 	
 			// Try prefixed name followed by the unprefixed name
 			hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
@@ -8670,6 +8729,7 @@
 				num = parseFloat( val );
 				return extra === true || isFinite( num ) ? num || 0 : val;
 			}
+	
 			return val;
 		}
 	} );
@@ -8769,7 +8829,7 @@
 					map = {},
 					i = 0;
 	
-				if ( jQuery.isArray( name ) ) {
+				if ( Array.isArray( name ) ) {
 					styles = getStyles( elem );
 					len = name.length;
 	
@@ -8907,13 +8967,18 @@
 	
 	
 	var
-		fxNow, timerId,
+		fxNow, inProgress,
 		rfxtypes = /^(?:toggle|show|hide)$/,
 		rrun = /queueHooks$/;
 	
-	function raf() {
-		if ( timerId ) {
-			window.requestAnimationFrame( raf );
+	function schedule() {
+		if ( inProgress ) {
+			if ( document.hidden === false && window.requestAnimationFrame ) {
+				window.requestAnimationFrame( schedule );
+			} else {
+				window.setTimeout( schedule, jQuery.fx.interval );
+			}
+	
 			jQuery.fx.tick();
 		}
 	}
@@ -9140,7 +9205,7 @@
 			name = jQuery.camelCase( index );
 			easing = specialEasing[ name ];
 			value = props[ index ];
-			if ( jQuery.isArray( value ) ) {
+			if ( Array.isArray( value ) ) {
 				easing = value[ 1 ];
 				value = props[ index ] = value[ 0 ];
 			}
@@ -9199,12 +9264,19 @@
 	
 				deferred.notifyWith( elem, [ animation, percent, remaining ] );
 	
+				// If there's more to do, yield
 				if ( percent < 1 && length ) {
 					return remaining;
-				} else {
-					deferred.resolveWith( elem, [ animation ] );
-					return false;
 				}
+	
+				// If this was an empty animation, synthesize a final progress notification
+				if ( !length ) {
+					deferred.notifyWith( elem, [ animation, 1, 0 ] );
+				}
+	
+				// Resolve the animation and report its conclusion
+				deferred.resolveWith( elem, [ animation ] );
+				return false;
 			},
 			animation = deferred.promise( {
 				elem: elem,
@@ -9269,6 +9341,13 @@
 			animation.opts.start.call( elem, animation );
 		}
 	
+		// Attach callbacks from options
+		animation
+			.progress( animation.opts.progress )
+			.done( animation.opts.done, animation.opts.complete )
+			.fail( animation.opts.fail )
+			.always( animation.opts.always );
+	
 		jQuery.fx.timer(
 			jQuery.extend( tick, {
 				elem: elem,
@@ -9277,11 +9356,7 @@
 			} )
 		);
 	
-		// attach callbacks from options
-		return animation.progress( animation.opts.progress )
-			.done( animation.opts.done, animation.opts.complete )
-			.fail( animation.opts.fail )
-			.always( animation.opts.always );
+		return animation;
 	}
 	
 	jQuery.Animation = jQuery.extend( Animation, {
@@ -9332,8 +9407,8 @@
 			easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
 		};
 	
-		// Go to the end state if fx are off or if document is hidden
-		if ( jQuery.fx.off || document.hidden ) {
+		// Go to the end state if fx are off
+		if ( jQuery.fx.off ) {
 			opt.duration = 0;
 	
 		} else {
@@ -9525,7 +9600,7 @@
 		for ( ; i < timers.length; i++ ) {
 			timer = timers[ i ];
 	
-			// Checks the timer has not already been removed
+			// Run the timer and safely remove it when done (allowing for external removal)
 			if ( !timer() && timers[ i ] === timer ) {
 				timers.splice( i--, 1 );
 			}
@@ -9539,30 +9614,21 @@
 	
 	jQuery.fx.timer = function( timer ) {
 		jQuery.timers.push( timer );
-		if ( timer() ) {
-			jQuery.fx.start();
-		} else {
-			jQuery.timers.pop();
-		}
+		jQuery.fx.start();
 	};
 	
 	jQuery.fx.interval = 13;
 	jQuery.fx.start = function() {
-		if ( !timerId ) {
-			timerId = window.requestAnimationFrame ?
-				window.requestAnimationFrame( raf ) :
-				window.setInterval( jQuery.fx.tick, jQuery.fx.interval );
+		if ( inProgress ) {
+			return;
 		}
+	
+		inProgress = true;
+		schedule();
 	};
 	
 	jQuery.fx.stop = function() {
-		if ( window.cancelAnimationFrame ) {
-			window.cancelAnimationFrame( timerId );
-		} else {
-			window.clearInterval( timerId );
-		}
-	
-		timerId = null;
+		inProgress = null;
 	};
 	
 	jQuery.fx.speeds = {
@@ -9679,7 +9745,7 @@
 			type: {
 				set: function( elem, value ) {
 					if ( !support.radioValue && value === "radio" &&
-						jQuery.nodeName( elem, "input" ) ) {
+						nodeName( elem, "input" ) ) {
 						var val = elem.value;
 						elem.setAttribute( "type", value );
 						if ( val ) {
@@ -10110,7 +10176,7 @@
 				} else if ( typeof val === "number" ) {
 					val += "";
 	
-				} else if ( jQuery.isArray( val ) ) {
+				} else if ( Array.isArray( val ) ) {
 					val = jQuery.map( val, function( value ) {
 						return value == null ? "" : value + "";
 					} );
@@ -10169,7 +10235,7 @@
 								// Don't return options that are disabled or in a disabled optgroup
 								!option.disabled &&
 								( !option.parentNode.disabled ||
-									!jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
+									!nodeName( option.parentNode, "optgroup" ) ) ) {
 	
 							// Get the specific value for the option
 							value = jQuery( option ).val();
@@ -10221,7 +10287,7 @@
 	jQuery.each( [ "radio", "checkbox" ], function() {
 		jQuery.valHooks[ this ] = {
 			set: function( elem, value ) {
-				if ( jQuery.isArray( value ) ) {
+				if ( Array.isArray( value ) ) {
 					return ( elem.checked = jQuery.inArray( jQuery( elem ).val(), value ) > -1 );
 				}
 			}
@@ -10516,7 +10582,7 @@
 	function buildParams( prefix, obj, traditional, add ) {
 		var name;
 	
-		if ( jQuery.isArray( obj ) ) {
+		if ( Array.isArray( obj ) ) {
 	
 			// Serialize array item.
 			jQuery.each( obj, function( i, v ) {
@@ -10568,7 +10634,7 @@
 			};
 	
 		// If an array was passed in, assume that it is an array of form elements.
-		if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+		if ( Array.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
 	
 			// Serialize the form elements
 			jQuery.each( a, function() {
@@ -10614,7 +10680,7 @@
 					return null;
 				}
 	
-				if ( jQuery.isArray( val ) ) {
+				if ( Array.isArray( val ) ) {
 					return jQuery.map( val, function( val ) {
 						return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 					} );
@@ -12039,13 +12105,6 @@
 	
 	
 	
-	/**
-	 * Gets a window from an element
-	 */
-	function getWindow( elem ) {
-		return jQuery.isWindow( elem ) ? elem : elem.nodeType === 9 && elem.defaultView;
-	}
-	
 	jQuery.offset = {
 		setOffset: function( elem, options, i ) {
 			var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
@@ -12110,13 +12169,14 @@
 					} );
 			}
 	
-			var docElem, win, rect, doc,
+			var doc, docElem, rect, win,
 				elem = this[ 0 ];
 	
 			if ( !elem ) {
 				return;
 			}
 	
+			// Return zeros for disconnected and hidden (display: none) elements (gh-2310)
 			// Support: IE <=11 only
 			// Running getBoundingClientRect on a
 			// disconnected node in IE throws an error
@@ -12126,20 +12186,14 @@
 	
 			rect = elem.getBoundingClientRect();
 	
-			// Make sure element is not hidden (display: none)
-			if ( rect.width || rect.height ) {
-				doc = elem.ownerDocument;
-				win = getWindow( doc );
-				docElem = doc.documentElement;
+			doc = elem.ownerDocument;
+			docElem = doc.documentElement;
+			win = doc.defaultView;
 	
-				return {
-					top: rect.top + win.pageYOffset - docElem.clientTop,
-					left: rect.left + win.pageXOffset - docElem.clientLeft
-				};
-			}
-	
-			// Return zeros for disconnected and hidden elements (gh-2310)
-			return rect;
+			return {
+				top: rect.top + win.pageYOffset - docElem.clientTop,
+				left: rect.left + win.pageXOffset - docElem.clientLeft
+			};
 		},
 	
 		position: function() {
@@ -12165,7 +12219,7 @@
 	
 				// Get correct offsets
 				offset = this.offset();
-				if ( !jQuery.nodeName( offsetParent[ 0 ], "html" ) ) {
+				if ( !nodeName( offsetParent[ 0 ], "html" ) ) {
 					parentOffset = offsetParent.offset();
 				}
 	
@@ -12212,7 +12266,14 @@
 	
 		jQuery.fn[ method ] = function( val ) {
 			return access( this, function( elem, method, val ) {
-				var win = getWindow( elem );
+	
+				// Coalesce documents and windows
+				var win;
+				if ( jQuery.isWindow( elem ) ) {
+					win = elem;
+				} else if ( elem.nodeType === 9 ) {
+					win = elem.defaultView;
+				}
 	
 				if ( val === undefined ) {
 					return win ? win[ prop ] : elem[ method ];
@@ -12321,7 +12382,16 @@
 		}
 	} );
 	
+	jQuery.holdReady = function( hold ) {
+		if ( hold ) {
+			jQuery.readyWait++;
+		} else {
+			jQuery.ready( true );
+		}
+	};
+	jQuery.isArray = Array.isArray;
 	jQuery.parseJSON = JSON.parse;
+	jQuery.nodeName = nodeName;
 	
 	
 	
@@ -12378,21 +12448,20 @@
 	
 	
 	
-	
 	return jQuery;
 	} );
 
 
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Lity - v2.2.0 - 2016-10-08
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Lity - v2.2.2 - 2017-07-17
 	* http://sorgalla.com/lity/
-	* Copyright (c) 2015-2016 Jan Sorgalla; Licensed MIT */
+	* Copyright (c) 2015-2017 Jan Sorgalla; Licensed MIT */
 	(function(window, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function($) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function($) {
 	            return factory(window, $);
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -12416,6 +12485,7 @@
 	    var _focusableElementsSelector = 'a[href],area[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button:not([disabled]),iframe,object,embed,[contenteditable],[tabindex]:not([tabindex^="-"])';
 	
 	    var _defaultOptions = {
+	        esc: true,
 	        handler: null,
 	        handlers: {
 	            image: imageHandler,
@@ -12698,7 +12768,7 @@
 	        }
 	
 	        // ESC key
-	        if (e.keyCode === 27) {
+	        if (e.keyCode === 27 && !!current.options('esc')) {
 	            current.close();
 	        }
 	
@@ -12900,8 +12970,19 @@
 	            var deferred = _deferred();
 	
 	            // We return focus only if the current focus is inside this instance
-	            if (activeElement && $.contains(element[0], document.activeElement)) {
-	                activeElement.focus();
+	            if (
+	                activeElement &&
+	                (
+	                    document.activeElement === element[0] ||
+	                    $.contains(element[0], document.activeElement)
+	                )
+	            ) {
+	                try {
+	                    activeElement.focus();
+	                } catch (e) {
+	                    // Ignore exceptions, eg. for SVG elements which can't be
+	                    // focused in IE11
+	                }
 	            }
 	
 	            content.trigger('lity:close', [self]);
@@ -13004,7 +13085,7 @@
 	        }
 	    }
 	
-	    lity.version  = '2.2.0';
+	    lity.version  = '2.2.2';
 	    lity.options  = $.proxy(settings, lity, _defaultOptions);
 	    lity.handlers = $.proxy(settings, lity, _defaultOptions.handlers);
 	    lity.current  = currentInstance;
@@ -13015,9 +13096,9 @@
 	}));
 
 
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
 	 * https://scottjehl.github.io/picturefill/
@@ -14565,6 +14646,6 @@
 	} )( window, document );
 
 
-/***/ }
+/***/ })
 /******/ ]);
 //# sourceMappingURL=toolkit.js.map

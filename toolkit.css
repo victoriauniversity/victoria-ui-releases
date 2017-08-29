@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #dd3df126009242865b385ecd4a735a193d6dda1b) | Tue Aug 29 2017 1:48 */
+/** Version: 0.9.4 (build #3e7c67daf025654ae83e456ed1adc96a11c593ac) | Tue Aug 29 2017 1:54 */
 @charset "UTF-8";
 /*
 
@@ -1514,7 +1514,7 @@ a.link-more {
    *  get automatically turned into '.icon-search'.
    */
 /* ===== STANDARD ICONS =================================================== */
-[class^=icon-]:before, .link-download:before, .link-audio:before, .quote.full blockquote:before, .flash-message.error > h2:before, .flash-message.warning > h2:before, .flash-message.info > h2:before, .flash-message.success > h2:before, .events .time:before, .site > ul > li:last-child > a:before, .footer-secondary .phones:before, .footer-secondary .mails:before, .breadcrumbs > li:first-child a:before {
+[class^=icon-]:before, .link-download:before, .link-audio:before, .pagination .previous:before, .quote.full blockquote:before, .flash-message.error > h2:before, .flash-message.warning > h2:before, .flash-message.info > h2:before, .flash-message.success > h2:before, .events .time:before, .site > ul > li:last-child > a:before, .footer-secondary .phones:before, .footer-secondary .mails:before, .breadcrumbs > li:first-child a:before {
   position: relative;
   display: inline-block;
   content: "";
@@ -1525,7 +1525,7 @@ a.link-more {
   text-align: center; }
 
 .link-external:after, .link-more:after, .button-arrow:after, button:not(.flat):not(.no-icon):after,
-.button:not(.flat):not(.no-icon):after, .quote.full blockquote:after, .site .has-subpages a:after, .breadcrumbs > li:after {
+.button:not(.flat):not(.no-icon):after, .pagination .next:after, .quote.full blockquote:after, .site .has-subpages a:after, .breadcrumbs > li:after {
   position: relative;
   display: inline-block;
   content: "";
@@ -1705,7 +1705,7 @@ a.link-more {
 .icon-arrow-down:before {
   content: ""; }
 
-.icon-arrow-left:before {
+.icon-arrow-left:before, .pagination .previous:before {
   content: ""; }
 
 .icon-layout:before {
@@ -2012,26 +2012,26 @@ body > .layout {
     border-top: 1px solid #DDD;
     padding-top: 1.6rem; }
   .pagination .button {
-    margin-bottom: .4rem; }
+    margin-bottom: .4rem;
+    background-color: #DDD;
+    color: #000; }
+    .pagination .button:hover {
+      background-color: #8B8B8B; }
     .pagination .button.active {
-      background-color: #0D4B2F; }
+      background-color: #8B8B8B;
+      color: #FFF; }
     .pagination .button > .icon {
       display: none; }
   .pagination .previous {
     margin-right: .3rem; }
     .pagination .previous:before {
-      position: relative;
-      display: inline-block;
-      content: "<";
-      margin-right: .5em; }
+      top: 1px; }
   .pagination .next {
     order: 3;
     margin-left: .3rem; }
     .pagination .next:after {
-      position: relative;
-      display: inline-block;
-      content: ">";
-      margin-left: .5em; }
+      content: "";
+      top: 1px; }
   .pagination .previous,
   .pagination .next {
     display: inline-block;
@@ -4249,7 +4249,7 @@ ul.meta .highlight {
       float: left;
       overflow: hidden;
       position: relative;
-      margin-bottom: 20px; }
+      margin-bottom: 1em; }
       .updated-tile-grid .tiles-wrap li.tile:hover {
         box-shadow: none;
         border-left: 4px solid #285189; }
@@ -4296,6 +4296,8 @@ ul.meta .highlight {
             margin-right: .5em; }
           .updated-tile-grid .tiles-wrap li.tile p {
             display: inline-block; } }
+  .updated-tile-grid.hidden {
+    display: none; }
 
 .tile-strip-grid {
   max-width: 100%;
@@ -4321,7 +4323,7 @@ ul.meta .highlight {
       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
       border-left: 4px solid #115737;
       overflow: hidden;
-      margin-bottom: 18px; }
+      margin-bottom: 1em; }
       .tile-strip-grid .tiles-wrap li.tile:hover {
         box-shadow: none;
         border-left: 4px solid #285189; }

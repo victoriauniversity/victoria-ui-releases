@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #dd3df126009242865b385ecd4a735a193d6dda1b) | Tue Aug 29 2017 1:48 */
+/** Version: 0.9.4 (build #3e7c67daf025654ae83e456ed1adc96a11c593ac) | Tue Aug 29 2017 1:54 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -177,6 +177,7 @@
 			$('.active').removeClass('active');
 			$(this).parent().addClass('active');
 			$('.tile-grid').toggleClass('hidden');
+			$('.updated-tile-grid').toggleClass('hidden');
 			$('.study-area-single').toggleClass('hidden');
 		});
 	

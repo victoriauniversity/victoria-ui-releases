@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #d9cec92604751e6c96c988731a8dafd2e5fc8f6a) | Mon Sep 04 2017 4:10 */
+/** Version: 0.9.4 (build #b5544cb37bddb19bf5f8427077b9e6796dfd09af) | Wed Sep 06 2017 4:12 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -176,9 +176,22 @@
 			}
 			$('.active').removeClass('active');
 			$(this).parent().addClass('active');
-			$('.tile-grid').toggleClass('hidden');
-			$('.updated-tile-grid').toggleClass('hidden');
-			$('.study-area-single').toggleClass('hidden');
+			$('.study-areas').toggleClass('hidden');
+			$('.degrees-quals').toggleClass('hidden');
+		});
+	
+		/* dynamic height for tiles. setting height of all tiles from largest tile height */
+		$('.dynamic-height-tiles ').each(function (n) {
+			//get array of heights for each group of class
+			var tileHeights = $(this).find('li.tile').map(function () {
+				return $(this).height();
+			}).get();
+	
+			//check heights for largest
+			var maxHeight = Math.max.apply(null, tileHeights);
+	
+			//apply maxheight to tiles
+			$(this).find('li.tile').height(maxHeight + 16);
 		});
 	
 		/** DOM manipulation */

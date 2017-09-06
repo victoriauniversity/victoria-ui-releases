@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #d9cec92604751e6c96c988731a8dafd2e5fc8f6a) | Mon Sep 04 2017 4:10 */
+/** Version: 0.9.4 (build #b5544cb37bddb19bf5f8427077b9e6796dfd09af) | Wed Sep 06 2017 4:12 */
 @charset "UTF-8";
 /*
 
@@ -4350,6 +4350,8 @@ ul.meta .highlight {
 
 .tiles-panel {
   background-color: #EEE; }
+  .tiles-panel.hidden {
+    display: none; }
 
 .updated-tile-grid {
   max-width: 100%;

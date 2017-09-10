@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #b5544cb37bddb19bf5f8427077b9e6796dfd09af) | Wed Sep 06 2017 4:12 */
+/** Version: 0.9.4 (build #6302483d3994cec085a9d9a9957b3c1dfd3f2cb5) | Sun Sep 10 2017 22:39 */
 @charset "UTF-8";
 /*
 
@@ -4406,8 +4406,7 @@ ul.meta .highlight {
             margin-right: 0; } }
       .updated-tile-grid .tiles-wrap li.tile a h4 {
         color: #AAA;
-        font-size: .95em;
-        padding-top: 0.5em; }
+        font-size: .95em; }
         .updated-tile-grid .tiles-wrap li.tile a h4:before {
           font-size: 85%; }
       .updated-tile-grid .tiles-wrap li.tile i {
@@ -4435,6 +4434,8 @@ ul.meta .highlight {
           margin-right: 0; }
         .updated-tile-grid .tiles-wrap.three-up li.tile:nth-child(4n) {
           margin-right: 3%; } }
+    .updated-tile-grid .tiles-wrap.hidden {
+      display: none; }
   .updated-tile-grid.hidden {
     display: none; }
   .updated-tile-grid.media-quote .tiles-wrap li.tile {

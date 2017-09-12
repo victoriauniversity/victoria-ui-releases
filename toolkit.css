@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #a2ecc81f5d11ee56defd71aaabcea9f2a69ee64d) | Tue Sep 12 2017 4:32 */
+/** Version: 0.9.4 (build #02691d66f7cac5bb645e5a7cfea171adeb85c2d6) | Tue Sep 12 2017 22:10 */
 @charset "UTF-8";
 /*
 
@@ -3958,6 +3958,7 @@ ul.meta .highlight {
       max-width: 71.11111rem;
       margin-left: auto;
       margin-right: auto;
+      max-width: 88em;
       position: relative; }
       .global nav::after {
         clear: both;

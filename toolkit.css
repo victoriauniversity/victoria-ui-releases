@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #6302483d3994cec085a9d9a9957b3c1dfd3f2cb5) | Sun Sep 10 2017 22:39 */
+/** Version: 0.9.4 (build #a2ecc81f5d11ee56defd71aaabcea9f2a69ee64d) | Tue Sep 12 2017 4:32 */
 @charset "UTF-8";
 /*
 
@@ -1872,6 +1872,10 @@ body {
   margin-left: auto;
   margin-right: auto;
   position: relative; }
+  .centraliser::after {
+    clear: both;
+    content: "";
+    display: table; }
 
 /** SECTOR - Single page section container with unlimited width and no paddings/margins. Can be used to group related components. */
 .sector::after,
@@ -2743,7 +2747,7 @@ a.tag.active:hover, a.tag.active:active, a.tag.active:focus {
         margin-bottom: 1.11111rem;
         width: 25%; }
       .homepage-banner .site a, .study-hub-banner .site a {
-        font-size: 1rem; }
+        font-size: 1.125rem; }
       .homepage-banner .banner, .study-hub-banner .banner {
         position: absolute;
         height: 100%;
@@ -2751,8 +2755,8 @@ a.tag.active:hover, a.tag.active:active, a.tag.active:focus {
         .homepage-banner .banner img, .study-hub-banner .banner img {
           position: absolute;
           right: 0;
-          height: 100%;
-          width: auto; } }
+          height: auto;
+          width: 100%; } }
   .homepage-banner a[href]:hover img, .study-hub-banner a[href]:hover img, .homepage-banner a[href]:active img, .study-hub-banner a[href]:active img, .homepage-banner a[href]:focus img, .study-hub-banner a[href]:focus img {
     opacity: 0.9; }
   .homepage-banner figcaption, .study-hub-banner figcaption {
@@ -3184,8 +3188,8 @@ a.tag.active:hover, a.tag.active:active, a.tag.active:focus {
   /* Victoria main logotype */
   /* Site's introduction - eg. sitename, motto, short abstract */ }
   .site-header .block, .main-site-header .block {
-    padding-top: 2rem;
-    padding-bottom: 2rem; }
+    padding-top: 1rem;
+    padding-bottom: 1rem; }
   .site-header .horizontal-menu, .main-site-header .horizontal-menu {
     align-items: center; }
     @media screen and (min-width: 71.11111em) {
@@ -3987,7 +3991,7 @@ ul.meta .highlight {
         display: block;
         float: left;
         opacity: .8;
-        font-size: 0.83333rem;
+        font-size: 0.9375rem;
         border-bottom: none; }
         .global nav a.selected, .global nav a:hover, .global nav a:focus {
           background: #BBB; }

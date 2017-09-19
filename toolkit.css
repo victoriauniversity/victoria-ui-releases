@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #efeeab82df93318ec1bb799aed7d130e4ea00d43) | Tue Sep 12 2017 23:50 */
+/** Version: 0.9.4 (build #3fd266a92d42743967aba20562b596fe73540736) | Tue Sep 19 2017 23:13 */
 @charset "UTF-8";
 /*
 
@@ -2021,6 +2021,40 @@ body > .layout {
 .articles-container .media img,
 .articles-container .media iframe {
   margin-bottom: 0; }
+
+.articles-two-up.panel {
+  background-color: #EEE;
+  padding: 1.11111rem; }
+  .articles-two-up.panel .articles-container {
+    background-color: #FFF;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15); }
+
+.articles-two-up.divider-line {
+  position: relative; }
+  @media screen and (min-width: 55em) {
+    .articles-two-up.divider-line:before {
+      position: relative;
+      display: inline-block;
+      content: "";
+      height: 100%;
+      width: 0;
+      position: absolute;
+      left: calc(50% - 5px);
+      top: 0;
+      border-left: 5px solid #EEE; } }
+
+@media screen and (min-width: 55em) {
+  .articles-two-up .articles-container {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%; }
+    .articles-two-up .articles-container:last-child {
+      margin-right: 0; }
+    .articles-two-up .articles-container:nth-child(2n) {
+      margin-right: 0; }
+    .articles-two-up .articles-container:nth-child(2n+1) {
+      clear: left; } }
 
 /* ===== PAGINATION =================================================== */
 .pagination {

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #3fd266a92d42743967aba20562b596fe73540736) | Tue Sep 19 2017 23:13 */
+/** Version: 0.9.4 (build #1bbca66d9df34ed0f4c364285bb0f3a78dd99dd2) | Mon Sep 25 2017 22:52 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -192,6 +192,18 @@
 	
 			//apply maxheight to tiles
 			$(this).find('li.tile').height(maxHeight + 16);
+		});
+	
+		/* Navigation toggle on mobile */
+		$('.main-menu-toggle').on('click', function () {
+			$('.main-nav').slideToggle();
+			$('.search-bar').slideToggle();
+			$('.menu-toggle-icon').toggleClass('open');
+		});
+	
+		/* Show search bar on desktop */
+		$('.search-item').on('click', function () {
+			$('.search-bar').slideToggle();
 		});
 	
 		/** DOM manipulation */

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #1bbca66d9df34ed0f4c364285bb0f3a78dd99dd2) | Mon Sep 25 2017 22:52 */
+/** Version: 0.9.4 (build #5239bfbda0544bc3c706e7df588a4f742996eb8d) | Tue Oct 03 2017 22:34 */
 @charset "UTF-8";
 /*
 
@@ -2553,6 +2553,75 @@ ul.complex-list {
       margin-right: 1.2rem;
       margin-bottom: 1.2rem; } }
 
+.gallery-container {
+  margin: 1em 0; }
+  .gallery-container:hover h2, .gallery-container:hover h3, .gallery-container:hover h4, .gallery-container:active h2, .gallery-container:active h3, .gallery-container:active h4, .gallery-container:focus h2, .gallery-container:focus h3, .gallery-container:focus h4 {
+    text-decoration: underline !important; }
+  .gallery-container img {
+    max-width: 100%; }
+  .gallery-container .gallery {
+    position: relative; }
+    .gallery-container .gallery .gallery-title {
+      position: absolute;
+      top: 1.5em;
+      background-color: rgba(17, 87, 55, 0.9);
+      max-width: 55%;
+      padding-right: 3em;
+      z-index: 10; }
+      .gallery-container .gallery .gallery-title h2, .gallery-container .gallery .gallery-title h3, .gallery-container .gallery .gallery-title h4 {
+        color: #FFF;
+        margin-bottom: 0.5em;
+        text-decoration: none; }
+      .gallery-container .gallery .gallery-title h4 {
+        opacity: 0.9; }
+      @media screen and (max-width: 54.94444em) {
+        .gallery-container .gallery .gallery-title {
+          max-width: 85%; } }
+    .gallery-container .gallery.thumbnails .gallery-images::after {
+      clear: both;
+      content: "";
+      display: table; }
+    .gallery-container .gallery.thumbnails .gallery-images img {
+      width: 24%;
+      height: auto;
+      float: left; }
+      .gallery-container .gallery.thumbnails .gallery-images img:first-child {
+        width: 50%;
+        margin-right: 1%;
+        height: auto; }
+      .gallery-container .gallery.thumbnails .gallery-images img:nth-child(n+6) {
+        display: none; }
+      .gallery-container .gallery.thumbnails .gallery-images img:nth-child(2), .gallery-container .gallery.thumbnails .gallery-images img:nth-child(3) {
+        margin-bottom: 1%; }
+      .gallery-container .gallery.thumbnails .gallery-images img:nth-child(2), .gallery-container .gallery.thumbnails .gallery-images img:nth-child(4) {
+        margin-right: 1%; }
+    @media screen and (max-width: 38.83333em) {
+      .gallery-container .gallery.thumbnails .gallery-images img {
+        margin-right: 0;
+        margin-bottom: 0; }
+        .gallery-container .gallery.thumbnails .gallery-images img:first-child {
+          width: 100%;
+          margin-bottom: 1%; }
+        .gallery-container .gallery.thumbnails .gallery-images img:nth-child(n+2):nth-child(-n+4) {
+          margin-right: 1.33%; }
+        .gallery-container .gallery.thumbnails .gallery-images img:nth-child(2), .gallery-container .gallery.thumbnails .gallery-images img:nth-child(3) {
+          margin-bottom: 0; } }
+    .gallery-container .gallery.single-feature .gallery-title {
+      max-width: 45%; }
+      @media screen and (max-width: 54.94444em) {
+        .gallery-container .gallery.single-feature .gallery-title {
+          max-width: 85%; } }
+    .gallery-container .gallery.single-feature .gallery-images img {
+      height: auto; }
+      .gallery-container .gallery.single-feature .gallery-images img:not(:first-child) {
+        display: none; }
+
+@media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
+  .pswp--svg .pswp__button, .pswp--svg .pswp__button--arrow--left:before, .pswp--svg .pswp__button--arrow--right:before {
+    background-image: url(http://www.victoria.ac.nz/__data/assets/image/0014/302351/default-skin.png) !important; }
+  .pswp__button.pswp__button--fs {
+    display: none !important; } }
+
 .label {
   display: inline-block;
   margin-right: .5em;
@@ -4828,6 +4897,17 @@ ul.meta .highlight {
 .strip-banner .block:last-child {
   float: right;
   width: 33.33333%; }
+
+@media screen and (max-width: 38.83333em) {
+  .strip-banner figcaption > div {
+    flex-direction: column; }
+  .strip-banner .block:first-child {
+    width: 100%;
+    padding-bottom: 0; }
+    .strip-banner .block:first-child h1 {
+      display: block; }
+  .strip-banner .block:last-child {
+    width: 100%; } }
 
 .promo-panel.strip-banner figure figcaption {
   max-width: 88em;

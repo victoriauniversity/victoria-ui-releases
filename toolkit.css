@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #6e14d24dac7ac4a8ebccec4497fae5cbfc987ec7) | Tue Oct 03 2017 22:51 */
+/** Version: 0.9.4 (build #05c3e4949665978eeeb6d664d441fb2968d90fd4) | Wed Oct 04 2017 20:53 */
 @charset "UTF-8";
 /*
 
@@ -3375,11 +3375,11 @@ a.tag.active:hover, a.tag.active:active, a.tag.active:focus {
         @media screen and (min-width: 1400px) {
           .site-header .horizontal-menu .menu-bar a, .main-site-header .horizontal-menu .menu-bar a {
             font-size: 28px; } }
-        .site-header .horizontal-menu .menu-bar a.experience-active, .main-site-header .horizontal-menu .menu-bar a.experience-active {
+        .site-header .horizontal-menu .menu-bar a.experience.active, .site-header .horizontal-menu .menu-bar a.study.active, .site-header .horizontal-menu .menu-bar a.about.active, .site-header .horizontal-menu .menu-bar a.research.active, .main-site-header .horizontal-menu .menu-bar a.experience.active, .main-site-header .horizontal-menu .menu-bar a.study.active, .main-site-header .horizontal-menu .menu-bar a.about.active, .main-site-header .horizontal-menu .menu-bar a.research.active {
           border-bottom: 2px solid #FFF; }
-          .site-header .horizontal-menu .menu-bar a.experience-active:hover, .main-site-header .horizontal-menu .menu-bar a.experience-active:hover {
+          .site-header .horizontal-menu .menu-bar a.experience.active:hover, .site-header .horizontal-menu .menu-bar a.study.active:hover, .site-header .horizontal-menu .menu-bar a.about.active:hover, .site-header .horizontal-menu .menu-bar a.research.active:hover, .main-site-header .horizontal-menu .menu-bar a.experience.active:hover, .main-site-header .horizontal-menu .menu-bar a.study.active:hover, .main-site-header .horizontal-menu .menu-bar a.about.active:hover, .main-site-header .horizontal-menu .menu-bar a.research.active:hover {
             border-bottom: 2px solid #CCC; }
-        .site-header .horizontal-menu .menu-bar a:hover, .main-site-header .horizontal-menu .menu-bar a:hover {
+        .site-header .horizontal-menu .menu-bar a.experience:hover, .site-header .horizontal-menu .menu-bar a.study:hover, .site-header .horizontal-menu .menu-bar a.about:hover, .site-header .horizontal-menu .menu-bar a.research:hover, .main-site-header .horizontal-menu .menu-bar a.experience:hover, .main-site-header .horizontal-menu .menu-bar a.study:hover, .main-site-header .horizontal-menu .menu-bar a.about:hover, .main-site-header .horizontal-menu .menu-bar a.research:hover {
           opacity: 0.9; }
     .site-header .horizontal-menu.sub-nav a, .main-site-header .horizontal-menu.sub-nav a {
       padding: 0 1.06667rem;

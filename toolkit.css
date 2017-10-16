@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #69eb43bdc18fe475ff3f792112cf9488b8f06965) | Fri Oct 13 2017 0:49 */
+/** Version: 0.9.4 (build #3a80c79f02b8bf667d36494711ddd4ffc7ae2fc7) | Mon Oct 16 2017 22:38 */
 @charset "UTF-8";
 /*
 
@@ -2675,7 +2675,8 @@ ul.complex-list {
   padding: .15rem .6rem;
   margin: 0 0 .3rem;
   border-radius: 2px;
-  background-color: #dbe6f3; }
+  background-color: #dbe6f3;
+  color: #255C79; }
   aside .tag {
     font-size: 0.77778rem; }
   .tag.active {

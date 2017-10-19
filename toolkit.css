@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #29c3fb7146117fc17ea7085c2833820e1184586c) | Tue Oct 17 2017 22:07 */
+/** Version: 0.9.4 (build #9ba206765123e02c3286d4049c959fe9063d62c3) | Thu Oct 19 2017 1:18 */
 @charset "UTF-8";
 /*
 
@@ -2679,19 +2679,61 @@ ul.complex-list {
   color: #255C79; }
   aside .tag {
     font-size: 0.77778rem; }
-  .tag.active {
-    background-color: #115737;
-    color: #FFF; }
   .tag .close {
     display: inline-block;
     margin-left: .5rem;
     font-weight: 700; }
+  .tag.tag-green {
+    background-color: #E2F7E2;
+    color: #2C6B2C; }
+  .tag.tag-red {
+    background-color: #ECCDCD;
+    color: #831212; }
+  .tag.tag-yellow {
+    background-color: #FCF8E3;
+    color: #705602; }
+  .tag.tag-grey {
+    background-color: #EEE;
+    color: #707070; }
+  .tag.active {
+    background-color: #115737;
+    color: #FFF; }
 
-a.tag:hover, a.tag:active, a.tag:focus {
+a.tag:hover, a.tag:active, a.tag:focus,
+a > .tag:hover,
+a > .tag:active,
+a > .tag:focus {
   text-decoration: underline;
   background-color: #eaf1f8; }
+  a.tag:hover.tag-green, a.tag:active.tag-green, a.tag:focus.tag-green,
+  a > .tag:hover.tag-green,
+  a > .tag:active.tag-green,
+  a > .tag:focus.tag-green {
+    text-decoration: underline;
+    background-color: #f2fbf2; }
+  a.tag:hover.tag-red, a.tag:active.tag-red, a.tag:focus.tag-red,
+  a > .tag:hover.tag-red,
+  a > .tag:active.tag-red,
+  a > .tag:focus.tag-red {
+    text-decoration: underline;
+    background-color: #f2dcdc; }
+  a.tag:hover.tag-yellow, a.tag:active.tag-yellow, a.tag:focus.tag-yellow,
+  a > .tag:hover.tag-yellow,
+  a > .tag:active.tag-yellow,
+  a > .tag:focus.tag-yellow {
+    text-decoration: underline;
+    background-color: #fefdf5; }
+  a.tag:hover.tag-grey, a.tag:active.tag-grey, a.tag:focus.tag-grey,
+  a > .tag:hover.tag-grey,
+  a > .tag:active.tag-grey,
+  a > .tag:focus.tag-grey {
+    text-decoration: underline;
+    background-color: #f8f8f8; }
 
-a.tag.active:hover, a.tag.active:active, a.tag.active:focus {
+a.tag.active:hover, a.tag.active:active, a.tag.active:focus,
+a > .tag.active:hover,
+a > .tag.active:active,
+a > .tag.active:focus {
   background-color: #0D4B2F;
   text-decoration: none; }
 

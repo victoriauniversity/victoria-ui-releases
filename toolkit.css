@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #9ba206765123e02c3286d4049c959fe9063d62c3) | Thu Oct 19 2017 1:18 */
+/** Version: 0.9.4 (build #e10a733ab8aa23c548b19dab638b59df8464e01d) | Thu Oct 19 2017 22:00 */
 @charset "UTF-8";
 /*
 
@@ -3891,6 +3891,71 @@ a > .tag.active:focus {
           border-right: 0.8rem solid transparent;
           border-top: 0.53333rem solid #115737; }
 
+/* switcher */
+.switch {
+  transform: scale(1.4);
+  position: relative;
+  margin: 0px auto 20px;
+  height: 26px;
+  width: 240px;
+  background: #dddddd;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  /* focus state 
+    **** @screen only..??
+  */ }
+  @media screen and (max-width: 38.83333em) {
+    .switch {
+      transform: scale(1.2); } }
+  .switch .switch-label {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 116px;
+    line-height: 26px;
+    font-size: 11px;
+    color: rgba(39, 39, 39, 0.9);
+    text-align: center;
+    cursor: pointer; }
+  .switch .switch-label:active {
+    font-weight: bold; }
+  .switch .switch-label-off {
+    padding-left: 2px; }
+  .switch .switch-label-on {
+    margin-left: 3px; }
+  .switch input[type="radio"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    left: -9999px; }
+  .switch .switch-input:checked + .switch-label {
+    font-weight: bold;
+    color: #fff;
+    transition: 0.15s ease-out; }
+  .switch .switch-input:checked + .switch-label-on ~ .switch-selection {
+    left: 120px; }
+  .switch .switch-selection {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    left: 2px;
+    width: 118px;
+    height: 22px;
+    background: #115737;
+    border-radius: 3px;
+    transition: left 0.15s ease-out; }
+  .switch input[type="radio"]:checked ~ .switch-selection {
+    color: #fff;
+    background-image: none;
+    border-color: #01549b;
+    background-image: none;
+    outline: 0; }
+  .switch input[type="radio"]:focus ~ .switch-selection {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+    color: #fff; }
+
 .study-area-single .study-area-wide-panel {
   max-width: 100%;
   margin-left: auto;
@@ -4885,6 +4950,9 @@ ul.meta .highlight {
 
 .fixed-height-tiles .tiles-wrap li.tile {
   height: 11.11111rem; }
+
+.fixed-height-tiles-small .tiles-wrap li.tile {
+  height: 8.33333rem; }
 
 .tiles-study-hub h2, .tiles-study-hub-about h2,
 .tiles-study-hub h3, .tiles-study-hub-about h3 {

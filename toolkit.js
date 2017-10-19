@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #9ba206765123e02c3286d4049c959fe9063d62c3) | Thu Oct 19 2017 1:18 */
+/** Version: 0.9.4 (build #e10a733ab8aa23c548b19dab638b59df8464e01d) | Thu Oct 19 2017 22:00 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -178,6 +178,22 @@
 			$(this).parent().addClass('active');
 			$('.study-areas').toggleClass('hidden');
 			$('.degrees-quals').toggleClass('hidden');
+		});
+	
+		/* study areas toggle programme level initially hide postgrad */
+		$('.study-areas-postgrad').hide();
+		$('.switch .switch-input').on('change', function () {
+	
+			console.log($(this).attr('value'));
+	
+			if ($(this).attr('value') == 'undergraduate') {
+				$('.study-areas-undergrad').show(500);
+				$('.study-areas-postgrad').hide(500);
+			}
+			if ($(this).attr('value') == 'postgraduate') {
+				$('.study-areas-postgrad').show(500);
+				$('.study-areas-undergrad').hide(500);
+			}
 		});
 	
 		/* dynamic height for tiles. setting height of all tiles from largest tile height */

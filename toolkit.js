@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #852501351442eaa43312cae6f5e47714ad8fbfb5) | Fri Oct 20 2017 0:54 */
+/** Version: 0.9.4 (build #5a2a474d4126db3f9756bc41006545c4d70a204f) | Wed Nov 08 2017 21:53 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -226,6 +226,21 @@
 	
 		wrapEmbeddedIframes();
 		removedUnusedTiles(); //TODO: Review - Can be removed after all the study areas are migrated
+	
+	
+		//tile accordion 
+	
+		$('.tile-accordion .tile').on('click', function (evt) {
+			evt.preventDefault();
+	
+			if ($(this).hasClass('accordion-closed')) {
+				$(this).children('.accordion-content ').slideDown();
+				$(this).removeClass('accordion-closed').addClass('accordion-open');
+			} else if ($(this).hasClass('accordion-open')) {
+				$(this).children('.accordion-content ').slideUp();
+				$(this).removeClass('accordion-open').addClass('accordion-closed');
+			}
+		});
 	});
 
 /***/ }),

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #5a2a474d4126db3f9756bc41006545c4d70a204f) | Wed Nov 08 2017 21:53 */
+/** Version: 0.9.4 (build #62deeee5ee98c82cca090cff589de0543157538e) | Mon Nov 13 2017 21:32 */
 @charset "UTF-8";
 /*
 
@@ -2758,6 +2758,13 @@ a > .tag {
     background-color: #0D4B2F;
     text-decoration: none; }
 
+.quals-filter a.tag {
+  border: none; }
+  .quals-filter a.tag.tag-active {
+    border: 1px solid #255C79;
+    background-color: #eaf1f8;
+    color: #255C79; }
+
 /** Promotional full-width boxes (~ fully clickable highlights). */
 .promo {
   clear: both;
@@ -4332,6 +4339,15 @@ ul.meta .highlight {
         width: 30px;
         border-top: 2px solid #8B8B8B;
         margin-bottom: 0.15em; }
+
+.degrees-quals.tile-filter-tags .quals-filter #filter-quals {
+  display: none; }
+
+.degrees-quals.tile-filter-tags .quals-filter label {
+  font-size: 1.2em; }
+
+.degrees-quals.tile-filter-tags .tile.is-not-matching {
+  display: none; }
 
 @media screen and (max-width: 38.83333em) {
   .hide-on-mobile {

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #064846304935ea05cf45d73a7026dacc8a4cd674) | Thu Nov 16 2017 2:22 */
+/** Version: 0.9.4 (build #7bad10b30183688d046ef702efc746cf60f3900a) | Thu Nov 16 2017 21:53 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -240,6 +240,10 @@
 				$(this).children('.accordion-content ').slideUp();
 				$(this).removeClass('accordion-open').addClass('accordion-closed');
 			}
+	
+			$(this).find('.links a').on('click', function (event) {
+				event.stopPropagation();
+			});
 		});
 	});
 

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #62deeee5ee98c82cca090cff589de0543157538e) | Mon Nov 13 2017 21:32 */
+/** Version: 0.9.4 (build #064846304935ea05cf45d73a7026dacc8a4cd674) | Thu Nov 16 2017 2:22 */
 @charset "UTF-8";
 /*
 
@@ -5132,8 +5132,8 @@ ul.meta .highlight {
       border-color: transparent; }
     .tile-strip-grid.tile-accordion .tile.accordion-open i {
       transform: rotate(90deg);
-      right: 5px;
-      top: 13px; }
+      right: 0.7em;
+      top: 20px; }
   .tile-strip-grid.tile-accordion .accordion-content {
     padding: 1em;
     padding-top: 0;

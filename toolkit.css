@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #7bad10b30183688d046ef702efc746cf60f3900a) | Thu Nov 16 2017 21:53 */
+/** Version: 0.9.4 (build #60272b99eb0be02411da3736089791e6f230258a) | Mon Nov 20 2017 20:31 */
 @charset "UTF-8";
 /*
 
@@ -2382,6 +2382,22 @@ ul.complex-list {
     width: 2rem;
     background-color: #115737; }
 
+.list.publications li > * {
+  margin-bottom: 0.3em; }
+
+.list.publications li .label {
+  margin-left: 0.5em; }
+
+.list.publications li a {
+  display: inline-block; }
+
+.list.publications li .pub-author {
+  font-size: 0.9em;
+  line-height: 1.2; }
+
+aside .list.publications li {
+  padding: 0.53rem 0.1em; }
+
 .logo-mini {
   background-image: url("./images/logo-mini.svg");
   background-position: left;
@@ -2656,17 +2672,23 @@ ul.complex-list {
     font-style: inherit;
     color: #FFF; }
   .label.file > i {
-    background: #555; }
+    background: #EEE;
+    color: #707070; }
   .label.file-pdf > i {
-    background: #dd3727; }
+    background: #ECCDCD;
+    color: #831212; }
   .label.file-excel > i {
-    background: #318f5b; }
+    background: #E2F7E2;
+    color: #2C6B2C; }
   .label.file-word > i {
-    background: #2a569a; }
+    background: #dbe6f3;
+    color: #255C79; }
   .label.file-mp3 > i {
-    background: #d27200; }
+    background: #FCF8E3;
+    color: #705602; }
   .label.file-ppt > i {
-    background: #ad3016; }
+    background: #FFD5B7;
+    color: #A35D2B; }
   .formatting p .label {
     margin-right: .1em;
     margin-left: .35em; }

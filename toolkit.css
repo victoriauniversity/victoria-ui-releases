@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #26bb48309902f23eda535a897de06848a772f2a4) | Sun Dec 17 2017 21:35 */
+/** Version: 0.9.4 (build #37c331a65ea95958f0b7cb039eb891c2356cac60) | Wed Jan 24 2018 2:02 */
 @charset "UTF-8";
 /*
 
@@ -4415,6 +4415,15 @@ ul.meta .highlight {
     text-decoration: none; }
     ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight > a:focus {
       text-decoration: underline; }
+
+@media screen and (max-width: 38.83333em) {
+  aside .contact .profile-picture {
+    width: 20%;
+    max-width: 8.33333rem;
+    float: left;
+    margin-right: 1.11111rem; }
+  aside .contact .meta {
+    overflow: hidden; } }
 
 .degrees-quals h1 {
   margin: 1em 0 .7em; }

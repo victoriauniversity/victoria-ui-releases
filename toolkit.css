@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #30663c7ecab8595a7c1b15f57e9289b3c2e7bb6b) | Sun Jan 28 2018 20:44 */
+/** Version: 0.9.4 (build #ec4a6ce1c4effc217f9dfc43e97ffe8ae3631133) | Mon Jan 29 2018 0:49 */
 @charset "UTF-8";
 /*
 
@@ -5179,7 +5179,7 @@ ul.meta .highlight {
         .updated-tile-grid .tiles-wrap li.tile a h4:before {
           font-size: 85%; }
       .updated-tile-grid .tiles-wrap li.tile a h2, .updated-tile-grid .tiles-wrap li.tile a h3, .updated-tile-grid .tiles-wrap li.tile a h4 {
-        margin-bottom: 0.75em; }
+        margin-bottom: 0.45em; }
       .updated-tile-grid .tiles-wrap li.tile i {
         font-size: 1.5em;
         color: #8B8B8B;

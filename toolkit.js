@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #30663c7ecab8595a7c1b15f57e9289b3c2e7bb6b) | Sun Jan 28 2018 20:44 */
+/** Version: 0.9.4 (build #ec4a6ce1c4effc217f9dfc43e97ffe8ae3631133) | Mon Jan 29 2018 0:49 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -187,10 +187,12 @@
 			console.log($(this).attr('value'));
 	
 			if ($(this).attr('value') == 'undergraduate') {
+				$('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
 				$('.study-areas-undergrad').show(500);
 				$('.study-areas-postgrad').hide(500);
 			}
 			if ($(this).attr('value') == 'postgraduate') {
+				$('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span> Postgraduate subjects');
 				$('.study-areas-postgrad').show(500);
 				$('.study-areas-undergrad').hide(500);
 			}

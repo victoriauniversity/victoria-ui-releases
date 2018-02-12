@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #1043e1402514db9b2807e16be00e53efd93eb9fc) | Thu Feb 01 2018 0:49 */
+/** Version: 0.9.4 (build #6d94a2a5e8231b8cfabd5306495e6b3c4ebec835) | Mon Feb 12 2018 19:38 */
 @charset "UTF-8";
 /*
 
@@ -4843,6 +4843,121 @@ ul.meta .highlight {
       right: 0;
       margin-top: -.25em;
       margin-right: 1rem; }
+
+/** New dynamic menu with expandable items */
+.sidemenu {
+  z-index: 1;
+  overflow: hidden;
+  margin: 1.66667rem 0;
+  background: #115737; }
+  .sidemenu ul {
+    font-family: "National", "Helvetica Neue", "Segoe WP", "Helvetica", "Arial"; }
+    .sidemenu ul li {
+      display: block; }
+      .sidemenu ul li.active > a {
+        color: #FFF;
+        font-weight: 600; }
+        .sidemenu ul li.active > a::before {
+          position: relative;
+          display: inline-block;
+          content: "";
+          background-color: #FFF; }
+  .sidemenu a {
+    position: relative;
+    display: flex;
+    align-content: stretch;
+    color: #DDD;
+    line-height: 1.25; }
+    .sidemenu a:hover, .sidemenu a:active, .sidemenu a:focus {
+      color: #FFF; }
+      .sidemenu a:hover .btn-expander, .sidemenu a:active .btn-expander, .sidemenu a:focus .btn-expander {
+        color: #DDD; }
+  .sidemenu > ul {
+    font-size: 1.15em;
+    font-weight: 600; }
+    .sidemenu > ul > li {
+      border-bottom: 1px solid #0D4B2F; }
+      .sidemenu > ul > li > a {
+        padding: .8rem .9rem; }
+      .sidemenu > ul > li:last-child > a, .sidemenu > ul > li.active {
+        border-bottom: 0; }
+      .sidemenu > ul > li.active > a {
+        padding-left: .35em;
+        background-color: #0D4B2F; }
+        .sidemenu > ul > li.active > a::before {
+          margin: -.2em .35em -.2em 0;
+          width: 3px; }
+  .sidemenu .has-submenu > ul {
+    display: none;
+    font-weight: 400; }
+  .sidemenu .has-submenu.expanded {
+    overflow: hidden; }
+    .sidemenu .has-submenu.expanded > ul {
+      display: block; }
+    .sidemenu .has-submenu.expanded > a .btn-expander::after {
+      position: relative;
+      display: inline;
+      content: "";
+      height: 0;
+      width: 0;
+      border-bottom: 0.225em solid #FFF;
+      border-left: 0.25em solid transparent;
+      border-right: 0.25em solid transparent;
+      top: -.62em;
+      line-height: 0;
+      content: ''; }
+  .sidemenu .has-submenu:not(.expanded) > a .btn-expander::after {
+    content: '+'; }
+  .sidemenu .has-submenu.active {
+    background-color: #0D4B2F; }
+  .sidemenu .has-submenu > ul {
+    font-size: 95%;
+    margin: .2em 0 .75em .9em;
+    border-left: 1px solid rgba(255, 255, 255, 0.1); }
+    .sidemenu .has-submenu > ul > li > a {
+      padding: .3em .85em .3em .7em; }
+    .sidemenu .has-submenu > ul > li.active > a {
+      padding-left: 0; }
+      .sidemenu .has-submenu > ul > li.active > a::before {
+        margin: -.2em .5em -.2em 0;
+        width: 2px; }
+  .sidemenu .has-submenu .has-submenu > ul {
+    border-left: 0; }
+    .sidemenu .has-submenu .has-submenu > ul > li > a {
+      padding-left: .3em; }
+      .sidemenu .has-submenu .has-submenu > ul > li > a::before {
+        display: none; }
+  .sidemenu .btn-expander {
+    z-index: 1;
+    display: inline-block;
+    flex: 1 1 auto;
+    -ms-grid-row-align: center;
+        align-self: center;
+    text-align: right;
+    line-height: 0;
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-left: .5em; }
+    .sidemenu .btn-expander::before {
+      position: absolute;
+      display: inline-block;
+      content: "";
+      z-index: -1;
+      margin-top: -.6em;
+      margin-left: -.35em;
+      height: 1.2em;
+      width: 1.2em;
+      border-radius: .6em;
+      background-color: transparent; }
+    .sidemenu .btn-expander:hover::before, .sidemenu .btn-expander:active::before, .sidemenu .btn-expander:focus::before {
+      background-color: rgba(0, 0, 0, 0.2); }
+  @media screen and (max-width: 54.94444em) {
+    .sidemenu {
+      margin-top: 0;
+      margin-bottom: 0; } }
+  @media screen and (max-width: 38.83333em) {
+    .sidemenu {
+      display: none; } }
 
 /*==================================================
 =                     FOOTERS                      =

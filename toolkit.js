@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #1043e1402514db9b2807e16be00e53efd93eb9fc) | Thu Feb 01 2018 0:49 */
+/** Version: 0.9.4 (build #6d94a2a5e8231b8cfabd5306495e6b3c4ebec835) | Mon Feb 12 2018 19:38 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -104,12 +104,57 @@
 		});
 	}
 	
+	var SIDEMENU_CLASS = 'sidemenu';
+	var SIDEMENU_EXPANDER_CLASS = 'btn-expander';
+	var SIDEMENU_SUBMENU = 'has-submenu';
+	
+	var SIDEMENU_SELECTED_ITEM_CLASS = 'active';
+	var SIDEMENU_EXPANDED_CLASS = 'expanded';
+	
+	function initExpandableSubmenu() {
+		var expandableButtonElement = $(this);
+		var submenuContainer = expandableButtonElement.parent().parent('.' + SIDEMENU_SUBMENU);
+	
+		// Init default state
+		var isExpanded = submenuContainer.hasClass(SIDEMENU_SELECTED_ITEM_CLASS);
+	
+		function apply() {
+			if (isExpanded) {
+				submenuContainer.addClass(SIDEMENU_EXPANDED_CLASS);
+			} else {
+				submenuContainer.removeClass(SIDEMENU_EXPANDED_CLASS);
+			}
+		}
+	
+		// Init
+		apply();
+	
+		// Bind `click` events to all expandable buttons
+		expandableButtonElement.on('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			isExpanded = !isExpanded;
+			apply();
+		});
+	}
+	
+	function initSidemenuExpandability() {
+		var menuElement = $('.' + SIDEMENU_CLASS);
+	
+		menuElement.find('.' + SIDEMENU_EXPANDER_CLASS).each(initExpandableSubmenu);
+	}
+	
 	$(function () {
 	
 		fastclick.attach(document.body);
 		var $body = $('body');
 		var $globalNav = $("#global-nav");
 		var $globalSearch = $("#global-search");
+	
+		/** Init side-menu, if it's present */
+		if ($('.' + SIDEMENU_CLASS).length) {
+			initSidemenuExpandability();
+		}
 	
 		//http://wicky.nillia.ms/enquire.js/
 		enquire.register(MOBILE_LARGE_AND_SMALLER, function () {
@@ -230,7 +275,7 @@
 		removedUnusedTiles(); //TODO: Review - Can be removed after all the study areas are migrated
 	
 	
-		//tile accordion 
+		//tile accordion
 	
 		$('.tile-accordion .tile').on('click', function (evt) {
 			evt.preventDefault();

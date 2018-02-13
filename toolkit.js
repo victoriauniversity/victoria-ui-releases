@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #6d94a2a5e8231b8cfabd5306495e6b3c4ebec835) | Mon Feb 12 2018 19:38 */
+/** Version: 0.9.4 (build #47e10dc15f46a8c2f9f70428f6df88ea8bcf2024) | Tue Feb 13 2018 22:04 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -105,15 +105,16 @@
 	}
 	
 	var SIDEMENU_CLASS = 'sidemenu';
+	var SIDEMENU_TOGGLE_CLASS = 'sidemenu-toggle';
 	var SIDEMENU_EXPANDER_CLASS = 'btn-expander';
-	var SIDEMENU_SUBMENU = 'has-submenu';
+	var SIDEMENU_SUBMENU_CLASS = 'has-submenu';
 	
 	var SIDEMENU_SELECTED_ITEM_CLASS = 'active';
 	var SIDEMENU_EXPANDED_CLASS = 'expanded';
 	
 	function initExpandableSubmenu() {
 		var expandableButtonElement = $(this);
-		var submenuContainer = expandableButtonElement.parent().parent('.' + SIDEMENU_SUBMENU);
+		var submenuContainer = expandableButtonElement.parent('.' + SIDEMENU_SUBMENU_CLASS);
 	
 		// Init default state
 		var isExpanded = submenuContainer.hasClass(SIDEMENU_SELECTED_ITEM_CLASS);
@@ -141,7 +142,36 @@
 	function initSidemenuExpandability() {
 		var menuElement = $('.' + SIDEMENU_CLASS);
 	
+		enhanceSidemenu(menuElement);
+	
+		// Expanding/Collapsing of the entire side menu on mobile devices
+		menuElement.children('.' + SIDEMENU_TOGGLE_CLASS).children('a').on('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			$(this).parent().toggleClass(SIDEMENU_EXPANDED_CLASS);
+		});
+	
 		menuElement.find('.' + SIDEMENU_EXPANDER_CLASS).each(initExpandableSubmenu);
+	}
+	
+	//TODO: Remove after this was implemented on the backend (~ in Squiz)
+	/** Adds necessary classes and expanding/collapsing elements if the item has got submenu. */
+	var btnExpanderHtml = '<span class="btn-expander" title="Toggle subpages"></span>';
+	
+	function enhanceSidemenu(menuElement) {
+		menuElement.find('li').each(function () {
+			var listItem = $(this);
+	
+			// a) already has got a proper class in place? Skip!
+			if (listItem.hasClass(SIDEMENU_SUBMENU_CLASS)) return;
+	
+			// b) No submenu in <li>? Skip!
+			if (listItem.children('ul').length === 0) return;
+	
+			// c) Has got a submenu => Enhance sidemenu's HTML
+			listItem.addClass(SIDEMENU_SUBMENU_CLASS);
+			$(btnExpanderHtml).insertAfter(listItem.children('a'));
+		});
 	}
 	
 	$(function () {

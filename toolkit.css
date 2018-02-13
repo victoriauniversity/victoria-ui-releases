@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #6d94a2a5e8231b8cfabd5306495e6b3c4ebec835) | Mon Feb 12 2018 19:38 */
+/** Version: 0.9.4 (build #47e10dc15f46a8c2f9f70428f6df88ea8bcf2024) | Tue Feb 13 2018 22:04 */
 @charset "UTF-8";
 /*
 
@@ -1555,7 +1555,7 @@ div.button-right .button {
   text-align: center; }
 
 .link-external:after, .link-more:after, .button-arrow:after, button:not(.flat):not(.no-icon):after,
-.button:not(.flat):not(.no-icon):after, .pagination .next:after, .quote.full blockquote:after, .site .has-subpages a:after, .breadcrumbs > li:after {
+.button:not(.flat):not(.no-icon):after, .pagination .next:after, .quote.full blockquote:after, .site .has-subpages a:after, .sidemenu .sidemenu-toggle a:after, .breadcrumbs > li:after {
   position: relative;
   display: inline-block;
   content: "";
@@ -1767,6 +1767,9 @@ div.button-right .button {
 
 .icon-quote-up:before {
   content: ""; }
+
+.icon-list:before {
+  content: ""; }
 
 .hanging-icon {
   float: left; }
@@ -4862,6 +4865,9 @@ ul.meta .highlight {
           display: inline-block;
           content: "";
           background-color: #FFF; }
+    .sidemenu ul ul {
+      display: none;
+      font-weight: 400; }
   .sidemenu a {
     position: relative;
     display: flex;
@@ -4887,77 +4893,96 @@ ul.meta .highlight {
         .sidemenu > ul > li.active > a::before {
           margin: -.2em .35em -.2em 0;
           width: 3px; }
-  .sidemenu .has-submenu > ul {
-    display: none;
-    font-weight: 400; }
-  .sidemenu .has-submenu.expanded {
-    overflow: hidden; }
-    .sidemenu .has-submenu.expanded > ul {
-      display: block; }
-    .sidemenu .has-submenu.expanded > a .btn-expander::after {
-      position: relative;
-      display: inline;
-      content: "";
-      height: 0;
-      width: 0;
-      border-bottom: 0.225em solid #FFF;
-      border-left: 0.25em solid transparent;
-      border-right: 0.25em solid transparent;
-      top: -.62em;
-      line-height: 0;
-      content: ''; }
-  .sidemenu .has-submenu:not(.expanded) > a .btn-expander::after {
-    content: '+'; }
-  .sidemenu .has-submenu.active {
-    background-color: #0D4B2F; }
-  .sidemenu .has-submenu > ul {
-    font-size: 95%;
-    margin: .2em 0 .75em .9em;
-    border-left: 1px solid rgba(255, 255, 255, 0.1); }
-    .sidemenu .has-submenu > ul > li > a {
-      padding: .3em .85em .3em .7em; }
-    .sidemenu .has-submenu > ul > li.active > a {
-      padding-left: 0; }
-      .sidemenu .has-submenu > ul > li.active > a::before {
-        margin: -.2em .5em -.2em 0;
-        width: 2px; }
-  .sidemenu .has-submenu .has-submenu > ul {
-    border-left: 0; }
-    .sidemenu .has-submenu .has-submenu > ul > li > a {
-      padding-left: .3em; }
-      .sidemenu .has-submenu .has-submenu > ul > li > a::before {
-        display: none; }
+  .sidemenu .has-submenu {
+    display: flex; }
+    .sidemenu .has-submenu > a {
+      flex: 1 1; }
+    .sidemenu .has-submenu > ul {
+      flex: 0 0 100%; }
+    .sidemenu .has-submenu.expanded {
+      overflow: hidden;
+      flex-wrap: wrap; }
+      .sidemenu .has-submenu.expanded > ul {
+        display: block; }
+      .sidemenu .has-submenu.expanded > .btn-expander::after {
+        position: relative;
+        display: inline-block;
+        content: "";
+        top: -.15em;
+        height: 0;
+        width: 0;
+        border-bottom: 0.2em solid #DDD;
+        border-left: 0.25em solid transparent;
+        border-right: 0.25em solid transparent; }
+      .sidemenu .has-submenu.expanded > .btn-expander:hover::after, .sidemenu .has-submenu.expanded > .btn-expander:active::after, .sidemenu .has-submenu.expanded > .btn-expander:focus::after {
+        height: 0;
+        width: 0;
+        border-bottom: 0.2em solid #FFF;
+        border-left: 0.25em solid transparent;
+        border-right: 0.25em solid transparent; }
+    .sidemenu .has-submenu:not(.expanded) .btn-expander::after {
+      content: '+'; }
+    .sidemenu .has-submenu.active {
+      background-color: #0D4B2F; }
+    .sidemenu .has-submenu > ul {
+      font-size: 95%;
+      padding: .2em 0 .75em .9em; }
+      .sidemenu .has-submenu > ul > li {
+        border-left: 1px solid rgba(255, 255, 255, 0.1); }
+        .sidemenu .has-submenu > ul > li > a {
+          padding: .3em .85em .3em .7em; }
+        .sidemenu .has-submenu > ul > li.active > a {
+          padding-left: 0; }
+          .sidemenu .has-submenu > ul > li.active > a::before {
+            margin: -.2em .5em -.2em 0;
+            width: 2px; }
+    .sidemenu .has-submenu .has-submenu > ul > li {
+      border-left: 0; }
+      .sidemenu .has-submenu .has-submenu > ul > li > a {
+        padding-left: .3em; }
+        .sidemenu .has-submenu .has-submenu > ul > li > a::before {
+          display: none; }
   .sidemenu .btn-expander {
-    z-index: 1;
-    display: inline-block;
-    flex: 1 1 auto;
+    display: block;
+    margin: 0 .5rem;
+    height: 1.4em;
+    width: 1.4em;
     -ms-grid-row-align: center;
         align-self: center;
-    text-align: right;
-    line-height: 0;
+    cursor: pointer;
+    text-align: center;
     font-weight: 700;
+    color: #DDD;
+    line-height: 1.4;
     font-size: 1.2em;
-    margin-left: .5em; }
-    .sidemenu .btn-expander::before {
-      position: absolute;
-      display: inline-block;
-      content: "";
-      z-index: -1;
-      margin-top: -.6em;
-      margin-left: -.35em;
-      height: 1.2em;
-      width: 1.2em;
-      border-radius: .6em;
-      background-color: transparent; }
-    .sidemenu .btn-expander:hover::before, .sidemenu .btn-expander:active::before, .sidemenu .btn-expander:focus::before {
+    border-radius: .7em; }
+    .sidemenu .btn-expander:hover, .sidemenu .btn-expander:active, .sidemenu .btn-expander:focus {
+      color: #FFF;
       background-color: rgba(0, 0, 0, 0.2); }
+  .sidemenu .sidemenu-toggle {
+    padding: .8rem .9rem;
+    font-size: 1.5625em;
+    font-weight: 600; }
+    .sidemenu .sidemenu-toggle a {
+      display: block; }
+      .sidemenu .sidemenu-toggle a:after {
+        content: "";
+        float: right;
+        top: -.05em;
+        font-size: 115%; }
+    .sidemenu .sidemenu-toggle.expanded a::after {
+      content: ""; }
+  @media screen and (min-width: 55em) {
+    .sidemenu .sidemenu-toggle {
+      display: none; } }
   @media screen and (max-width: 54.94444em) {
     .sidemenu {
       margin-top: 0;
-      margin-bottom: 0; } }
-  @media screen and (max-width: 38.83333em) {
-    .sidemenu {
-      display: none; } }
+      margin-bottom: 0; }
+      .sidemenu .sidemenu-toggle + ul {
+        display: none; }
+      .sidemenu .sidemenu-toggle.expanded + ul {
+        display: block; } }
 
 /*==================================================
 =                     FOOTERS                      =

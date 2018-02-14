@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #5ab2f121af1cc1df37693591449f7900537d8d96) | Tue Feb 13 2018 23:02 */
+/** Version: 0.9.4 (build #e92edc726363eb3716584082a88cefdfc630c853) | Wed Feb 14 2018 0:51 */
 @charset "UTF-8";
 /*
 
@@ -4851,7 +4851,7 @@ ul.meta .highlight {
 .sidemenu {
   z-index: 1;
   overflow: hidden;
-  margin: 1.66667rem 0;
+  margin: 0 0 1.66667rem;
   background: #115737; }
   .sidemenu ul {
     font-family: "National", "Helvetica Neue", "Segoe WP", "Helvetica", "Arial"; }
@@ -5680,7 +5680,7 @@ ul.meta .highlight {
   margin-bottom: 1em; }
   .search-panel form.wide-search-bar {
     padding: 2rem 10rem;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25); }
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
   .search-panel form .group {
     width: 100%;
     display: flex; }
@@ -5719,7 +5719,7 @@ ul.meta .highlight {
     flex: 0 1 auto;
     width: calc( 50% - 0.75em);
     background-color: #EEE;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 2.5em;
     margin-bottom: 1.5em; }
     .card-panel .card > h1:first-child,
@@ -5743,7 +5743,7 @@ ul.meta .highlight {
       margin-bottom: 0; }
   .card-panel .contact-card {
     background-color: #EEE;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 2.5em;
     width: 100%; }
     .card-panel .contact-card .contact-card-details {

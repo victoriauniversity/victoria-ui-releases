@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #3ab07702b93cf400726ead7f4a9c02de77fc2ff7) | Wed Feb 14 2018 20:02 */
+/** Version: 0.9.4 (build #135678d7ccfca70acf3826a4f73d91a596c81a1e) | Thu Feb 15 2018 20:41 */
 @charset "UTF-8";
 /*
 
@@ -951,7 +951,7 @@ q:before, q:after {
 /* ===== BASE TYPOGRAPHY ================================================== */
 html {
   font-size: 100%; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     html {
       font-size: 85%; } }
   @media screen and (min-width: 38.88889em) and (max-width: 54.94444em) {
@@ -1080,7 +1080,7 @@ table {
   .table-container table {
     margin-bottom: 0;
     box-shadow: none; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .table-container {
       overflow-x: scroll; } }
 
@@ -1279,7 +1279,7 @@ table {
   .formatting.block > img:first-child {
     margin-left: -1.11111rem;
     width: calc(100% + 1.11111rem * 2); }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .formatting.block > img:first-child {
         margin-top: -1.66667rem; } }
   aside > .formatting h2 {
@@ -2248,7 +2248,7 @@ blockquote.quote {
       @media screen and (max-width: 54.94444em) {
         .flash-message.info-row > *:not(:first-child) {
           flex-basis: 31%; } }
-      @media screen and (max-width: 38.83333em) {
+      @media screen and (max-width: 38.88889em) {
         .flash-message.info-row > *:not(:first-child) {
           flex-basis: 100%;
           margin-bottom: 0.5em; } }
@@ -2394,7 +2394,7 @@ ul.links {
       display: inline; }
     aside ul.links a:hover, aside ul.links a:active, aside ul.links a:focus {
       background-color: rgba(0, 0, 0, 0.03); }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .grid ul.links:not(:last-child) {
       margin-bottom: 0; } }
   ul.links.list-divider li {
@@ -2442,7 +2442,7 @@ ul.complex-list {
       font-style: normal;
       color: #555;
       font-size: 0.77778rem; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     ul.complex-list .caption,
     ul.complex-list .description {
       display: block;
@@ -2705,7 +2705,7 @@ aside .list.publications li {
         margin-bottom: 1%; }
       .gallery-container .gallery.thumbnails .gallery-images img:nth-child(2), .gallery-container .gallery.thumbnails .gallery-images img:nth-child(4) {
         margin-right: 1%; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .gallery-container .gallery.thumbnails .gallery-images img {
         margin-right: 0;
         margin-bottom: 0; }
@@ -2944,7 +2944,7 @@ a > .tag {
       .news .media.portrait:last-child {
         margin-right: 0; } }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .news .media {
     margin-bottom: 1em; } }
 
@@ -2999,7 +2999,7 @@ a > .tag {
     .events .summary:last-child {
       margin-right: 0; } }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .events .media img {
     margin-bottom: .8rem; } }
 
@@ -3151,7 +3151,7 @@ a > .tag {
     position: relative;
     overflow: hidden; } }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .promo-panel {
     border-top: 3px solid #EEE;
     border-bottom: 3px solid #EEE; }
@@ -3174,7 +3174,7 @@ a > .tag {
   background-color: #FFF; }
   .promo-panel.white-bg figure {
     border: 1px solid #EEE; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .promo-panel.white-bg figure {
         border: none; } }
   .promo-panel.white-bg.dual-content .dual-content-block {
@@ -3189,7 +3189,7 @@ a > .tag {
   background: #FFF; }
   .promo-panel figure figcaption {
     padding-bottom: 1.6rem; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .promo-panel figure figcaption h1 {
       margin-top: 0.5em; } }
   @media screen and (min-width: 38.88889em) {
@@ -3278,9 +3278,12 @@ a > .tag {
         padding-top: 2em; }
       .promo-panel figure.photo.left-text-panel figcaption > div p, .promo-panel figure.photo.left-text-panel figcaption > div .button {
         margin-left: 1rem; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .promo-panel figure.photo.left-text-panel figcaption > div {
         max-width: 100%; }
+        .promo-panel figure.photo.left-text-panel figcaption > div h1,
+        .promo-panel figure.photo.left-text-panel figcaption > div h2 {
+          font-size: 1.95em; }
         .promo-panel figure.photo.left-text-panel figcaption > div p {
           padding-top: 3.5em; }
         .promo-panel figure.photo.left-text-panel figcaption > div .button:not(:first-child) {
@@ -3361,7 +3364,7 @@ a > .tag {
   .promo-panel.two-panels figure:first-child {
     margin-right: 1em; }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .promo-panel.two-panels > div {
     flex-wrap: wrap; }
   .promo-panel.two-panels figure {
@@ -3388,7 +3391,7 @@ a > .tag {
     box-shadow: none; }
     .promo-panel.dual-content .dual-content-block figure:first-child:last-child {
       width: 57.35098%; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .promo-panel.dual-content .dual-content-block figure:first-child {
         float: left;
         display: block;
@@ -3411,7 +3414,7 @@ a > .tag {
       position: absolute;
       right: 1rem;
       bottom: 1rem; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .promo-panel.dual-content .dual-content-block figure:last-child {
         float: left;
         display: block;
@@ -3423,7 +3426,7 @@ a > .tag {
 
 .promo-panel.two-one-third > div {
   display: flex; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .promo-panel.two-one-third > div {
       flex-direction: column; }
       .promo-panel.two-one-third > div > :first-child,
@@ -3444,7 +3447,7 @@ a > .tag {
       width: 50%; }
   .promo-panel.two-one-third > div.half-panel > :last-child {
     width: 33.33333%; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .promo-panel.two-one-third > div.half-panel > :first-child,
     .promo-panel.two-one-third > div.half-panel > :last-child {
       width: 100%; } }
@@ -3487,7 +3490,7 @@ a > .tag {
       width: 80%;
       padding: 1em;
       left: 0;
-      top: 2em; }
+      bottom: 2em; }
       .promo-panel.title-image figure figcaption h1,
       .promo-panel.title-image figure figcaption h2,
       .promo-panel.title-image figure figcaption h3 {
@@ -3500,11 +3503,12 @@ a > .tag {
     .promo-panel.title-image > div {
       align-items: stretch; }
     .promo-panel.title-image figure img {
-      position: absolute;
-      bottom: 5%; }
+      padding-left: 1em; }
     .promo-panel.title-image figure figcaption {
-      width: 90%; } }
-  @media screen and (max-width: 38.83333em) {
+      bottom: 6%;
+      width: 94%;
+      position: relative; } }
+  @media screen and (max-width: 38.88889em) {
     .promo-panel.title-image > div {
       flex-direction: column; }
       .promo-panel.title-image > div figure {
@@ -3512,7 +3516,8 @@ a > .tag {
         .promo-panel.title-image > div figure img {
           position: relative; }
         .promo-panel.title-image > div figure figcaption {
-          position: initial;
+          position: relative;
+          bottom: 0;
           width: 100%; }
           .promo-panel.title-image > div figure figcaption h2 {
             margin-bottom: .7em; } }
@@ -3569,7 +3574,7 @@ a > .tag {
     .homepage-intro:not(:last-child) {
       float: left; } }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .homepage-intro:not(:last-child) {
     border-bottom: 1px solid #EEE; } }
 
@@ -3875,7 +3880,7 @@ a > .tag {
     .site-header .menu-bar .search-item, .main-site-header .menu-bar .search-item {
       position: absolute;
       right: 1em; } }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .site-header .block, .main-site-header .block {
       -webkit-box-lines: multiple;
       -moz-box-lines: multiple;
@@ -4003,7 +4008,7 @@ a > .tag {
       @media screen and (min-width: 38.88889em) {
         .main-site-header.existing-ia > div nav.menu-container .horizontal-menu.main-nav .menu-bar a {
           font-size: 1.1rem; } }
-      @media screen and (max-width: 38.83333em) {
+      @media screen and (max-width: 38.88889em) {
         .main-site-header.existing-ia > div nav.menu-container .horizontal-menu.main-nav .menu-bar a {
           font-size: 1.2rem;
           padding: 1rem 1.5rem; } }
@@ -4112,7 +4117,7 @@ a > .tag {
         margin-bottom: 0.5em; }
         .tile-grid .tiles-wrap li.tile h4:before {
           font-size: 85%; }
-      @media screen and (max-width: 38.83333em) {
+      @media screen and (max-width: 38.88889em) {
         .tile-grid .tiles-wrap li.tile {
           float: none; }
           .tile-grid .tiles-wrap li.tile .tile-title {
@@ -4185,7 +4190,7 @@ a > .tag {
         display: flex;
         align-items: center;
         text-align: center; }
-        @media screen and (max-width: 38.83333em) {
+        @media screen and (max-width: 38.88889em) {
           .study-area-tabs ul li a {
             height: 3.33333rem; } }
         .study-area-tabs ul li a:hover {
@@ -4234,7 +4239,7 @@ a > .tag {
   /* focus state 
     **** @screen only..??
   */ }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .switch {
       transform: scale(1.2); } }
   .switch .switch-label {
@@ -4304,7 +4309,7 @@ a > .tag {
     display: block;
     margin-right: 2.35765%;
     width: 40.29137%; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .study-area-single .study-area-wide-panel .img-wrap {
         display: none; } }
     .study-area-single .study-area-wide-panel .img-wrap:last-child {
@@ -4320,7 +4325,7 @@ a > .tag {
       width: 100%; }
     .study-area-single .study-area-wide-panel .content-wrap:last-child {
       margin-right: 0; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .study-area-single .study-area-wide-panel .content-wrap {
         float: left;
         display: block;
@@ -4387,7 +4392,7 @@ a > .tag {
       @media screen and (min-width: 38.88889em) {
         .study-area-single .study-area-wide-panel .content-wrap a.button {
           clear: left; } }
-      @media screen and (max-width: 38.83333em) {
+      @media screen and (max-width: 38.88889em) {
         .study-area-single .study-area-wide-panel .content-wrap a.button {
           margin-bottom: .35rem; } }
 
@@ -4407,7 +4412,7 @@ a > .tag {
     margin-right: 1.11111rem;
     height: auto;
     width: 8.33333rem; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .staff .profile-picture {
         width: 20%;
         max-width: 8.33333rem; } }
@@ -4472,7 +4477,7 @@ ul.meta .highlight {
     ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight > a:focus {
       text-decoration: underline; }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   aside .contact .profile-picture {
     width: 20%;
     max-width: 8.33333rem;
@@ -4555,7 +4560,7 @@ ul.meta .highlight {
 .degrees-quals.tile-filter-tags .tile.is-not-matching {
   display: none; }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .hide-on-mobile {
     display: none !important; } }
 
@@ -4579,7 +4584,7 @@ ul.meta .highlight {
       content: "";
       display: table; }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .site-header {
     padding-top: 3.8rem; } }
 
@@ -4588,7 +4593,7 @@ ul.meta .highlight {
   @media screen and (min-width: 38.88889em) {
     .global {
       background: #CCC; } }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .global {
       position: fixed;
       top: 0;
@@ -4616,7 +4621,7 @@ ul.meta .highlight {
   .global [class^=icon-]:before {
     margin-left: 0;
     margin-right: 0; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .global [class^=icon-]:before {
         margin-right: .5rem;
         line-height: 1; } }
@@ -4628,7 +4633,7 @@ ul.meta .highlight {
       clear: both;
       content: "";
       display: table; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .global [role=search] {
         padding: 0.8rem 1.6rem; } }
     .global [role=search] .input-wrapper {
@@ -4671,7 +4676,7 @@ ul.meta .highlight {
   @media screen and (max-width: 54.94444em) {
     .global {
       padding: 0; } }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .global .button-container {
       position: absolute;
       top: 0;
@@ -4706,11 +4711,11 @@ ul.meta .highlight {
       color: #FFF;
       border-bottom: 1px solid #0D4B2F;
       cursor: pointer; } }
-  @media screen and (max-width: 38.83333em) and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) and (max-width: 38.88889em) {
     .global a.home, .global a.back {
       background: #1D2624 !important;
       color: #b4b3b3; } }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
       .global a.hide {
         display: none;
         text-align: center; }
@@ -4795,7 +4800,7 @@ ul.meta .highlight {
   .site .icon-right-open {
     float: right;
     margin: 0 -.6em; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .site > ul > li:nth-child(1) {
       padding-left: 0rem; }
     .site > ul > li:nth-child(2) {
@@ -4838,7 +4843,7 @@ ul.meta .highlight {
     color: #FFF;
     border-bottom: 1px solid #0D4B2F;
     cursor: pointer; }
-    @media screen and (max-width: 38.83333em) {
+    @media screen and (max-width: 38.88889em) {
       .site a.home, .site a.back {
         background: #1D2624 !important;
         color: #b4b3b3; } }
@@ -5071,7 +5076,7 @@ ul.meta .highlight {
     float: left; }
     .footer-primary .minilinks > li:first-child {
       margin-left: 0; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .footer-primary {
       text-align: center; }
       .footer-primary .contacts,
@@ -5188,7 +5193,7 @@ ul.meta .highlight {
       margin: 0 0 .35em; }
     .footer-secondary.two-columns ul:last-child, .two-columns.page-sub-nav ul:last-child {
       margin-bottom: 0; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .footer-secondary:not(.two-columns) h2, .page-sub-nav:not(.two-columns) h2 {
       float: none;
       margin-bottom: 0.75em; }
@@ -5232,7 +5237,7 @@ ul.meta .highlight {
       color: #555; }
       .breadcrumbs > li:last-child:after {
         display: none; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .breadcrumbs {
       display: none; } }
 
@@ -5396,7 +5401,7 @@ ul.meta .highlight {
         position: absolute;
         bottom: .5em;
         right: .5em; }
-      @media screen and (max-width: 38.83333em) {
+      @media screen and (max-width: 38.88889em) {
         .updated-tile-grid .tiles-wrap li.tile {
           float: none; }
           .updated-tile-grid .tiles-wrap li.tile h4 {
@@ -5443,6 +5448,12 @@ ul.meta .highlight {
       height: auto; }
       .updated-tile-grid .tiles-wrap.four-col.image-no-gutter li.tile a:hover {
         border-color: transparent; }
+    @media screen and (min-width: 55em) and (max-width: 71.05556em) {
+      .updated-tile-grid .tiles-wrap.four-col.image-no-gutter li.tile {
+        width: 24.25%;
+        margin-right: 1%; }
+        .updated-tile-grid .tiles-wrap.four-col.image-no-gutter li.tile:nth-child(4n) {
+          margin-right: 0; } }
     .updated-tile-grid .tiles-wrap.hidden {
       display: none; }
   .updated-tile-grid.hidden {
@@ -5667,7 +5678,7 @@ ul.meta .highlight {
   float: left;
   padding-bottom: 0; }
 
-@media screen and (max-width: 38.83333em) {
+@media screen and (max-width: 38.88889em) {
   .promo-panel.strip-banner {
     border-top: none;
     border-bottom: none; }
@@ -5682,11 +5693,13 @@ ul.meta .highlight {
       width: 100%; } }
 
 @media screen and (max-width: 54.94444em) {
-  .promo-panel.strip-banner figure figcaption h1 {
-    margin-top: 0; }
-  .promo-panel.strip-banner figure figcaption .block:first-child {
-    width: 100%;
-    padding-bottom: 0.5em; } }
+  .promo-panel.strip-banner {
+    height: 100%; }
+    .promo-panel.strip-banner figure figcaption h1 {
+      margin-top: 0; }
+    .promo-panel.strip-banner figure figcaption .block:first-child {
+      width: 100%;
+      padding-bottom: 0.5em; } }
 
 @media screen and (min-width: 55em) {
   .promo-panel.strip-banner figure figcaption {
@@ -5738,7 +5751,7 @@ ul.meta .highlight {
       width: 70%; }
     .search-panel form .group input[type=submit] {
       width: 30%; } }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .search-panel form.wide-search-bar {
       padding: 2rem 1rem; }
     .search-panel form .group {
@@ -5794,7 +5807,7 @@ ul.meta .highlight {
         @media screen and (max-width: 54.94444em) {
           .card-panel .contact-card .contact-card-details > * {
             padding-right: 0; } }
-      @media screen and (max-width: 38.83333em) {
+      @media screen and (max-width: 38.88889em) {
         .card-panel .contact-card .contact-card-details {
           flex-direction: column;
           margin-bottom: 0; }
@@ -5827,7 +5840,7 @@ ul.meta .highlight {
       color: #115737; }
     .card-panel.icon-cards .card p {
       text-align: left; }
-  @media screen and (max-width: 38.83333em) {
+  @media screen and (max-width: 38.88889em) {
     .card-panel {
       flex-direction: column; }
       .card-panel .card {

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #135678d7ccfca70acf3826a4f73d91a596c81a1e) | Thu Feb 15 2018 20:41 */
+/** Version: 0.9.4 (build #f13a6dfb2c8a0ee2ca87f31f2dbd378afbed0ce4) | Sun Feb 18 2018 20:06 */
 @charset "UTF-8";
 /*
 
@@ -4993,11 +4993,11 @@ ul.meta .highlight {
       color: #FFF;
       background-color: rgba(0, 0, 0, 0.2); }
   .sidemenu .sidemenu-toggle {
-    padding: .8rem .9rem;
     font-size: 1.5625em;
     font-weight: 600; }
     .sidemenu .sidemenu-toggle a {
-      display: block; }
+      display: block;
+      padding: .8rem .9rem; }
       .sidemenu .sidemenu-toggle a:after {
         content: "";
         float: right;
@@ -5016,6 +5016,17 @@ ul.meta .highlight {
         display: none; }
       .sidemenu .sidemenu-toggle.expanded + ul {
         display: block; } }
+  @media screen and (max-width: 38.88889em) {
+    .sidemenu .btn-expander {
+      height: auto;
+      width: auto;
+      margin: 0 .35rem 0 0;
+      line-height: 1.5; }
+      .sidemenu .btn-expander::after {
+        display: inline-block;
+        margin: 0 .85em; }
+    .sidemenu .expanded > ul {
+      font-size: 100%; } }
 
 /*==================================================
 =                     FOOTERS                      =

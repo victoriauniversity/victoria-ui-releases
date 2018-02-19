@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #f13a6dfb2c8a0ee2ca87f31f2dbd378afbed0ce4) | Sun Feb 18 2018 20:06 */
+/** Version: 0.9.4 (build #6f43215ea07746f2815152daf93bd913da19ce06) | Mon Feb 19 2018 19:03 */
 @charset "UTF-8";
 /*
 
@@ -3271,6 +3271,9 @@ a > .tag {
         top: -1.8rem;
         padding: .8rem 1rem;
         background-color: #115737; }
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+          .promo-panel figure.photo.left-text-panel figcaption > div h1, .promo-panel figure.photo.left-text-panel figcaption > div h2, .promo-panel figure.photo.left-text-panel figcaption > div h3 {
+            float: left; } }
       .promo-panel figure.photo.left-text-panel figcaption > div p {
         background-color: transparent;
         color: inherit;
@@ -3285,13 +3288,12 @@ a > .tag {
         .promo-panel figure.photo.left-text-panel figcaption > div h2 {
           font-size: 1.95em; }
         .promo-panel figure.photo.left-text-panel figcaption > div p {
-          padding-top: 3.5em; }
+          padding-top: 2.5em; }
         .promo-panel figure.photo.left-text-panel figcaption > div .button:not(:first-child) {
           margin-top: 0.5rem; } }
-    @media screen and (min-width: 38.88889em) and (max-width: 54.94444em) {
-      .promo-panel figure.photo.left-text-panel figcaption > div {
-        max-width: 85%; } }
-  @media screen and (min-width: 38.88889em) and (max-width: 54.94444em) {
+  @media screen and (max-width: 71.05556em) {
+    .promo-panel figure.photo.left-text-panel figcaption > div {
+      max-width: 85%; }
     .promo-panel figure.photo.left-text-panel img {
       height: 100%; }
     .promo-panel figure.photo.left-text-panel figcaption {
@@ -3487,10 +3489,11 @@ a > .tag {
     .promo-panel.title-image figure figcaption {
       position: absolute;
       background-color: #115737;
-      width: 80%;
+      width: 100%;
+      max-width: 85%;
       padding: 1em;
       left: 0;
-      bottom: 2em; }
+      top: 2em; }
       .promo-panel.title-image figure figcaption h1,
       .promo-panel.title-image figure figcaption h2,
       .promo-panel.title-image figure figcaption h3 {
@@ -3499,28 +3502,30 @@ a > .tag {
   .promo-panel.title-image section {
     width: 100%;
     padding: 1em 1em 1em 2em; }
-  @media screen and (min-width: 38.88889em) and (max-width: 54.94444em) {
+  @media screen and (max-width: 54.94444em) {
     .promo-panel.title-image > div {
       align-items: stretch; }
-    .promo-panel.title-image figure img {
-      padding-left: 1em; }
-    .promo-panel.title-image figure figcaption {
-      bottom: 6%;
-      width: 94%;
-      position: relative; } }
+    .promo-panel.title-image figure {
+      display: flex;
+      flex-direction: column; }
+      .promo-panel.title-image figure img {
+        padding-left: 1em; }
+      .promo-panel.title-image figure figcaption {
+        max-width: 94%;
+        position: relative;
+        order: -1;
+        margin-right: auto;
+        top: 0; } }
   @media screen and (max-width: 38.88889em) {
     .promo-panel.title-image > div {
       flex-direction: column; }
       .promo-panel.title-image > div figure {
         width: 100%; }
         .promo-panel.title-image > div figure img {
-          position: relative; }
+          padding-left: 0; }
         .promo-panel.title-image > div figure figcaption {
-          position: relative;
           bottom: 0;
-          width: 100%; }
-          .promo-panel.title-image > div figure figcaption h2 {
-            margin-bottom: .7em; } }
+          max-width: 100%; } }
 
 .promo::after {
   clear: both;
@@ -4484,6 +4489,19 @@ ul.meta .highlight {
     float: left;
     margin-right: 1.11111rem; }
   aside .contact .meta {
+    overflow: hidden; } }
+
+/* Research hub Sidebar featured researcher profile */
+#rightHandMenu .data-sidebar.featured-researcher .profile-picture {
+  margin-bottom: .7rem; }
+
+@media screen and (max-width: 38.88889em) {
+  #rightHandMenu .data-sidebar.featured-researcher .profile-picture {
+    width: 20%;
+    max-width: 8.33333rem;
+    float: left;
+    margin-right: 1.11111rem; }
+  #rightHandMenu .data-sidebar.featured-researcher .summary {
     overflow: hidden; } }
 
 .degrees-quals h1 {
@@ -5675,6 +5693,9 @@ ul.meta .highlight {
     .promo-panel.strip-banner figcaption .block h1 {
       font-size: 3em;
       margin-bottom: 0; }
+      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        .promo-panel.strip-banner figcaption .block h1 {
+          float: left; } }
     .promo-panel.strip-banner figcaption .block p {
       font-size: 1.45em; }
     .promo-panel.strip-banner figcaption .block > * {
@@ -5746,15 +5767,18 @@ ul.meta .highlight {
     width: 100%;
     display: flex; }
     .search-panel form .group input[type=text] {
-      width: 75%;
+      flex: 1 1;
       height: 42px;
       padding: .2rem .6rem;
       border: 2px solid #CCC; }
     .search-panel form .group input[type=submit] {
-      width: 25%;
+      flex: 25% 0 1;
       border-radius: 0 2px 2px 0; }
   .search-panel section {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25); }
+  @media screen and (min-width: 55em) and (max-width: 71.05556em) {
+    .search-panel form.wide-search-bar {
+      padding: 2rem 4rem; } }
   @media screen and (max-width: 54.94444em) {
     .search-panel form.wide-search-bar {
       padding: 2rem 2rem; }
@@ -5768,9 +5792,11 @@ ul.meta .highlight {
     .search-panel form .group {
       flex-wrap: wrap; }
       .search-panel form .group input[type=text] {
-        width: 100%; }
+        width: 100%;
+        flex: 100% 1 1; }
       .search-panel form .group input[type=submit] {
-        width: 100%; } }
+        width: 100%;
+        flex: 100% 1 1; } }
 
 .card-panel {
   display: flex;

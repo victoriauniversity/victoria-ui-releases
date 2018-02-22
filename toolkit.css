@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #3ac9e967775968ea3f428042b3ceb09df59a1214) | Wed Feb 21 2018 19:17 */
+/** Version: 0.9.4 (build #fe3715579e97fd71fef25bbad15f0b2144c841b6) | Thu Feb 22 2018 19:11 */
 @charset "UTF-8";
 /*
 
@@ -2959,6 +2959,10 @@ a > .tag {
     .promo.themed a p {
       color: #FFF;
       margin-bottom: 0; }
+  @media screen and (max-width: 54.94444em) {
+    .promo h2,
+    .promo h3 {
+      overflow-wrap: break-word; } }
 
 /** News overview (list of articles) */
 .news time {
@@ -5788,9 +5792,11 @@ ul.meta .highlight {
       padding-bottom: 0.5em; } }
 
 @media screen and (min-width: 55em) {
-  .promo-panel.strip-banner figure figcaption {
-    margin-bottom: 1em;
-    margin-top: 10%; } }
+  .promo-panel.strip-banner figure {
+    display: block; }
+    .promo-panel.strip-banner figure figcaption {
+      margin-bottom: 1em;
+      margin-top: 10%; } }
 
 @media screen and (min-width: 55em) and (max-width: 71.05556em) {
   .promo-panel.strip-banner figure figcaption {

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #5c61426cc183feb6c58b4b725a5221a34526152c) | Thu Mar 01 2018 1:35 */
+/** Version: 0.9.4 (build #7c02a272614949ebc721ec86286b7540c455b980) | Thu Mar 01 2018 2:14 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -60,7 +60,8 @@
 	    cookie = __webpack_require__(4),
 	    enquire = __webpack_require__(8);
 	
-	var jQuery = $;
+	// Export to the global namespace (~ window)
+	window.$ = window.jQuery = $;
 	
 	__webpack_require__(3); //TODO: set up multiple entry points for webpack bundles
 	
@@ -313,6 +314,7 @@
 	      _ref2$suppressAfterCa = _ref2.suppressAfterCanceling,
 	      suppressAfterCanceling = _ref2$suppressAfterCa === undefined ? false : _ref2$suppressAfterCa;
 	
+	  console.log('>>> ', this);
 	  initPopupBox(this, { delayInMs: delayInMs, suppressAfterCanceling: suppressAfterCanceling });
 	
 	  return this;
@@ -549,6 +551,9 @@
 	 * Usage as: $( jquerySelector ).vicApp().method( options )
 	 */
 	(function ($) {
+	
+	  console.log('!!!', $);
+	
 	  $.fn.vicApp = function () {
 	    return {
 	      openPopup: openPopup.bind(this)

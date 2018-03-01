@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #fe3715579e97fd71fef25bbad15f0b2144c841b6) | Thu Feb 22 2018 19:11 */
+/** Version: 0.9.4 (build #491b299f0b2d3dd0d3710d6150e7ccae0f8e9fb4) | Thu Mar 01 2018 1:33 */
 @charset "UTF-8";
 /*
 
@@ -5947,6 +5947,54 @@ ul.meta .highlight {
   @media screen and (max-width: 54.94444em) {
     .card-panel .card .button:first-of-type {
       margin-bottom: 10px; } }
+
+/** General fixed popup. */
+/* Positions popup within a page. */
+.popup-positioner {
+  z-index: 9999;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  margin: 0 0 2.5em 5%;
+  width: 24rem; }
+  .popup-positioner.shown {
+    display: block; }
+
+.popup {
+  display: none;
+  padding: 1.66667rem;
+  background-color: #EEE;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.35); }
+  .shown .popup, .popup.shown {
+    display: block; }
+  .popup > header {
+    font-size: 90%; }
+    .popup > header .btn-close {
+      opacity: .4;
+      display: block;
+      float: right;
+      margin-left: .25em;
+      padding: 0 .35em;
+      color: #444;
+      font-size: 170%;
+      line-height: 1; }
+      .popup > header .btn-close:hover, .popup > header .btn-close:active, .popup > header .btn-close:focus {
+        opacity: 1; }
+  .popup .body {
+    margin-top: 1.6rem; }
+    .popup .body .button:not(.primary)::after {
+      display: none; }
+  .popup .btn-holder .btn {
+    margin: 0; }
+
+@media screen and (max-width: 38.88889em) {
+  .popup-positioner {
+    top: 0;
+    bottom: auto;
+    margin: 0;
+    width: 100%; }
+  .popup {
+    margin: 0; } }
 
 /** TRUMPS */
 .clearfix::after {

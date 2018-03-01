@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #fe3715579e97fd71fef25bbad15f0b2144c841b6) | Thu Feb 22 2018 19:11 */
+/** Version: 0.9.4 (build #491b299f0b2d3dd0d3710d6150e7ccae0f8e9fb4) | Thu Mar 01 2018 1:33 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,13 +52,17 @@
 	 */
 	
 	/* DEPENDENCIES & 3RD PARTY LIBRARIES IMPORTS */
-	var fastclick = __webpack_require__(7),
-	    Headroom = __webpack_require__(8),
-	    picturefill = __webpack_require__(11),
-	    lity = __webpack_require__(10),
-	    enquire = __webpack_require__(6);
+	var $ = __webpack_require__(1),
+	    fastclick = __webpack_require__(9),
+	    Headroom = __webpack_require__(10),
+	    picturefill = __webpack_require__(12),
+	    lity = __webpack_require__(11),
+	    cookie = __webpack_require__(4),
+	    enquire = __webpack_require__(8);
 	
-	__webpack_require__(2); //TODO: set up multiple entry points for webpack bundles
+	var jQuery = $;
+	
+	__webpack_require__(3); //TODO: set up multiple entry points for webpack bundles
 	
 	
 	/* CONSTANT ATTRIBUTES */
@@ -76,32 +80,32 @@
 	
 	/** Wrap YT videos in .embed wrapper that helps with responsiveness. */
 	function wrapEmbeddedIframes() {
-		var iframes = $(YOUTUBE_IFRAME_SELECTOR + ', ' + GMAPS_IFRAME_SELECTOR + ', ' + VIMEO_IFRAME_SELECTOR),
-		    singleIframe = null,
-		    iframeClasses;
+	  var iframes = $(YOUTUBE_IFRAME_SELECTOR + ', ' + GMAPS_IFRAME_SELECTOR + ', ' + VIMEO_IFRAME_SELECTOR),
+	      singleIframe = null,
+	      iframeClasses;
 	
-		iframes.each(function (index) {
-			singleIframe = $(this);
+	  iframes.each(function (index) {
+	    singleIframe = $(this);
 	
-			// If it doesn't already have wrapper, wrap it!
-			if (!singleIframe.parent().hasClass('embed')) {
-				iframeClasses = singleIframe.attr("class") || '';
+	    // If it doesn't already have wrapper, wrap it!
+	    if (!singleIframe.parent().hasClass('embed')) {
+	      iframeClasses = singleIframe.attr("class") || '';
 	
-				singleIframe.wrap('<div class="embed ' + iframeClasses + '"></div>');
+	      singleIframe.wrap('<div class="embed ' + iframeClasses + '"></div>');
 	
-				if (iframeClasses) singleIframe.removeClass();
-			}
-		});
+	      if (iframeClasses) singleIframe.removeClass();
+	    }
+	  });
 	}
 	
 	/** Deletes all study areas tiles that are display: none from DOM to
 	keep the markup clean (and easily handled by the CSS) */
 	function removedUnusedTiles() {
-		$('.tiles-wrap .tile').each(function () {
-			if ($(this).css("display") == "none") {
-				$(this).remove();
-			}
-		});
+	  $('.tiles-wrap .tile').each(function () {
+	    if ($(this).css("display") == "none") {
+	      $(this).remove();
+	    }
+	  });
 	}
 	
 	var SIDEMENU_CLASS = 'sidemenu';
@@ -113,45 +117,53 @@
 	var SIDEMENU_EXPANDED_CLASS = 'expanded';
 	
 	function initExpandableSubmenu() {
-		var expandableButtonElement = $(this);
-		var submenuContainer = expandableButtonElement.parent('.' + SIDEMENU_SUBMENU_CLASS);
+	  var expandableButtonElement = $(this);
+	  var submenuContainer = expandableButtonElement.parent('.' + SIDEMENU_SUBMENU_CLASS);
 	
-		// Init default state
-		var isExpanded = submenuContainer.hasClass(SIDEMENU_SELECTED_ITEM_CLASS);
+	  // Init default state
+	  var isExpanded = submenuContainer.hasClass(SIDEMENU_SELECTED_ITEM_CLASS);
 	
-		function apply() {
-			if (isExpanded) {
-				submenuContainer.addClass(SIDEMENU_EXPANDED_CLASS);
-			} else {
-				submenuContainer.removeClass(SIDEMENU_EXPANDED_CLASS);
-			}
-		}
+	  function apply() {
+	    if (isExpanded) {
+	      submenuContainer.addClass(SIDEMENU_EXPANDED_CLASS);
+	    } else {
+	      submenuContainer.removeClass(SIDEMENU_EXPANDED_CLASS);
+	    }
+	  }
 	
-		// Init
-		apply();
+	  // Init
+	  apply();
 	
-		// Bind `click` events to all expandable buttons
-		expandableButtonElement.on('click', function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-			isExpanded = !isExpanded;
-			apply();
-		});
+	  // Bind `click` events to all expandable buttons
+	  expandableButtonElement.on('click', function (e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+	    isExpanded = !isExpanded;
+	    apply();
+	  });
 	}
 	
 	function initSidemenuExpandability() {
-		var menuElement = $('.' + SIDEMENU_CLASS);
+	  var menuElement = $('.' + SIDEMENU_CLASS);
 	
-		enhanceSidemenu(menuElement);
+	  enhanceSidemenu(menuElement);
 	
-		// Expanding/Collapsing of the entire side menu on mobile devices
-		menuElement.children('.' + SIDEMENU_TOGGLE_CLASS).children('a').on('click', function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-			$(this).parent().toggleClass(SIDEMENU_EXPANDED_CLASS);
-		});
+	  // Expanding/Collapsing of the entire side menu on mobile devices
+	  menuElement.children('.' + SIDEMENU_TOGGLE_CLASS).children('a').on('click', function (e) {
+	    e.preventDefault();
+	    e.stopPropagation();
+	    $(this).parent().toggleClass(SIDEMENU_EXPANDED_CLASS);
+	  });
 	
-		menuElement.find('.' + SIDEMENU_EXPANDER_CLASS).each(initExpandableSubmenu);
+	  var expandableButtons = menuElement.find('.' + SIDEMENU_EXPANDER_CLASS);
+	
+	  // Add tracking if enabled
+	  if (shouldTrackByGtm(menuElement)) {
+	    addGtmTrackingListeners(menuElement.find('li > a'), 'click', 'sidemenu-link');
+	    addGtmTrackingListeners(expandableButtons, 'click', 'sidemenu-expander');
+	  }
+	
+	  expandableButtons.each(initExpandableSubmenu);
 	}
 	
 	//TODO: Remove after this was implemented on the backend (~ in Squiz)
@@ -159,2220 +171,395 @@
 	var btnExpanderHtml = '<span class="btn-expander" title="Toggle subpages"></span>';
 	
 	function enhanceSidemenu(menuElement) {
-		menuElement.find('li').each(function () {
-			var listItem = $(this);
+	  menuElement.find('li').each(function () {
+	    var listItem = $(this);
 	
-			// a) already has got a proper class in place? Skip!
-			if (listItem.hasClass(SIDEMENU_SUBMENU_CLASS)) return;
+	    // a) already has got a proper class in place? Skip!
+	    if (listItem.hasClass(SIDEMENU_SUBMENU_CLASS)) return;
 	
-			// b) No submenu in <li>? Skip!
-			if (listItem.children('ul').length === 0) return;
+	    // b) No submenu in <li>? Skip!
+	    if (listItem.children('ul').length === 0) return;
 	
-			// c) Has got a submenu => Enhance sidemenu's HTML
-			listItem.addClass(SIDEMENU_SUBMENU_CLASS);
-			$(btnExpanderHtml).insertAfter(listItem.children('a'));
-		});
+	    // c) Has got a submenu => Enhance sidemenu's HTML
+	    listItem.addClass(SIDEMENU_SUBMENU_CLASS);
+	    $(btnExpanderHtml).insertAfter(listItem.children('a'));
+	  });
+	}
+	
+	/** Popup launcher. */
+	function initPopupBox(popupElement) {
+	  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	      _ref$delayInMs = _ref.delayInMs,
+	      delayInMs = _ref$delayInMs === undefined ? 7000 : _ref$delayInMs,
+	      _ref$suppressAfterCan = _ref.suppressAfterCanceling,
+	      suppressAfterCanceling = _ref$suppressAfterCan === undefined ? true : _ref$suppressAfterCan;
+	
+	  var COOKIE_ID = popupElement.get(0).id || 'popup';
+	  var COOKIE_SETTINGS = {
+	    expires: 2419200 // 28 days
+	    //secure  : true    //If set to true the secure attribute of the cookie
+	  };
+	
+	  var popupContainerElement = popupElement.parent('.popup-positioner');
+	
+	  popupContainerElement = popupContainerElement.length ? popupContainerElement : null;
+	
+	  var buttonOkElement = popupElement.find('.button-ok');
+	  var buttonCancelElement = popupElement.find('.button-cancel');
+	  var buttonCloseElement = popupElement.find('.btn-close');
+	
+	  var IS_SHOWN_CLASS = 'shown';
+	
+	  // Attach button events
+	  function bindButtonEvents() {
+	    buttonCloseElement.on('click', close);
+	    buttonCancelElement.on('click', cancel);
+	    buttonOkElement.on('click', submit);
+	  }
+	
+	  function unbindButtonEvents() {
+	    buttonCloseElement.off('click', close);
+	    buttonCancelElement.off('click', cancel);
+	    buttonOkElement.off('click', submit);
+	  }
+	
+	  function close(event) {
+	    // If `positionerClass` exists, hide + save 'hidden' to cookies
+	    event.preventDefault();
+	    event.stopPropagation();
+	    closePopup();
+	  }
+	
+	  function submit(event) {
+	    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
+	    closePopup();
+	  }
+	
+	  function cancel(event) {
+	    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
+	    closePopup();
+	  }
+	
+	  function showPopup() {
+	    bindButtonEvents();
+	    addShownClass();
+	
+	    if (shouldTrackByGtm(popupElement)) {
+	      pushTrackingInfoToGtm(popupElement.get(0).id, 'open');
+	    }
+	  }
+	
+	  function addShownClass() {
+	    if (popupContainerElement) {
+	      $(document.body).append(popupContainerElement);
+	      popupContainerElement.addClass(IS_SHOWN_CLASS);
+	      //popupContainerElement.fadeIn( 'slow', function() {});
+	    } else {
+	      popupElement.addClass(IS_SHOWN_CLASS);
+	    }
+	  }
+	
+	  function removeShownClass() {
+	    if (popupContainerElement) {
+	      popupContainerElement.removeClass(IS_SHOWN_CLASS);
+	      //popupContainerElement.fadeOut( 'slow', function() {});
+	    } else {
+	      popupElement.removeClass(IS_SHOWN_CLASS);
+	    }
+	  }
+	
+	  function isPopupShown() {
+	    return popupElement.attr('data-shown') == 'true';
+	  }
+	
+	  function closePopup() {
+	    unbindButtonEvents();
+	    popupElement.attr('data-shown', false);
+	    removeShownClass();
+	
+	    if (suppressAfterCanceling) closePopupPermanently();
+	  }
+	
+	  function closePopupPermanently() {
+	    cookie.set(COOKIE_ID, true, COOKIE_SETTINGS);
+	  }
+	
+	  // Constructor
+	  (function init() {
+	    var shouldShowPopup = !suppressAfterCanceling || cookie.get(COOKIE_ID) === undefined || !cookie.get(COOKIE_ID);
+	
+	    if (shouldShowPopup && !isPopupShown()) {
+	      popupElement.attr('data-shown', true); // Must be added here to prevent triggering setTimeout when clicking multiple time
+	
+	      // If there's a positioner available, display after the timeout!
+	      setTimeout(function () {
+	        showPopup();
+	      }, delayInMs);
+	    }
+	  })();
+	}
+	
+	/**
+	 * Function called on the jQuery Element, opens it as a popup.
+	 *
+	 * @param {Object} { delayInMs = 0, suppressAfterCanceling = false }
+	 *
+	 * @returns {DOMElement}
+	 */
+	function openPopup() {
+	  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+	      _ref2$delayInMs = _ref2.delayInMs,
+	      delayInMs = _ref2$delayInMs === undefined ? 0 : _ref2$delayInMs,
+	      _ref2$suppressAfterCa = _ref2.suppressAfterCanceling,
+	      suppressAfterCanceling = _ref2$suppressAfterCa === undefined ? false : _ref2$suppressAfterCa;
+	
+	  initPopupBox(this, { delayInMs: delayInMs, suppressAfterCanceling: suppressAfterCanceling });
+	
+	  return this;
+	}
+	
+	var GTM_TRACK_ATTRIBUTE = 'data-gtm-track';
+	var GTM_ID_ATTRIBUTE = 'data-gtm-id';
+	
+	var dataLayer = [];
+	
+	function autoregisterGtmTrackingListeners() {
+	  addGtmTrackingListeners($('[' + GTM_TRACK_ATTRIBUTE + ']'));
+	}
+	
+	function addGtmTrackingListeners(elementsList, eventType, trackingId) {
+	  elementsList.each(function () {
+	    var elementToTrack = $(this);
+	
+	    eventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto';
+	    trackingId = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id;
+	
+	    //console.log( '>>> Tracking: ', elementToTrack, eventType );
+	
+	    switch (eventType) {
+	      case 'click':
+	        {
+	          elementToTrack.on(eventType, function (event) {
+	            dataLayer.push({
+	              'custom.id': trackingId,
+	              'custom.selector': event.target,
+	              'custom.eventType': event.type,
+	              'custom.href': event.currentTarget.href,
+	              'custom.text': event.currentTarget.text
+	            });
+	          });
+	        };break;
+	      case 'auto':
+	        break;
+	      default:
+	        {
+	          console.warn('GTM: Tracking of event \'' + eventType + '\' is not supported. Please, change it.');
+	        }
+	    }
+	  });
+	}
+	
+	function pushTrackingInfoToGtm(trackingId, eventType) {
+	  dataLayer.push({
+	    'custom.id': trackingId,
+	    'custom.eventType': eventType
+	  });
+	  //console.log( '!!! Pushing into dataLayer!', dataLayer );
+	}
+	
+	function shouldTrackByGtm(element) {
+	  return Boolean(element.attr(GTM_TRACK_ATTRIBUTE) !== undefined);
 	}
 	
 	$(function () {
 	
-		fastclick.attach(document.body);
-		var $body = $('body');
-		var $globalNav = $("#global-nav");
-		var $globalSearch = $("#global-search");
+	  fastclick.attach(document.body);
+	  var $body = $('body');
+	  var $globalNav = $("#global-nav");
+	  var $globalSearch = $("#global-search");
 	
-		/** Init side-menu, if it's present */
-		if ($('.' + SIDEMENU_CLASS).length) {
-			initSidemenuExpandability();
-		}
+	  /** Init side-menu, if it's present */
+	  if ($('.' + SIDEMENU_CLASS).length) {
+	    initSidemenuExpandability();
+	  }
 	
-		//http://wicky.nillia.ms/enquire.js/
-		enquire.register(MOBILE_LARGE_AND_SMALLER, function () {
+	  // Find all existing popups and if they contain `data-autoload` attribute,
+	  // trigger autoloading automatically.
+	  $('.popup').each(function () {
+	    var popupElement = $(this);
+	    if (popupElement.attr('data-autoload') !== undefined) {
+	      // Autoload (~ show/hide) popup
+	      var optionsObject = {};
 	
-			if ($globalNav.length) {
-				var eGlobalNav = $globalNav[0];
-				var headroom = new Headroom(eGlobalNav, {
-					"offset": eGlobalNav.clientHeight,
-					"tolerance": {
-						up: 20,
-						down: 5
-					},
-					onPin: function onPin() {
-						//reset in-menu scrolling
-						$globalNav.find('.menu').scrollTop(0);
-					},
-					onUnpin: function onUnpin() {
-						$globalNav.toggleClass('is-open', false);
-						$globalNav.find('.tcon').toggleClass('tcon-transform', false);
-					}
+	      if (popupElement.attr('data-opts') !== undefined) {
+	        optionsObject = JSON.parse(popupElement.attr('data-opts'));
+	      }
 	
-				});
-				headroom.init();
+	      initPopupBox(popupElement, optionsObject);
+	    }
+	  });
 	
-				$body.on('click ', '.js-toggle-global-nav', function (_event) {
-					var $this = $(this);
-					$this.find('.tcon').toggleClass('tcon-transform');
-					$globalNav.toggleClass('is-open');
-				});
-			}
-		});
+	  /** GOOGLE TAG MANAGER */
 	
-		$body.on('click ', '.js-toggle-global-search', function (_event) {
-			var $this = $(this);
+	  /** Auto-register all on-demand elements to track for GTM. */
+	  setTimeout(autoregisterGtmTrackingListeners, 0); // To trigger after previous DOM re-renders
 	
-			if ($this.data('js-has-active-transition')) {
-				return false;
-			}
-	
-			$this.data('js-has-active-transition', true);
-			$this.find('.tcon').toggleClass('tcon-transform');
-	
-			if ($globalSearch.hasClass('is-open')) {
-				$globalSearch.toggleClass('is-open', false);
-				setTimeout(function () {
-					$this.data('js-has-active-transition', false);
-				}, TRANSITION_TIMEOUT);
-			} else {
-				$globalSearch.toggleClass('is-open', true);
-				setTimeout(function () {
-					$globalSearch.find('input:text').focus();
-					$this.data('js-has-active-transition', false);
-				}, TRANSITION_TIMEOUT);
-			}
-			// $globalSearch.velocity({'left': '85%'}, { duration: 1500 });
-			_event.preventDefault();
-		});
-	
-		//Study areas tabs toggle
-	
-		$('#study-area-tabs li a').click(function () {
-			if ($(this).parent().hasClass('active')) {
-				return;
-			}
-			$('.active').removeClass('active');
-			$(this).parent().addClass('active');
-			$('.study-areas').toggleClass('hidden');
-			$('.degrees-quals').toggleClass('hidden');
-		});
-	
-		/* study areas toggle programme level initially hide postgrad */
-		$('.study-areas-postgrad').hide();
-		$('.switch .switch-input').on('change', function () {
-	
-			console.log($(this).attr('value'));
-	
-			if ($(this).attr('value') == 'undergraduate') {
-				$('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
-				$('.study-areas-undergrad').show(500);
-				$('.study-areas-postgrad').hide(500);
-			}
-			if ($(this).attr('value') == 'postgraduate') {
-				$('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span> Postgraduate subjects');
-				$('.study-areas-postgrad').show(500);
-				$('.study-areas-undergrad').hide(500);
-			}
-		});
-	
-		/* dynamic height for tiles. setting height of all tiles from largest tile height */
-		$('.dynamic-height-tiles ').each(function (n) {
-			//get array of heights for each group of class
-			var tileHeights = $(this).find('li.tile').map(function () {
-				return $(this).height();
-			}).get();
-	
-			//check heights for largest
-			var maxHeight = Math.max.apply(null, tileHeights);
-	
-			//apply maxheight to tiles
-			$(this).find('li.tile').height(maxHeight + 16);
-		});
-	
-		/* Navigation toggle on mobile */
-		$('.main-menu-toggle').on('click', function () {
-			$('.main-nav').slideToggle();
-			$('.search-bar').slideToggle();
-			$('.menu-toggle-icon').toggleClass('open');
-		});
-	
-		/* Show search bar on desktop */
-		$('.search-item').on('click', function () {
-			$('.search-bar').slideToggle();
-		});
-	
-		/** DOM manipulation */
-	
-		wrapEmbeddedIframes();
-		removedUnusedTiles(); //TODO: Review - Can be removed after all the study areas are migrated
+	  /** Any element or set of elements can be dynamically tracked this way */
+	  // addGtmTrackingListeners( jQueryElements, trackingId, eventType );
 	
 	
-		//tile accordion
+	  //http://wicky.nillia.ms/enquire.js/
+	  enquire.register(MOBILE_LARGE_AND_SMALLER, function () {
 	
-		$('.tile-accordion .tile').on('click', function (evt) {
-			evt.preventDefault();
+	    if ($globalNav.length) {
+	      var eGlobalNav = $globalNav[0];
+	      var headroom = new Headroom(eGlobalNav, {
+	        "offset": eGlobalNav.clientHeight,
+	        "tolerance": {
+	          up: 20,
+	          down: 5
+	        },
+	        onPin: function onPin() {
+	          //reset in-menu scrolling
+	          $globalNav.find('.menu').scrollTop(0);
+	        },
+	        onUnpin: function onUnpin() {
+	          $globalNav.toggleClass('is-open', false);
+	          $globalNav.find('.tcon').toggleClass('tcon-transform', false);
+	        }
 	
-			if ($(this).hasClass('accordion-closed')) {
-				$(this).children('.accordion-content ').slideDown();
-				$(this).removeClass('accordion-closed').addClass('accordion-open');
-			} else if ($(this).hasClass('accordion-open')) {
-				$(this).children('.accordion-content ').slideUp();
-				$(this).removeClass('accordion-open').addClass('accordion-closed');
-			}
+	      });
+	      headroom.init();
 	
-			$(this).find('.links a').on('click', function (event) {
-				event.stopPropagation();
-			});
-		});
+	      $body.on('click ', '.js-toggle-global-nav', function (_event) {
+	        var $this = $(this);
+	        $this.find('.tcon').toggleClass('tcon-transform');
+	        $globalNav.toggleClass('is-open');
+	      });
+	    }
+	  });
+	
+	  $body.on('click ', '.js-toggle-global-search', function (_event) {
+	    var $this = $(this);
+	
+	    if ($this.data('js-has-active-transition')) {
+	      return false;
+	    }
+	
+	    $this.data('js-has-active-transition', true);
+	    $this.find('.tcon').toggleClass('tcon-transform');
+	
+	    if ($globalSearch.hasClass('is-open')) {
+	      $globalSearch.toggleClass('is-open', false);
+	      setTimeout(function () {
+	        $this.data('js-has-active-transition', false);
+	      }, TRANSITION_TIMEOUT);
+	    } else {
+	      $globalSearch.toggleClass('is-open', true);
+	      setTimeout(function () {
+	        $globalSearch.find('input:text').focus();
+	        $this.data('js-has-active-transition', false);
+	      }, TRANSITION_TIMEOUT);
+	    }
+	    // $globalSearch.velocity({'left': '85%'}, { duration: 1500 });
+	    _event.preventDefault();
+	  });
+	
+	  //Study areas tabs toggle
+	
+	  $('#study-area-tabs li a').click(function () {
+	    if ($(this).parent().hasClass('active')) {
+	      return;
+	    }
+	    $('.active').removeClass('active');
+	    $(this).parent().addClass('active');
+	    $('.study-areas').toggleClass('hidden');
+	    $('.degrees-quals').toggleClass('hidden');
+	  });
+	
+	  /* study areas toggle programme level initially hide postgrad */
+	  $('.study-areas-postgrad').hide();
+	  $('.switch .switch-input').on('change', function () {
+	
+	    console.log($(this).attr('value'));
+	
+	    if ($(this).attr('value') == 'undergraduate') {
+	      $('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
+	      $('.study-areas-undergrad').show(500);
+	      $('.study-areas-postgrad').hide(500);
+	    }
+	    if ($(this).attr('value') == 'postgraduate') {
+	      $('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span> Postgraduate subjects');
+	      $('.study-areas-postgrad').show(500);
+	      $('.study-areas-undergrad').hide(500);
+	    }
+	  });
+	
+	  /* dynamic height for tiles. setting height of all tiles from largest tile height */
+	  $('.dynamic-height-tiles ').each(function (n) {
+	    //get array of heights for each group of class
+	    var tileHeights = $(this).find('li.tile').map(function () {
+	      return $(this).height();
+	    }).get();
+	
+	    //check heights for largest
+	    var maxHeight = Math.max.apply(null, tileHeights);
+	
+	    //apply maxheight to tiles
+	    $(this).find('li.tile').height(maxHeight + 16);
+	  });
+	
+	  /* Navigation toggle on mobile */
+	  $('.main-menu-toggle').on('click', function () {
+	    $('.main-nav').slideToggle();
+	    $('.search-bar').slideToggle();
+	    $('.menu-toggle-icon').toggleClass('open');
+	  });
+	
+	  /* Show search bar on desktop */
+	  $('.search-item').on('click', function () {
+	    $('.search-bar').slideToggle();
+	  });
+	
+	  /** DOM manipulation */
+	
+	  wrapEmbeddedIframes();
+	  removedUnusedTiles(); //TODO: Review - Can be removed after all the study areas are migrated
+	
+	
+	  //tile accordion
+	
+	  $('.tile-accordion .tile').on('click', function (evt) {
+	    evt.preventDefault();
+	
+	    if ($(this).hasClass('accordion-closed')) {
+	      $(this).children('.accordion-content ').slideDown();
+	      $(this).removeClass('accordion-closed').addClass('accordion-open');
+	    } else if ($(this).hasClass('accordion-open')) {
+	      $(this).children('.accordion-content ').slideUp();
+	      $(this).removeClass('accordion-open').addClass('accordion-closed');
+	    }
+	
+	    $(this).find('.links a').on('click', function (event) {
+	      event.stopPropagation();
+	    });
+	  });
 	});
+	
+	/**
+	 * jQuery's plugin as a utility factory
+	 * Usage as: $( jquerySelector ).vicApp().method( options )
+	 */
+	(function ($) {
+	  $.fn.vicApp = function () {
+	    return {
+	      openPopup: openPopup.bind(this)
+	    };
+	  };
+	})(jQuery);
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Helper function for iterating over a collection
-	 *
-	 * @param collection
-	 * @param fn
-	 */
-	function each(collection, fn) {
-	    var i      = 0,
-	        length = collection.length,
-	        cont;
-	
-	    for(i; i < length; i++) {
-	        cont = fn(collection[i], i);
-	        if(cont === false) {
-	            break; //allow early exit
-	        }
-	    }
-	}
-	
-	/**
-	 * Helper function for determining whether target object is an array
-	 *
-	 * @param target the object under test
-	 * @return {Boolean} true if array, false otherwise
-	 */
-	function isArray(target) {
-	    return Object.prototype.toString.apply(target) === '[object Array]';
-	}
-	
-	/**
-	 * Helper function for determining whether target object is a function
-	 *
-	 * @param target the object under test
-	 * @return {Boolean} true if function, false otherwise
-	 */
-	function isFunction(target) {
-	    return typeof target === 'function';
-	}
-	
-	module.exports = {
-	    isFunction : isFunction,
-	    isArray : isArray,
-	    each : each
-	};
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	var _accent_map;
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	$(function () {
-	
-		//filterTags parameter only needed for postgrad quals filter..
-		function searchFilter(targetElements, searchInput, minQueryLength, filterTags) {
-	
-			var $targetElements = $(targetElements);
-			var $searchInput = $(searchInput);
-			var MIN_QUERY_LENGTH = minQueryLength;
-	
-			// console.time('removing accents from all elements');
-			$targetElements.each(function () {
-				var $this = $(this);
-	
-				$this.data('search-text', accent_fold($this.text()).toLowerCase());
-				$this.data('search-keywords', accent_fold($this.data('search-keywords')).toLowerCase());
-			});
-			// console.timeEnd('removing accents from all elements');
-	
-			$searchInput.on('propertychange change click keyup input paste', function (_event) {
-				var _query = _event.currentTarget.value;
-	
-				if (_query.length < MIN_QUERY_LENGTH) {
-					$targetElements.toggleClass('is-matching', false);
-					$targetElements.toggleClass('is-not-matching', false);
-					return;
-				}
-	
-				_query = accent_fold(_query).toLowerCase();
-	
-				$targetElements.each(function () {
-					var $this = $(this);
-	
-					if ($this.data('search-text').indexOf(_query) !== -1 || $this.data('search-keywords').indexOf(_query) !== -1) {
-						$this.toggleClass('is-matching', true);
-						$this.toggleClass('is-not-matching', false);
-					} else {
-						$this.toggleClass('is-matching', false);
-						$this.toggleClass('is-not-matching', true);
-					}
-				});
-			});
-	
-			var tags = $(filterTags);
-	
-			if (tags !== null) {
-	
-				tags.each(function () {
-					//on tag click update input to filter
-					$(this).on('click', function (e) {
-						$(this).siblings().removeClass('tag-active');
-						$(this).addClass('tag-active');
-	
-						if ($(this).text() !== "All") {
-							$(searchInput).val('');
-							$(searchInput).val($(this).text()).change();
-	
-							$(this).css('margin-right', '');
-	
-							//update margins to prevent grid breaking
-							$('.is-matching').each(function (index) {
-								$(this).css('margin-right', '1%');
-	
-								if ((index + 1) % 4 === 0) {
-									$(this).css('margin-right', '0%');
-								}
-							});
-						} else {
-							$(searchInput).val('').change();
-							$(targetElements).css('margin-right', '');
-						}
-					});
-				});
-			}
-		}
-	
-		searchFilter('.postgrad-quals li', '#filter-quals', 3, '.quals-filter .tag');
-		searchFilter('#areas-of-study li', '#search-aos', 3);
-	});
-	
-	//alistapart.com/article/accent-folding-for-auto-complete
-	var accent_map = (_accent_map = {
-		'ẚ': 'a',
-		'Á': 'a',
-		'á': 'a',
-		'À': 'a',
-		'à': 'a',
-		'Ă': 'a',
-		'ă': 'a',
-		'Ắ': 'a',
-		'ắ': 'a',
-		'Ằ': 'a',
-		'ằ': 'a',
-		'Ẵ': 'a',
-		'ẵ': 'a',
-		'Ẳ': 'a',
-		'ẳ': 'a',
-		'Â': 'a',
-		'â': 'a',
-		'Ấ': 'a',
-		'ấ': 'a',
-		'Ầ': 'a',
-		'ầ': 'a',
-		'Ẫ': 'a',
-		'ẫ': 'a',
-		'Ẩ': 'a',
-		'ẩ': 'a',
-		'Ǎ': 'a',
-		'ǎ': 'a',
-		'Å': 'a',
-		'å': 'a',
-		'Ǻ': 'a',
-		'ǻ': 'a',
-		'Ä': 'a',
-		'ä': 'a',
-		'Ǟ': 'a',
-		'ǟ': 'a',
-		'Ã': 'a',
-		'ã': 'a',
-		'Ȧ': 'a',
-		'ȧ': 'a',
-		'Ǡ': 'a',
-		'ǡ': 'a',
-		'Ą': 'a',
-		'ą': 'a',
-		'Ā': 'a',
-		'ā': 'a',
-		'Ả': 'a',
-		'ả': 'a',
-		'Ȁ': 'a',
-		'ȁ': 'a',
-		'Ȃ': 'a',
-		'ȃ': 'a',
-		'Ạ': 'a',
-		'ạ': 'a',
-		'Ặ': 'a',
-		'ặ': 'a',
-		'Ậ': 'a',
-		'ậ': 'a',
-		'Ḁ': 'a',
-		'ḁ': 'a',
-		'Ⱥ': 'a',
-		'ⱥ': 'a',
-		'Ǽ': 'a',
-		'ǽ': 'a',
-		'Ǣ': 'a',
-		'ǣ': 'a',
-		'Ḃ': 'b',
-		'ḃ': 'b',
-		'Ḅ': 'b',
-		'ḅ': 'b',
-		'Ḇ': 'b',
-		'ḇ': 'b',
-		'Ƀ': 'b',
-		'ƀ': 'b',
-		'ᵬ': 'b',
-		'Ɓ': 'b',
-		'ɓ': 'b',
-		'Ƃ': 'b',
-		'ƃ': 'b',
-		'Ć': 'c',
-		'ć': 'c',
-		'Ĉ': 'c',
-		'ĉ': 'c',
-		'Č': 'c',
-		'č': 'c',
-		'Ċ': 'c',
-		'ċ': 'c',
-		'Ç': 'c',
-		'ç': 'c',
-		'Ḉ': 'c',
-		'ḉ': 'c',
-		'Ȼ': 'c',
-		'ȼ': 'c',
-		'Ƈ': 'c',
-		'ƈ': 'c',
-		'ɕ': 'c',
-		'Ď': 'd',
-		'ď': 'd',
-		'Ḋ': 'd',
-		'ḋ': 'd',
-		'Ḑ': 'd',
-		'ḑ': 'd',
-		'Ḍ': 'd',
-		'ḍ': 'd',
-		'Ḓ': 'd',
-		'ḓ': 'd',
-		'Ḏ': 'd',
-		'ḏ': 'd',
-		'Đ': 'd',
-		'đ': 'd',
-		'ᵭ': 'd',
-		'Ɖ': 'd',
-		'ɖ': 'd',
-		'Ɗ': 'd',
-		'ɗ': 'd',
-		'Ƌ': 'd',
-		'ƌ': 'd',
-		'ȡ': 'd',
-		'ð': 'd',
-		'É': 'e',
-		'Ə': 'e',
-		'Ǝ': 'e',
-		'ǝ': 'e',
-		'é': 'e',
-		'È': 'e',
-		'è': 'e',
-		'Ĕ': 'e',
-		'ĕ': 'e',
-		'Ê': 'e',
-		'ê': 'e',
-		'Ế': 'e',
-		'ế': 'e',
-		'Ề': 'e',
-		'ề': 'e',
-		'Ễ': 'e',
-		'ễ': 'e',
-		'Ể': 'e',
-		'ể': 'e',
-		'Ě': 'e',
-		'ě': 'e',
-		'Ë': 'e',
-		'ë': 'e',
-		'Ẽ': 'e',
-		'ẽ': 'e',
-		'Ė': 'e',
-		'ė': 'e',
-		'Ȩ': 'e',
-		'ȩ': 'e',
-		'Ḝ': 'e',
-		'ḝ': 'e',
-		'Ę': 'e',
-		'ę': 'e',
-		'Ē': 'e',
-		'ē': 'e',
-		'Ḗ': 'e',
-		'ḗ': 'e',
-		'Ḕ': 'e',
-		'ḕ': 'e',
-		'Ẻ': 'e',
-		'ẻ': 'e',
-		'Ȅ': 'e',
-		'ȅ': 'e',
-		'Ȇ': 'e',
-		'ȇ': 'e',
-		'Ẹ': 'e',
-		'ẹ': 'e',
-		'Ệ': 'e',
-		'ệ': 'e',
-		'Ḙ': 'e',
-		'ḙ': 'e',
-		'Ḛ': 'e',
-		'ḛ': 'e',
-		'Ɇ': 'e',
-		'ɇ': 'e',
-		'ɚ': 'e',
-		'ɝ': 'e',
-		'Ḟ': 'f',
-		'ḟ': 'f',
-		'ᵮ': 'f',
-		'Ƒ': 'f',
-		'ƒ': 'f',
-		'Ǵ': 'g',
-		'ǵ': 'g',
-		'Ğ': 'g',
-		'ğ': 'g',
-		'Ĝ': 'g',
-		'ĝ': 'g',
-		'Ǧ': 'g',
-		'ǧ': 'g',
-		'Ġ': 'g',
-		'ġ': 'g',
-		'Ģ': 'g',
-		'ģ': 'g',
-		'Ḡ': 'g',
-		'ḡ': 'g',
-		'Ǥ': 'g',
-		'ǥ': 'g',
-		'Ɠ': 'g',
-		'ɠ': 'g',
-		'Ĥ': 'h',
-		'ĥ': 'h',
-		'Ȟ': 'h',
-		'ȟ': 'h',
-		'Ḧ': 'h',
-		'ḧ': 'h',
-		'Ḣ': 'h',
-		'ḣ': 'h',
-		'Ḩ': 'h',
-		'ḩ': 'h',
-		'Ḥ': 'h',
-		'ḥ': 'h',
-		'Ḫ': 'h',
-		'ḫ': 'h',
-		'H': 'h',
-		'̱': 'h',
-		'ẖ': 'h',
-		'Ħ': 'h',
-		'ħ': 'h',
-		'Ⱨ': 'h',
-		'ⱨ': 'h',
-		'Í': 'i',
-		'í': 'i',
-		'Ì': 'i',
-		'ì': 'i',
-		'Ĭ': 'i',
-		'ĭ': 'i',
-		'Î': 'i',
-		'î': 'i',
-		'Ǐ': 'i',
-		'ǐ': 'i',
-		'Ï': 'i',
-		'ï': 'i',
-		'Ḯ': 'i',
-		'ḯ': 'i',
-		'Ĩ': 'i',
-		'ĩ': 'i',
-		'İ': 'i',
-		'i': 'i',
-		'Į': 'i',
-		'į': 'i',
-		'Ī': 'i',
-		'ī': 'i',
-		'Ỉ': 'i',
-		'ỉ': 'i',
-		'Ȉ': 'i',
-		'ȉ': 'i',
-		'Ȋ': 'i',
-		'ȋ': 'i',
-		'Ị': 'i',
-		'ị': 'i',
-		'Ḭ': 'i',
-		'ḭ': 'i',
-		'I': 'i',
-		'ı': 'i',
-		'Ɨ': 'i',
-		'ɨ': 'i',
-		'Ĵ': 'j',
-		'ĵ': 'j',
-		'J': 'j',
-		'̌': 'j',
-		'ǰ': 'j',
-		'ȷ': 'j',
-		'Ɉ': 'j',
-		'ɉ': 'j',
-		'ʝ': 'j',
-		'ɟ': 'j',
-		'ʄ': 'j',
-		'Ḱ': 'k',
-		'ḱ': 'k',
-		'Ǩ': 'k',
-		'ǩ': 'k',
-		'Ķ': 'k',
-		'ķ': 'k',
-		'Ḳ': 'k',
-		'ḳ': 'k',
-		'Ḵ': 'k',
-		'ḵ': 'k',
-		'Ƙ': 'k',
-		'ƙ': 'k',
-		'Ⱪ': 'k',
-		'ⱪ': 'k',
-		'Ĺ': 'a',
-		'ĺ': 'l',
-		'Ľ': 'l',
-		'ľ': 'l',
-		'Ļ': 'l',
-		'ļ': 'l',
-		'Ḷ': 'l',
-		'ḷ': 'l',
-		'Ḹ': 'l',
-		'ḹ': 'l',
-		'Ḽ': 'l',
-		'ḽ': 'l',
-		'Ḻ': 'l',
-		'ḻ': 'l',
-		'Ł': 'l',
-		'ł': 'l'
-	}, _defineProperty(_accent_map, '\u0141', 'l'), _defineProperty(_accent_map, '̣', 'l'), _defineProperty(_accent_map, '\u0142', 'l'), _defineProperty(_accent_map, '\u0323', 'l'), _defineProperty(_accent_map, 'Ŀ', 'l'), _defineProperty(_accent_map, 'ŀ', 'l'), _defineProperty(_accent_map, 'Ƚ', 'l'), _defineProperty(_accent_map, 'ƚ', 'l'), _defineProperty(_accent_map, 'Ⱡ', 'l'), _defineProperty(_accent_map, 'ⱡ', 'l'), _defineProperty(_accent_map, 'Ɫ', 'l'), _defineProperty(_accent_map, 'ɫ', 'l'), _defineProperty(_accent_map, 'ɬ', 'l'), _defineProperty(_accent_map, 'ɭ', 'l'), _defineProperty(_accent_map, 'ȴ', 'l'), _defineProperty(_accent_map, 'Ḿ', 'm'), _defineProperty(_accent_map, 'ḿ', 'm'), _defineProperty(_accent_map, 'Ṁ', 'm'), _defineProperty(_accent_map, 'ṁ', 'm'), _defineProperty(_accent_map, 'Ṃ', 'm'), _defineProperty(_accent_map, 'ṃ', 'm'), _defineProperty(_accent_map, 'ɱ', 'm'), _defineProperty(_accent_map, 'Ń', 'n'), _defineProperty(_accent_map, 'ń', 'n'), _defineProperty(_accent_map, 'Ǹ', 'n'), _defineProperty(_accent_map, 'ǹ', 'n'), _defineProperty(_accent_map, 'Ň', 'n'), _defineProperty(_accent_map, 'ň', 'n'), _defineProperty(_accent_map, 'Ñ', 'n'), _defineProperty(_accent_map, 'ñ', 'n'), _defineProperty(_accent_map, 'Ṅ', 'n'), _defineProperty(_accent_map, 'ṅ', 'n'), _defineProperty(_accent_map, 'Ņ', 'n'), _defineProperty(_accent_map, 'ņ', 'n'), _defineProperty(_accent_map, 'Ṇ', 'n'), _defineProperty(_accent_map, 'ṇ', 'n'), _defineProperty(_accent_map, 'Ṋ', 'n'), _defineProperty(_accent_map, 'ṋ', 'n'), _defineProperty(_accent_map, 'Ṉ', 'n'), _defineProperty(_accent_map, 'ṉ', 'n'), _defineProperty(_accent_map, 'Ɲ', 'n'), _defineProperty(_accent_map, 'ɲ', 'n'), _defineProperty(_accent_map, 'Ƞ', 'n'), _defineProperty(_accent_map, 'ƞ', 'n'), _defineProperty(_accent_map, 'ɳ', 'n'), _defineProperty(_accent_map, 'ȵ', 'n'), _defineProperty(_accent_map, 'N', 'n'), _defineProperty(_accent_map, '̈', 'n'), _defineProperty(_accent_map, 'n', 'n'), _defineProperty(_accent_map, '\u0308', 'n'), _defineProperty(_accent_map, 'Ó', 'o'), _defineProperty(_accent_map, 'ó', 'o'), _defineProperty(_accent_map, 'Ò', 'o'), _defineProperty(_accent_map, 'ò', 'o'), _defineProperty(_accent_map, 'Ŏ', 'o'), _defineProperty(_accent_map, 'ŏ', 'o'), _defineProperty(_accent_map, 'Ô', 'o'), _defineProperty(_accent_map, 'ô', 'o'), _defineProperty(_accent_map, 'Ố', 'o'), _defineProperty(_accent_map, 'ố', 'o'), _defineProperty(_accent_map, 'Ồ', 'o'), _defineProperty(_accent_map, 'ồ', 'o'), _defineProperty(_accent_map, 'Ỗ', 'o'), _defineProperty(_accent_map, 'ỗ', 'o'), _defineProperty(_accent_map, 'Ổ', 'o'), _defineProperty(_accent_map, 'ổ', 'o'), _defineProperty(_accent_map, 'Ǒ', 'o'), _defineProperty(_accent_map, 'ǒ', 'o'), _defineProperty(_accent_map, 'Ö', 'o'), _defineProperty(_accent_map, 'ö', 'o'), _defineProperty(_accent_map, 'Ȫ', 'o'), _defineProperty(_accent_map, 'ȫ', 'o'), _defineProperty(_accent_map, 'Ő', 'o'), _defineProperty(_accent_map, 'ő', 'o'), _defineProperty(_accent_map, 'Õ', 'o'), _defineProperty(_accent_map, 'õ', 'o'), _defineProperty(_accent_map, 'Ṍ', 'o'), _defineProperty(_accent_map, 'ṍ', 'o'), _defineProperty(_accent_map, 'Ṏ', 'o'), _defineProperty(_accent_map, 'ṏ', 'o'), _defineProperty(_accent_map, 'Ȭ', 'o'), _defineProperty(_accent_map, 'ȭ', 'o'), _defineProperty(_accent_map, 'Ȯ', 'o'), _defineProperty(_accent_map, 'ȯ', 'o'), _defineProperty(_accent_map, 'Ȱ', 'o'), _defineProperty(_accent_map, 'ȱ', 'o'), _defineProperty(_accent_map, 'Ø', 'o'), _defineProperty(_accent_map, 'ø', 'o'), _defineProperty(_accent_map, 'Ǿ', 'o'), _defineProperty(_accent_map, 'ǿ', 'o'), _defineProperty(_accent_map, 'Ǫ', 'o'), _defineProperty(_accent_map, 'ǫ', 'o'), _defineProperty(_accent_map, 'Ǭ', 'o'), _defineProperty(_accent_map, 'ǭ', 'o'), _defineProperty(_accent_map, 'Ō', 'o'), _defineProperty(_accent_map, 'ō', 'o'), _defineProperty(_accent_map, 'Ṓ', 'o'), _defineProperty(_accent_map, 'ṓ', 'o'), _defineProperty(_accent_map, 'Ṑ', 'o'), _defineProperty(_accent_map, 'ṑ', 'o'), _defineProperty(_accent_map, 'Ỏ', 'o'), _defineProperty(_accent_map, 'ỏ', 'o'), _defineProperty(_accent_map, 'Ȍ', 'o'), _defineProperty(_accent_map, 'ȍ', 'o'), _defineProperty(_accent_map, 'Ȏ', 'o'), _defineProperty(_accent_map, 'ȏ', 'o'), _defineProperty(_accent_map, 'Ơ', 'o'), _defineProperty(_accent_map, 'ơ', 'o'), _defineProperty(_accent_map, 'Ớ', 'o'), _defineProperty(_accent_map, 'ớ', 'o'), _defineProperty(_accent_map, 'Ờ', 'o'), _defineProperty(_accent_map, 'ờ', 'o'), _defineProperty(_accent_map, 'Ỡ', 'o'), _defineProperty(_accent_map, 'ỡ', 'o'), _defineProperty(_accent_map, 'Ở', 'o'), _defineProperty(_accent_map, 'ở', 'o'), _defineProperty(_accent_map, 'Ợ', 'o'), _defineProperty(_accent_map, 'ợ', 'o'), _defineProperty(_accent_map, 'Ọ', 'o'), _defineProperty(_accent_map, 'ọ', 'o'), _defineProperty(_accent_map, 'Ộ', 'o'), _defineProperty(_accent_map, 'ộ', 'o'), _defineProperty(_accent_map, 'Ɵ', 'o'), _defineProperty(_accent_map, 'ɵ', 'o'), _defineProperty(_accent_map, 'Ṕ', 'p'), _defineProperty(_accent_map, 'ṕ', 'p'), _defineProperty(_accent_map, 'Ṗ', 'p'), _defineProperty(_accent_map, 'ṗ', 'p'), _defineProperty(_accent_map, 'Ᵽ', 'p'), _defineProperty(_accent_map, 'Ƥ', 'p'), _defineProperty(_accent_map, 'ƥ', 'p'), _defineProperty(_accent_map, 'P', 'p'), _defineProperty(_accent_map, '̃', 'p'), _defineProperty(_accent_map, 'p', 'p'), _defineProperty(_accent_map, '\u0303', 'p'), _defineProperty(_accent_map, 'ʠ', 'q'), _defineProperty(_accent_map, 'Ɋ', 'q'), _defineProperty(_accent_map, 'ɋ', 'q'), _defineProperty(_accent_map, 'Ŕ', 'r'), _defineProperty(_accent_map, 'ŕ', 'r'), _defineProperty(_accent_map, 'Ř', 'r'), _defineProperty(_accent_map, 'ř', 'r'), _defineProperty(_accent_map, 'Ṙ', 'r'), _defineProperty(_accent_map, 'ṙ', 'r'), _defineProperty(_accent_map, 'Ŗ', 'r'), _defineProperty(_accent_map, 'ŗ', 'r'), _defineProperty(_accent_map, 'Ȑ', 'r'), _defineProperty(_accent_map, 'ȑ', 'r'), _defineProperty(_accent_map, 'Ȓ', 'r'), _defineProperty(_accent_map, 'ȓ', 'r'), _defineProperty(_accent_map, 'Ṛ', 'r'), _defineProperty(_accent_map, 'ṛ', 'r'), _defineProperty(_accent_map, 'Ṝ', 'r'), _defineProperty(_accent_map, 'ṝ', 'r'), _defineProperty(_accent_map, 'Ṟ', 'r'), _defineProperty(_accent_map, 'ṟ', 'r'), _defineProperty(_accent_map, 'Ɍ', 'r'), _defineProperty(_accent_map, 'ɍ', 'r'), _defineProperty(_accent_map, 'ᵲ', 'r'), _defineProperty(_accent_map, 'ɼ', 'r'), _defineProperty(_accent_map, 'Ɽ', 'r'), _defineProperty(_accent_map, 'ɽ', 'r'), _defineProperty(_accent_map, 'ɾ', 'r'), _defineProperty(_accent_map, 'ᵳ', 'r'), _defineProperty(_accent_map, 'ß', 's'), _defineProperty(_accent_map, 'Ś', 's'), _defineProperty(_accent_map, 'ś', 's'), _defineProperty(_accent_map, 'Ṥ', 's'), _defineProperty(_accent_map, 'ṥ', 's'), _defineProperty(_accent_map, 'Ŝ', 's'), _defineProperty(_accent_map, 'ŝ', 's'), _defineProperty(_accent_map, 'Š', 's'), _defineProperty(_accent_map, 'š', 's'), _defineProperty(_accent_map, 'Ṧ', 's'), _defineProperty(_accent_map, 'ṧ', 's'), _defineProperty(_accent_map, 'Ṡ', 's'), _defineProperty(_accent_map, 'ṡ', 's'), _defineProperty(_accent_map, 'ẛ', 's'), _defineProperty(_accent_map, 'Ş', 's'), _defineProperty(_accent_map, 'ş', 's'), _defineProperty(_accent_map, 'Ṣ', 's'), _defineProperty(_accent_map, 'ṣ', 's'), _defineProperty(_accent_map, 'Ṩ', 's'), _defineProperty(_accent_map, 'ṩ', 's'), _defineProperty(_accent_map, 'Ș', 's'), _defineProperty(_accent_map, 'ș', 's'), _defineProperty(_accent_map, 'ʂ', 's'), _defineProperty(_accent_map, 'S', 's'), _defineProperty(_accent_map, '̩', 's'), _defineProperty(_accent_map, 's', 's'), _defineProperty(_accent_map, '\u0329', 's'), _defineProperty(_accent_map, 'Þ', 't'), _defineProperty(_accent_map, 'þ', 't'), _defineProperty(_accent_map, 'Ť', 't'), _defineProperty(_accent_map, 'ť', 't'), _defineProperty(_accent_map, 'T', 't'), _defineProperty(_accent_map, '\u0308', 't'), _defineProperty(_accent_map, 'ẗ', 't'), _defineProperty(_accent_map, 'Ṫ', 't'), _defineProperty(_accent_map, 'ṫ', 't'), _defineProperty(_accent_map, 'Ţ', 't'), _defineProperty(_accent_map, 'ţ', 't'), _defineProperty(_accent_map, 'Ṭ', 't'), _defineProperty(_accent_map, 'ṭ', 't'), _defineProperty(_accent_map, 'Ț', 't'), _defineProperty(_accent_map, 'ț', 't'), _defineProperty(_accent_map, 'Ṱ', 't'), _defineProperty(_accent_map, 'ṱ', 't'), _defineProperty(_accent_map, 'Ṯ', 't'), _defineProperty(_accent_map, 'ṯ', 't'), _defineProperty(_accent_map, 'Ŧ', 't'), _defineProperty(_accent_map, 'ŧ', 't'), _defineProperty(_accent_map, 'Ⱦ', 't'), _defineProperty(_accent_map, 'ⱦ', 't'), _defineProperty(_accent_map, 'ᵵ', 't'), _defineProperty(_accent_map, 'ƫ', 't'), _defineProperty(_accent_map, 'Ƭ', 't'), _defineProperty(_accent_map, 'ƭ', 't'), _defineProperty(_accent_map, 'Ʈ', 't'), _defineProperty(_accent_map, 'ʈ', 't'), _defineProperty(_accent_map, 'ȶ', 't'), _defineProperty(_accent_map, 'Ú', 'u'), _defineProperty(_accent_map, 'ú', 'u'), _defineProperty(_accent_map, 'Ù', 'u'), _defineProperty(_accent_map, 'ù', 'u'), _defineProperty(_accent_map, 'Ŭ', 'u'), _defineProperty(_accent_map, 'ŭ', 'u'), _defineProperty(_accent_map, 'Û', 'u'), _defineProperty(_accent_map, 'û', 'u'), _defineProperty(_accent_map, 'Ǔ', 'u'), _defineProperty(_accent_map, 'ǔ', 'u'), _defineProperty(_accent_map, 'Ů', 'u'), _defineProperty(_accent_map, 'ů', 'u'), _defineProperty(_accent_map, 'Ü', 'u'), _defineProperty(_accent_map, 'ü', 'u'), _defineProperty(_accent_map, 'Ǘ', 'u'), _defineProperty(_accent_map, 'ǘ', 'u'), _defineProperty(_accent_map, 'Ǜ', 'u'), _defineProperty(_accent_map, 'ǜ', 'u'), _defineProperty(_accent_map, 'Ǚ', 'u'), _defineProperty(_accent_map, 'ǚ', 'u'), _defineProperty(_accent_map, 'Ǖ', 'u'), _defineProperty(_accent_map, 'ǖ', 'u'), _defineProperty(_accent_map, 'Ű', 'u'), _defineProperty(_accent_map, 'ű', 'u'), _defineProperty(_accent_map, 'Ũ', 'u'), _defineProperty(_accent_map, 'ũ', 'u'), _defineProperty(_accent_map, 'Ṹ', 'u'), _defineProperty(_accent_map, 'ṹ', 'u'), _defineProperty(_accent_map, 'Ų', 'u'), _defineProperty(_accent_map, 'ų', 'u'), _defineProperty(_accent_map, 'Ū', 'u'), _defineProperty(_accent_map, 'ū', 'u'), _defineProperty(_accent_map, 'Ṻ', 'u'), _defineProperty(_accent_map, 'ṻ', 'u'), _defineProperty(_accent_map, 'Ủ', 'u'), _defineProperty(_accent_map, 'ủ', 'u'), _defineProperty(_accent_map, 'Ȕ', 'u'), _defineProperty(_accent_map, 'ȕ', 'u'), _defineProperty(_accent_map, 'Ȗ', 'u'), _defineProperty(_accent_map, 'ȗ', 'u'), _defineProperty(_accent_map, 'Ư', 'u'), _defineProperty(_accent_map, 'ư', 'u'), _defineProperty(_accent_map, 'Ứ', 'u'), _defineProperty(_accent_map, 'ứ', 'u'), _defineProperty(_accent_map, 'Ừ', 'u'), _defineProperty(_accent_map, 'ừ', 'u'), _defineProperty(_accent_map, 'Ữ', 'u'), _defineProperty(_accent_map, 'ữ', 'u'), _defineProperty(_accent_map, 'Ử', 'u'), _defineProperty(_accent_map, 'ử', 'u'), _defineProperty(_accent_map, 'Ự', 'u'), _defineProperty(_accent_map, 'ự', 'u'), _defineProperty(_accent_map, 'Ụ', 'u'), _defineProperty(_accent_map, 'ụ', 'u'), _defineProperty(_accent_map, 'Ṳ', 'u'), _defineProperty(_accent_map, 'ṳ', 'u'), _defineProperty(_accent_map, 'Ṷ', 'u'), _defineProperty(_accent_map, 'ṷ', 'u'), _defineProperty(_accent_map, 'Ṵ', 'u'), _defineProperty(_accent_map, 'ṵ', 'u'), _defineProperty(_accent_map, 'Ʉ', 'u'), _defineProperty(_accent_map, 'ʉ', 'u'), _defineProperty(_accent_map, 'Ṽ', 'v'), _defineProperty(_accent_map, 'ṽ', 'v'), _defineProperty(_accent_map, 'Ṿ', 'v'), _defineProperty(_accent_map, 'ṿ', 'v'), _defineProperty(_accent_map, 'Ʋ', 'v'), _defineProperty(_accent_map, 'ʋ', 'v'), _defineProperty(_accent_map, 'Ẃ', 'w'), _defineProperty(_accent_map, 'ẃ', 'w'), _defineProperty(_accent_map, 'Ẁ', 'w'), _defineProperty(_accent_map, 'ẁ', 'w'), _defineProperty(_accent_map, 'Ŵ', 'w'), _defineProperty(_accent_map, 'ŵ', 'w'), _defineProperty(_accent_map, 'W', 'w'), _defineProperty(_accent_map, '̊', 'w'), _defineProperty(_accent_map, 'ẘ', 'w'), _defineProperty(_accent_map, 'Ẅ', 'w'), _defineProperty(_accent_map, 'ẅ', 'w'), _defineProperty(_accent_map, 'Ẇ', 'w'), _defineProperty(_accent_map, 'ẇ', 'w'), _defineProperty(_accent_map, 'Ẉ', 'w'), _defineProperty(_accent_map, 'ẉ', 'w'), _defineProperty(_accent_map, 'Ẍ', 'x'), _defineProperty(_accent_map, 'ẍ', 'x'), _defineProperty(_accent_map, 'Ẋ', 'x'), _defineProperty(_accent_map, 'ẋ', 'x'), _defineProperty(_accent_map, 'Ý', 'y'), _defineProperty(_accent_map, 'ý', 'y'), _defineProperty(_accent_map, 'Ỳ', 'y'), _defineProperty(_accent_map, 'ỳ', 'y'), _defineProperty(_accent_map, 'Ŷ', 'y'), _defineProperty(_accent_map, 'ŷ', 'y'), _defineProperty(_accent_map, 'Y', 'y'), _defineProperty(_accent_map, '\u030A', 'y'), _defineProperty(_accent_map, 'ẙ', 'y'), _defineProperty(_accent_map, 'Ÿ', 'y'), _defineProperty(_accent_map, 'ÿ', 'y'), _defineProperty(_accent_map, 'Ỹ', 'y'), _defineProperty(_accent_map, 'ỹ', 'y'), _defineProperty(_accent_map, 'Ẏ', 'y'), _defineProperty(_accent_map, 'ẏ', 'y'), _defineProperty(_accent_map, 'Ȳ', 'y'), _defineProperty(_accent_map, 'ȳ', 'y'), _defineProperty(_accent_map, 'Ỷ', 'y'), _defineProperty(_accent_map, 'ỷ', 'y'), _defineProperty(_accent_map, 'Ỵ', 'y'), _defineProperty(_accent_map, 'ỵ', 'y'), _defineProperty(_accent_map, 'ʏ', 'y'), _defineProperty(_accent_map, 'Ɏ', 'y'), _defineProperty(_accent_map, 'ɏ', 'y'), _defineProperty(_accent_map, 'Ƴ', 'y'), _defineProperty(_accent_map, 'ƴ', 'y'), _defineProperty(_accent_map, 'Ź', 'z'), _defineProperty(_accent_map, 'ź', 'z'), _defineProperty(_accent_map, 'Ẑ', 'z'), _defineProperty(_accent_map, 'ẑ', 'z'), _defineProperty(_accent_map, 'Ž', 'z'), _defineProperty(_accent_map, 'ž', 'z'), _defineProperty(_accent_map, 'Ż', 'z'), _defineProperty(_accent_map, 'ż', 'z'), _defineProperty(_accent_map, 'Ẓ', 'z'), _defineProperty(_accent_map, 'ẓ', 'z'), _defineProperty(_accent_map, 'Ẕ', 'z'), _defineProperty(_accent_map, 'ẕ', 'z'), _defineProperty(_accent_map, 'Ƶ', 'z'), _defineProperty(_accent_map, 'ƶ', 'z'), _defineProperty(_accent_map, 'Ȥ', 'z'), _defineProperty(_accent_map, 'ȥ', 'z'), _defineProperty(_accent_map, 'ʐ', 'z'), _defineProperty(_accent_map, 'ʑ', 'z'), _defineProperty(_accent_map, 'Ⱬ', 'z'), _defineProperty(_accent_map, 'ⱬ', 'z'), _defineProperty(_accent_map, 'Ǯ', 'z'), _defineProperty(_accent_map, 'ǯ', 'z'), _defineProperty(_accent_map, 'ƺ', 'z'), _accent_map);
-	
-	function accent_fold(s) {
-		if (!s) {
-			return '';
-		}
-		var ret = '';
-		for (var i = 0; i < s.length; i++) {
-			ret += accent_map[s.charAt(i)] || s.charAt(i);
-		}
-		return ret;
-	};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var QueryHandler = __webpack_require__(5);
-	var each = __webpack_require__(1).each;
-	
-	/**
-	 * Represents a single media query, manages it's state and registered handlers for this query
-	 *
-	 * @constructor
-	 * @param {string} query the media query string
-	 * @param {boolean} [isUnconditional=false] whether the media query should run regardless of whether the conditions are met. Primarily for helping older browsers deal with mobile-first design
-	 */
-	function MediaQuery(query, isUnconditional) {
-	    this.query = query;
-	    this.isUnconditional = isUnconditional;
-	    this.handlers = [];
-	    this.mql = window.matchMedia(query);
-	
-	    var self = this;
-	    this.listener = function(mql) {
-	        // Chrome passes an MediaQueryListEvent object, while other browsers pass MediaQueryList directly
-	        self.mql = mql.currentTarget || mql;
-	        self.assess();
-	    };
-	    this.mql.addListener(this.listener);
-	}
-	
-	MediaQuery.prototype = {
-	
-	    constuctor : MediaQuery,
-	
-	    /**
-	     * add a handler for this query, triggering if already active
-	     *
-	     * @param {object} handler
-	     * @param {function} handler.match callback for when query is activated
-	     * @param {function} [handler.unmatch] callback for when query is deactivated
-	     * @param {function} [handler.setup] callback for immediate execution when a query handler is registered
-	     * @param {boolean} [handler.deferSetup=false] should the setup callback be deferred until the first time the handler is matched?
-	     */
-	    addHandler : function(handler) {
-	        var qh = new QueryHandler(handler);
-	        this.handlers.push(qh);
-	
-	        this.matches() && qh.on();
-	    },
-	
-	    /**
-	     * removes the given handler from the collection, and calls it's destroy methods
-	     *
-	     * @param {object || function} handler the handler to remove
-	     */
-	    removeHandler : function(handler) {
-	        var handlers = this.handlers;
-	        each(handlers, function(h, i) {
-	            if(h.equals(handler)) {
-	                h.destroy();
-	                return !handlers.splice(i,1); //remove from array and exit each early
-	            }
-	        });
-	    },
-	
-	    /**
-	     * Determine whether the media query should be considered a match
-	     *
-	     * @return {Boolean} true if media query can be considered a match, false otherwise
-	     */
-	    matches : function() {
-	        return this.mql.matches || this.isUnconditional;
-	    },
-	
-	    /**
-	     * Clears all handlers and unbinds events
-	     */
-	    clear : function() {
-	        each(this.handlers, function(handler) {
-	            handler.destroy();
-	        });
-	        this.mql.removeListener(this.listener);
-	        this.handlers.length = 0; //clear array
-	    },
-	
-	    /*
-	        * Assesses the query, turning on all handlers if it matches, turning them off if it doesn't match
-	        */
-	    assess : function() {
-	        var action = this.matches() ? 'on' : 'off';
-	
-	        each(this.handlers, function(handler) {
-	            handler[action]();
-	        });
-	    }
-	};
-	
-	module.exports = MediaQuery;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var MediaQuery = __webpack_require__(3);
-	var Util = __webpack_require__(1);
-	var each = Util.each;
-	var isFunction = Util.isFunction;
-	var isArray = Util.isArray;
-	
-	/**
-	 * Allows for registration of query handlers.
-	 * Manages the query handler's state and is responsible for wiring up browser events
-	 *
-	 * @constructor
-	 */
-	function MediaQueryDispatch () {
-	    if(!window.matchMedia) {
-	        throw new Error('matchMedia not present, legacy browsers require a polyfill');
-	    }
-	
-	    this.queries = {};
-	    this.browserIsIncapable = !window.matchMedia('only all').matches;
-	}
-	
-	MediaQueryDispatch.prototype = {
-	
-	    constructor : MediaQueryDispatch,
-	
-	    /**
-	     * Registers a handler for the given media query
-	     *
-	     * @param {string} q the media query
-	     * @param {object || Array || Function} options either a single query handler object, a function, or an array of query handlers
-	     * @param {function} options.match fired when query matched
-	     * @param {function} [options.unmatch] fired when a query is no longer matched
-	     * @param {function} [options.setup] fired when handler first triggered
-	     * @param {boolean} [options.deferSetup=false] whether setup should be run immediately or deferred until query is first matched
-	     * @param {boolean} [shouldDegrade=false] whether this particular media query should always run on incapable browsers
-	     */
-	    register : function(q, options, shouldDegrade) {
-	        var queries         = this.queries,
-	            isUnconditional = shouldDegrade && this.browserIsIncapable;
-	
-	        if(!queries[q]) {
-	            queries[q] = new MediaQuery(q, isUnconditional);
-	        }
-	
-	        //normalise to object in an array
-	        if(isFunction(options)) {
-	            options = { match : options };
-	        }
-	        if(!isArray(options)) {
-	            options = [options];
-	        }
-	        each(options, function(handler) {
-	            if (isFunction(handler)) {
-	                handler = { match : handler };
-	            }
-	            queries[q].addHandler(handler);
-	        });
-	
-	        return this;
-	    },
-	
-	    /**
-	     * unregisters a query and all it's handlers, or a specific handler for a query
-	     *
-	     * @param {string} q the media query to target
-	     * @param {object || function} [handler] specific handler to unregister
-	     */
-	    unregister : function(q, handler) {
-	        var query = this.queries[q];
-	
-	        if(query) {
-	            if(handler) {
-	                query.removeHandler(handler);
-	            }
-	            else {
-	                query.clear();
-	                delete this.queries[q];
-	            }
-	        }
-	
-	        return this;
-	    }
-	};
-	
-	module.exports = MediaQueryDispatch;
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-	/**
-	 * Delegate to handle a media query being matched and unmatched.
-	 *
-	 * @param {object} options
-	 * @param {function} options.match callback for when the media query is matched
-	 * @param {function} [options.unmatch] callback for when the media query is unmatched
-	 * @param {function} [options.setup] one-time callback triggered the first time a query is matched
-	 * @param {boolean} [options.deferSetup=false] should the setup callback be run immediately, rather than first time query is matched?
-	 * @constructor
-	 */
-	function QueryHandler(options) {
-	    this.options = options;
-	    !options.deferSetup && this.setup();
-	}
-	
-	QueryHandler.prototype = {
-	
-	    constructor : QueryHandler,
-	
-	    /**
-	     * coordinates setup of the handler
-	     *
-	     * @function
-	     */
-	    setup : function() {
-	        if(this.options.setup) {
-	            this.options.setup();
-	        }
-	        this.initialised = true;
-	    },
-	
-	    /**
-	     * coordinates setup and triggering of the handler
-	     *
-	     * @function
-	     */
-	    on : function() {
-	        !this.initialised && this.setup();
-	        this.options.match && this.options.match();
-	    },
-	
-	    /**
-	     * coordinates the unmatch event for the handler
-	     *
-	     * @function
-	     */
-	    off : function() {
-	        this.options.unmatch && this.options.unmatch();
-	    },
-	
-	    /**
-	     * called when a handler is to be destroyed.
-	     * delegates to the destroy or unmatch callbacks, depending on availability.
-	     *
-	     * @function
-	     */
-	    destroy : function() {
-	        this.options.destroy ? this.options.destroy() : this.off();
-	    },
-	
-	    /**
-	     * determines equality by reference.
-	     * if object is supplied compare options, if function, compare match callback
-	     *
-	     * @function
-	     * @param {object || function} [target] the target for comparison
-	     */
-	    equals : function(target) {
-	        return this.options === target || this.options.match === target;
-	    }
-	
-	};
-	
-	module.exports = QueryHandler;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var MediaQueryDispatch = __webpack_require__(4);
-	module.exports = new MediaQueryDispatch();
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
-		'use strict';
-	
-		/**
-		 * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
-		 *
-		 * @codingstandard ftlabs-jsv2
-		 * @copyright The Financial Times Limited [All Rights Reserved]
-		 * @license MIT License (see LICENSE.txt)
-		 */
-	
-		/*jslint browser:true, node:true*/
-		/*global define, Event, Node*/
-	
-	
-		/**
-		 * Instantiate fast-clicking listeners on the specified layer.
-		 *
-		 * @constructor
-		 * @param {Element} layer The layer to listen on
-		 * @param {Object} [options={}] The options to override the defaults
-		 */
-		function FastClick(layer, options) {
-			var oldOnClick;
-	
-			options = options || {};
-	
-			/**
-			 * Whether a click is currently being tracked.
-			 *
-			 * @type boolean
-			 */
-			this.trackingClick = false;
-	
-	
-			/**
-			 * Timestamp for when click tracking started.
-			 *
-			 * @type number
-			 */
-			this.trackingClickStart = 0;
-	
-	
-			/**
-			 * The element being tracked for a click.
-			 *
-			 * @type EventTarget
-			 */
-			this.targetElement = null;
-	
-	
-			/**
-			 * X-coordinate of touch start event.
-			 *
-			 * @type number
-			 */
-			this.touchStartX = 0;
-	
-	
-			/**
-			 * Y-coordinate of touch start event.
-			 *
-			 * @type number
-			 */
-			this.touchStartY = 0;
-	
-	
-			/**
-			 * ID of the last touch, retrieved from Touch.identifier.
-			 *
-			 * @type number
-			 */
-			this.lastTouchIdentifier = 0;
-	
-	
-			/**
-			 * Touchmove boundary, beyond which a click will be cancelled.
-			 *
-			 * @type number
-			 */
-			this.touchBoundary = options.touchBoundary || 10;
-	
-	
-			/**
-			 * The FastClick layer.
-			 *
-			 * @type Element
-			 */
-			this.layer = layer;
-	
-			/**
-			 * The minimum time between tap(touchstart and touchend) events
-			 *
-			 * @type number
-			 */
-			this.tapDelay = options.tapDelay || 200;
-	
-			/**
-			 * The maximum time for a tap
-			 *
-			 * @type number
-			 */
-			this.tapTimeout = options.tapTimeout || 700;
-	
-			if (FastClick.notNeeded(layer)) {
-				return;
-			}
-	
-			// Some old versions of Android don't have Function.prototype.bind
-			function bind(method, context) {
-				return function() { return method.apply(context, arguments); };
-			}
-	
-	
-			var methods = ['onMouse', 'onClick', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'];
-			var context = this;
-			for (var i = 0, l = methods.length; i < l; i++) {
-				context[methods[i]] = bind(context[methods[i]], context);
-			}
-	
-			// Set up event handlers as required
-			if (deviceIsAndroid) {
-				layer.addEventListener('mouseover', this.onMouse, true);
-				layer.addEventListener('mousedown', this.onMouse, true);
-				layer.addEventListener('mouseup', this.onMouse, true);
-			}
-	
-			layer.addEventListener('click', this.onClick, true);
-			layer.addEventListener('touchstart', this.onTouchStart, false);
-			layer.addEventListener('touchmove', this.onTouchMove, false);
-			layer.addEventListener('touchend', this.onTouchEnd, false);
-			layer.addEventListener('touchcancel', this.onTouchCancel, false);
-	
-			// Hack is required for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
-			// which is how FastClick normally stops click events bubbling to callbacks registered on the FastClick
-			// layer when they are cancelled.
-			if (!Event.prototype.stopImmediatePropagation) {
-				layer.removeEventListener = function(type, callback, capture) {
-					var rmv = Node.prototype.removeEventListener;
-					if (type === 'click') {
-						rmv.call(layer, type, callback.hijacked || callback, capture);
-					} else {
-						rmv.call(layer, type, callback, capture);
-					}
-				};
-	
-				layer.addEventListener = function(type, callback, capture) {
-					var adv = Node.prototype.addEventListener;
-					if (type === 'click') {
-						adv.call(layer, type, callback.hijacked || (callback.hijacked = function(event) {
-							if (!event.propagationStopped) {
-								callback(event);
-							}
-						}), capture);
-					} else {
-						adv.call(layer, type, callback, capture);
-					}
-				};
-			}
-	
-			// If a handler is already declared in the element's onclick attribute, it will be fired before
-			// FastClick's onClick handler. Fix this by pulling out the user-defined handler function and
-			// adding it as listener.
-			if (typeof layer.onclick === 'function') {
-	
-				// Android browser on at least 3.2 requires a new reference to the function in layer.onclick
-				// - the old one won't work if passed to addEventListener directly.
-				oldOnClick = layer.onclick;
-				layer.addEventListener('click', function(event) {
-					oldOnClick(event);
-				}, false);
-				layer.onclick = null;
-			}
-		}
-	
-		/**
-		* Windows Phone 8.1 fakes user agent string to look like Android and iPhone.
-		*
-		* @type boolean
-		*/
-		var deviceIsWindowsPhone = navigator.userAgent.indexOf("Windows Phone") >= 0;
-	
-		/**
-		 * Android requires exceptions.
-		 *
-		 * @type boolean
-		 */
-		var deviceIsAndroid = navigator.userAgent.indexOf('Android') > 0 && !deviceIsWindowsPhone;
-	
-	
-		/**
-		 * iOS requires exceptions.
-		 *
-		 * @type boolean
-		 */
-		var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent) && !deviceIsWindowsPhone;
-	
-	
-		/**
-		 * iOS 4 requires an exception for select elements.
-		 *
-		 * @type boolean
-		 */
-		var deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.userAgent);
-	
-	
-		/**
-		 * iOS 6.0-7.* requires the target element to be manually derived
-		 *
-		 * @type boolean
-		 */
-		var deviceIsIOSWithBadTarget = deviceIsIOS && (/OS [6-7]_\d/).test(navigator.userAgent);
-	
-		/**
-		 * BlackBerry requires exceptions.
-		 *
-		 * @type boolean
-		 */
-		var deviceIsBlackBerry10 = navigator.userAgent.indexOf('BB10') > 0;
-	
-		/**
-		 * Determine whether a given element requires a native click.
-		 *
-		 * @param {EventTarget|Element} target Target DOM element
-		 * @returns {boolean} Returns true if the element needs a native click
-		 */
-		FastClick.prototype.needsClick = function(target) {
-			switch (target.nodeName.toLowerCase()) {
-	
-			// Don't send a synthetic click to disabled inputs (issue #62)
-			case 'button':
-			case 'select':
-			case 'textarea':
-				if (target.disabled) {
-					return true;
-				}
-	
-				break;
-			case 'input':
-	
-				// File inputs need real clicks on iOS 6 due to a browser bug (issue #68)
-				if ((deviceIsIOS && target.type === 'file') || target.disabled) {
-					return true;
-				}
-	
-				break;
-			case 'label':
-			case 'iframe': // iOS8 homescreen apps can prevent events bubbling into frames
-			case 'video':
-				return true;
-			}
-	
-			return (/\bneedsclick\b/).test(target.className);
-		};
-	
-	
-		/**
-		 * Determine whether a given element requires a call to focus to simulate click into element.
-		 *
-		 * @param {EventTarget|Element} target Target DOM element
-		 * @returns {boolean} Returns true if the element requires a call to focus to simulate native click.
-		 */
-		FastClick.prototype.needsFocus = function(target) {
-			switch (target.nodeName.toLowerCase()) {
-			case 'textarea':
-				return true;
-			case 'select':
-				return !deviceIsAndroid;
-			case 'input':
-				switch (target.type) {
-				case 'button':
-				case 'checkbox':
-				case 'file':
-				case 'image':
-				case 'radio':
-				case 'submit':
-					return false;
-				}
-	
-				// No point in attempting to focus disabled inputs
-				return !target.disabled && !target.readOnly;
-			default:
-				return (/\bneedsfocus\b/).test(target.className);
-			}
-		};
-	
-	
-		/**
-		 * Send a click event to the specified element.
-		 *
-		 * @param {EventTarget|Element} targetElement
-		 * @param {Event} event
-		 */
-		FastClick.prototype.sendClick = function(targetElement, event) {
-			var clickEvent, touch;
-	
-			// On some Android devices activeElement needs to be blurred otherwise the synthetic click will have no effect (#24)
-			if (document.activeElement && document.activeElement !== targetElement) {
-				document.activeElement.blur();
-			}
-	
-			touch = event.changedTouches[0];
-	
-			// Synthesise a click event, with an extra attribute so it can be tracked
-			clickEvent = document.createEvent('MouseEvents');
-			clickEvent.initMouseEvent(this.determineEventType(targetElement), true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
-			clickEvent.forwardedTouchEvent = true;
-			targetElement.dispatchEvent(clickEvent);
-		};
-	
-		FastClick.prototype.determineEventType = function(targetElement) {
-	
-			//Issue #159: Android Chrome Select Box does not open with a synthetic click event
-			if (deviceIsAndroid && targetElement.tagName.toLowerCase() === 'select') {
-				return 'mousedown';
-			}
-	
-			return 'click';
-		};
-	
-	
-		/**
-		 * @param {EventTarget|Element} targetElement
-		 */
-		FastClick.prototype.focus = function(targetElement) {
-			var length;
-	
-			// Issue #160: on iOS 7, some input elements (e.g. date datetime month) throw a vague TypeError on setSelectionRange. These elements don't have an integer value for the selectionStart and selectionEnd properties, but unfortunately that can't be used for detection because accessing the properties also throws a TypeError. Just check the type instead. Filed as Apple bug #15122724.
-			if (deviceIsIOS && targetElement.setSelectionRange && targetElement.type.indexOf('date') !== 0 && targetElement.type !== 'time' && targetElement.type !== 'month') {
-				length = targetElement.value.length;
-				targetElement.setSelectionRange(length, length);
-			} else {
-				targetElement.focus();
-			}
-		};
-	
-	
-		/**
-		 * Check whether the given target element is a child of a scrollable layer and if so, set a flag on it.
-		 *
-		 * @param {EventTarget|Element} targetElement
-		 */
-		FastClick.prototype.updateScrollParent = function(targetElement) {
-			var scrollParent, parentElement;
-	
-			scrollParent = targetElement.fastClickScrollParent;
-	
-			// Attempt to discover whether the target element is contained within a scrollable layer. Re-check if the
-			// target element was moved to another parent.
-			if (!scrollParent || !scrollParent.contains(targetElement)) {
-				parentElement = targetElement;
-				do {
-					if (parentElement.scrollHeight > parentElement.offsetHeight) {
-						scrollParent = parentElement;
-						targetElement.fastClickScrollParent = parentElement;
-						break;
-					}
-	
-					parentElement = parentElement.parentElement;
-				} while (parentElement);
-			}
-	
-			// Always update the scroll top tracker if possible.
-			if (scrollParent) {
-				scrollParent.fastClickLastScrollTop = scrollParent.scrollTop;
-			}
-		};
-	
-	
-		/**
-		 * @param {EventTarget} targetElement
-		 * @returns {Element|EventTarget}
-		 */
-		FastClick.prototype.getTargetElementFromEventTarget = function(eventTarget) {
-	
-			// On some older browsers (notably Safari on iOS 4.1 - see issue #56) the event target may be a text node.
-			if (eventTarget.nodeType === Node.TEXT_NODE) {
-				return eventTarget.parentNode;
-			}
-	
-			return eventTarget;
-		};
-	
-	
-		/**
-		 * On touch start, record the position and scroll offset.
-		 *
-		 * @param {Event} event
-		 * @returns {boolean}
-		 */
-		FastClick.prototype.onTouchStart = function(event) {
-			var targetElement, touch, selection;
-	
-			// Ignore multiple touches, otherwise pinch-to-zoom is prevented if both fingers are on the FastClick element (issue #111).
-			if (event.targetTouches.length > 1) {
-				return true;
-			}
-	
-			targetElement = this.getTargetElementFromEventTarget(event.target);
-			touch = event.targetTouches[0];
-	
-			if (deviceIsIOS) {
-	
-				// Only trusted events will deselect text on iOS (issue #49)
-				selection = window.getSelection();
-				if (selection.rangeCount && !selection.isCollapsed) {
-					return true;
-				}
-	
-				if (!deviceIsIOS4) {
-	
-					// Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):
-					// when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched
-					// with the same identifier as the touch event that previously triggered the click that triggered the alert.
-					// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
-					// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
-					// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch events' is set with an iOS device UA string,
-					// which causes all touch events to be ignored. As this block only applies to iOS, and iOS identifiers are always long,
-					// random integers, it's safe to to continue if the identifier is 0 here.
-					if (touch.identifier && touch.identifier === this.lastTouchIdentifier) {
-						event.preventDefault();
-						return false;
-					}
-	
-					this.lastTouchIdentifier = touch.identifier;
-	
-					// If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:
-					// 1) the user does a fling scroll on the scrollable layer
-					// 2) the user stops the fling scroll with another tap
-					// then the event.target of the last 'touchend' event will be the element that was under the user's finger
-					// when the fling scroll was started, causing FastClick to send a click event to that layer - unless a check
-					// is made to ensure that a parent layer was not scrolled before sending a synthetic click (issue #42).
-					this.updateScrollParent(targetElement);
-				}
-			}
-	
-			this.trackingClick = true;
-			this.trackingClickStart = event.timeStamp;
-			this.targetElement = targetElement;
-	
-			this.touchStartX = touch.pageX;
-			this.touchStartY = touch.pageY;
-	
-			// Prevent phantom clicks on fast double-tap (issue #36)
-			if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
-				event.preventDefault();
-			}
-	
-			return true;
-		};
-	
-	
-		/**
-		 * Based on a touchmove event object, check whether the touch has moved past a boundary since it started.
-		 *
-		 * @param {Event} event
-		 * @returns {boolean}
-		 */
-		FastClick.prototype.touchHasMoved = function(event) {
-			var touch = event.changedTouches[0], boundary = this.touchBoundary;
-	
-			if (Math.abs(touch.pageX - this.touchStartX) > boundary || Math.abs(touch.pageY - this.touchStartY) > boundary) {
-				return true;
-			}
-	
-			return false;
-		};
-	
-	
-		/**
-		 * Update the last position.
-		 *
-		 * @param {Event} event
-		 * @returns {boolean}
-		 */
-		FastClick.prototype.onTouchMove = function(event) {
-			if (!this.trackingClick) {
-				return true;
-			}
-	
-			// If the touch has moved, cancel the click tracking
-			if (this.targetElement !== this.getTargetElementFromEventTarget(event.target) || this.touchHasMoved(event)) {
-				this.trackingClick = false;
-				this.targetElement = null;
-			}
-	
-			return true;
-		};
-	
-	
-		/**
-		 * Attempt to find the labelled control for the given label element.
-		 *
-		 * @param {EventTarget|HTMLLabelElement} labelElement
-		 * @returns {Element|null}
-		 */
-		FastClick.prototype.findControl = function(labelElement) {
-	
-			// Fast path for newer browsers supporting the HTML5 control attribute
-			if (labelElement.control !== undefined) {
-				return labelElement.control;
-			}
-	
-			// All browsers under test that support touch events also support the HTML5 htmlFor attribute
-			if (labelElement.htmlFor) {
-				return document.getElementById(labelElement.htmlFor);
-			}
-	
-			// If no for attribute exists, attempt to retrieve the first labellable descendant element
-			// the list of which is defined here: http://www.w3.org/TR/html5/forms.html#category-label
-			return labelElement.querySelector('button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea');
-		};
-	
-	
-		/**
-		 * On touch end, determine whether to send a click event at once.
-		 *
-		 * @param {Event} event
-		 * @returns {boolean}
-		 */
-		FastClick.prototype.onTouchEnd = function(event) {
-			var forElement, trackingClickStart, targetTagName, scrollParent, touch, targetElement = this.targetElement;
-	
-			if (!this.trackingClick) {
-				return true;
-			}
-	
-			// Prevent phantom clicks on fast double-tap (issue #36)
-			if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
-				this.cancelNextClick = true;
-				return true;
-			}
-	
-			if ((event.timeStamp - this.trackingClickStart) > this.tapTimeout) {
-				return true;
-			}
-	
-			// Reset to prevent wrong click cancel on input (issue #156).
-			this.cancelNextClick = false;
-	
-			this.lastClickTime = event.timeStamp;
-	
-			trackingClickStart = this.trackingClickStart;
-			this.trackingClick = false;
-			this.trackingClickStart = 0;
-	
-			// On some iOS devices, the targetElement supplied with the event is invalid if the layer
-			// is performing a transition or scroll, and has to be re-detected manually. Note that
-			// for this to function correctly, it must be called *after* the event target is checked!
-			// See issue #57; also filed as rdar://13048589 .
-			if (deviceIsIOSWithBadTarget) {
-				touch = event.changedTouches[0];
-	
-				// In certain cases arguments of elementFromPoint can be negative, so prevent setting targetElement to null
-				targetElement = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset) || targetElement;
-				targetElement.fastClickScrollParent = this.targetElement.fastClickScrollParent;
-			}
-	
-			targetTagName = targetElement.tagName.toLowerCase();
-			if (targetTagName === 'label') {
-				forElement = this.findControl(targetElement);
-				if (forElement) {
-					this.focus(targetElement);
-					if (deviceIsAndroid) {
-						return false;
-					}
-	
-					targetElement = forElement;
-				}
-			} else if (this.needsFocus(targetElement)) {
-	
-				// Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
-				// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
-				if ((event.timeStamp - trackingClickStart) > 100 || (deviceIsIOS && window.top !== window && targetTagName === 'input')) {
-					this.targetElement = null;
-					return false;
-				}
-	
-				this.focus(targetElement);
-				this.sendClick(targetElement, event);
-	
-				// Select elements need the event to go through on iOS 4, otherwise the selector menu won't open.
-				// Also this breaks opening selects when VoiceOver is active on iOS6, iOS7 (and possibly others)
-				if (!deviceIsIOS || targetTagName !== 'select') {
-					this.targetElement = null;
-					event.preventDefault();
-				}
-	
-				return false;
-			}
-	
-			if (deviceIsIOS && !deviceIsIOS4) {
-	
-				// Don't send a synthetic click event if the target element is contained within a parent layer that was scrolled
-				// and this tap is being used to stop the scrolling (usually initiated by a fling - issue #42).
-				scrollParent = targetElement.fastClickScrollParent;
-				if (scrollParent && scrollParent.fastClickLastScrollTop !== scrollParent.scrollTop) {
-					return true;
-				}
-			}
-	
-			// Prevent the actual click from going though - unless the target node is marked as requiring
-			// real clicks or if it is in the whitelist in which case only non-programmatic clicks are permitted.
-			if (!this.needsClick(targetElement)) {
-				event.preventDefault();
-				this.sendClick(targetElement, event);
-			}
-	
-			return false;
-		};
-	
-	
-		/**
-		 * On touch cancel, stop tracking the click.
-		 *
-		 * @returns {void}
-		 */
-		FastClick.prototype.onTouchCancel = function() {
-			this.trackingClick = false;
-			this.targetElement = null;
-		};
-	
-	
-		/**
-		 * Determine mouse events which should be permitted.
-		 *
-		 * @param {Event} event
-		 * @returns {boolean}
-		 */
-		FastClick.prototype.onMouse = function(event) {
-	
-			// If a target element was never set (because a touch event was never fired) allow the event
-			if (!this.targetElement) {
-				return true;
-			}
-	
-			if (event.forwardedTouchEvent) {
-				return true;
-			}
-	
-			// Programmatically generated events targeting a specific element should be permitted
-			if (!event.cancelable) {
-				return true;
-			}
-	
-			// Derive and check the target element to see whether the mouse event needs to be permitted;
-			// unless explicitly enabled, prevent non-touch click events from triggering actions,
-			// to prevent ghost/doubleclicks.
-			if (!this.needsClick(this.targetElement) || this.cancelNextClick) {
-	
-				// Prevent any user-added listeners declared on FastClick element from being fired.
-				if (event.stopImmediatePropagation) {
-					event.stopImmediatePropagation();
-				} else {
-	
-					// Part of the hack for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
-					event.propagationStopped = true;
-				}
-	
-				// Cancel the event
-				event.stopPropagation();
-				event.preventDefault();
-	
-				return false;
-			}
-	
-			// If the mouse event is permitted, return true for the action to go through.
-			return true;
-		};
-	
-	
-		/**
-		 * On actual clicks, determine whether this is a touch-generated click, a click action occurring
-		 * naturally after a delay after a touch (which needs to be cancelled to avoid duplication), or
-		 * an actual click which should be permitted.
-		 *
-		 * @param {Event} event
-		 * @returns {boolean}
-		 */
-		FastClick.prototype.onClick = function(event) {
-			var permitted;
-	
-			// It's possible for another FastClick-like library delivered with third-party code to fire a click event before FastClick does (issue #44). In that case, set the click-tracking flag back to false and return early. This will cause onTouchEnd to return early.
-			if (this.trackingClick) {
-				this.targetElement = null;
-				this.trackingClick = false;
-				return true;
-			}
-	
-			// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
-			if (event.target.type === 'submit' && event.detail === 0) {
-				return true;
-			}
-	
-			permitted = this.onMouse(event);
-	
-			// Only unset targetElement if the click is not permitted. This will ensure that the check for !targetElement in onMouse fails and the browser's click doesn't go through.
-			if (!permitted) {
-				this.targetElement = null;
-			}
-	
-			// If clicks are permitted, return true for the action to go through.
-			return permitted;
-		};
-	
-	
-		/**
-		 * Remove all FastClick's event listeners.
-		 *
-		 * @returns {void}
-		 */
-		FastClick.prototype.destroy = function() {
-			var layer = this.layer;
-	
-			if (deviceIsAndroid) {
-				layer.removeEventListener('mouseover', this.onMouse, true);
-				layer.removeEventListener('mousedown', this.onMouse, true);
-				layer.removeEventListener('mouseup', this.onMouse, true);
-			}
-	
-			layer.removeEventListener('click', this.onClick, true);
-			layer.removeEventListener('touchstart', this.onTouchStart, false);
-			layer.removeEventListener('touchmove', this.onTouchMove, false);
-			layer.removeEventListener('touchend', this.onTouchEnd, false);
-			layer.removeEventListener('touchcancel', this.onTouchCancel, false);
-		};
-	
-	
-		/**
-		 * Check whether FastClick is needed.
-		 *
-		 * @param {Element} layer The layer to listen on
-		 */
-		FastClick.notNeeded = function(layer) {
-			var metaViewport;
-			var chromeVersion;
-			var blackberryVersion;
-			var firefoxVersion;
-	
-			// Devices that don't support touch don't need FastClick
-			if (typeof window.ontouchstart === 'undefined') {
-				return true;
-			}
-	
-			// Chrome version - zero for other browsers
-			chromeVersion = +(/Chrome\/([0-9]+)/.exec(navigator.userAgent) || [,0])[1];
-	
-			if (chromeVersion) {
-	
-				if (deviceIsAndroid) {
-					metaViewport = document.querySelector('meta[name=viewport]');
-	
-					if (metaViewport) {
-						// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)
-						if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
-							return true;
-						}
-						// Chrome 32 and above with width=device-width or less don't need FastClick
-						if (chromeVersion > 31 && document.documentElement.scrollWidth <= window.outerWidth) {
-							return true;
-						}
-					}
-	
-				// Chrome desktop doesn't need FastClick (issue #15)
-				} else {
-					return true;
-				}
-			}
-	
-			if (deviceIsBlackBerry10) {
-				blackberryVersion = navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/);
-	
-				// BlackBerry 10.3+ does not require Fastclick library.
-				// https://github.com/ftlabs/fastclick/issues/251
-				if (blackberryVersion[1] >= 10 && blackberryVersion[2] >= 3) {
-					metaViewport = document.querySelector('meta[name=viewport]');
-	
-					if (metaViewport) {
-						// user-scalable=no eliminates click delay.
-						if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
-							return true;
-						}
-						// width=device-width (or less than device-width) eliminates click delay.
-						if (document.documentElement.scrollWidth <= window.outerWidth) {
-							return true;
-						}
-					}
-				}
-			}
-	
-			// IE10 with -ms-touch-action: none or manipulation, which disables double-tap-to-zoom (issue #97)
-			if (layer.style.msTouchAction === 'none' || layer.style.touchAction === 'manipulation') {
-				return true;
-			}
-	
-			// Firefox version - zero for other browsers
-			firefoxVersion = +(/Firefox\/([0-9]+)/.exec(navigator.userAgent) || [,0])[1];
-	
-			if (firefoxVersion >= 27) {
-				// Firefox 27+ does not have tap delay if the content is not zoomable - https://bugzilla.mozilla.org/show_bug.cgi?id=922896
-	
-				metaViewport = document.querySelector('meta[name=viewport]');
-				if (metaViewport && (metaViewport.content.indexOf('user-scalable=no') !== -1 || document.documentElement.scrollWidth <= window.outerWidth)) {
-					return true;
-				}
-			}
-	
-			// IE11: prefixed -ms-touch-action is no longer supported and it's recomended to use non-prefixed version
-			// http://msdn.microsoft.com/en-us/library/windows/apps/Hh767313.aspx
-			if (layer.style.touchAction === 'none' || layer.style.touchAction === 'manipulation') {
-				return true;
-			}
-	
-			return false;
-		};
-	
-	
-		/**
-		 * Factory method for creating a FastClick object
-		 *
-		 * @param {Element} layer The layer to listen on
-		 * @param {Object} [options={}] The options to override the defaults
-		 */
-		FastClick.attach = function(layer, options) {
-			return new FastClick(layer, options);
-		};
-	
-	
-		if (true) {
-	
-			// AMD. Register as an anonymous module.
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
-				return FastClick;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof module !== 'undefined' && module.exports) {
-			module.exports = FastClick.attach;
-			module.exports.FastClick = FastClick;
-		} else {
-			window.FastClick = FastClick;
-		}
-	}());
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * headroom.js v0.9.4 - Give your page some headroom. Hide your header until you need it
-	 * Copyright (c) 2017 Nick Williams - http://wicky.nillia.ms/headroom.js
-	 * License: MIT
-	 */
-	
-	(function(root, factory) {
-	  'use strict';
-	
-	  if (true) {
-	    // AMD. Register as an anonymous module.
-	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	  }
-	  else if (typeof exports === 'object') {
-	    // COMMONJS
-	    module.exports = factory();
-	  }
-	  else {
-	    // BROWSER
-	    root.Headroom = factory();
-	  }
-	}(this, function() {
-	  'use strict';
-	
-	  /* exported features */
-	  
-	  var features = {
-	    bind : !!(function(){}.bind),
-	    classList : 'classList' in document.documentElement,
-	    rAF : !!(window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame)
-	  };
-	  window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
-	  
-	  /**
-	   * Handles debouncing of events via requestAnimationFrame
-	   * @see http://www.html5rocks.com/en/tutorials/speed/animations/
-	   * @param {Function} callback The callback to handle whichever event
-	   */
-	  function Debouncer (callback) {
-	    this.callback = callback;
-	    this.ticking = false;
-	  }
-	  Debouncer.prototype = {
-	    constructor : Debouncer,
-	  
-	    /**
-	     * dispatches the event to the supplied callback
-	     * @private
-	     */
-	    update : function() {
-	      this.callback && this.callback();
-	      this.ticking = false;
-	    },
-	  
-	    /**
-	     * ensures events don't get stacked
-	     * @private
-	     */
-	    requestTick : function() {
-	      if(!this.ticking) {
-	        requestAnimationFrame(this.rafCallback || (this.rafCallback = this.update.bind(this)));
-	        this.ticking = true;
-	      }
-	    },
-	  
-	    /**
-	     * Attach this as the event listeners
-	     */
-	    handleEvent : function() {
-	      this.requestTick();
-	    }
-	  };
-	  /**
-	   * Check if object is part of the DOM
-	   * @constructor
-	   * @param {Object} obj element to check
-	   */
-	  function isDOMElement(obj) {
-	    return obj && typeof window !== 'undefined' && (obj === window || obj.nodeType);
-	  }
-	  
-	  /**
-	   * Helper function for extending objects
-	   */
-	  function extend (object /*, objectN ... */) {
-	    if(arguments.length <= 0) {
-	      throw new Error('Missing arguments in extend function');
-	    }
-	  
-	    var result = object || {},
-	        key,
-	        i;
-	  
-	    for (i = 1; i < arguments.length; i++) {
-	      var replacement = arguments[i] || {};
-	  
-	      for (key in replacement) {
-	        // Recurse into object except if the object is a DOM element
-	        if(typeof result[key] === 'object' && ! isDOMElement(result[key])) {
-	          result[key] = extend(result[key], replacement[key]);
-	        }
-	        else {
-	          result[key] = result[key] || replacement[key];
-	        }
-	      }
-	    }
-	  
-	    return result;
-	  }
-	  
-	  /**
-	   * Helper function for normalizing tolerance option to object format
-	   */
-	  function normalizeTolerance (t) {
-	    return t === Object(t) ? t : { down : t, up : t };
-	  }
-	  
-	  /**
-	   * UI enhancement for fixed headers.
-	   * Hides header when scrolling down
-	   * Shows header when scrolling up
-	   * @constructor
-	   * @param {DOMElement} elem the header element
-	   * @param {Object} options options for the widget
-	   */
-	  function Headroom (elem, options) {
-	    options = extend(options, Headroom.options);
-	  
-	    this.lastKnownScrollY = 0;
-	    this.elem             = elem;
-	    this.tolerance        = normalizeTolerance(options.tolerance);
-	    this.classes          = options.classes;
-	    this.offset           = options.offset;
-	    this.scroller         = options.scroller;
-	    this.initialised      = false;
-	    this.onPin            = options.onPin;
-	    this.onUnpin          = options.onUnpin;
-	    this.onTop            = options.onTop;
-	    this.onNotTop         = options.onNotTop;
-	    this.onBottom         = options.onBottom;
-	    this.onNotBottom      = options.onNotBottom;
-	  }
-	  Headroom.prototype = {
-	    constructor : Headroom,
-	  
-	    /**
-	     * Initialises the widget
-	     */
-	    init : function() {
-	      if(!Headroom.cutsTheMustard) {
-	        return;
-	      }
-	  
-	      this.debouncer = new Debouncer(this.update.bind(this));
-	      this.elem.classList.add(this.classes.initial);
-	  
-	      // defer event registration to handle browser
-	      // potentially restoring previous scroll position
-	      setTimeout(this.attachEvent.bind(this), 100);
-	  
-	      return this;
-	    },
-	  
-	    /**
-	     * Unattaches events and removes any classes that were added
-	     */
-	    destroy : function() {
-	      var classes = this.classes;
-	  
-	      this.initialised = false;
-	  
-	      for (var key in classes) {
-	        if(classes.hasOwnProperty(key)) {
-	          this.elem.classList.remove(classes[key]);
-	        }
-	      }
-	  
-	      this.scroller.removeEventListener('scroll', this.debouncer, false);
-	    },
-	  
-	    /**
-	     * Attaches the scroll event
-	     * @private
-	     */
-	    attachEvent : function() {
-	      if(!this.initialised){
-	        this.lastKnownScrollY = this.getScrollY();
-	        this.initialised = true;
-	        this.scroller.addEventListener('scroll', this.debouncer, false);
-	  
-	        this.debouncer.handleEvent();
-	      }
-	    },
-	  
-	    /**
-	     * Unpins the header if it's currently pinned
-	     */
-	    unpin : function() {
-	      var classList = this.elem.classList,
-	        classes = this.classes;
-	  
-	      if(classList.contains(classes.pinned) || !classList.contains(classes.unpinned)) {
-	        classList.add(classes.unpinned);
-	        classList.remove(classes.pinned);
-	        this.onUnpin && this.onUnpin.call(this);
-	      }
-	    },
-	  
-	    /**
-	     * Pins the header if it's currently unpinned
-	     */
-	    pin : function() {
-	      var classList = this.elem.classList,
-	        classes = this.classes;
-	  
-	      if(classList.contains(classes.unpinned)) {
-	        classList.remove(classes.unpinned);
-	        classList.add(classes.pinned);
-	        this.onPin && this.onPin.call(this);
-	      }
-	    },
-	  
-	    /**
-	     * Handles the top states
-	     */
-	    top : function() {
-	      var classList = this.elem.classList,
-	        classes = this.classes;
-	  
-	      if(!classList.contains(classes.top)) {
-	        classList.add(classes.top);
-	        classList.remove(classes.notTop);
-	        this.onTop && this.onTop.call(this);
-	      }
-	    },
-	  
-	    /**
-	     * Handles the not top state
-	     */
-	    notTop : function() {
-	      var classList = this.elem.classList,
-	        classes = this.classes;
-	  
-	      if(!classList.contains(classes.notTop)) {
-	        classList.add(classes.notTop);
-	        classList.remove(classes.top);
-	        this.onNotTop && this.onNotTop.call(this);
-	      }
-	    },
-	  
-	    bottom : function() {
-	      var classList = this.elem.classList,
-	        classes = this.classes;
-	  
-	      if(!classList.contains(classes.bottom)) {
-	        classList.add(classes.bottom);
-	        classList.remove(classes.notBottom);
-	        this.onBottom && this.onBottom.call(this);
-	      }
-	    },
-	  
-	    /**
-	     * Handles the not top state
-	     */
-	    notBottom : function() {
-	      var classList = this.elem.classList,
-	        classes = this.classes;
-	  
-	      if(!classList.contains(classes.notBottom)) {
-	        classList.add(classes.notBottom);
-	        classList.remove(classes.bottom);
-	        this.onNotBottom && this.onNotBottom.call(this);
-	      }
-	    },
-	  
-	    /**
-	     * Gets the Y scroll position
-	     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY
-	     * @return {Number} pixels the page has scrolled along the Y-axis
-	     */
-	    getScrollY : function() {
-	      return (this.scroller.pageYOffset !== undefined)
-	        ? this.scroller.pageYOffset
-	        : (this.scroller.scrollTop !== undefined)
-	          ? this.scroller.scrollTop
-	          : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-	    },
-	  
-	    /**
-	     * Gets the height of the viewport
-	     * @see http://andylangton.co.uk/blog/development/get-viewport-size-width-and-height-javascript
-	     * @return {int} the height of the viewport in pixels
-	     */
-	    getViewportHeight : function () {
-	      return window.innerHeight
-	        || document.documentElement.clientHeight
-	        || document.body.clientHeight;
-	    },
-	  
-	    /**
-	     * Gets the physical height of the DOM element
-	     * @param  {Object}  elm the element to calculate the physical height of which
-	     * @return {int}     the physical height of the element in pixels
-	     */
-	    getElementPhysicalHeight : function (elm) {
-	      return Math.max(
-	        elm.offsetHeight,
-	        elm.clientHeight
-	      );
-	    },
-	  
-	    /**
-	     * Gets the physical height of the scroller element
-	     * @return {int} the physical height of the scroller element in pixels
-	     */
-	    getScrollerPhysicalHeight : function () {
-	      return (this.scroller === window || this.scroller === document.body)
-	        ? this.getViewportHeight()
-	        : this.getElementPhysicalHeight(this.scroller);
-	    },
-	  
-	    /**
-	     * Gets the height of the document
-	     * @see http://james.padolsey.com/javascript/get-document-height-cross-browser/
-	     * @return {int} the height of the document in pixels
-	     */
-	    getDocumentHeight : function () {
-	      var body = document.body,
-	        documentElement = document.documentElement;
-	  
-	      return Math.max(
-	        body.scrollHeight, documentElement.scrollHeight,
-	        body.offsetHeight, documentElement.offsetHeight,
-	        body.clientHeight, documentElement.clientHeight
-	      );
-	    },
-	  
-	    /**
-	     * Gets the height of the DOM element
-	     * @param  {Object}  elm the element to calculate the height of which
-	     * @return {int}     the height of the element in pixels
-	     */
-	    getElementHeight : function (elm) {
-	      return Math.max(
-	        elm.scrollHeight,
-	        elm.offsetHeight,
-	        elm.clientHeight
-	      );
-	    },
-	  
-	    /**
-	     * Gets the height of the scroller element
-	     * @return {int} the height of the scroller element in pixels
-	     */
-	    getScrollerHeight : function () {
-	      return (this.scroller === window || this.scroller === document.body)
-	        ? this.getDocumentHeight()
-	        : this.getElementHeight(this.scroller);
-	    },
-	  
-	    /**
-	     * determines if the scroll position is outside of document boundaries
-	     * @param  {int}  currentScrollY the current y scroll position
-	     * @return {bool} true if out of bounds, false otherwise
-	     */
-	    isOutOfBounds : function (currentScrollY) {
-	      var pastTop  = currentScrollY < 0,
-	        pastBottom = currentScrollY + this.getScrollerPhysicalHeight() > this.getScrollerHeight();
-	  
-	      return pastTop || pastBottom;
-	    },
-	  
-	    /**
-	     * determines if the tolerance has been exceeded
-	     * @param  {int} currentScrollY the current scroll y position
-	     * @return {bool} true if tolerance exceeded, false otherwise
-	     */
-	    toleranceExceeded : function (currentScrollY, direction) {
-	      return Math.abs(currentScrollY-this.lastKnownScrollY) >= this.tolerance[direction];
-	    },
-	  
-	    /**
-	     * determine if it is appropriate to unpin
-	     * @param  {int} currentScrollY the current y scroll position
-	     * @param  {bool} toleranceExceeded has the tolerance been exceeded?
-	     * @return {bool} true if should unpin, false otherwise
-	     */
-	    shouldUnpin : function (currentScrollY, toleranceExceeded) {
-	      var scrollingDown = currentScrollY > this.lastKnownScrollY,
-	        pastOffset = currentScrollY >= this.offset;
-	  
-	      return scrollingDown && pastOffset && toleranceExceeded;
-	    },
-	  
-	    /**
-	     * determine if it is appropriate to pin
-	     * @param  {int} currentScrollY the current y scroll position
-	     * @param  {bool} toleranceExceeded has the tolerance been exceeded?
-	     * @return {bool} true if should pin, false otherwise
-	     */
-	    shouldPin : function (currentScrollY, toleranceExceeded) {
-	      var scrollingUp  = currentScrollY < this.lastKnownScrollY,
-	        pastOffset = currentScrollY <= this.offset;
-	  
-	      return (scrollingUp && toleranceExceeded) || pastOffset;
-	    },
-	  
-	    /**
-	     * Handles updating the state of the widget
-	     */
-	    update : function() {
-	      var currentScrollY  = this.getScrollY(),
-	        scrollDirection = currentScrollY > this.lastKnownScrollY ? 'down' : 'up',
-	        toleranceExceeded = this.toleranceExceeded(currentScrollY, scrollDirection);
-	  
-	      if(this.isOutOfBounds(currentScrollY)) { // Ignore bouncy scrolling in OSX
-	        return;
-	      }
-	  
-	      if (currentScrollY <= this.offset ) {
-	        this.top();
-	      } else {
-	        this.notTop();
-	      }
-	  
-	      if(currentScrollY + this.getViewportHeight() >= this.getScrollerHeight()) {
-	        this.bottom();
-	      }
-	      else {
-	        this.notBottom();
-	      }
-	  
-	      if(this.shouldUnpin(currentScrollY, toleranceExceeded)) {
-	        this.unpin();
-	      }
-	      else if(this.shouldPin(currentScrollY, toleranceExceeded)) {
-	        this.pin();
-	      }
-	  
-	      this.lastKnownScrollY = currentScrollY;
-	    }
-	  };
-	  /**
-	   * Default options
-	   * @type {Object}
-	   */
-	  Headroom.options = {
-	    tolerance : {
-	      up : 0,
-	      down : 0
-	    },
-	    offset : 0,
-	    scroller: window,
-	    classes : {
-	      pinned : 'headroom--pinned',
-	      unpinned : 'headroom--unpinned',
-	      top : 'headroom--top',
-	      notTop : 'headroom--not-top',
-	      bottom : 'headroom--bottom',
-	      notBottom : 'headroom--not-bottom',
-	      initial : 'headroom'
-	    }
-	  };
-	  Headroom.cutsTheMustard = typeof features !== 'undefined' && features.rAF && features.bind && features.classList;
-	
-	  return Headroom;
-	}));
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -12631,7 +10818,2233 @@
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Helper function for iterating over a collection
+	 *
+	 * @param collection
+	 * @param fn
+	 */
+	function each(collection, fn) {
+	    var i      = 0,
+	        length = collection.length,
+	        cont;
+	
+	    for(i; i < length; i++) {
+	        cont = fn(collection[i], i);
+	        if(cont === false) {
+	            break; //allow early exit
+	        }
+	    }
+	}
+	
+	/**
+	 * Helper function for determining whether target object is an array
+	 *
+	 * @param target the object under test
+	 * @return {Boolean} true if array, false otherwise
+	 */
+	function isArray(target) {
+	    return Object.prototype.toString.apply(target) === '[object Array]';
+	}
+	
+	/**
+	 * Helper function for determining whether target object is a function
+	 *
+	 * @param target the object under test
+	 * @return {Boolean} true if function, false otherwise
+	 */
+	function isFunction(target) {
+	    return typeof target === 'function';
+	}
+	
+	module.exports = {
+	    isFunction : isFunction,
+	    isArray : isArray,
+	    each : each
+	};
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _accent_map;
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var $ = __webpack_require__(1);
+	
+	$(function () {
+	
+		//filterTags parameter only needed for postgrad quals filter..
+		function searchFilter(targetElements, searchInput, minQueryLength, filterTags) {
+	
+			var $targetElements = $(targetElements);
+			var $searchInput = $(searchInput);
+			var MIN_QUERY_LENGTH = minQueryLength;
+	
+			// console.time('removing accents from all elements');
+			$targetElements.each(function () {
+				var $this = $(this);
+	
+				$this.data('search-text', accent_fold($this.text()).toLowerCase());
+				$this.data('search-keywords', accent_fold($this.data('search-keywords')).toLowerCase());
+			});
+			// console.timeEnd('removing accents from all elements');
+	
+			$searchInput.on('propertychange change click keyup input paste', function (_event) {
+				var _query = _event.currentTarget.value;
+	
+				if (_query.length < MIN_QUERY_LENGTH) {
+					$targetElements.toggleClass('is-matching', false);
+					$targetElements.toggleClass('is-not-matching', false);
+					return;
+				}
+	
+				_query = accent_fold(_query).toLowerCase();
+	
+				$targetElements.each(function () {
+					var $this = $(this);
+	
+					if ($this.data('search-text').indexOf(_query) !== -1 || $this.data('search-keywords').indexOf(_query) !== -1) {
+						$this.toggleClass('is-matching', true);
+						$this.toggleClass('is-not-matching', false);
+					} else {
+						$this.toggleClass('is-matching', false);
+						$this.toggleClass('is-not-matching', true);
+					}
+				});
+			});
+	
+			var tags = $(filterTags);
+	
+			if (tags !== null) {
+	
+				tags.each(function () {
+					//on tag click update input to filter
+					$(this).on('click', function (e) {
+						$(this).siblings().removeClass('tag-active');
+						$(this).addClass('tag-active');
+	
+						if ($(this).text() !== "All") {
+							$(searchInput).val('');
+							$(searchInput).val($(this).text()).change();
+	
+							$(this).css('margin-right', '');
+	
+							//update margins to prevent grid breaking
+							$('.is-matching').each(function (index) {
+								$(this).css('margin-right', '1%');
+	
+								if ((index + 1) % 4 === 0) {
+									$(this).css('margin-right', '0%');
+								}
+							});
+						} else {
+							$(searchInput).val('').change();
+							$(targetElements).css('margin-right', '');
+						}
+					});
+				});
+			}
+		}
+	
+		searchFilter('.postgrad-quals li', '#filter-quals', 3, '.quals-filter .tag');
+		searchFilter('#areas-of-study li', '#search-aos', 3);
+	});
+	
+	//alistapart.com/article/accent-folding-for-auto-complete
+	var accent_map = (_accent_map = {
+		'ẚ': 'a',
+		'Á': 'a',
+		'á': 'a',
+		'À': 'a',
+		'à': 'a',
+		'Ă': 'a',
+		'ă': 'a',
+		'Ắ': 'a',
+		'ắ': 'a',
+		'Ằ': 'a',
+		'ằ': 'a',
+		'Ẵ': 'a',
+		'ẵ': 'a',
+		'Ẳ': 'a',
+		'ẳ': 'a',
+		'Â': 'a',
+		'â': 'a',
+		'Ấ': 'a',
+		'ấ': 'a',
+		'Ầ': 'a',
+		'ầ': 'a',
+		'Ẫ': 'a',
+		'ẫ': 'a',
+		'Ẩ': 'a',
+		'ẩ': 'a',
+		'Ǎ': 'a',
+		'ǎ': 'a',
+		'Å': 'a',
+		'å': 'a',
+		'Ǻ': 'a',
+		'ǻ': 'a',
+		'Ä': 'a',
+		'ä': 'a',
+		'Ǟ': 'a',
+		'ǟ': 'a',
+		'Ã': 'a',
+		'ã': 'a',
+		'Ȧ': 'a',
+		'ȧ': 'a',
+		'Ǡ': 'a',
+		'ǡ': 'a',
+		'Ą': 'a',
+		'ą': 'a',
+		'Ā': 'a',
+		'ā': 'a',
+		'Ả': 'a',
+		'ả': 'a',
+		'Ȁ': 'a',
+		'ȁ': 'a',
+		'Ȃ': 'a',
+		'ȃ': 'a',
+		'Ạ': 'a',
+		'ạ': 'a',
+		'Ặ': 'a',
+		'ặ': 'a',
+		'Ậ': 'a',
+		'ậ': 'a',
+		'Ḁ': 'a',
+		'ḁ': 'a',
+		'Ⱥ': 'a',
+		'ⱥ': 'a',
+		'Ǽ': 'a',
+		'ǽ': 'a',
+		'Ǣ': 'a',
+		'ǣ': 'a',
+		'Ḃ': 'b',
+		'ḃ': 'b',
+		'Ḅ': 'b',
+		'ḅ': 'b',
+		'Ḇ': 'b',
+		'ḇ': 'b',
+		'Ƀ': 'b',
+		'ƀ': 'b',
+		'ᵬ': 'b',
+		'Ɓ': 'b',
+		'ɓ': 'b',
+		'Ƃ': 'b',
+		'ƃ': 'b',
+		'Ć': 'c',
+		'ć': 'c',
+		'Ĉ': 'c',
+		'ĉ': 'c',
+		'Č': 'c',
+		'č': 'c',
+		'Ċ': 'c',
+		'ċ': 'c',
+		'Ç': 'c',
+		'ç': 'c',
+		'Ḉ': 'c',
+		'ḉ': 'c',
+		'Ȼ': 'c',
+		'ȼ': 'c',
+		'Ƈ': 'c',
+		'ƈ': 'c',
+		'ɕ': 'c',
+		'Ď': 'd',
+		'ď': 'd',
+		'Ḋ': 'd',
+		'ḋ': 'd',
+		'Ḑ': 'd',
+		'ḑ': 'd',
+		'Ḍ': 'd',
+		'ḍ': 'd',
+		'Ḓ': 'd',
+		'ḓ': 'd',
+		'Ḏ': 'd',
+		'ḏ': 'd',
+		'Đ': 'd',
+		'đ': 'd',
+		'ᵭ': 'd',
+		'Ɖ': 'd',
+		'ɖ': 'd',
+		'Ɗ': 'd',
+		'ɗ': 'd',
+		'Ƌ': 'd',
+		'ƌ': 'd',
+		'ȡ': 'd',
+		'ð': 'd',
+		'É': 'e',
+		'Ə': 'e',
+		'Ǝ': 'e',
+		'ǝ': 'e',
+		'é': 'e',
+		'È': 'e',
+		'è': 'e',
+		'Ĕ': 'e',
+		'ĕ': 'e',
+		'Ê': 'e',
+		'ê': 'e',
+		'Ế': 'e',
+		'ế': 'e',
+		'Ề': 'e',
+		'ề': 'e',
+		'Ễ': 'e',
+		'ễ': 'e',
+		'Ể': 'e',
+		'ể': 'e',
+		'Ě': 'e',
+		'ě': 'e',
+		'Ë': 'e',
+		'ë': 'e',
+		'Ẽ': 'e',
+		'ẽ': 'e',
+		'Ė': 'e',
+		'ė': 'e',
+		'Ȩ': 'e',
+		'ȩ': 'e',
+		'Ḝ': 'e',
+		'ḝ': 'e',
+		'Ę': 'e',
+		'ę': 'e',
+		'Ē': 'e',
+		'ē': 'e',
+		'Ḗ': 'e',
+		'ḗ': 'e',
+		'Ḕ': 'e',
+		'ḕ': 'e',
+		'Ẻ': 'e',
+		'ẻ': 'e',
+		'Ȅ': 'e',
+		'ȅ': 'e',
+		'Ȇ': 'e',
+		'ȇ': 'e',
+		'Ẹ': 'e',
+		'ẹ': 'e',
+		'Ệ': 'e',
+		'ệ': 'e',
+		'Ḙ': 'e',
+		'ḙ': 'e',
+		'Ḛ': 'e',
+		'ḛ': 'e',
+		'Ɇ': 'e',
+		'ɇ': 'e',
+		'ɚ': 'e',
+		'ɝ': 'e',
+		'Ḟ': 'f',
+		'ḟ': 'f',
+		'ᵮ': 'f',
+		'Ƒ': 'f',
+		'ƒ': 'f',
+		'Ǵ': 'g',
+		'ǵ': 'g',
+		'Ğ': 'g',
+		'ğ': 'g',
+		'Ĝ': 'g',
+		'ĝ': 'g',
+		'Ǧ': 'g',
+		'ǧ': 'g',
+		'Ġ': 'g',
+		'ġ': 'g',
+		'Ģ': 'g',
+		'ģ': 'g',
+		'Ḡ': 'g',
+		'ḡ': 'g',
+		'Ǥ': 'g',
+		'ǥ': 'g',
+		'Ɠ': 'g',
+		'ɠ': 'g',
+		'Ĥ': 'h',
+		'ĥ': 'h',
+		'Ȟ': 'h',
+		'ȟ': 'h',
+		'Ḧ': 'h',
+		'ḧ': 'h',
+		'Ḣ': 'h',
+		'ḣ': 'h',
+		'Ḩ': 'h',
+		'ḩ': 'h',
+		'Ḥ': 'h',
+		'ḥ': 'h',
+		'Ḫ': 'h',
+		'ḫ': 'h',
+		'H': 'h',
+		'̱': 'h',
+		'ẖ': 'h',
+		'Ħ': 'h',
+		'ħ': 'h',
+		'Ⱨ': 'h',
+		'ⱨ': 'h',
+		'Í': 'i',
+		'í': 'i',
+		'Ì': 'i',
+		'ì': 'i',
+		'Ĭ': 'i',
+		'ĭ': 'i',
+		'Î': 'i',
+		'î': 'i',
+		'Ǐ': 'i',
+		'ǐ': 'i',
+		'Ï': 'i',
+		'ï': 'i',
+		'Ḯ': 'i',
+		'ḯ': 'i',
+		'Ĩ': 'i',
+		'ĩ': 'i',
+		'İ': 'i',
+		'i': 'i',
+		'Į': 'i',
+		'į': 'i',
+		'Ī': 'i',
+		'ī': 'i',
+		'Ỉ': 'i',
+		'ỉ': 'i',
+		'Ȉ': 'i',
+		'ȉ': 'i',
+		'Ȋ': 'i',
+		'ȋ': 'i',
+		'Ị': 'i',
+		'ị': 'i',
+		'Ḭ': 'i',
+		'ḭ': 'i',
+		'I': 'i',
+		'ı': 'i',
+		'Ɨ': 'i',
+		'ɨ': 'i',
+		'Ĵ': 'j',
+		'ĵ': 'j',
+		'J': 'j',
+		'̌': 'j',
+		'ǰ': 'j',
+		'ȷ': 'j',
+		'Ɉ': 'j',
+		'ɉ': 'j',
+		'ʝ': 'j',
+		'ɟ': 'j',
+		'ʄ': 'j',
+		'Ḱ': 'k',
+		'ḱ': 'k',
+		'Ǩ': 'k',
+		'ǩ': 'k',
+		'Ķ': 'k',
+		'ķ': 'k',
+		'Ḳ': 'k',
+		'ḳ': 'k',
+		'Ḵ': 'k',
+		'ḵ': 'k',
+		'Ƙ': 'k',
+		'ƙ': 'k',
+		'Ⱪ': 'k',
+		'ⱪ': 'k',
+		'Ĺ': 'a',
+		'ĺ': 'l',
+		'Ľ': 'l',
+		'ľ': 'l',
+		'Ļ': 'l',
+		'ļ': 'l',
+		'Ḷ': 'l',
+		'ḷ': 'l',
+		'Ḹ': 'l',
+		'ḹ': 'l',
+		'Ḽ': 'l',
+		'ḽ': 'l',
+		'Ḻ': 'l',
+		'ḻ': 'l',
+		'Ł': 'l',
+		'ł': 'l'
+	}, _defineProperty(_accent_map, '\u0141', 'l'), _defineProperty(_accent_map, '̣', 'l'), _defineProperty(_accent_map, '\u0142', 'l'), _defineProperty(_accent_map, '\u0323', 'l'), _defineProperty(_accent_map, 'Ŀ', 'l'), _defineProperty(_accent_map, 'ŀ', 'l'), _defineProperty(_accent_map, 'Ƚ', 'l'), _defineProperty(_accent_map, 'ƚ', 'l'), _defineProperty(_accent_map, 'Ⱡ', 'l'), _defineProperty(_accent_map, 'ⱡ', 'l'), _defineProperty(_accent_map, 'Ɫ', 'l'), _defineProperty(_accent_map, 'ɫ', 'l'), _defineProperty(_accent_map, 'ɬ', 'l'), _defineProperty(_accent_map, 'ɭ', 'l'), _defineProperty(_accent_map, 'ȴ', 'l'), _defineProperty(_accent_map, 'Ḿ', 'm'), _defineProperty(_accent_map, 'ḿ', 'm'), _defineProperty(_accent_map, 'Ṁ', 'm'), _defineProperty(_accent_map, 'ṁ', 'm'), _defineProperty(_accent_map, 'Ṃ', 'm'), _defineProperty(_accent_map, 'ṃ', 'm'), _defineProperty(_accent_map, 'ɱ', 'm'), _defineProperty(_accent_map, 'Ń', 'n'), _defineProperty(_accent_map, 'ń', 'n'), _defineProperty(_accent_map, 'Ǹ', 'n'), _defineProperty(_accent_map, 'ǹ', 'n'), _defineProperty(_accent_map, 'Ň', 'n'), _defineProperty(_accent_map, 'ň', 'n'), _defineProperty(_accent_map, 'Ñ', 'n'), _defineProperty(_accent_map, 'ñ', 'n'), _defineProperty(_accent_map, 'Ṅ', 'n'), _defineProperty(_accent_map, 'ṅ', 'n'), _defineProperty(_accent_map, 'Ņ', 'n'), _defineProperty(_accent_map, 'ņ', 'n'), _defineProperty(_accent_map, 'Ṇ', 'n'), _defineProperty(_accent_map, 'ṇ', 'n'), _defineProperty(_accent_map, 'Ṋ', 'n'), _defineProperty(_accent_map, 'ṋ', 'n'), _defineProperty(_accent_map, 'Ṉ', 'n'), _defineProperty(_accent_map, 'ṉ', 'n'), _defineProperty(_accent_map, 'Ɲ', 'n'), _defineProperty(_accent_map, 'ɲ', 'n'), _defineProperty(_accent_map, 'Ƞ', 'n'), _defineProperty(_accent_map, 'ƞ', 'n'), _defineProperty(_accent_map, 'ɳ', 'n'), _defineProperty(_accent_map, 'ȵ', 'n'), _defineProperty(_accent_map, 'N', 'n'), _defineProperty(_accent_map, '̈', 'n'), _defineProperty(_accent_map, 'n', 'n'), _defineProperty(_accent_map, '\u0308', 'n'), _defineProperty(_accent_map, 'Ó', 'o'), _defineProperty(_accent_map, 'ó', 'o'), _defineProperty(_accent_map, 'Ò', 'o'), _defineProperty(_accent_map, 'ò', 'o'), _defineProperty(_accent_map, 'Ŏ', 'o'), _defineProperty(_accent_map, 'ŏ', 'o'), _defineProperty(_accent_map, 'Ô', 'o'), _defineProperty(_accent_map, 'ô', 'o'), _defineProperty(_accent_map, 'Ố', 'o'), _defineProperty(_accent_map, 'ố', 'o'), _defineProperty(_accent_map, 'Ồ', 'o'), _defineProperty(_accent_map, 'ồ', 'o'), _defineProperty(_accent_map, 'Ỗ', 'o'), _defineProperty(_accent_map, 'ỗ', 'o'), _defineProperty(_accent_map, 'Ổ', 'o'), _defineProperty(_accent_map, 'ổ', 'o'), _defineProperty(_accent_map, 'Ǒ', 'o'), _defineProperty(_accent_map, 'ǒ', 'o'), _defineProperty(_accent_map, 'Ö', 'o'), _defineProperty(_accent_map, 'ö', 'o'), _defineProperty(_accent_map, 'Ȫ', 'o'), _defineProperty(_accent_map, 'ȫ', 'o'), _defineProperty(_accent_map, 'Ő', 'o'), _defineProperty(_accent_map, 'ő', 'o'), _defineProperty(_accent_map, 'Õ', 'o'), _defineProperty(_accent_map, 'õ', 'o'), _defineProperty(_accent_map, 'Ṍ', 'o'), _defineProperty(_accent_map, 'ṍ', 'o'), _defineProperty(_accent_map, 'Ṏ', 'o'), _defineProperty(_accent_map, 'ṏ', 'o'), _defineProperty(_accent_map, 'Ȭ', 'o'), _defineProperty(_accent_map, 'ȭ', 'o'), _defineProperty(_accent_map, 'Ȯ', 'o'), _defineProperty(_accent_map, 'ȯ', 'o'), _defineProperty(_accent_map, 'Ȱ', 'o'), _defineProperty(_accent_map, 'ȱ', 'o'), _defineProperty(_accent_map, 'Ø', 'o'), _defineProperty(_accent_map, 'ø', 'o'), _defineProperty(_accent_map, 'Ǿ', 'o'), _defineProperty(_accent_map, 'ǿ', 'o'), _defineProperty(_accent_map, 'Ǫ', 'o'), _defineProperty(_accent_map, 'ǫ', 'o'), _defineProperty(_accent_map, 'Ǭ', 'o'), _defineProperty(_accent_map, 'ǭ', 'o'), _defineProperty(_accent_map, 'Ō', 'o'), _defineProperty(_accent_map, 'ō', 'o'), _defineProperty(_accent_map, 'Ṓ', 'o'), _defineProperty(_accent_map, 'ṓ', 'o'), _defineProperty(_accent_map, 'Ṑ', 'o'), _defineProperty(_accent_map, 'ṑ', 'o'), _defineProperty(_accent_map, 'Ỏ', 'o'), _defineProperty(_accent_map, 'ỏ', 'o'), _defineProperty(_accent_map, 'Ȍ', 'o'), _defineProperty(_accent_map, 'ȍ', 'o'), _defineProperty(_accent_map, 'Ȏ', 'o'), _defineProperty(_accent_map, 'ȏ', 'o'), _defineProperty(_accent_map, 'Ơ', 'o'), _defineProperty(_accent_map, 'ơ', 'o'), _defineProperty(_accent_map, 'Ớ', 'o'), _defineProperty(_accent_map, 'ớ', 'o'), _defineProperty(_accent_map, 'Ờ', 'o'), _defineProperty(_accent_map, 'ờ', 'o'), _defineProperty(_accent_map, 'Ỡ', 'o'), _defineProperty(_accent_map, 'ỡ', 'o'), _defineProperty(_accent_map, 'Ở', 'o'), _defineProperty(_accent_map, 'ở', 'o'), _defineProperty(_accent_map, 'Ợ', 'o'), _defineProperty(_accent_map, 'ợ', 'o'), _defineProperty(_accent_map, 'Ọ', 'o'), _defineProperty(_accent_map, 'ọ', 'o'), _defineProperty(_accent_map, 'Ộ', 'o'), _defineProperty(_accent_map, 'ộ', 'o'), _defineProperty(_accent_map, 'Ɵ', 'o'), _defineProperty(_accent_map, 'ɵ', 'o'), _defineProperty(_accent_map, 'Ṕ', 'p'), _defineProperty(_accent_map, 'ṕ', 'p'), _defineProperty(_accent_map, 'Ṗ', 'p'), _defineProperty(_accent_map, 'ṗ', 'p'), _defineProperty(_accent_map, 'Ᵽ', 'p'), _defineProperty(_accent_map, 'Ƥ', 'p'), _defineProperty(_accent_map, 'ƥ', 'p'), _defineProperty(_accent_map, 'P', 'p'), _defineProperty(_accent_map, '̃', 'p'), _defineProperty(_accent_map, 'p', 'p'), _defineProperty(_accent_map, '\u0303', 'p'), _defineProperty(_accent_map, 'ʠ', 'q'), _defineProperty(_accent_map, 'Ɋ', 'q'), _defineProperty(_accent_map, 'ɋ', 'q'), _defineProperty(_accent_map, 'Ŕ', 'r'), _defineProperty(_accent_map, 'ŕ', 'r'), _defineProperty(_accent_map, 'Ř', 'r'), _defineProperty(_accent_map, 'ř', 'r'), _defineProperty(_accent_map, 'Ṙ', 'r'), _defineProperty(_accent_map, 'ṙ', 'r'), _defineProperty(_accent_map, 'Ŗ', 'r'), _defineProperty(_accent_map, 'ŗ', 'r'), _defineProperty(_accent_map, 'Ȑ', 'r'), _defineProperty(_accent_map, 'ȑ', 'r'), _defineProperty(_accent_map, 'Ȓ', 'r'), _defineProperty(_accent_map, 'ȓ', 'r'), _defineProperty(_accent_map, 'Ṛ', 'r'), _defineProperty(_accent_map, 'ṛ', 'r'), _defineProperty(_accent_map, 'Ṝ', 'r'), _defineProperty(_accent_map, 'ṝ', 'r'), _defineProperty(_accent_map, 'Ṟ', 'r'), _defineProperty(_accent_map, 'ṟ', 'r'), _defineProperty(_accent_map, 'Ɍ', 'r'), _defineProperty(_accent_map, 'ɍ', 'r'), _defineProperty(_accent_map, 'ᵲ', 'r'), _defineProperty(_accent_map, 'ɼ', 'r'), _defineProperty(_accent_map, 'Ɽ', 'r'), _defineProperty(_accent_map, 'ɽ', 'r'), _defineProperty(_accent_map, 'ɾ', 'r'), _defineProperty(_accent_map, 'ᵳ', 'r'), _defineProperty(_accent_map, 'ß', 's'), _defineProperty(_accent_map, 'Ś', 's'), _defineProperty(_accent_map, 'ś', 's'), _defineProperty(_accent_map, 'Ṥ', 's'), _defineProperty(_accent_map, 'ṥ', 's'), _defineProperty(_accent_map, 'Ŝ', 's'), _defineProperty(_accent_map, 'ŝ', 's'), _defineProperty(_accent_map, 'Š', 's'), _defineProperty(_accent_map, 'š', 's'), _defineProperty(_accent_map, 'Ṧ', 's'), _defineProperty(_accent_map, 'ṧ', 's'), _defineProperty(_accent_map, 'Ṡ', 's'), _defineProperty(_accent_map, 'ṡ', 's'), _defineProperty(_accent_map, 'ẛ', 's'), _defineProperty(_accent_map, 'Ş', 's'), _defineProperty(_accent_map, 'ş', 's'), _defineProperty(_accent_map, 'Ṣ', 's'), _defineProperty(_accent_map, 'ṣ', 's'), _defineProperty(_accent_map, 'Ṩ', 's'), _defineProperty(_accent_map, 'ṩ', 's'), _defineProperty(_accent_map, 'Ș', 's'), _defineProperty(_accent_map, 'ș', 's'), _defineProperty(_accent_map, 'ʂ', 's'), _defineProperty(_accent_map, 'S', 's'), _defineProperty(_accent_map, '̩', 's'), _defineProperty(_accent_map, 's', 's'), _defineProperty(_accent_map, '\u0329', 's'), _defineProperty(_accent_map, 'Þ', 't'), _defineProperty(_accent_map, 'þ', 't'), _defineProperty(_accent_map, 'Ť', 't'), _defineProperty(_accent_map, 'ť', 't'), _defineProperty(_accent_map, 'T', 't'), _defineProperty(_accent_map, '\u0308', 't'), _defineProperty(_accent_map, 'ẗ', 't'), _defineProperty(_accent_map, 'Ṫ', 't'), _defineProperty(_accent_map, 'ṫ', 't'), _defineProperty(_accent_map, 'Ţ', 't'), _defineProperty(_accent_map, 'ţ', 't'), _defineProperty(_accent_map, 'Ṭ', 't'), _defineProperty(_accent_map, 'ṭ', 't'), _defineProperty(_accent_map, 'Ț', 't'), _defineProperty(_accent_map, 'ț', 't'), _defineProperty(_accent_map, 'Ṱ', 't'), _defineProperty(_accent_map, 'ṱ', 't'), _defineProperty(_accent_map, 'Ṯ', 't'), _defineProperty(_accent_map, 'ṯ', 't'), _defineProperty(_accent_map, 'Ŧ', 't'), _defineProperty(_accent_map, 'ŧ', 't'), _defineProperty(_accent_map, 'Ⱦ', 't'), _defineProperty(_accent_map, 'ⱦ', 't'), _defineProperty(_accent_map, 'ᵵ', 't'), _defineProperty(_accent_map, 'ƫ', 't'), _defineProperty(_accent_map, 'Ƭ', 't'), _defineProperty(_accent_map, 'ƭ', 't'), _defineProperty(_accent_map, 'Ʈ', 't'), _defineProperty(_accent_map, 'ʈ', 't'), _defineProperty(_accent_map, 'ȶ', 't'), _defineProperty(_accent_map, 'Ú', 'u'), _defineProperty(_accent_map, 'ú', 'u'), _defineProperty(_accent_map, 'Ù', 'u'), _defineProperty(_accent_map, 'ù', 'u'), _defineProperty(_accent_map, 'Ŭ', 'u'), _defineProperty(_accent_map, 'ŭ', 'u'), _defineProperty(_accent_map, 'Û', 'u'), _defineProperty(_accent_map, 'û', 'u'), _defineProperty(_accent_map, 'Ǔ', 'u'), _defineProperty(_accent_map, 'ǔ', 'u'), _defineProperty(_accent_map, 'Ů', 'u'), _defineProperty(_accent_map, 'ů', 'u'), _defineProperty(_accent_map, 'Ü', 'u'), _defineProperty(_accent_map, 'ü', 'u'), _defineProperty(_accent_map, 'Ǘ', 'u'), _defineProperty(_accent_map, 'ǘ', 'u'), _defineProperty(_accent_map, 'Ǜ', 'u'), _defineProperty(_accent_map, 'ǜ', 'u'), _defineProperty(_accent_map, 'Ǚ', 'u'), _defineProperty(_accent_map, 'ǚ', 'u'), _defineProperty(_accent_map, 'Ǖ', 'u'), _defineProperty(_accent_map, 'ǖ', 'u'), _defineProperty(_accent_map, 'Ű', 'u'), _defineProperty(_accent_map, 'ű', 'u'), _defineProperty(_accent_map, 'Ũ', 'u'), _defineProperty(_accent_map, 'ũ', 'u'), _defineProperty(_accent_map, 'Ṹ', 'u'), _defineProperty(_accent_map, 'ṹ', 'u'), _defineProperty(_accent_map, 'Ų', 'u'), _defineProperty(_accent_map, 'ų', 'u'), _defineProperty(_accent_map, 'Ū', 'u'), _defineProperty(_accent_map, 'ū', 'u'), _defineProperty(_accent_map, 'Ṻ', 'u'), _defineProperty(_accent_map, 'ṻ', 'u'), _defineProperty(_accent_map, 'Ủ', 'u'), _defineProperty(_accent_map, 'ủ', 'u'), _defineProperty(_accent_map, 'Ȕ', 'u'), _defineProperty(_accent_map, 'ȕ', 'u'), _defineProperty(_accent_map, 'Ȗ', 'u'), _defineProperty(_accent_map, 'ȗ', 'u'), _defineProperty(_accent_map, 'Ư', 'u'), _defineProperty(_accent_map, 'ư', 'u'), _defineProperty(_accent_map, 'Ứ', 'u'), _defineProperty(_accent_map, 'ứ', 'u'), _defineProperty(_accent_map, 'Ừ', 'u'), _defineProperty(_accent_map, 'ừ', 'u'), _defineProperty(_accent_map, 'Ữ', 'u'), _defineProperty(_accent_map, 'ữ', 'u'), _defineProperty(_accent_map, 'Ử', 'u'), _defineProperty(_accent_map, 'ử', 'u'), _defineProperty(_accent_map, 'Ự', 'u'), _defineProperty(_accent_map, 'ự', 'u'), _defineProperty(_accent_map, 'Ụ', 'u'), _defineProperty(_accent_map, 'ụ', 'u'), _defineProperty(_accent_map, 'Ṳ', 'u'), _defineProperty(_accent_map, 'ṳ', 'u'), _defineProperty(_accent_map, 'Ṷ', 'u'), _defineProperty(_accent_map, 'ṷ', 'u'), _defineProperty(_accent_map, 'Ṵ', 'u'), _defineProperty(_accent_map, 'ṵ', 'u'), _defineProperty(_accent_map, 'Ʉ', 'u'), _defineProperty(_accent_map, 'ʉ', 'u'), _defineProperty(_accent_map, 'Ṽ', 'v'), _defineProperty(_accent_map, 'ṽ', 'v'), _defineProperty(_accent_map, 'Ṿ', 'v'), _defineProperty(_accent_map, 'ṿ', 'v'), _defineProperty(_accent_map, 'Ʋ', 'v'), _defineProperty(_accent_map, 'ʋ', 'v'), _defineProperty(_accent_map, 'Ẃ', 'w'), _defineProperty(_accent_map, 'ẃ', 'w'), _defineProperty(_accent_map, 'Ẁ', 'w'), _defineProperty(_accent_map, 'ẁ', 'w'), _defineProperty(_accent_map, 'Ŵ', 'w'), _defineProperty(_accent_map, 'ŵ', 'w'), _defineProperty(_accent_map, 'W', 'w'), _defineProperty(_accent_map, '̊', 'w'), _defineProperty(_accent_map, 'ẘ', 'w'), _defineProperty(_accent_map, 'Ẅ', 'w'), _defineProperty(_accent_map, 'ẅ', 'w'), _defineProperty(_accent_map, 'Ẇ', 'w'), _defineProperty(_accent_map, 'ẇ', 'w'), _defineProperty(_accent_map, 'Ẉ', 'w'), _defineProperty(_accent_map, 'ẉ', 'w'), _defineProperty(_accent_map, 'Ẍ', 'x'), _defineProperty(_accent_map, 'ẍ', 'x'), _defineProperty(_accent_map, 'Ẋ', 'x'), _defineProperty(_accent_map, 'ẋ', 'x'), _defineProperty(_accent_map, 'Ý', 'y'), _defineProperty(_accent_map, 'ý', 'y'), _defineProperty(_accent_map, 'Ỳ', 'y'), _defineProperty(_accent_map, 'ỳ', 'y'), _defineProperty(_accent_map, 'Ŷ', 'y'), _defineProperty(_accent_map, 'ŷ', 'y'), _defineProperty(_accent_map, 'Y', 'y'), _defineProperty(_accent_map, '\u030A', 'y'), _defineProperty(_accent_map, 'ẙ', 'y'), _defineProperty(_accent_map, 'Ÿ', 'y'), _defineProperty(_accent_map, 'ÿ', 'y'), _defineProperty(_accent_map, 'Ỹ', 'y'), _defineProperty(_accent_map, 'ỹ', 'y'), _defineProperty(_accent_map, 'Ẏ', 'y'), _defineProperty(_accent_map, 'ẏ', 'y'), _defineProperty(_accent_map, 'Ȳ', 'y'), _defineProperty(_accent_map, 'ȳ', 'y'), _defineProperty(_accent_map, 'Ỷ', 'y'), _defineProperty(_accent_map, 'ỷ', 'y'), _defineProperty(_accent_map, 'Ỵ', 'y'), _defineProperty(_accent_map, 'ỵ', 'y'), _defineProperty(_accent_map, 'ʏ', 'y'), _defineProperty(_accent_map, 'Ɏ', 'y'), _defineProperty(_accent_map, 'ɏ', 'y'), _defineProperty(_accent_map, 'Ƴ', 'y'), _defineProperty(_accent_map, 'ƴ', 'y'), _defineProperty(_accent_map, 'Ź', 'z'), _defineProperty(_accent_map, 'ź', 'z'), _defineProperty(_accent_map, 'Ẑ', 'z'), _defineProperty(_accent_map, 'ẑ', 'z'), _defineProperty(_accent_map, 'Ž', 'z'), _defineProperty(_accent_map, 'ž', 'z'), _defineProperty(_accent_map, 'Ż', 'z'), _defineProperty(_accent_map, 'ż', 'z'), _defineProperty(_accent_map, 'Ẓ', 'z'), _defineProperty(_accent_map, 'ẓ', 'z'), _defineProperty(_accent_map, 'Ẕ', 'z'), _defineProperty(_accent_map, 'ẕ', 'z'), _defineProperty(_accent_map, 'Ƶ', 'z'), _defineProperty(_accent_map, 'ƶ', 'z'), _defineProperty(_accent_map, 'Ȥ', 'z'), _defineProperty(_accent_map, 'ȥ', 'z'), _defineProperty(_accent_map, 'ʐ', 'z'), _defineProperty(_accent_map, 'ʑ', 'z'), _defineProperty(_accent_map, 'Ⱬ', 'z'), _defineProperty(_accent_map, 'ⱬ', 'z'), _defineProperty(_accent_map, 'Ǯ', 'z'), _defineProperty(_accent_map, 'ǯ', 'z'), _defineProperty(_accent_map, 'ƺ', 'z'), _accent_map);
+	
+	function accent_fold(s) {
+		if (!s) {
+			return '';
+		}
+		var ret = '';
+		for (var i = 0; i < s.length; i++) {
+			ret += accent_map[s.charAt(i)] || s.charAt(i);
+		}
+		return ret;
+	};
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*
+	 * Cookies.js - 1.2.3
+	 * https://github.com/ScottHamper/Cookies
+	 *
+	 * This is free and unencumbered software released into the public domain.
+	 */
+	(function (global, undefined) {
+	    'use strict';
+	
+	    var factory = function (window) {
+	        if (typeof window.document !== 'object') {
+	            throw new Error('Cookies.js requires a `window` with a `document` object');
+	        }
+	
+	        var Cookies = function (key, value, options) {
+	            return arguments.length === 1 ?
+	                Cookies.get(key) : Cookies.set(key, value, options);
+	        };
+	
+	        // Allows for setter injection in unit tests
+	        Cookies._document = window.document;
+	
+	        // Used to ensure cookie keys do not collide with
+	        // built-in `Object` properties
+	        Cookies._cacheKeyPrefix = 'cookey.'; // Hurr hurr, :)
+	        
+	        Cookies._maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
+	
+	        Cookies.defaults = {
+	            path: '/',
+	            secure: false
+	        };
+	
+	        Cookies.get = function (key) {
+	            if (Cookies._cachedDocumentCookie !== Cookies._document.cookie) {
+	                Cookies._renewCache();
+	            }
+	            
+	            var value = Cookies._cache[Cookies._cacheKeyPrefix + key];
+	
+	            return value === undefined ? undefined : decodeURIComponent(value);
+	        };
+	
+	        Cookies.set = function (key, value, options) {
+	            options = Cookies._getExtendedOptions(options);
+	            options.expires = Cookies._getExpiresDate(value === undefined ? -1 : options.expires);
+	
+	            Cookies._document.cookie = Cookies._generateCookieString(key, value, options);
+	
+	            return Cookies;
+	        };
+	
+	        Cookies.expire = function (key, options) {
+	            return Cookies.set(key, undefined, options);
+	        };
+	
+	        Cookies._getExtendedOptions = function (options) {
+	            return {
+	                path: options && options.path || Cookies.defaults.path,
+	                domain: options && options.domain || Cookies.defaults.domain,
+	                expires: options && options.expires || Cookies.defaults.expires,
+	                secure: options && options.secure !== undefined ?  options.secure : Cookies.defaults.secure
+	            };
+	        };
+	
+	        Cookies._isValidDate = function (date) {
+	            return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
+	        };
+	
+	        Cookies._getExpiresDate = function (expires, now) {
+	            now = now || new Date();
+	
+	            if (typeof expires === 'number') {
+	                expires = expires === Infinity ?
+	                    Cookies._maxExpireDate : new Date(now.getTime() + expires * 1000);
+	            } else if (typeof expires === 'string') {
+	                expires = new Date(expires);
+	            }
+	
+	            if (expires && !Cookies._isValidDate(expires)) {
+	                throw new Error('`expires` parameter cannot be converted to a valid Date instance');
+	            }
+	
+	            return expires;
+	        };
+	
+	        Cookies._generateCookieString = function (key, value, options) {
+	            key = key.replace(/[^#$&+\^`|]/g, encodeURIComponent);
+	            key = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
+	            value = (value + '').replace(/[^!#$&-+\--:<-\[\]-~]/g, encodeURIComponent);
+	            options = options || {};
+	
+	            var cookieString = key + '=' + value;
+	            cookieString += options.path ? ';path=' + options.path : '';
+	            cookieString += options.domain ? ';domain=' + options.domain : '';
+	            cookieString += options.expires ? ';expires=' + options.expires.toUTCString() : '';
+	            cookieString += options.secure ? ';secure' : '';
+	
+	            return cookieString;
+	        };
+	
+	        Cookies._getCacheFromString = function (documentCookie) {
+	            var cookieCache = {};
+	            var cookiesArray = documentCookie ? documentCookie.split('; ') : [];
+	
+	            for (var i = 0; i < cookiesArray.length; i++) {
+	                var cookieKvp = Cookies._getKeyValuePairFromCookieString(cookiesArray[i]);
+	
+	                if (cookieCache[Cookies._cacheKeyPrefix + cookieKvp.key] === undefined) {
+	                    cookieCache[Cookies._cacheKeyPrefix + cookieKvp.key] = cookieKvp.value;
+	                }
+	            }
+	
+	            return cookieCache;
+	        };
+	
+	        Cookies._getKeyValuePairFromCookieString = function (cookieString) {
+	            // "=" is a valid character in a cookie value according to RFC6265, so cannot `split('=')`
+	            var separatorIndex = cookieString.indexOf('=');
+	
+	            // IE omits the "=" when the cookie value is an empty string
+	            separatorIndex = separatorIndex < 0 ? cookieString.length : separatorIndex;
+	
+	            var key = cookieString.substr(0, separatorIndex);
+	            var decodedKey;
+	            try {
+	                decodedKey = decodeURIComponent(key);
+	            } catch (e) {
+	                if (console && typeof console.error === 'function') {
+	                    console.error('Could not decode cookie with key "' + key + '"', e);
+	                }
+	            }
+	            
+	            return {
+	                key: decodedKey,
+	                value: cookieString.substr(separatorIndex + 1) // Defer decoding value until accessed
+	            };
+	        };
+	
+	        Cookies._renewCache = function () {
+	            Cookies._cache = Cookies._getCacheFromString(Cookies._document.cookie);
+	            Cookies._cachedDocumentCookie = Cookies._document.cookie;
+	        };
+	
+	        Cookies._areEnabled = function () {
+	            var testKey = 'cookies.js';
+	            var areEnabled = Cookies.set(testKey, 1).get(testKey) === '1';
+	            Cookies.expire(testKey);
+	            return areEnabled;
+	        };
+	
+	        Cookies.enabled = Cookies._areEnabled();
+	
+	        return Cookies;
+	    };
+	    var cookiesExport = (global && typeof global.document === 'object') ? factory(global) : factory;
+	
+	    // AMD support
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_RESULT__ = function () { return cookiesExport; }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    // CommonJS/Node.js support
+	    } else if (typeof exports === 'object') {
+	        // Support Node.js specific `module.exports` (which can be a function)
+	        if (typeof module === 'object' && typeof module.exports === 'object') {
+	            exports = module.exports = cookiesExport;
+	        }
+	        // But always support CommonJS module 1.1.1 spec (`exports` cannot be a function)
+	        exports.Cookies = cookiesExport;
+	    } else {
+	        global.Cookies = cookiesExport;
+	    }
+	})(typeof window === 'undefined' ? this : window);
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var QueryHandler = __webpack_require__(7);
+	var each = __webpack_require__(2).each;
+	
+	/**
+	 * Represents a single media query, manages it's state and registered handlers for this query
+	 *
+	 * @constructor
+	 * @param {string} query the media query string
+	 * @param {boolean} [isUnconditional=false] whether the media query should run regardless of whether the conditions are met. Primarily for helping older browsers deal with mobile-first design
+	 */
+	function MediaQuery(query, isUnconditional) {
+	    this.query = query;
+	    this.isUnconditional = isUnconditional;
+	    this.handlers = [];
+	    this.mql = window.matchMedia(query);
+	
+	    var self = this;
+	    this.listener = function(mql) {
+	        // Chrome passes an MediaQueryListEvent object, while other browsers pass MediaQueryList directly
+	        self.mql = mql.currentTarget || mql;
+	        self.assess();
+	    };
+	    this.mql.addListener(this.listener);
+	}
+	
+	MediaQuery.prototype = {
+	
+	    constuctor : MediaQuery,
+	
+	    /**
+	     * add a handler for this query, triggering if already active
+	     *
+	     * @param {object} handler
+	     * @param {function} handler.match callback for when query is activated
+	     * @param {function} [handler.unmatch] callback for when query is deactivated
+	     * @param {function} [handler.setup] callback for immediate execution when a query handler is registered
+	     * @param {boolean} [handler.deferSetup=false] should the setup callback be deferred until the first time the handler is matched?
+	     */
+	    addHandler : function(handler) {
+	        var qh = new QueryHandler(handler);
+	        this.handlers.push(qh);
+	
+	        this.matches() && qh.on();
+	    },
+	
+	    /**
+	     * removes the given handler from the collection, and calls it's destroy methods
+	     *
+	     * @param {object || function} handler the handler to remove
+	     */
+	    removeHandler : function(handler) {
+	        var handlers = this.handlers;
+	        each(handlers, function(h, i) {
+	            if(h.equals(handler)) {
+	                h.destroy();
+	                return !handlers.splice(i,1); //remove from array and exit each early
+	            }
+	        });
+	    },
+	
+	    /**
+	     * Determine whether the media query should be considered a match
+	     *
+	     * @return {Boolean} true if media query can be considered a match, false otherwise
+	     */
+	    matches : function() {
+	        return this.mql.matches || this.isUnconditional;
+	    },
+	
+	    /**
+	     * Clears all handlers and unbinds events
+	     */
+	    clear : function() {
+	        each(this.handlers, function(handler) {
+	            handler.destroy();
+	        });
+	        this.mql.removeListener(this.listener);
+	        this.handlers.length = 0; //clear array
+	    },
+	
+	    /*
+	        * Assesses the query, turning on all handlers if it matches, turning them off if it doesn't match
+	        */
+	    assess : function() {
+	        var action = this.matches() ? 'on' : 'off';
+	
+	        each(this.handlers, function(handler) {
+	            handler[action]();
+	        });
+	    }
+	};
+	
+	module.exports = MediaQuery;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var MediaQuery = __webpack_require__(5);
+	var Util = __webpack_require__(2);
+	var each = Util.each;
+	var isFunction = Util.isFunction;
+	var isArray = Util.isArray;
+	
+	/**
+	 * Allows for registration of query handlers.
+	 * Manages the query handler's state and is responsible for wiring up browser events
+	 *
+	 * @constructor
+	 */
+	function MediaQueryDispatch () {
+	    if(!window.matchMedia) {
+	        throw new Error('matchMedia not present, legacy browsers require a polyfill');
+	    }
+	
+	    this.queries = {};
+	    this.browserIsIncapable = !window.matchMedia('only all').matches;
+	}
+	
+	MediaQueryDispatch.prototype = {
+	
+	    constructor : MediaQueryDispatch,
+	
+	    /**
+	     * Registers a handler for the given media query
+	     *
+	     * @param {string} q the media query
+	     * @param {object || Array || Function} options either a single query handler object, a function, or an array of query handlers
+	     * @param {function} options.match fired when query matched
+	     * @param {function} [options.unmatch] fired when a query is no longer matched
+	     * @param {function} [options.setup] fired when handler first triggered
+	     * @param {boolean} [options.deferSetup=false] whether setup should be run immediately or deferred until query is first matched
+	     * @param {boolean} [shouldDegrade=false] whether this particular media query should always run on incapable browsers
+	     */
+	    register : function(q, options, shouldDegrade) {
+	        var queries         = this.queries,
+	            isUnconditional = shouldDegrade && this.browserIsIncapable;
+	
+	        if(!queries[q]) {
+	            queries[q] = new MediaQuery(q, isUnconditional);
+	        }
+	
+	        //normalise to object in an array
+	        if(isFunction(options)) {
+	            options = { match : options };
+	        }
+	        if(!isArray(options)) {
+	            options = [options];
+	        }
+	        each(options, function(handler) {
+	            if (isFunction(handler)) {
+	                handler = { match : handler };
+	            }
+	            queries[q].addHandler(handler);
+	        });
+	
+	        return this;
+	    },
+	
+	    /**
+	     * unregisters a query and all it's handlers, or a specific handler for a query
+	     *
+	     * @param {string} q the media query to target
+	     * @param {object || function} [handler] specific handler to unregister
+	     */
+	    unregister : function(q, handler) {
+	        var query = this.queries[q];
+	
+	        if(query) {
+	            if(handler) {
+	                query.removeHandler(handler);
+	            }
+	            else {
+	                query.clear();
+	                delete this.queries[q];
+	            }
+	        }
+	
+	        return this;
+	    }
+	};
+	
+	module.exports = MediaQueryDispatch;
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Delegate to handle a media query being matched and unmatched.
+	 *
+	 * @param {object} options
+	 * @param {function} options.match callback for when the media query is matched
+	 * @param {function} [options.unmatch] callback for when the media query is unmatched
+	 * @param {function} [options.setup] one-time callback triggered the first time a query is matched
+	 * @param {boolean} [options.deferSetup=false] should the setup callback be run immediately, rather than first time query is matched?
+	 * @constructor
+	 */
+	function QueryHandler(options) {
+	    this.options = options;
+	    !options.deferSetup && this.setup();
+	}
+	
+	QueryHandler.prototype = {
+	
+	    constructor : QueryHandler,
+	
+	    /**
+	     * coordinates setup of the handler
+	     *
+	     * @function
+	     */
+	    setup : function() {
+	        if(this.options.setup) {
+	            this.options.setup();
+	        }
+	        this.initialised = true;
+	    },
+	
+	    /**
+	     * coordinates setup and triggering of the handler
+	     *
+	     * @function
+	     */
+	    on : function() {
+	        !this.initialised && this.setup();
+	        this.options.match && this.options.match();
+	    },
+	
+	    /**
+	     * coordinates the unmatch event for the handler
+	     *
+	     * @function
+	     */
+	    off : function() {
+	        this.options.unmatch && this.options.unmatch();
+	    },
+	
+	    /**
+	     * called when a handler is to be destroyed.
+	     * delegates to the destroy or unmatch callbacks, depending on availability.
+	     *
+	     * @function
+	     */
+	    destroy : function() {
+	        this.options.destroy ? this.options.destroy() : this.off();
+	    },
+	
+	    /**
+	     * determines equality by reference.
+	     * if object is supplied compare options, if function, compare match callback
+	     *
+	     * @function
+	     * @param {object || function} [target] the target for comparison
+	     */
+	    equals : function(target) {
+	        return this.options === target || this.options.match === target;
+	    }
+	
+	};
+	
+	module.exports = QueryHandler;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var MediaQueryDispatch = __webpack_require__(6);
+	module.exports = new MediaQueryDispatch();
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
+		'use strict';
+	
+		/**
+		 * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.
+		 *
+		 * @codingstandard ftlabs-jsv2
+		 * @copyright The Financial Times Limited [All Rights Reserved]
+		 * @license MIT License (see LICENSE.txt)
+		 */
+	
+		/*jslint browser:true, node:true*/
+		/*global define, Event, Node*/
+	
+	
+		/**
+		 * Instantiate fast-clicking listeners on the specified layer.
+		 *
+		 * @constructor
+		 * @param {Element} layer The layer to listen on
+		 * @param {Object} [options={}] The options to override the defaults
+		 */
+		function FastClick(layer, options) {
+			var oldOnClick;
+	
+			options = options || {};
+	
+			/**
+			 * Whether a click is currently being tracked.
+			 *
+			 * @type boolean
+			 */
+			this.trackingClick = false;
+	
+	
+			/**
+			 * Timestamp for when click tracking started.
+			 *
+			 * @type number
+			 */
+			this.trackingClickStart = 0;
+	
+	
+			/**
+			 * The element being tracked for a click.
+			 *
+			 * @type EventTarget
+			 */
+			this.targetElement = null;
+	
+	
+			/**
+			 * X-coordinate of touch start event.
+			 *
+			 * @type number
+			 */
+			this.touchStartX = 0;
+	
+	
+			/**
+			 * Y-coordinate of touch start event.
+			 *
+			 * @type number
+			 */
+			this.touchStartY = 0;
+	
+	
+			/**
+			 * ID of the last touch, retrieved from Touch.identifier.
+			 *
+			 * @type number
+			 */
+			this.lastTouchIdentifier = 0;
+	
+	
+			/**
+			 * Touchmove boundary, beyond which a click will be cancelled.
+			 *
+			 * @type number
+			 */
+			this.touchBoundary = options.touchBoundary || 10;
+	
+	
+			/**
+			 * The FastClick layer.
+			 *
+			 * @type Element
+			 */
+			this.layer = layer;
+	
+			/**
+			 * The minimum time between tap(touchstart and touchend) events
+			 *
+			 * @type number
+			 */
+			this.tapDelay = options.tapDelay || 200;
+	
+			/**
+			 * The maximum time for a tap
+			 *
+			 * @type number
+			 */
+			this.tapTimeout = options.tapTimeout || 700;
+	
+			if (FastClick.notNeeded(layer)) {
+				return;
+			}
+	
+			// Some old versions of Android don't have Function.prototype.bind
+			function bind(method, context) {
+				return function() { return method.apply(context, arguments); };
+			}
+	
+	
+			var methods = ['onMouse', 'onClick', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'];
+			var context = this;
+			for (var i = 0, l = methods.length; i < l; i++) {
+				context[methods[i]] = bind(context[methods[i]], context);
+			}
+	
+			// Set up event handlers as required
+			if (deviceIsAndroid) {
+				layer.addEventListener('mouseover', this.onMouse, true);
+				layer.addEventListener('mousedown', this.onMouse, true);
+				layer.addEventListener('mouseup', this.onMouse, true);
+			}
+	
+			layer.addEventListener('click', this.onClick, true);
+			layer.addEventListener('touchstart', this.onTouchStart, false);
+			layer.addEventListener('touchmove', this.onTouchMove, false);
+			layer.addEventListener('touchend', this.onTouchEnd, false);
+			layer.addEventListener('touchcancel', this.onTouchCancel, false);
+	
+			// Hack is required for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
+			// which is how FastClick normally stops click events bubbling to callbacks registered on the FastClick
+			// layer when they are cancelled.
+			if (!Event.prototype.stopImmediatePropagation) {
+				layer.removeEventListener = function(type, callback, capture) {
+					var rmv = Node.prototype.removeEventListener;
+					if (type === 'click') {
+						rmv.call(layer, type, callback.hijacked || callback, capture);
+					} else {
+						rmv.call(layer, type, callback, capture);
+					}
+				};
+	
+				layer.addEventListener = function(type, callback, capture) {
+					var adv = Node.prototype.addEventListener;
+					if (type === 'click') {
+						adv.call(layer, type, callback.hijacked || (callback.hijacked = function(event) {
+							if (!event.propagationStopped) {
+								callback(event);
+							}
+						}), capture);
+					} else {
+						adv.call(layer, type, callback, capture);
+					}
+				};
+			}
+	
+			// If a handler is already declared in the element's onclick attribute, it will be fired before
+			// FastClick's onClick handler. Fix this by pulling out the user-defined handler function and
+			// adding it as listener.
+			if (typeof layer.onclick === 'function') {
+	
+				// Android browser on at least 3.2 requires a new reference to the function in layer.onclick
+				// - the old one won't work if passed to addEventListener directly.
+				oldOnClick = layer.onclick;
+				layer.addEventListener('click', function(event) {
+					oldOnClick(event);
+				}, false);
+				layer.onclick = null;
+			}
+		}
+	
+		/**
+		* Windows Phone 8.1 fakes user agent string to look like Android and iPhone.
+		*
+		* @type boolean
+		*/
+		var deviceIsWindowsPhone = navigator.userAgent.indexOf("Windows Phone") >= 0;
+	
+		/**
+		 * Android requires exceptions.
+		 *
+		 * @type boolean
+		 */
+		var deviceIsAndroid = navigator.userAgent.indexOf('Android') > 0 && !deviceIsWindowsPhone;
+	
+	
+		/**
+		 * iOS requires exceptions.
+		 *
+		 * @type boolean
+		 */
+		var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent) && !deviceIsWindowsPhone;
+	
+	
+		/**
+		 * iOS 4 requires an exception for select elements.
+		 *
+		 * @type boolean
+		 */
+		var deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.userAgent);
+	
+	
+		/**
+		 * iOS 6.0-7.* requires the target element to be manually derived
+		 *
+		 * @type boolean
+		 */
+		var deviceIsIOSWithBadTarget = deviceIsIOS && (/OS [6-7]_\d/).test(navigator.userAgent);
+	
+		/**
+		 * BlackBerry requires exceptions.
+		 *
+		 * @type boolean
+		 */
+		var deviceIsBlackBerry10 = navigator.userAgent.indexOf('BB10') > 0;
+	
+		/**
+		 * Determine whether a given element requires a native click.
+		 *
+		 * @param {EventTarget|Element} target Target DOM element
+		 * @returns {boolean} Returns true if the element needs a native click
+		 */
+		FastClick.prototype.needsClick = function(target) {
+			switch (target.nodeName.toLowerCase()) {
+	
+			// Don't send a synthetic click to disabled inputs (issue #62)
+			case 'button':
+			case 'select':
+			case 'textarea':
+				if (target.disabled) {
+					return true;
+				}
+	
+				break;
+			case 'input':
+	
+				// File inputs need real clicks on iOS 6 due to a browser bug (issue #68)
+				if ((deviceIsIOS && target.type === 'file') || target.disabled) {
+					return true;
+				}
+	
+				break;
+			case 'label':
+			case 'iframe': // iOS8 homescreen apps can prevent events bubbling into frames
+			case 'video':
+				return true;
+			}
+	
+			return (/\bneedsclick\b/).test(target.className);
+		};
+	
+	
+		/**
+		 * Determine whether a given element requires a call to focus to simulate click into element.
+		 *
+		 * @param {EventTarget|Element} target Target DOM element
+		 * @returns {boolean} Returns true if the element requires a call to focus to simulate native click.
+		 */
+		FastClick.prototype.needsFocus = function(target) {
+			switch (target.nodeName.toLowerCase()) {
+			case 'textarea':
+				return true;
+			case 'select':
+				return !deviceIsAndroid;
+			case 'input':
+				switch (target.type) {
+				case 'button':
+				case 'checkbox':
+				case 'file':
+				case 'image':
+				case 'radio':
+				case 'submit':
+					return false;
+				}
+	
+				// No point in attempting to focus disabled inputs
+				return !target.disabled && !target.readOnly;
+			default:
+				return (/\bneedsfocus\b/).test(target.className);
+			}
+		};
+	
+	
+		/**
+		 * Send a click event to the specified element.
+		 *
+		 * @param {EventTarget|Element} targetElement
+		 * @param {Event} event
+		 */
+		FastClick.prototype.sendClick = function(targetElement, event) {
+			var clickEvent, touch;
+	
+			// On some Android devices activeElement needs to be blurred otherwise the synthetic click will have no effect (#24)
+			if (document.activeElement && document.activeElement !== targetElement) {
+				document.activeElement.blur();
+			}
+	
+			touch = event.changedTouches[0];
+	
+			// Synthesise a click event, with an extra attribute so it can be tracked
+			clickEvent = document.createEvent('MouseEvents');
+			clickEvent.initMouseEvent(this.determineEventType(targetElement), true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
+			clickEvent.forwardedTouchEvent = true;
+			targetElement.dispatchEvent(clickEvent);
+		};
+	
+		FastClick.prototype.determineEventType = function(targetElement) {
+	
+			//Issue #159: Android Chrome Select Box does not open with a synthetic click event
+			if (deviceIsAndroid && targetElement.tagName.toLowerCase() === 'select') {
+				return 'mousedown';
+			}
+	
+			return 'click';
+		};
+	
+	
+		/**
+		 * @param {EventTarget|Element} targetElement
+		 */
+		FastClick.prototype.focus = function(targetElement) {
+			var length;
+	
+			// Issue #160: on iOS 7, some input elements (e.g. date datetime month) throw a vague TypeError on setSelectionRange. These elements don't have an integer value for the selectionStart and selectionEnd properties, but unfortunately that can't be used for detection because accessing the properties also throws a TypeError. Just check the type instead. Filed as Apple bug #15122724.
+			if (deviceIsIOS && targetElement.setSelectionRange && targetElement.type.indexOf('date') !== 0 && targetElement.type !== 'time' && targetElement.type !== 'month') {
+				length = targetElement.value.length;
+				targetElement.setSelectionRange(length, length);
+			} else {
+				targetElement.focus();
+			}
+		};
+	
+	
+		/**
+		 * Check whether the given target element is a child of a scrollable layer and if so, set a flag on it.
+		 *
+		 * @param {EventTarget|Element} targetElement
+		 */
+		FastClick.prototype.updateScrollParent = function(targetElement) {
+			var scrollParent, parentElement;
+	
+			scrollParent = targetElement.fastClickScrollParent;
+	
+			// Attempt to discover whether the target element is contained within a scrollable layer. Re-check if the
+			// target element was moved to another parent.
+			if (!scrollParent || !scrollParent.contains(targetElement)) {
+				parentElement = targetElement;
+				do {
+					if (parentElement.scrollHeight > parentElement.offsetHeight) {
+						scrollParent = parentElement;
+						targetElement.fastClickScrollParent = parentElement;
+						break;
+					}
+	
+					parentElement = parentElement.parentElement;
+				} while (parentElement);
+			}
+	
+			// Always update the scroll top tracker if possible.
+			if (scrollParent) {
+				scrollParent.fastClickLastScrollTop = scrollParent.scrollTop;
+			}
+		};
+	
+	
+		/**
+		 * @param {EventTarget} targetElement
+		 * @returns {Element|EventTarget}
+		 */
+		FastClick.prototype.getTargetElementFromEventTarget = function(eventTarget) {
+	
+			// On some older browsers (notably Safari on iOS 4.1 - see issue #56) the event target may be a text node.
+			if (eventTarget.nodeType === Node.TEXT_NODE) {
+				return eventTarget.parentNode;
+			}
+	
+			return eventTarget;
+		};
+	
+	
+		/**
+		 * On touch start, record the position and scroll offset.
+		 *
+		 * @param {Event} event
+		 * @returns {boolean}
+		 */
+		FastClick.prototype.onTouchStart = function(event) {
+			var targetElement, touch, selection;
+	
+			// Ignore multiple touches, otherwise pinch-to-zoom is prevented if both fingers are on the FastClick element (issue #111).
+			if (event.targetTouches.length > 1) {
+				return true;
+			}
+	
+			targetElement = this.getTargetElementFromEventTarget(event.target);
+			touch = event.targetTouches[0];
+	
+			if (deviceIsIOS) {
+	
+				// Only trusted events will deselect text on iOS (issue #49)
+				selection = window.getSelection();
+				if (selection.rangeCount && !selection.isCollapsed) {
+					return true;
+				}
+	
+				if (!deviceIsIOS4) {
+	
+					// Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):
+					// when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched
+					// with the same identifier as the touch event that previously triggered the click that triggered the alert.
+					// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
+					// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
+					// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch events' is set with an iOS device UA string,
+					// which causes all touch events to be ignored. As this block only applies to iOS, and iOS identifiers are always long,
+					// random integers, it's safe to to continue if the identifier is 0 here.
+					if (touch.identifier && touch.identifier === this.lastTouchIdentifier) {
+						event.preventDefault();
+						return false;
+					}
+	
+					this.lastTouchIdentifier = touch.identifier;
+	
+					// If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:
+					// 1) the user does a fling scroll on the scrollable layer
+					// 2) the user stops the fling scroll with another tap
+					// then the event.target of the last 'touchend' event will be the element that was under the user's finger
+					// when the fling scroll was started, causing FastClick to send a click event to that layer - unless a check
+					// is made to ensure that a parent layer was not scrolled before sending a synthetic click (issue #42).
+					this.updateScrollParent(targetElement);
+				}
+			}
+	
+			this.trackingClick = true;
+			this.trackingClickStart = event.timeStamp;
+			this.targetElement = targetElement;
+	
+			this.touchStartX = touch.pageX;
+			this.touchStartY = touch.pageY;
+	
+			// Prevent phantom clicks on fast double-tap (issue #36)
+			if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
+				event.preventDefault();
+			}
+	
+			return true;
+		};
+	
+	
+		/**
+		 * Based on a touchmove event object, check whether the touch has moved past a boundary since it started.
+		 *
+		 * @param {Event} event
+		 * @returns {boolean}
+		 */
+		FastClick.prototype.touchHasMoved = function(event) {
+			var touch = event.changedTouches[0], boundary = this.touchBoundary;
+	
+			if (Math.abs(touch.pageX - this.touchStartX) > boundary || Math.abs(touch.pageY - this.touchStartY) > boundary) {
+				return true;
+			}
+	
+			return false;
+		};
+	
+	
+		/**
+		 * Update the last position.
+		 *
+		 * @param {Event} event
+		 * @returns {boolean}
+		 */
+		FastClick.prototype.onTouchMove = function(event) {
+			if (!this.trackingClick) {
+				return true;
+			}
+	
+			// If the touch has moved, cancel the click tracking
+			if (this.targetElement !== this.getTargetElementFromEventTarget(event.target) || this.touchHasMoved(event)) {
+				this.trackingClick = false;
+				this.targetElement = null;
+			}
+	
+			return true;
+		};
+	
+	
+		/**
+		 * Attempt to find the labelled control for the given label element.
+		 *
+		 * @param {EventTarget|HTMLLabelElement} labelElement
+		 * @returns {Element|null}
+		 */
+		FastClick.prototype.findControl = function(labelElement) {
+	
+			// Fast path for newer browsers supporting the HTML5 control attribute
+			if (labelElement.control !== undefined) {
+				return labelElement.control;
+			}
+	
+			// All browsers under test that support touch events also support the HTML5 htmlFor attribute
+			if (labelElement.htmlFor) {
+				return document.getElementById(labelElement.htmlFor);
+			}
+	
+			// If no for attribute exists, attempt to retrieve the first labellable descendant element
+			// the list of which is defined here: http://www.w3.org/TR/html5/forms.html#category-label
+			return labelElement.querySelector('button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea');
+		};
+	
+	
+		/**
+		 * On touch end, determine whether to send a click event at once.
+		 *
+		 * @param {Event} event
+		 * @returns {boolean}
+		 */
+		FastClick.prototype.onTouchEnd = function(event) {
+			var forElement, trackingClickStart, targetTagName, scrollParent, touch, targetElement = this.targetElement;
+	
+			if (!this.trackingClick) {
+				return true;
+			}
+	
+			// Prevent phantom clicks on fast double-tap (issue #36)
+			if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
+				this.cancelNextClick = true;
+				return true;
+			}
+	
+			if ((event.timeStamp - this.trackingClickStart) > this.tapTimeout) {
+				return true;
+			}
+	
+			// Reset to prevent wrong click cancel on input (issue #156).
+			this.cancelNextClick = false;
+	
+			this.lastClickTime = event.timeStamp;
+	
+			trackingClickStart = this.trackingClickStart;
+			this.trackingClick = false;
+			this.trackingClickStart = 0;
+	
+			// On some iOS devices, the targetElement supplied with the event is invalid if the layer
+			// is performing a transition or scroll, and has to be re-detected manually. Note that
+			// for this to function correctly, it must be called *after* the event target is checked!
+			// See issue #57; also filed as rdar://13048589 .
+			if (deviceIsIOSWithBadTarget) {
+				touch = event.changedTouches[0];
+	
+				// In certain cases arguments of elementFromPoint can be negative, so prevent setting targetElement to null
+				targetElement = document.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset) || targetElement;
+				targetElement.fastClickScrollParent = this.targetElement.fastClickScrollParent;
+			}
+	
+			targetTagName = targetElement.tagName.toLowerCase();
+			if (targetTagName === 'label') {
+				forElement = this.findControl(targetElement);
+				if (forElement) {
+					this.focus(targetElement);
+					if (deviceIsAndroid) {
+						return false;
+					}
+	
+					targetElement = forElement;
+				}
+			} else if (this.needsFocus(targetElement)) {
+	
+				// Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
+				// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
+				if ((event.timeStamp - trackingClickStart) > 100 || (deviceIsIOS && window.top !== window && targetTagName === 'input')) {
+					this.targetElement = null;
+					return false;
+				}
+	
+				this.focus(targetElement);
+				this.sendClick(targetElement, event);
+	
+				// Select elements need the event to go through on iOS 4, otherwise the selector menu won't open.
+				// Also this breaks opening selects when VoiceOver is active on iOS6, iOS7 (and possibly others)
+				if (!deviceIsIOS || targetTagName !== 'select') {
+					this.targetElement = null;
+					event.preventDefault();
+				}
+	
+				return false;
+			}
+	
+			if (deviceIsIOS && !deviceIsIOS4) {
+	
+				// Don't send a synthetic click event if the target element is contained within a parent layer that was scrolled
+				// and this tap is being used to stop the scrolling (usually initiated by a fling - issue #42).
+				scrollParent = targetElement.fastClickScrollParent;
+				if (scrollParent && scrollParent.fastClickLastScrollTop !== scrollParent.scrollTop) {
+					return true;
+				}
+			}
+	
+			// Prevent the actual click from going though - unless the target node is marked as requiring
+			// real clicks or if it is in the whitelist in which case only non-programmatic clicks are permitted.
+			if (!this.needsClick(targetElement)) {
+				event.preventDefault();
+				this.sendClick(targetElement, event);
+			}
+	
+			return false;
+		};
+	
+	
+		/**
+		 * On touch cancel, stop tracking the click.
+		 *
+		 * @returns {void}
+		 */
+		FastClick.prototype.onTouchCancel = function() {
+			this.trackingClick = false;
+			this.targetElement = null;
+		};
+	
+	
+		/**
+		 * Determine mouse events which should be permitted.
+		 *
+		 * @param {Event} event
+		 * @returns {boolean}
+		 */
+		FastClick.prototype.onMouse = function(event) {
+	
+			// If a target element was never set (because a touch event was never fired) allow the event
+			if (!this.targetElement) {
+				return true;
+			}
+	
+			if (event.forwardedTouchEvent) {
+				return true;
+			}
+	
+			// Programmatically generated events targeting a specific element should be permitted
+			if (!event.cancelable) {
+				return true;
+			}
+	
+			// Derive and check the target element to see whether the mouse event needs to be permitted;
+			// unless explicitly enabled, prevent non-touch click events from triggering actions,
+			// to prevent ghost/doubleclicks.
+			if (!this.needsClick(this.targetElement) || this.cancelNextClick) {
+	
+				// Prevent any user-added listeners declared on FastClick element from being fired.
+				if (event.stopImmediatePropagation) {
+					event.stopImmediatePropagation();
+				} else {
+	
+					// Part of the hack for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
+					event.propagationStopped = true;
+				}
+	
+				// Cancel the event
+				event.stopPropagation();
+				event.preventDefault();
+	
+				return false;
+			}
+	
+			// If the mouse event is permitted, return true for the action to go through.
+			return true;
+		};
+	
+	
+		/**
+		 * On actual clicks, determine whether this is a touch-generated click, a click action occurring
+		 * naturally after a delay after a touch (which needs to be cancelled to avoid duplication), or
+		 * an actual click which should be permitted.
+		 *
+		 * @param {Event} event
+		 * @returns {boolean}
+		 */
+		FastClick.prototype.onClick = function(event) {
+			var permitted;
+	
+			// It's possible for another FastClick-like library delivered with third-party code to fire a click event before FastClick does (issue #44). In that case, set the click-tracking flag back to false and return early. This will cause onTouchEnd to return early.
+			if (this.trackingClick) {
+				this.targetElement = null;
+				this.trackingClick = false;
+				return true;
+			}
+	
+			// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
+			if (event.target.type === 'submit' && event.detail === 0) {
+				return true;
+			}
+	
+			permitted = this.onMouse(event);
+	
+			// Only unset targetElement if the click is not permitted. This will ensure that the check for !targetElement in onMouse fails and the browser's click doesn't go through.
+			if (!permitted) {
+				this.targetElement = null;
+			}
+	
+			// If clicks are permitted, return true for the action to go through.
+			return permitted;
+		};
+	
+	
+		/**
+		 * Remove all FastClick's event listeners.
+		 *
+		 * @returns {void}
+		 */
+		FastClick.prototype.destroy = function() {
+			var layer = this.layer;
+	
+			if (deviceIsAndroid) {
+				layer.removeEventListener('mouseover', this.onMouse, true);
+				layer.removeEventListener('mousedown', this.onMouse, true);
+				layer.removeEventListener('mouseup', this.onMouse, true);
+			}
+	
+			layer.removeEventListener('click', this.onClick, true);
+			layer.removeEventListener('touchstart', this.onTouchStart, false);
+			layer.removeEventListener('touchmove', this.onTouchMove, false);
+			layer.removeEventListener('touchend', this.onTouchEnd, false);
+			layer.removeEventListener('touchcancel', this.onTouchCancel, false);
+		};
+	
+	
+		/**
+		 * Check whether FastClick is needed.
+		 *
+		 * @param {Element} layer The layer to listen on
+		 */
+		FastClick.notNeeded = function(layer) {
+			var metaViewport;
+			var chromeVersion;
+			var blackberryVersion;
+			var firefoxVersion;
+	
+			// Devices that don't support touch don't need FastClick
+			if (typeof window.ontouchstart === 'undefined') {
+				return true;
+			}
+	
+			// Chrome version - zero for other browsers
+			chromeVersion = +(/Chrome\/([0-9]+)/.exec(navigator.userAgent) || [,0])[1];
+	
+			if (chromeVersion) {
+	
+				if (deviceIsAndroid) {
+					metaViewport = document.querySelector('meta[name=viewport]');
+	
+					if (metaViewport) {
+						// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)
+						if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+							return true;
+						}
+						// Chrome 32 and above with width=device-width or less don't need FastClick
+						if (chromeVersion > 31 && document.documentElement.scrollWidth <= window.outerWidth) {
+							return true;
+						}
+					}
+	
+				// Chrome desktop doesn't need FastClick (issue #15)
+				} else {
+					return true;
+				}
+			}
+	
+			if (deviceIsBlackBerry10) {
+				blackberryVersion = navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/);
+	
+				// BlackBerry 10.3+ does not require Fastclick library.
+				// https://github.com/ftlabs/fastclick/issues/251
+				if (blackberryVersion[1] >= 10 && blackberryVersion[2] >= 3) {
+					metaViewport = document.querySelector('meta[name=viewport]');
+	
+					if (metaViewport) {
+						// user-scalable=no eliminates click delay.
+						if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+							return true;
+						}
+						// width=device-width (or less than device-width) eliminates click delay.
+						if (document.documentElement.scrollWidth <= window.outerWidth) {
+							return true;
+						}
+					}
+				}
+			}
+	
+			// IE10 with -ms-touch-action: none or manipulation, which disables double-tap-to-zoom (issue #97)
+			if (layer.style.msTouchAction === 'none' || layer.style.touchAction === 'manipulation') {
+				return true;
+			}
+	
+			// Firefox version - zero for other browsers
+			firefoxVersion = +(/Firefox\/([0-9]+)/.exec(navigator.userAgent) || [,0])[1];
+	
+			if (firefoxVersion >= 27) {
+				// Firefox 27+ does not have tap delay if the content is not zoomable - https://bugzilla.mozilla.org/show_bug.cgi?id=922896
+	
+				metaViewport = document.querySelector('meta[name=viewport]');
+				if (metaViewport && (metaViewport.content.indexOf('user-scalable=no') !== -1 || document.documentElement.scrollWidth <= window.outerWidth)) {
+					return true;
+				}
+			}
+	
+			// IE11: prefixed -ms-touch-action is no longer supported and it's recomended to use non-prefixed version
+			// http://msdn.microsoft.com/en-us/library/windows/apps/Hh767313.aspx
+			if (layer.style.touchAction === 'none' || layer.style.touchAction === 'manipulation') {
+				return true;
+			}
+	
+			return false;
+		};
+	
+	
+		/**
+		 * Factory method for creating a FastClick object
+		 *
+		 * @param {Element} layer The layer to listen on
+		 * @param {Object} [options={}] The options to override the defaults
+		 */
+		FastClick.attach = function(layer, options) {
+			return new FastClick(layer, options);
+		};
+	
+	
+		if (true) {
+	
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function() {
+				return FastClick;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof module !== 'undefined' && module.exports) {
+			module.exports = FastClick.attach;
+			module.exports.FastClick = FastClick;
+		} else {
+			window.FastClick = FastClick;
+		}
+	}());
+
+
+/***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * headroom.js v0.9.4 - Give your page some headroom. Hide your header until you need it
+	 * Copyright (c) 2017 Nick Williams - http://wicky.nillia.ms/headroom.js
+	 * License: MIT
+	 */
+	
+	(function(root, factory) {
+	  'use strict';
+	
+	  if (true) {
+	    // AMD. Register as an anonymous module.
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  }
+	  else if (typeof exports === 'object') {
+	    // COMMONJS
+	    module.exports = factory();
+	  }
+	  else {
+	    // BROWSER
+	    root.Headroom = factory();
+	  }
+	}(this, function() {
+	  'use strict';
+	
+	  /* exported features */
+	  
+	  var features = {
+	    bind : !!(function(){}.bind),
+	    classList : 'classList' in document.documentElement,
+	    rAF : !!(window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame)
+	  };
+	  window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+	  
+	  /**
+	   * Handles debouncing of events via requestAnimationFrame
+	   * @see http://www.html5rocks.com/en/tutorials/speed/animations/
+	   * @param {Function} callback The callback to handle whichever event
+	   */
+	  function Debouncer (callback) {
+	    this.callback = callback;
+	    this.ticking = false;
+	  }
+	  Debouncer.prototype = {
+	    constructor : Debouncer,
+	  
+	    /**
+	     * dispatches the event to the supplied callback
+	     * @private
+	     */
+	    update : function() {
+	      this.callback && this.callback();
+	      this.ticking = false;
+	    },
+	  
+	    /**
+	     * ensures events don't get stacked
+	     * @private
+	     */
+	    requestTick : function() {
+	      if(!this.ticking) {
+	        requestAnimationFrame(this.rafCallback || (this.rafCallback = this.update.bind(this)));
+	        this.ticking = true;
+	      }
+	    },
+	  
+	    /**
+	     * Attach this as the event listeners
+	     */
+	    handleEvent : function() {
+	      this.requestTick();
+	    }
+	  };
+	  /**
+	   * Check if object is part of the DOM
+	   * @constructor
+	   * @param {Object} obj element to check
+	   */
+	  function isDOMElement(obj) {
+	    return obj && typeof window !== 'undefined' && (obj === window || obj.nodeType);
+	  }
+	  
+	  /**
+	   * Helper function for extending objects
+	   */
+	  function extend (object /*, objectN ... */) {
+	    if(arguments.length <= 0) {
+	      throw new Error('Missing arguments in extend function');
+	    }
+	  
+	    var result = object || {},
+	        key,
+	        i;
+	  
+	    for (i = 1; i < arguments.length; i++) {
+	      var replacement = arguments[i] || {};
+	  
+	      for (key in replacement) {
+	        // Recurse into object except if the object is a DOM element
+	        if(typeof result[key] === 'object' && ! isDOMElement(result[key])) {
+	          result[key] = extend(result[key], replacement[key]);
+	        }
+	        else {
+	          result[key] = result[key] || replacement[key];
+	        }
+	      }
+	    }
+	  
+	    return result;
+	  }
+	  
+	  /**
+	   * Helper function for normalizing tolerance option to object format
+	   */
+	  function normalizeTolerance (t) {
+	    return t === Object(t) ? t : { down : t, up : t };
+	  }
+	  
+	  /**
+	   * UI enhancement for fixed headers.
+	   * Hides header when scrolling down
+	   * Shows header when scrolling up
+	   * @constructor
+	   * @param {DOMElement} elem the header element
+	   * @param {Object} options options for the widget
+	   */
+	  function Headroom (elem, options) {
+	    options = extend(options, Headroom.options);
+	  
+	    this.lastKnownScrollY = 0;
+	    this.elem             = elem;
+	    this.tolerance        = normalizeTolerance(options.tolerance);
+	    this.classes          = options.classes;
+	    this.offset           = options.offset;
+	    this.scroller         = options.scroller;
+	    this.initialised      = false;
+	    this.onPin            = options.onPin;
+	    this.onUnpin          = options.onUnpin;
+	    this.onTop            = options.onTop;
+	    this.onNotTop         = options.onNotTop;
+	    this.onBottom         = options.onBottom;
+	    this.onNotBottom      = options.onNotBottom;
+	  }
+	  Headroom.prototype = {
+	    constructor : Headroom,
+	  
+	    /**
+	     * Initialises the widget
+	     */
+	    init : function() {
+	      if(!Headroom.cutsTheMustard) {
+	        return;
+	      }
+	  
+	      this.debouncer = new Debouncer(this.update.bind(this));
+	      this.elem.classList.add(this.classes.initial);
+	  
+	      // defer event registration to handle browser
+	      // potentially restoring previous scroll position
+	      setTimeout(this.attachEvent.bind(this), 100);
+	  
+	      return this;
+	    },
+	  
+	    /**
+	     * Unattaches events and removes any classes that were added
+	     */
+	    destroy : function() {
+	      var classes = this.classes;
+	  
+	      this.initialised = false;
+	  
+	      for (var key in classes) {
+	        if(classes.hasOwnProperty(key)) {
+	          this.elem.classList.remove(classes[key]);
+	        }
+	      }
+	  
+	      this.scroller.removeEventListener('scroll', this.debouncer, false);
+	    },
+	  
+	    /**
+	     * Attaches the scroll event
+	     * @private
+	     */
+	    attachEvent : function() {
+	      if(!this.initialised){
+	        this.lastKnownScrollY = this.getScrollY();
+	        this.initialised = true;
+	        this.scroller.addEventListener('scroll', this.debouncer, false);
+	  
+	        this.debouncer.handleEvent();
+	      }
+	    },
+	  
+	    /**
+	     * Unpins the header if it's currently pinned
+	     */
+	    unpin : function() {
+	      var classList = this.elem.classList,
+	        classes = this.classes;
+	  
+	      if(classList.contains(classes.pinned) || !classList.contains(classes.unpinned)) {
+	        classList.add(classes.unpinned);
+	        classList.remove(classes.pinned);
+	        this.onUnpin && this.onUnpin.call(this);
+	      }
+	    },
+	  
+	    /**
+	     * Pins the header if it's currently unpinned
+	     */
+	    pin : function() {
+	      var classList = this.elem.classList,
+	        classes = this.classes;
+	  
+	      if(classList.contains(classes.unpinned)) {
+	        classList.remove(classes.unpinned);
+	        classList.add(classes.pinned);
+	        this.onPin && this.onPin.call(this);
+	      }
+	    },
+	  
+	    /**
+	     * Handles the top states
+	     */
+	    top : function() {
+	      var classList = this.elem.classList,
+	        classes = this.classes;
+	  
+	      if(!classList.contains(classes.top)) {
+	        classList.add(classes.top);
+	        classList.remove(classes.notTop);
+	        this.onTop && this.onTop.call(this);
+	      }
+	    },
+	  
+	    /**
+	     * Handles the not top state
+	     */
+	    notTop : function() {
+	      var classList = this.elem.classList,
+	        classes = this.classes;
+	  
+	      if(!classList.contains(classes.notTop)) {
+	        classList.add(classes.notTop);
+	        classList.remove(classes.top);
+	        this.onNotTop && this.onNotTop.call(this);
+	      }
+	    },
+	  
+	    bottom : function() {
+	      var classList = this.elem.classList,
+	        classes = this.classes;
+	  
+	      if(!classList.contains(classes.bottom)) {
+	        classList.add(classes.bottom);
+	        classList.remove(classes.notBottom);
+	        this.onBottom && this.onBottom.call(this);
+	      }
+	    },
+	  
+	    /**
+	     * Handles the not top state
+	     */
+	    notBottom : function() {
+	      var classList = this.elem.classList,
+	        classes = this.classes;
+	  
+	      if(!classList.contains(classes.notBottom)) {
+	        classList.add(classes.notBottom);
+	        classList.remove(classes.bottom);
+	        this.onNotBottom && this.onNotBottom.call(this);
+	      }
+	    },
+	  
+	    /**
+	     * Gets the Y scroll position
+	     * @see https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY
+	     * @return {Number} pixels the page has scrolled along the Y-axis
+	     */
+	    getScrollY : function() {
+	      return (this.scroller.pageYOffset !== undefined)
+	        ? this.scroller.pageYOffset
+	        : (this.scroller.scrollTop !== undefined)
+	          ? this.scroller.scrollTop
+	          : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+	    },
+	  
+	    /**
+	     * Gets the height of the viewport
+	     * @see http://andylangton.co.uk/blog/development/get-viewport-size-width-and-height-javascript
+	     * @return {int} the height of the viewport in pixels
+	     */
+	    getViewportHeight : function () {
+	      return window.innerHeight
+	        || document.documentElement.clientHeight
+	        || document.body.clientHeight;
+	    },
+	  
+	    /**
+	     * Gets the physical height of the DOM element
+	     * @param  {Object}  elm the element to calculate the physical height of which
+	     * @return {int}     the physical height of the element in pixels
+	     */
+	    getElementPhysicalHeight : function (elm) {
+	      return Math.max(
+	        elm.offsetHeight,
+	        elm.clientHeight
+	      );
+	    },
+	  
+	    /**
+	     * Gets the physical height of the scroller element
+	     * @return {int} the physical height of the scroller element in pixels
+	     */
+	    getScrollerPhysicalHeight : function () {
+	      return (this.scroller === window || this.scroller === document.body)
+	        ? this.getViewportHeight()
+	        : this.getElementPhysicalHeight(this.scroller);
+	    },
+	  
+	    /**
+	     * Gets the height of the document
+	     * @see http://james.padolsey.com/javascript/get-document-height-cross-browser/
+	     * @return {int} the height of the document in pixels
+	     */
+	    getDocumentHeight : function () {
+	      var body = document.body,
+	        documentElement = document.documentElement;
+	  
+	      return Math.max(
+	        body.scrollHeight, documentElement.scrollHeight,
+	        body.offsetHeight, documentElement.offsetHeight,
+	        body.clientHeight, documentElement.clientHeight
+	      );
+	    },
+	  
+	    /**
+	     * Gets the height of the DOM element
+	     * @param  {Object}  elm the element to calculate the height of which
+	     * @return {int}     the height of the element in pixels
+	     */
+	    getElementHeight : function (elm) {
+	      return Math.max(
+	        elm.scrollHeight,
+	        elm.offsetHeight,
+	        elm.clientHeight
+	      );
+	    },
+	  
+	    /**
+	     * Gets the height of the scroller element
+	     * @return {int} the height of the scroller element in pixels
+	     */
+	    getScrollerHeight : function () {
+	      return (this.scroller === window || this.scroller === document.body)
+	        ? this.getDocumentHeight()
+	        : this.getElementHeight(this.scroller);
+	    },
+	  
+	    /**
+	     * determines if the scroll position is outside of document boundaries
+	     * @param  {int}  currentScrollY the current y scroll position
+	     * @return {bool} true if out of bounds, false otherwise
+	     */
+	    isOutOfBounds : function (currentScrollY) {
+	      var pastTop  = currentScrollY < 0,
+	        pastBottom = currentScrollY + this.getScrollerPhysicalHeight() > this.getScrollerHeight();
+	  
+	      return pastTop || pastBottom;
+	    },
+	  
+	    /**
+	     * determines if the tolerance has been exceeded
+	     * @param  {int} currentScrollY the current scroll y position
+	     * @return {bool} true if tolerance exceeded, false otherwise
+	     */
+	    toleranceExceeded : function (currentScrollY, direction) {
+	      return Math.abs(currentScrollY-this.lastKnownScrollY) >= this.tolerance[direction];
+	    },
+	  
+	    /**
+	     * determine if it is appropriate to unpin
+	     * @param  {int} currentScrollY the current y scroll position
+	     * @param  {bool} toleranceExceeded has the tolerance been exceeded?
+	     * @return {bool} true if should unpin, false otherwise
+	     */
+	    shouldUnpin : function (currentScrollY, toleranceExceeded) {
+	      var scrollingDown = currentScrollY > this.lastKnownScrollY,
+	        pastOffset = currentScrollY >= this.offset;
+	  
+	      return scrollingDown && pastOffset && toleranceExceeded;
+	    },
+	  
+	    /**
+	     * determine if it is appropriate to pin
+	     * @param  {int} currentScrollY the current y scroll position
+	     * @param  {bool} toleranceExceeded has the tolerance been exceeded?
+	     * @return {bool} true if should pin, false otherwise
+	     */
+	    shouldPin : function (currentScrollY, toleranceExceeded) {
+	      var scrollingUp  = currentScrollY < this.lastKnownScrollY,
+	        pastOffset = currentScrollY <= this.offset;
+	  
+	      return (scrollingUp && toleranceExceeded) || pastOffset;
+	    },
+	  
+	    /**
+	     * Handles updating the state of the widget
+	     */
+	    update : function() {
+	      var currentScrollY  = this.getScrollY(),
+	        scrollDirection = currentScrollY > this.lastKnownScrollY ? 'down' : 'up',
+	        toleranceExceeded = this.toleranceExceeded(currentScrollY, scrollDirection);
+	  
+	      if(this.isOutOfBounds(currentScrollY)) { // Ignore bouncy scrolling in OSX
+	        return;
+	      }
+	  
+	      if (currentScrollY <= this.offset ) {
+	        this.top();
+	      } else {
+	        this.notTop();
+	      }
+	  
+	      if(currentScrollY + this.getViewportHeight() >= this.getScrollerHeight()) {
+	        this.bottom();
+	      }
+	      else {
+	        this.notBottom();
+	      }
+	  
+	      if(this.shouldUnpin(currentScrollY, toleranceExceeded)) {
+	        this.unpin();
+	      }
+	      else if(this.shouldPin(currentScrollY, toleranceExceeded)) {
+	        this.pin();
+	      }
+	  
+	      this.lastKnownScrollY = currentScrollY;
+	    }
+	  };
+	  /**
+	   * Default options
+	   * @type {Object}
+	   */
+	  Headroom.options = {
+	    tolerance : {
+	      up : 0,
+	      down : 0
+	    },
+	    offset : 0,
+	    scroller: window,
+	    classes : {
+	      pinned : 'headroom--pinned',
+	      unpinned : 'headroom--unpinned',
+	      top : 'headroom--top',
+	      notTop : 'headroom--not-top',
+	      bottom : 'headroom--bottom',
+	      notBottom : 'headroom--not-bottom',
+	      initial : 'headroom'
+	    }
+	  };
+	  Headroom.cutsTheMustard = typeof features !== 'undefined' && features.rAF && features.bind && features.classList;
+	
+	  return Headroom;
+	}));
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Lity - v2.2.2 - 2017-07-17
@@ -12639,7 +13052,7 @@
 	* Copyright (c) 2015-2017 Jan Sorgalla; Licensed MIT */
 	(function(window, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function($) {
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function($) {
 	            return factory(window, $);
 	        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module === 'object' && typeof module.exports === 'object') {
@@ -13275,7 +13688,7 @@
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12

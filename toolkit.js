@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #7c02a272614949ebc721ec86286b7540c455b980) | Thu Mar 01 2018 2:14 */
+/** Version: 0.9.4 (build #00bcbced7fc42cf13fc8fdb4c5f52c8507cf4af0) | Thu Mar 01 2018 2:43 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -314,7 +314,6 @@
 	      _ref2$suppressAfterCa = _ref2.suppressAfterCanceling,
 	      suppressAfterCanceling = _ref2$suppressAfterCa === undefined ? false : _ref2$suppressAfterCa;
 	
-	  console.log('>>> ', this);
 	  initPopupBox(this, { delayInMs: delayInMs, suppressAfterCanceling: suppressAfterCanceling });
 	
 	  return this;
@@ -334,14 +333,12 @@
 	    eventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto';
 	    trackingId = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id;
 	
-	    //console.log( '>>> Tracking: ', elementToTrack, eventType );
-	
 	    switch (eventType) {
 	      case 'click':
 	        {
 	          elementToTrack.on(eventType, function (event) {
 	            dataLayer.push({
-	              'custom.id': trackingId,
+	              'event': trackingId,
 	              'custom.selector': event.target,
 	              'custom.eventType': event.type,
 	              'custom.href': event.currentTarget.href,
@@ -361,10 +358,9 @@
 	
 	function pushTrackingInfoToGtm(trackingId, eventType) {
 	  dataLayer.push({
-	    'custom.id': trackingId,
+	    'event': trackingId,
 	    'custom.eventType': eventType
 	  });
-	  //console.log( '!!! Pushing into dataLayer!', dataLayer );
 	}
 	
 	function shouldTrackByGtm(element) {
@@ -551,9 +547,6 @@
 	 * Usage as: $( jquerySelector ).vicApp().method( options )
 	 */
 	(function ($) {
-	
-	  console.log('!!!', $);
-	
 	  $.fn.vicApp = function () {
 	    return {
 	      openPopup: openPopup.bind(this)

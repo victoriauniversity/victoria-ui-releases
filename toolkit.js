@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #491b299f0b2d3dd0d3710d6150e7ccae0f8e9fb4) | Thu Mar 01 2018 1:33 */
+/** Version: 0.9.4 (build #5c61426cc183feb6c58b4b725a5221a34526152c) | Thu Mar 01 2018 1:35 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -320,8 +320,6 @@
 	
 	var GTM_TRACK_ATTRIBUTE = 'data-gtm-track';
 	var GTM_ID_ATTRIBUTE = 'data-gtm-id';
-	
-	var dataLayer = [];
 	
 	function autoregisterGtmTrackingListeners() {
 	  addGtmTrackingListeners($('[' + GTM_TRACK_ATTRIBUTE + ']'));

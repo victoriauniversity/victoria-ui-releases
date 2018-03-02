@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #00bcbced7fc42cf13fc8fdb4c5f52c8507cf4af0) | Thu Mar 01 2018 2:43 */
+/** Version: 0.9.4 (build #caa995b3afd9b3c186e1f58e4abf8546cf98ae04) | Fri Mar 02 2018 1:01 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -327,6 +327,12 @@
 	}
 	
 	function addGtmTrackingListeners(elementsList, eventType, trackingId) {
+	  if (!window.dataLayer) {
+	    console.warn("`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.");
+	    window.dataLayer = []; // Fallback
+	    return;
+	  }
+	
 	  elementsList.each(function () {
 	    var elementToTrack = $(this);
 	
@@ -357,6 +363,12 @@
 	}
 	
 	function pushTrackingInfoToGtm(trackingId, eventType) {
+	  if (!window.dataLayer) {
+	    console.warn("`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.");
+	    window.dataLayer = []; // Fallback
+	    return;
+	  }
+	
 	  dataLayer.push({
 	    'event': trackingId,
 	    'custom.eventType': eventType

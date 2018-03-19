@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #bdc6132e9bf5336e532b58d6d116c957c9310bc8) | Sun Mar 04 2018 20:34 */
+/** Version: 0.9.4 (build #20fd66cb2c78397443206a11865b34a9dd1c5403) | Mon Mar 19 2018 0:36 */
 @charset "UTF-8";
 /*
 
@@ -2186,12 +2186,88 @@ blockquote.quote {
       font-size: 1.25em; }
       .quote-panel .quote figcaption:before {
         display: none; }
-  .quote-panel a:hover figure, .quote-panel a:active figure, .quote-panel a:focus figure {
-    border-left-color: #285189; }
-    .quote-panel a:hover figure blockquote *, .quote-panel a:active figure blockquote *, .quote-panel a:focus figure blockquote * {
-      color: #285189; }
-    .quote-panel a:hover figure blockquote:before, .quote-panel a:hover figure blockquote:after, .quote-panel a:active figure blockquote:before, .quote-panel a:active figure blockquote:after, .quote-panel a:focus figure blockquote:before, .quote-panel a:focus figure blockquote:after {
-      color: #285189; }
+  .quote-panel.quote-image .quote {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-left: none; }
+    .quote-panel.quote-image .quote img {
+      height: 180px;
+      width: 180px;
+      border-radius: 50%;
+      margin-right: 2em;
+      flex: 1 0 auto; }
+    .quote-panel.quote-image .quote .quote-content {
+      display: flex;
+      align-items: center; }
+      .quote-panel.quote-image .quote .quote-content blockquote {
+        width: 75%;
+        position: relative; }
+        .quote-panel.quote-image .quote .quote-content blockquote h3,
+        .quote-panel.quote-image .quote .quote-content blockquote h4 {
+          padding: 0 1em; }
+        .quote-panel.quote-image .quote .quote-content blockquote:before, .quote-panel.quote-image .quote .quote-content blockquote:after {
+          position: absolute; }
+        .quote-panel.quote-image .quote .quote-content blockquote:before {
+          top: 0;
+          left: 0; }
+        .quote-panel.quote-image .quote .quote-content blockquote:after {
+          bottom: 0;
+          right: 0;
+          top: unset; }
+      .quote-panel.quote-image .quote .quote-content figcaption {
+        text-align: inherit;
+        font-size: inherit; }
+        .quote-panel.quote-image .quote .quote-content figcaption h4,
+        .quote-panel.quote-image .quote .quote-content figcaption h5,
+        .quote-panel.quote-image .quote .quote-content figcaption p {
+          margin-bottom: 0.5em; }
+    @media screen and (max-width: 54.94444em) {
+      .quote-panel.quote-image .quote .quote-content {
+        flex-wrap: wrap; }
+        .quote-panel.quote-image .quote .quote-content blockquote {
+          width: 100%; }
+        .quote-panel.quote-image .quote .quote-content figcaption {
+          padding-left: 2em;
+          margin-top: 1.5em; } }
+    @media screen and (max-width: 38.88889em) {
+      .quote-panel.quote-image .quote {
+        flex-wrap: wrap; }
+        .quote-panel.quote-image .quote img {
+          flex: 0 1 auto;
+          width: 120px;
+          height: 120px; }
+        .quote-panel.quote-image .quote .quote-content {
+          margin-top: 1em; } }
+  .quote-panel.quote-image.quote-white {
+    background-color: #fff; }
+    .quote-panel.quote-image.quote-white .quote {
+      justify-content: center;
+      position: relative;
+      padding-bottom: 2em; }
+      .quote-panel.quote-image.quote-white .quote:after {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        content: "";
+        height: 2px;
+        width: 70%;
+        background-color: #115737; }
+      .quote-panel.quote-image.quote-white .quote img {
+        flex: 0 1 auto; }
+      .quote-panel.quote-image.quote-white .quote .quote-content {
+        width: 70%; }
+        .quote-panel.quote-image.quote-white .quote .quote-content figcaption {
+          text-align: inherit;
+          font-size: inherit; }
+          .quote-panel.quote-image.quote-white .quote .quote-content figcaption h4,
+          .quote-panel.quote-image.quote-white .quote .quote-content figcaption h5,
+          .quote-panel.quote-image.quote-white .quote .quote-content figcaption p {
+            margin-bottom: 0.5em; }
+        @media screen and (max-width: 38.88889em) {
+          .quote-panel.quote-image.quote-white .quote .quote-content {
+            width: 100%; } }
 
 /*=========================================
 =      SYSTEM MESSAGES, NOTIFICATIONS     =
@@ -5947,6 +6023,54 @@ ul.meta .highlight {
   @media screen and (max-width: 54.94444em) {
     .card-panel .card .button:first-of-type {
       margin-bottom: 10px; } }
+
+.contact-card-highlight {
+  margin-top: 2em;
+  padding: 1.5em;
+  background-color: #EEE;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+  .contact-card-highlight > h2,
+  .contact-card-highlight > h3,
+  .contact-card-highlight > h4 {
+    position: relative;
+    padding-bottom: .5em; }
+    .contact-card-highlight > h2:after,
+    .contact-card-highlight > h3:after,
+    .contact-card-highlight > h4:after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 5px;
+      bottom: 0;
+      left: 0;
+      background-color: #115737; }
+  .contact-card-highlight .contact-info-block > ul {
+    padding: 0;
+    margin: 0; }
+    .contact-card-highlight .contact-info-block > ul > li {
+      display: flex;
+      justify-content: left;
+      align-items: flex-start;
+      padding: 0;
+      margin: 0;
+      list-style: none; }
+      .contact-card-highlight .contact-info-block > ul > li:not(:first-child) {
+        margin-top: 1em; }
+      .contact-card-highlight .contact-info-block > ul > li img {
+        margin-right: 1em;
+        height: auto;
+        width: 8.33333rem; }
+        @media screen and (max-width: 54.94444em) {
+          .contact-card-highlight .contact-info-block > ul > li img {
+            width: 20%; } }
+      .contact-card-highlight .contact-info-block > ul > li .details h3,
+      .contact-card-highlight .contact-info-block > ul > li .details h4,
+      .contact-card-highlight .contact-info-block > ul > li .details h5 {
+        margin-bottom: 0.4em; }
+      .contact-card-highlight .contact-info-block > ul > li .details h5 {
+        color: #444; }
+      .contact-card-highlight .contact-info-block > ul > li .details address {
+        font-style: normal; }
 
 /** General fixed popup. */
 /* Positions popup within a page. */

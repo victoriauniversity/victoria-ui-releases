@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #20fd66cb2c78397443206a11865b34a9dd1c5403) | Mon Mar 19 2018 0:36 */
+/** Version: 0.9.4 (build #f946bd0777bac54e1ee209bcd8d8d554e0c61fb9) | Mon Mar 19 2018 19:33 */
 @charset "UTF-8";
 /*
 
@@ -2199,7 +2199,8 @@ blockquote.quote {
       flex: 1 0 auto; }
     .quote-panel.quote-image .quote .quote-content {
       display: flex;
-      align-items: center; }
+      align-items: center;
+      justify-content: center; }
       .quote-panel.quote-image .quote .quote-content blockquote {
         width: 75%;
         position: relative; }

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #f946bd0777bac54e1ee209bcd8d8d554e0c61fb9) | Mon Mar 19 2018 19:33 */
+/** Version: 0.9.4 (build #969cf4362a747667d221258da33ff2e2b80ec5c1) | Tue Mar 20 2018 0:05 */
 @charset "UTF-8";
 /*
 
@@ -2225,7 +2225,8 @@ blockquote.quote {
           margin-bottom: 0.5em; }
     @media screen and (max-width: 54.94444em) {
       .quote-panel.quote-image .quote .quote-content {
-        flex-wrap: wrap; }
+        flex-wrap: wrap;
+        justify-content: left; }
         .quote-panel.quote-image .quote .quote-content blockquote {
           width: 100%; }
         .quote-panel.quote-image .quote .quote-content figcaption {
@@ -2241,7 +2242,8 @@ blockquote.quote {
         .quote-panel.quote-image .quote .quote-content {
           margin-top: 1em; } }
   .quote-panel.quote-image.quote-white {
-    background-color: #fff; }
+    background-color: #fff;
+    margin-bottom: 1.6em; }
     .quote-panel.quote-image.quote-white .quote {
       justify-content: center;
       position: relative;

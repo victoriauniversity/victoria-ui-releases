@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #969cf4362a747667d221258da33ff2e2b80ec5c1) | Tue Mar 20 2018 0:05 */
+/** Version: 0.9.4 (build #c492ce460c8ec865b539bfaebd19a8dea3d77ab9) | Wed Mar 21 2018 0:15 */
 @charset "UTF-8";
 /*
 
@@ -1532,6 +1532,16 @@ div.button-right .button {
     transform: rotate3d(0, 0, 1, 45deg); }
   .lines-button.x.close .lines:after {
     transform: rotate3d(0, 0, 1, -45deg); }
+
+/* .button-list   For list of in page button links - to navigate content pages */
+.button-list .button {
+  margin-bottom: 0.3em; }
+
+.button-list span.button {
+  background-color: inherit; }
+  .button-list span.button:hover, .button-list span.button:active, .button-list span.button:focus {
+    background-color: inherit;
+    cursor: not-allowed; }
 
 /*=========================================
 =                  ICONS                  =

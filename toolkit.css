@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #c492ce460c8ec865b539bfaebd19a8dea3d77ab9) | Wed Mar 21 2018 0:15 */
+/** Version: 0.9.4 (build #ba173c0e35f53850328f73b2904f8d503fe36011) | Wed Mar 21 2018 0:43 */
 @charset "UTF-8";
 /*
 
@@ -1535,7 +1535,8 @@ div.button-right .button {
 
 /* .button-list   For list of in page button links - to navigate content pages */
 .button-list .button {
-  margin-bottom: 0.3em; }
+  margin-bottom: 0.3em;
+  margin-right: 0.3em; }
 
 .button-list span.button {
   background-color: inherit; }

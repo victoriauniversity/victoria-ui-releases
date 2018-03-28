@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #72d9db0ecf74656281155d8b8afb154a68adf7d6) | Wed Mar 28 2018 2:36 */
+/** Version: 0.9.4 (build #d34d366d14336be826d889175c09bbe2ee57aee3) | Wed Mar 28 2018 23:25 */
 @charset "UTF-8";
 /*
 
@@ -1788,6 +1788,10 @@ div.button-right .button {
 .icon-2x:before,
 .icon-2x:after {
   transform: scale(2); }
+
+.small-icon:before,
+.small-icon:after {
+  transform: scale(0.65); }
 
 /** Special icons */
 .social-icon:hover {
@@ -3661,6 +3665,8 @@ a > .tag {
   .promo-panel.title-image section {
     width: 100%;
     padding: 1em 1em 1em 2em; }
+    .promo-panel.title-image section p {
+      font-size: 1.2rem; }
   @media screen and (max-width: 54.94444em) {
     .promo-panel.title-image > div {
       align-items: stretch; }

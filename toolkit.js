@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #d34d366d14336be826d889175c09bbe2ee57aee3) | Wed Mar 28 2018 23:25 */
+/** Version: 0.9.4 (build #e392b0c98f85790472fe1681666da170e8cb84a5) | Thu Apr 05 2018 23:30 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -553,6 +553,28 @@
 	    });
 	  });
 	});
+	
+	/* Research hub content page tile accordian */
+	$('.tile-accordion.content-page .tile .toggle').on('click', function (evt) {
+	  evt.preventDefault();
+	
+	  var $this = $(this);
+	
+	  console.log($this);
+	
+	  $this.toggleClass('expanded');
+	  $this.siblings('p').toggle();
+	});
+	
+	/* Add accessible title label for restricted links class  */
+	function restrictedLinkTitle() {
+	  var lockLinks = document.querySelectorAll('.link-restricted');
+	
+	  for (var i = 0; i < lockLinks.length; i++) {
+	    lockLinks[i].setAttribute('title', 'Restricted intranet link');
+	  }
+	}
+	restrictedLinkTitle();
 	
 	/**
 	 * jQuery's plugin as a utility factory

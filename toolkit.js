@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #e392b0c98f85790472fe1681666da170e8cb84a5) | Thu Apr 05 2018 23:30 */
+/** Version: 0.9.4 (build #d16610e3816cad1c35bef9d8b5095d8a520c0b8b) | Fri Apr 06 2018 1:26 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -537,8 +537,8 @@
 	
 	  //tile accordion
 	
-	  $('.tile-accordion .tile').on('click', function (evt) {
-	    evt.preventDefault();
+	  $('.tile-accordion .tile').not('.tile-accordion.content-page').on('click', function (evt) {
+	    // evt.preventDefault();
 	
 	    if ($(this).hasClass('accordion-closed')) {
 	      $(this).children('.accordion-content ').slideDown();
@@ -556,11 +556,8 @@
 	
 	/* Research hub content page tile accordian */
 	$('.tile-accordion.content-page .tile .toggle').on('click', function (evt) {
-	  evt.preventDefault();
 	
 	  var $this = $(this);
-	
-	  console.log($this);
 	
 	  $this.toggleClass('expanded');
 	  $this.siblings('p').toggle();

@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #e392b0c98f85790472fe1681666da170e8cb84a5) | Thu Apr 05 2018 23:30 */
+/** Version: 0.9.4 (build #d16610e3816cad1c35bef9d8b5095d8a520c0b8b) | Fri Apr 06 2018 1:26 */
 @charset "UTF-8";
 /*
 
@@ -6169,6 +6169,12 @@ ul.meta .highlight {
         color: #444; }
       .contact-card-highlight .contact-info-block > ul > li .details address {
         font-style: normal; }
+  .contact-card-highlight.card-green {
+    background-color: #F4F4E9;
+    box-shadow: none; }
+    .contact-card-highlight.card-green .contact-info-block .tag,
+    .contact-card-highlight.card-green .contact-info-block address {
+      font-size: .8rem; }
 
 /** General fixed popup. */
 /* Positions popup within a page. */

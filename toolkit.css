@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #d16610e3816cad1c35bef9d8b5095d8a520c0b8b) | Fri Apr 06 2018 1:26 */
+/** Version: 0.9.4 (build #ca7717f672332ea328cf13651c8c8f6f092fbf2a) | Mon Apr 09 2018 20:01 */
 @charset "UTF-8";
 /*
 
@@ -2219,7 +2219,8 @@ blockquote.quote {
     .quote-panel.quote-image .quote .quote-content {
       display: flex;
       align-items: center;
-      justify-content: center; }
+      justify-content: center;
+      padding: 1.6rem 0; }
       .quote-panel.quote-image .quote .quote-content blockquote {
         width: 75%;
         position: relative; }

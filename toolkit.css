@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #71d5935311575f2785876a52abcd9abb727fe208) | Thu Apr 12 2018 19:48 */
+/** Version: 0.9.4 (build #8d823088a30f66ad585fd38e9a7ea44eaf7a4640) | Mon Apr 16 2018 23:49 */
 @charset "UTF-8";
 /*
 
@@ -4451,17 +4451,6 @@ a > .tag {
     background: #115737;
     border-radius: 3px;
     transition: left 0.15s ease-out; }
-  .switch input[type="radio"]:checked ~ .switch-selection {
-    color: #fff;
-    background-image: none;
-    border-color: #01549b;
-    background-image: none;
-    outline: 0; }
-  .switch input[type="radio"]:focus ~ .switch-selection {
-    outline: thin dotted;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
-    color: #fff; }
 
 .study-area-single .study-area-wide-panel {
   max-width: 100%;
@@ -5880,6 +5869,10 @@ ul.meta .highlight {
 
 .fixed-height-tiles-small .tiles-wrap li.tile {
   height: 8.33333rem; }
+
+.tiles-wrap.flex-tiles ul {
+  display: flex;
+  flex-wrap: wrap; }
 
 .tiles-study-hub h2, .tiles-study-hub-about h2,
 .tiles-study-hub h3, .tiles-study-hub-about h3 {

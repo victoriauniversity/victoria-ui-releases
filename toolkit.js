@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #71d5935311575f2785876a52abcd9abb727fe208) | Thu Apr 12 2018 19:48 */
+/** Version: 0.9.4 (build #8d823088a30f66ad585fd38e9a7ea44eaf7a4640) | Mon Apr 16 2018 23:49 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -10946,6 +10946,24 @@
 						$this.toggleClass('is-not-matching', true);
 					}
 				});
+	
+				//add no quals message
+				if ($(filterTags)) {
+					$('.no-quals-message').remove();
+	
+					var isVisible = 0;
+					var noQualMessage = '<p class="no-quals-message">Sorry, no matching qualifications.</p>';
+	
+					$targetElements.each(function () {
+						if ($(this).is(":visible")) {
+							isVisible++;
+						}
+					});
+	
+					if (isVisible == 0) {
+						$('.study-areas-postgrad .quals-filter').after(noQualMessage);
+					}
+				}
 			});
 	
 			var tags = $(filterTags);
@@ -10975,6 +10993,7 @@
 						} else {
 							$(searchInput).val('').change();
 							$(targetElements).css('margin-right', '');
+							$('.no-quals-message').remove();
 						}
 					});
 				});

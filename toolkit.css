@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #8d823088a30f66ad585fd38e9a7ea44eaf7a4640) | Mon Apr 16 2018 23:49 */
+/** Version: 0.9.4 (build #8a19417e5f7487a63ba7fbad804e24d6e5004c18) | Wed Apr 18 2018 21:59 */
 @charset "UTF-8";
 /*
 
@@ -4560,6 +4560,12 @@ a > .tag {
 .study-area-single.hidden {
   display: none; }
 
+/* Changes for new F&S subject listings */
+.study-areas-undergrad .study-area-single .study-area-wide-panel {
+  border-bottom-color: rgba(0, 0, 0, 0.2); }
+  .study-areas-undergrad .study-area-single .study-area-wide-panel .text-subjects-wrap .subjects-wrap ul li {
+    border-bottom-color: rgba(0, 0, 0, 0.2); }
+
 /** List with people information */
 .staff {
   margin: 1.6rem 0 2.4rem;
@@ -5693,9 +5699,9 @@ ul.meta .highlight {
     .updated-tile-grid .tiles-wrap.two-col.image-no-gutter ul {
       justify-content: center; }
     .updated-tile-grid .tiles-wrap.hidden {
-      display: none; }
+      display: none !important; }
   .updated-tile-grid.hidden {
-    display: none; }
+    display: none !important; }
   .updated-tile-grid.media-quote .tiles-wrap li.tile {
     height: 27.77778rem; }
     .updated-tile-grid.media-quote .tiles-wrap li.tile figure {

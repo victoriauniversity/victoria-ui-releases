@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #8a19417e5f7487a63ba7fbad804e24d6e5004c18) | Wed Apr 18 2018 21:59 */
+/** Version: 0.9.4 (build #c48dc18da1fa447733754040761951ebd8494bb4) | Thu Apr 19 2018 23:49 */
 @charset "UTF-8";
 /*
 
@@ -5879,6 +5879,9 @@ ul.meta .highlight {
 .tiles-wrap.flex-tiles ul {
   display: flex;
   flex-wrap: wrap; }
+  @media screen and (max-width: 38.88889em) {
+    .tiles-wrap.flex-tiles ul {
+      flex-direction: column; } }
 
 .tiles-study-hub h2, .tiles-study-hub-about h2,
 .tiles-study-hub h3, .tiles-study-hub-about h3 {

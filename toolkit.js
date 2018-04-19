@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #8a19417e5f7487a63ba7fbad804e24d6e5004c18) | Wed Apr 18 2018 21:59 */
+/** Version: 0.9.4 (build #c48dc18da1fa447733754040761951ebd8494bb4) | Thu Apr 19 2018 23:49 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -10952,15 +10952,24 @@
 					$('.no-quals-message').remove();
 	
 					var isVisible = 0;
-					var noQualMessage = '<p class="no-quals-message">Sorry, no matching qualifications.</p>';
+					var noResultsFilterName = '';
 	
 					$targetElements.each(function () {
 						if ($(this).is(":visible")) {
 							isVisible++;
-						}
+						} else {}
 					});
 	
 					if (isVisible == 0) {
+						var activeFilter = $('.quals-filter .tag.tag-active').text();
+						// console.log('active filter', activeFilter);
+	
+						noResultsFilterName += activeFilter;
+	
+						var noQualMessage = '<section class="flash-message error no-quals-message" style="margin-top:.5rem;"><p class="">Sorry, no <strong>' + noResultsFilterName + '</strong> qualifications available. Please try another qualification.</p></section>';
+	
+						// console.log('no results filter name', noResultsFilterName);
+	
 						$('.study-areas-postgrad .quals-filter').after(noQualMessage);
 					}
 				}

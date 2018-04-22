@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #c48dc18da1fa447733754040761951ebd8494bb4) | Thu Apr 19 2018 23:49 */
+/** Version: 0.9.4 (build #c6edaa83102b6c8894d7d0352b5440009adf07fe) | Sun Apr 22 2018 20:10 */
 @charset "UTF-8";
 /*
 
@@ -4096,6 +4096,7 @@ a > .tag {
             .site-header .menu-container .horizontal-menu.main-nav .menu-bar a:nth-last-child(2), .main-site-header .menu-container .horizontal-menu.main-nav .menu-bar a:nth-last-child(2) {
               border-bottom-color: transparent; }
     .site-header .logo, .main-site-header .logo {
+      display: none;
       width: 12rem; }
     .site-header .site-intro, .main-site-header .site-intro {
       width: 100%;

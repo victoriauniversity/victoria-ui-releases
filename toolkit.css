@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #c6edaa83102b6c8894d7d0352b5440009adf07fe) | Sun Apr 22 2018 20:10 */
+/** Version: 0.9.4 (build #2db6532150eafe9949855ea91470393a4448a04c) | Thu May 17 2018 3:04 */
 @charset "UTF-8";
 /*
 
@@ -4096,7 +4096,6 @@ a > .tag {
             .site-header .menu-container .horizontal-menu.main-nav .menu-bar a:nth-last-child(2), .main-site-header .menu-container .horizontal-menu.main-nav .menu-bar a:nth-last-child(2) {
               border-bottom-color: transparent; }
     .site-header .logo, .main-site-header .logo {
-      display: none;
       width: 12rem; }
     .site-header .site-intro, .main-site-header .site-intro {
       width: 100%;
@@ -4189,6 +4188,10 @@ a > .tag {
         .main-site-header.existing-ia > div nav.menu-container .horizontal-menu.main-nav .menu-bar a.search-item {
           position: absolute;
           right: 1rem; } }
+
+@media screen and (max-width: 38.88889em) {
+  .global + .site-header .logo {
+    display: none; } }
 
 .tile-grid {
   max-width: 100%;

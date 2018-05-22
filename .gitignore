@@ -138,4 +138,4 @@ favicon.ico
 # --------------------
 !.keep
 !.gitignore
-!.images/favicon.ico
+!images/favicon.ico

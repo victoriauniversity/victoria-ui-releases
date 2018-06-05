@@ -1,4 +1,4 @@
-/** Version: 0.9.4 | Tuesday, 22 May 2018, 2:01 PM */
+/** Version: 0.9.4 (build #7c0c8e6a6000c988d762f2d3319084e162d6555e + )  | Tuesday, June 5, 2018, 10:11 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -37,17 +37,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -4650,10 +4665,8 @@ var _tracking = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/** !Toolkit's core JS */
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-/* DEPENDENCIES & 3RD PARTY LIBRARIES IMPORTS */
-// Include all standalone modules
 (0, _tracking.trackerConfig)({
   autoRegister: true
 }); // Export to the global namespace (~ window)
@@ -4670,7 +4683,9 @@ var TRANSITION_TIMEOUT = 200; //update in _settings.variables.scss(135)
 
 var MOBILE_LARGE_AND_SMALLER = 'screen and (max-width: 42.99em)',
     //update in _settings.responsive.scss(57)
-// Iframe selectors
+DESKTOP_AND_LARGER = 'screen and (min-width: 61em)',
+    TABLET_AND_SMALLER = 'screen and (max-width: 975px)',
+    // Iframe selectors
 YOUTUBE_IFRAME_SELECTOR = 'iframe[src*="youtube"]',
     GMAPS_IFRAME_SELECTOR = 'iframe[src*="/maps/"]',
     VIMEO_IFRAME_SELECTOR = 'iframe[src*="vimeo"]';
@@ -4880,6 +4895,199 @@ function initPopupBox(popupElement) {
     }
   })();
 }
+/** HELPERS */
+//FIXME: Should be automatically pre-populated from the build/build.config.js
+
+
+var ENV_HOSTNAME = {
+  STAGE: 'cms.victoria.ac.nz',
+  PROD: 'www.victoria.ac.nz',
+  LOCAL: 'local.victoria.ac.nz'
+};
+
+function isAdminEnvironment() {
+  return window.location.hostname === ENV_HOSTNAME.STAGE || window.location.hostname === ENV_HOSTNAME.LOCAL;
+}
+/**
+ * Decodes email address into re-usable form.
+ *
+ * @deprecated Very old approach that won't work today - do not use.
+ */
+
+
+function decodeMailAddresses() {
+  var a = 'dre:ams0of@g1niht.lp2c9u3v8k4w7y5j6zbx-_qfntigue6los5zar7b:y4dp8v3m9h2.x1w@k0jcq-_';
+  var i, h, j, k, l, m, n, s;
+
+  for (i = 0; i < document.links.length; i += 1) {
+    h = document.links[i].hash;
+
+    if (h.substring(0, 3) == '#sd') {
+      k = '';
+      l = h.substring(3, 5);
+      m = h.lastIndexOf('?subject=');
+
+      if (m == -1) {
+        s = document.links[i].href;
+      } else {
+        s = h.substring(m);
+        h = h.substring(0, m);
+      }
+
+      ;
+
+      for (j = 5; j < h.length; j += 2) {
+        k = k + a.charAt(h.substring(j, j + 2) - l - 1);
+      }
+
+      ;
+      m = s.lastIndexOf('?subject=');
+
+      if (m == -1) {
+        document.links[i].href = k;
+      } else {
+        document.links[i].href = k + s.substring(m);
+      }
+
+      ;
+      n = document.links[i].innerHTML;
+
+      if (n == 'address') {
+        document.links[i].innerHTML = k.substring(7);
+      } else {
+        document.links[i].title = k.substring(7);
+      }
+
+      ;
+    }
+
+    ;
+  }
+
+  ;
+}
+/** MESSAGE/NOTIFICATIONS HANDLING */
+
+
+var ERROR_TYPES = {
+  SIDEBAR_WIDGETS_COUNT_EXCEEDED: 'sidebar-widgets-count-exceeded'
+  /**
+   * Renders the error message notification and adds it to the top of the
+   * content window. Will show only to administrators within non-production
+   * environments.
+   *
+   * @param {{type: string, message: string, invalidItems: Array[string]}} errorObject
+   *
+   * @returns {void}
+   */
+
+};
+
+function showAdminErrorMessage(errorObject) {
+  if (!errorObject || !isAdminEnvironment()) return;
+  var invalidItemsListHtml;
+
+  if (errorObject.invalidItems.length > 0) {
+    invalidItemsListHtml = "\n      <ul>\n        <li>".concat(errorObject.invalidItems.join('</li><li>'), "</li>\n      </ul>\n    ");
+  } // Template
+
+
+  var errorNotificationHtml = "\n    <section class=\"flash-message error\">\n      ".concat(errorObject.message, "\n      ").concat(invalidItemsListHtml, "\n    </section>\n  ");
+  (0, _jquery.default)('.content-panel > main > .formatting').prepend(errorNotificationHtml);
+  console.error('Content-related error has occured', errorObject);
+}
+/** NAVIGATION */
+
+/**
+ * Adds the 'active' class to a main menu item
+ * that corresponds with the current top-level URL path
+ * segment.
+ *
+ * Note: This is *only* done due to Squiz 5.4 limitations. Once we can render
+ * this class on the backend, this function can be deprecated.
+ */
+
+
+function addActiveClassToMainMenu() {
+  // [url-path-segment]: [nav-item-classname]
+  var rootPages = _defineProperty({
+    future: 'future',
+    international: 'international',
+    current: 'current',
+    research: 'research'
+  }, 'learning-teaching', 'learning-teaching');
+
+  var urlPathSegments = window.location.pathname.split('/');
+
+  if (urlPathSegments.length > 1 && urlPathSegments[1] !== '' && rootPages.hasOwnProperty(urlPathSegments[1])) {
+    var activeNavItemClass = rootPages[urlPathSegments[1]];
+    var activeNavItem = document.querySelector(".menu-bar .".concat(activeNavItemClass));
+    if (activeNavItem) activeNavItem.classList.add('active');
+  }
+}
+/** CONTENT SIDE-BAR */
+// Constants
+
+
+var SIDEBAR_WIDGET_CLASSNAME = 'data-sidebar',
+    SIDEBAR_ID = 'rightHandMenu',
+    SIDEBAR_WIDGETS_MAX = 3,
+    WIDGET_LINKS_CLASSNAME = 'data-relatedLinks';
+/**
+ * Finds all widget blocks within the main content and moves them into the
+ * right-hand sidebar.
+ *
+ * Note: This is *only* done due to Squiz 5.4 limitations. Once we can render
+ * widgets into the sidebar on our backend, this client-side solution can be
+ * deprecated.
+ *
+ * @returns {void}
+ */
+
+function moveWidgetsToSidebar() {
+  // No widgets OR sidebar available -> Skip!
+  if (!document.querySelector(".".concat(SIDEBAR_WIDGET_CLASSNAME)) || !document.getElementById(SIDEBAR_ID)) return; // Members
+  // Original, unordered widgets
+
+  var widgetsToMove = (0, _jquery.default)(".".concat(SIDEBAR_WIDGET_CLASSNAME)),
+      sidebarElement = (0, _jquery.default)("#".concat(SIDEBAR_ID)); // Correctly ordered and prepared to be rendered
+
+  var widgetsMoved = [];
+  var error;
+  widgetsToMove.each(function (index) {
+    var widgetElement = (0, _jquery.default)(this);
+
+    if (widgetsMoved.length >= SIDEBAR_WIDGETS_MAX) {
+      if (!error) {
+        error = {
+          type: ERROR_TYPES.SIDEBAR_WIDGETS_COUNT_EXCEEDED,
+          message: "\n              <h2>Too many elements in the sidebar</h2>\n              <p>Currently added: ".concat(widgetsToMove.length, ", Maximum: ").concat(SIDEBAR_WIDGETS_MAX, ".</p>\n              <p>\n                <strong>Please remove the class '").concat(SIDEBAR_WIDGET_CLASSNAME, "' from all blocks you do not want to appear in the sidebar.</strong>\n              </p>\n              <p>\n                The blocks with following content will not be shown in the sidebar:\n              </p>\n            "),
+          invalidItems: []
+        };
+      }
+
+      error.invalidItems.push(this.id || "".concat(widgetElement.text().trim().substring(0, 80), "..."));
+      return;
+    } // A) Staff profile - add to the top!
+
+
+    if (widgetElement.hasClass(WIDGET_LINKS_CLASSNAME)) {
+      widgetsMoved.unshift(widgetElement);
+    } // B) Others (downloads, publications etc.) - Add to the last positions
+    else {
+        widgetsMoved.push(widgetElement);
+      } // Remove from its original location
+
+
+    widgetElement.detach(); // Remove `display:none` if it exists
+
+    widgetElement.css('display', '');
+  }); // Render widgets in the sidebar
+
+  sidebarElement.append.apply(sidebarElement, widgetsMoved); // Render errors, if any
+
+  if (error) showAdminErrorMessage(error);
+}
 /**
  * Function called on the jQuery Element, opens it as a popup.
  *
@@ -4901,10 +5109,44 @@ function openPopup() {
     suppressAfterCanceling: suppressAfterCanceling
   });
   return this;
+}
+/** 'GO UP' BUTTON */
+
+
+var BTN_UP_ID = 'btn-up',
+    BTN_ADMIN_EDIT_ID = 'btn-admin';
+var ADMIN_URL_EXTENSION = '_edit';
+var SCROLL_ANIMATION_DURATION_IN_MS = 700;
+
+function initFloatingButtons() {
+  var buttonUpElement = document.getElementById(BTN_UP_ID);
+  var buttonAdminElement = isAdminEnvironment() ? document.getElementById(BTN_ADMIN_EDIT_ID) : null;
+
+  if (buttonUpElement) {
+    (0, _jquery.default)(buttonUpElement).click(function (e) {
+      e.preventDefault();
+      console.log('TRIGGERED!');
+      (0, _jquery.default)('html,body').animate({
+        scrollTop: 0
+      }, SCROLL_ANIMATION_DURATION_IN_MS);
+    });
+  }
+
+  if (buttonAdminElement) {
+    (0, _jquery.default)(buttonAdminElement).css('display', ''); // Remove inline 'display'
+    // Uncomment if the button and URL cannot be rendered by Squiz!
+    //$( buttonAdminElement ).click( ( e ) => {
+    //  e.preventDefault();
+    //    window.location.href += `/${ADMIN_URL_EXTENSION}`;
+    //})
+  }
 } // Run after the DOM has loaded...
 
 
 (0, _jquery.default)(function () {
+  moveWidgetsToSidebar();
+  addActiveClassToMainMenu();
+
   _fastclick.default.attach(document.body);
 
   var $body = (0, _jquery.default)('body');
@@ -4914,9 +5156,11 @@ function openPopup() {
 
   if ((0, _jquery.default)('.' + SIDEMENU_CLASS).length) {
     initSidemenuExpandability();
-  } // Find all existing popups and if they contain `data-autoload` attribute,
-  // trigger autoloading automatically.
+  }
 
+  initFloatingButtons();
+  decodeMailAddresses(); // Find all existing popups and if they contain `data-autoload` attribute,
+  // trigger autoloading automatically.
 
   (0, _jquery.default)('.popup').each(function () {
     var popupElement = (0, _jquery.default)(this);
@@ -5082,6 +5326,11 @@ function openPopup() {
 
   (0, _jquery.default)('.search-item').on('click', function () {
     (0, _jquery.default)('.search-bar').slideToggle();
+    var searchInputElement = (0, _jquery.default)('#search-query');
+
+    if (searchInputElement.is(':visible')) {
+      searchInputElement.focus();
+    }
   });
   /** DOM manipulation */
 
@@ -5122,10 +5371,50 @@ function restrictedLinkTitle() {
 }
 
 restrictedLinkTitle();
+/* Research hub mega menu */
+
+function hubMegaMenu() {
+  var menu = (0, _jquery.default)('.hub-mega-menu .mega-menu-inner');
+  var menuExpandButton = (0, _jquery.default)('.hub-mega-menu .btn-expander');
+  var mobile = false;
+  var desktop = false;
+
+  _enquire.default.register(DESKTOP_AND_LARGER, function () {
+    desktop = true;
+    mobile = false;
+  });
+
+  _enquire.default.register(TABLET_AND_SMALLER, function () {
+    desktop = false;
+    mobile = true;
+  });
+
+  menuExpandButton.each(function () {
+    var _this = this;
+
+    (0, _jquery.default)(this).on('click', function (c) {
+      var $this = (0, _jquery.default)(_this);
+
+      if (desktop) {
+        menu.toggleClass('expanded');
+      }
+
+      if (mobile) {
+        menu.addClass('expanded');
+        $this.parent().toggleClass('js-dropdown-show');
+      }
+    });
+  });
+}
+
+if (document.getElementsByClassName('hub-mega-menu').length > 0) {
+  hubMegaMenu();
+}
 /**
  * jQuery's plugin as a utility factory
  * Usage as: $( jquerySelector ).vicApp().method( options )
  */
+
 
 (function ($) {
   $.fn.vicApp = function () {

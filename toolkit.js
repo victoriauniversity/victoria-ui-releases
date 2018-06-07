@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #7c0c8e6a6000c988d762f2d3319084e162d6555e + )  | Tuesday, June 5, 2018, 10:11 PM */
+/** Version: 0.9.4 (build #e2a0341bfe00330ec0943623733c48da16ab93d4 + )  | Thursday, June 7, 2018, 11:14 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -5025,6 +5025,92 @@ function addActiveClassToMainMenu() {
     if (activeNavItem) activeNavItem.classList.add('active');
   }
 }
+/** CONTENT DYNAMIC MANIPULATIONS */
+
+/**
+ * Moves `non-staff` contact cards into the previous/next <ul> with
+ * regular staff.
+ *
+ * @deprecated This approach should not be used in new updates! Please, follow
+ * clear syntax, so you don't have to move elements around.
+ *
+ * Notice: This is required to deal with structural and visual inconsistencies * that stem from legacy code that powers rendering of non-staff contact cards. Once
+ * this is removed, this slow function can be removed too.
+ */
+
+
+var STAFF_LIST_CONTAINER_CLASSNAME = 'articles-container',
+    STAFF_LIST_CLASSNAME = 'staff-list',
+    STAFF_CONTACT_CLASSNAME = 'contact';
+
+function moveOrphanedStaffCardIntoList() {
+  var orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
+  var orphanAfterStaffList = document.querySelector(".".concat(STAFF_LIST_CONTAINER_CLASSNAME, " + .").concat(STAFF_CONTACT_CLASSNAME));
+  if (!orphanBeforeStaffList && !orphanAfterStaffList) return;
+
+  while (orphanAfterStaffList) {
+    var orphanedStaffCardElement = (0, _jquery.default)(orphanAfterStaffList);
+    var staffListElement = orphanedStaffCardElement.prev().children(".".concat(STAFF_LIST_CLASSNAME));
+
+    if (staffListElement.length == 0) {
+      // Staff list is not within its container - abort
+      console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *previous* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), orphanAfterStaffList, staffListElement);
+      return;
+    }
+
+    var listItem = (0, _jquery.default)('<li></li>').append(orphanedStaffCardElement);
+    staffListElement.append(listItem);
+    orphanAfterStaffList = document.querySelector(".".concat(STAFF_LIST_CONTAINER_CLASSNAME, " + .").concat(STAFF_CONTACT_CLASSNAME));
+  } // Has to be re-evaluated again to reflect the previous content manipulations
+
+
+  orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
+
+  while (orphanBeforeStaffList) {
+    var _orphanedStaffCardElement = (0, _jquery.default)(orphanBeforeStaffList).prev(".".concat(STAFF_CONTACT_CLASSNAME)); // Current selector is pointing to the <ul> - point to the previous sibling instead!
+
+
+    var _staffListElement = _orphanedStaffCardElement.next().children(".".concat(STAFF_LIST_CLASSNAME));
+
+    if (_staffListElement.length == 0) {
+      // Staff list is not within its container - abort
+      console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *following* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), _orphanedStaffCardElement, _staffListElement);
+      break;
+    }
+
+    var _listItem = (0, _jquery.default)('<li></li>').append(_orphanedStaffCardElement);
+
+    _staffListElement.prepend(_listItem);
+
+    orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
+  }
+}
+/**
+ * Because two sets of taught courses are rendered (one located at the top
+ * of the page, one at the bottom), it hides the other, non-used counterpart.
+ *
+ * @deprecated
+ *
+ * Note: This is legacy code and can be removed when the backend renders
+ * only one set of taught courses.
+ */
+
+
+function hideCoursesOnStaffProfile() {
+  if (!window.courseLocation) return;
+
+  if (window.courseLocation == 'top') {
+    (0, _jquery.default)("#courses-bottom").css({
+      'display': "none"
+    });
+  }
+
+  if (window.courseLocation == 'bottom') {
+    (0, _jquery.default)("#courses-top").css({
+      'display': "none"
+    });
+  }
+}
 /** CONTENT SIDE-BAR */
 // Constants
 
@@ -5125,7 +5211,6 @@ function initFloatingButtons() {
   if (buttonUpElement) {
     (0, _jquery.default)(buttonUpElement).click(function (e) {
       e.preventDefault();
-      console.log('TRIGGERED!');
       (0, _jquery.default)('html,body').animate({
         scrollTop: 0
       }, SCROLL_ANIMATION_DURATION_IN_MS);
@@ -5146,6 +5231,8 @@ function initFloatingButtons() {
 (0, _jquery.default)(function () {
   moveWidgetsToSidebar();
   addActiveClassToMainMenu();
+  moveOrphanedStaffCardIntoList();
+  hideCoursesOnStaffProfile();
 
   _fastclick.default.attach(document.body);
 

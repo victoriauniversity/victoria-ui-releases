@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.9.4 (build #e2a0341bfe00330ec0943623733c48da16ab93d4 + )  | Friday, June 8, 2018, 12:50 AM */
+/** Version: 0.9.4 (build #27b8b506df507af2d0b9c291d1347be39a6ef4af + )  | Tuesday, June 12, 2018, 12:46 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -8145,7 +8145,7 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   cursor: pointer;
   text-align: center;
   font-weight: 700;
-  color: #DDD;
+  color: #FFF;
   line-height: 1.4;
   font-size: 1.2em;
   border-radius: .7em;
@@ -8169,6 +8169,7 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   background-clip: inherit;
   border-bottom: none;
   line-height: 1.3;
+  color: #FFF;
 }
 
 .page-sub-nav.nav-buttons.hub-mega-menu nav > ul > li > a:hover, .page-sub-nav.nav-buttons.hub-mega-menu nav > ul > li > a:active, .page-sub-nav.nav-buttons.hub-mega-menu nav > ul > li > a:focus {
@@ -8235,7 +8236,7 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
 .page-sub-nav.nav-buttons.hub-mega-menu nav > ul.expanded > li > a {
   display: block;
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: .8rem 1rem .5rem;
   border-bottom: none;
 }
 
@@ -8336,7 +8337,6 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
             transform: translate3d(0, -1%, 0) scale(1.02) perspective(1px) translateZ(0);
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-    -webkit-font-smoothing: antialiased;
     background-color: #0D4B2F;
     border-bottom: 5px solid #115737;
     will-change: auto;
@@ -8351,7 +8351,7 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
             animation-duration: 1s;
     -webkit-animation-fill-mode: both;
             animation-fill-mode: both;
-    z-index: 5;
+    z-index: 0;
     -webkit-box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.19), 0 0.375rem 0.375rem rgba(0, 0, 0, 0.23);
             box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.19), 0 0.375rem 0.375rem rgba(0, 0, 0, 0.23);
   }
@@ -8413,8 +8413,6 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   }
   .page-sub-nav.nav-buttons.hub-mega-menu nav > ul.expanded > li:hover:not(.active) a {
     color: #FFF;
-    -webkit-transform: scale(1);
-            transform: scale(1);
   }
 }
 

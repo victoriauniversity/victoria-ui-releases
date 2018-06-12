@@ -1,4 +1,4 @@
-/** Version: 0.9.4 (build #e2a0341bfe00330ec0943623733c48da16ab93d4 + )  | Friday, June 8, 2018, 12:50 AM */
+/** Version: 0.9.4 (build #27b8b506df507af2d0b9c291d1347be39a6ef4af + )  | Tuesday, June 12, 2018, 12:46 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -342,6 +342,28 @@ $(function () {
     });
     var tags = $(filterTags);
 
+    function alignGrid(cols, index, tile) {
+      //resets margins for grid
+      tile.css({
+        'margin-right': '0.375rem'
+      });
+      tile.css({
+        'margin-left': '0.375rem'
+      });
+
+      if ((index + 1) % cols === 0) {
+        tile.css('margin-right', '0%'); //Need set time out to make sure style is applied
+
+        setTimeout(function () {
+          tile.nextAll('.is-matching').first().css({
+            'margin-left': '0rem'
+          });
+        }, 75);
+      }
+    }
+
+    ;
+
     if (tags !== null) {
       tags.each(function () {
         //on tag click update input to filter
@@ -355,15 +377,29 @@ $(function () {
             $(this).css('margin-right', ''); //update margins to prevent grid breaking
 
             $('.is-matching').each(function (index) {
-              $(this).css('margin-right', '1%');
+              //for each breakpoint
+              if (window.matchMedia("(min-width: 88em)").matches) {
+                alignGrid(4, index, $(this));
+              }
 
-              if ((index + 1) % 4 === 0) {
-                $(this).css('margin-right', '0%');
+              if (window.matchMedia("(max-width: 87.99em) and (min-width: 61em)").matches) {
+                alignGrid(3, index, $(this));
+              }
+
+              if (window.matchMedia("(max-width: 60.99em) and (min-width: 43em)").matches) {
+                alignGrid(2, index, $(this));
+              }
+
+              if (index === 0) {
+                $(this).css('margin-left', '0');
               }
             });
           } else {
             $(searchInput).val('').change();
-            $(targetElements).css('margin-right', '');
+            $(targetElements).css({
+              'margin-right': '',
+              'margin-left': ''
+            });
             $('.no-quals-message').remove();
           }
         });
@@ -5376,8 +5412,6 @@ function initFloatingButtons() {
 
   (0, _jquery.default)('.study-areas-postgrad').hide();
   (0, _jquery.default)('.switch .switch-input').on('change', function () {
-    console.log((0, _jquery.default)(this).attr('value'));
-
     if ((0, _jquery.default)(this).attr('value') == 'undergraduate') {
       (0, _jquery.default)('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
       (0, _jquery.default)('.study-areas-undergrad').show(500);

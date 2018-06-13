@@ -1,4 +1,4 @@
-/** Version: 0.10.0 (build #b955b5abbeba7527e075b7e0322c923b4e6cecf8 + )  | Tuesday, June 12, 2018, 1:54 AM */
+/** Version: 0.10.1 (build #408302d495ef1035fce872526454ca224a86070c + )  | Wednesday, June 13, 2018, 8:52 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -5529,7 +5529,15 @@ function hubMegaMenu() {
 }
 
 if (document.getElementsByClassName('hub-mega-menu').length > 0) {
+  var hubMegaMenuElement = (0, _jquery.default)('.hub-mega-menu');
+  var megaMenuExpandButton = (0, _jquery.default)('.hub-mega-menu .btn-expander');
   hubMegaMenu();
+
+  if (_tracking.tracker.shouldTrackElement(hubMegaMenuElement)) {
+    _tracking.tracker.registerForTracking(hubMegaMenuElement.find('li > a'), 'click', 'megamenu-link');
+
+    _tracking.tracker.registerForTracking(megaMenuExpandButton, 'click', 'megamenu-expander');
+  }
 }
 /**
  * jQuery's plugin as a utility factory

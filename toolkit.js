@@ -1,4 +1,4 @@
-/** Version: 0.10.1 (build #da28836f9371cb67ad42f3d24af7e8f815b5fd3f + )  | Wednesday, June 13, 2018, 9:01 PM */
+/** Version: 0.10.2 (build #e669cf794313dda694a58da46b5e814f392fc93f + )  | Monday, June 25, 2018, 9:52 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -115,6 +115,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Members
 var GTM_TRACK_ATTRIBUTE = 'data-gtm-track';
 var GTM_ID_ATTRIBUTE = 'data-gtm-id';
+var GTM_DATA_ATTRIBUTE = 'data-gtm-vars';
 var defaultConfig = {
   autoRegister: true
 };
@@ -122,57 +123,92 @@ var defaultConfig = {
 
 var shouldAutoRegister = true; // Public methods
 
-function addGtmTrackingListeners(elementsList, eventType, trackingId) {
+function pushTrackingInfoToGtm(trackingId, trackingSource, customDataExtension) {
   if (!window.dataLayer) {
-    console.warn("`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.");
-    window.dataLayer = []; // Fallback
+    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script. The tracking might not work correctly!');
+    window.dataLayer = []; // Init empty as fall-back to avoid hard errors
 
     return;
   }
 
-  elementsList.each(function () {
-    var elementToTrack = (0, _jquery.default)(this);
-    var trackingEventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto';
-    var id = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id;
+  var event,
+      customDataObject = {};
 
-    switch (trackingEventType) {
+  if (!(typeof trackingSource.altKey === 'undefined')) {
+    // is Event (see https://developer.mozilla.org/en-US/docs/Web/API/Event)
+    event = trackingSource;
+  } else {
+    // is Object with custom properties
+    customDataObject = trackingSource;
+  } // Event supplied -> Extract data automatically based on the type of event
+
+
+  if (event) {
+    // Custom data pre-sets based on event type (https://developer.mozilla.org/en-US/docs/Web/API/Event/type)
+    switch (event.type) {
       case 'click':
-        {
-          elementToTrack.on(trackingEventType, function (event) {
-            dataLayer.push({
-              'event': id,
-              'custom.selector': event.target,
-              'custom.eventType': event.type,
-              'custom.href': event.currentTarget.href,
-              'custom.text': event.currentTarget.text
-            });
-          });
-        }
-        ;
-        break;
-
-      case 'auto':
+        customDataObject = {
+          selector: event.target,
+          href: event.currentTarget.href,
+          text: event.currentTarget.text
+        };
         break;
 
       default:
         {
-          console.warn("GTM: Tracking of event '".concat(trackingEventType, "' is not supported."));
+          console.warn("GTM: There is no tracking preset for the event type '".concat(event.type, "'. Please, track a different event or pass an Object with custom data that should be sent to Google Tag Manager."));
         }
     }
+
+    customDataObject.eventType = event.type;
+  } // Extend (and override) with the custom data object (if supplied)
+
+
+  if (customDataExtension) {
+    for (var property in customDataExtension) {
+      if (customDataExtension.hasOwnProperty(property)) {
+        customDataObject[property] = customDataExtension[property];
+      }
+    }
+  } // Push to the GTM
+
+
+  window.dataLayer.push({
+    event: trackingId,
+    custom: customDataObject
   });
 }
 
-function pushTrackingInfoToGtm(trackingId, eventType) {
+function addGtmTrackingListeners(elementsList, eventType, trackingId) {
   if (!window.dataLayer) {
-    console.warn("`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.");
+    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.');
     window.dataLayer = []; // Fallback
 
     return;
   }
 
-  dataLayer.push({
-    'event': trackingId,
-    'custom.eventType': eventType
+  elementsList.each(function attachTrackingHandlers() {
+    var elementToTrack = (0, _jquery.default)(this),
+        trackingEventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto',
+        id = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id,
+        customDataJsonString = elementToTrack.attr(GTM_DATA_ATTRIBUTE);
+    var customDataObject; // Convert the custom variables string into JSON
+
+    if (customDataJsonString) {
+      try {
+        customDataObject = JSON.parse(customDataJsonString);
+      } catch (err) {
+        console.error("The element with tracking ID ".concat(id, " and its element '").concat(customDataJsonString, "' contains JSON string in invalid format. These information will not be pushed into Google Tag Manager..."), customDataJsonString, err);
+      }
+    }
+
+    if (trackingEventType === 'auto') {// TODO: Determine binding event automatically based on the type of
+      // the element (e.g. <a> => 'click' etc.)
+    } else {
+      elementToTrack.on(trackingEventType, function (event) {
+        pushTrackingInfoToGtm(id, event, customDataObject);
+      });
+    }
   });
 }
 
@@ -4881,7 +4917,9 @@ function initPopupBox(popupElement) {
     addShownClass();
 
     if (_tracking.tracker.shouldTrackElement(popupElement)) {
-      _tracking.tracker.trackEvent(popupElement.get(0).id, 'open');
+      _tracking.tracker.trackEvent(popupElement.get(0).id, {
+        eventType: 'open'
+      });
     }
   }
 

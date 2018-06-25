@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.1 (build #da28836f9371cb67ad42f3d24af7e8f815b5fd3f + )  | Wednesday, June 13, 2018, 9:01 PM */
+/** Version: 0.10.2 (build #e669cf794313dda694a58da46b5e814f392fc93f + )  | Monday, June 25, 2018, 9:52 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -6607,6 +6607,67 @@ aside .contact .profile-picture {
   float: none;
   width: 100%;
   margin-bottom: 0.75rem;
+}
+
+.staff-list.card-panel > .card {
+  width: 100%;
+  position: relative;
+  padding: 1.25rem 1.25rem 2rem !important;
+  border-bottom: 5px solid #115737;
+  border-radius: 0.25rem;
+  background-color: #fff;
+}
+
+.staff-list.card-panel > .card img {
+  float: right;
+  margin: 0 0 0 1.25rem;
+}
+
+.staff-list.card-panel > .card > .contact .summary .subtitle {
+  margin-bottom: 0;
+}
+
+.staff-list.card-panel > .card > .contact .summary .meta .highlight.highlight-grey > a {
+  color: #555;
+  background-color: #EEE;
+}
+
+.staff-list.card-panel > .card > .contact .info-area {
+  margin-top: 1rem;
+}
+
+.staff-list.card-panel > .card > .contact .info-area h4 {
+  margin-top: 0;
+  display: inline-block;
+}
+
+.staff-list.card-panel > .card > .contact .info-area p {
+  display: inline;
+}
+
+.staff-list.card-panel > .card .show-more-toggle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background-color: #115737;
+  padding: .25rem .5rem 0;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  font-size: .8rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.staff-list.card-panel > .card .show-more-toggle .icon-caret-down,
+.staff-list.card-panel > .card .show-more-toggle .icon-caret-up {
+  line-height: .5;
+  display: block;
+}
+
+.staff-list.card-panel > .card .show-more-toggle:hover, .staff-list.card-panel > .card .show-more-toggle:active, .staff-list.card-panel > .card .show-more-toggle:focus {
+  cursor: pointer;
 }
 
 address.contact {

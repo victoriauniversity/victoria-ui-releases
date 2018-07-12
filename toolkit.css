@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.2 (build #29e35309d21f865f024452f9054b5db5604fb9c9 + )  | Monday, June 25, 2018, 9:57 PM */
+/** Version: 0.10.2 (build #711466a3b3f5ff3007dc2b868901de150bb6454e + )  | Thursday, July 12, 2018, 10:56 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -6612,19 +6612,22 @@ aside .contact .profile-picture {
 .staff-list.card-panel > .card {
   width: 100%;
   position: relative;
-  padding: 1.25rem 1.25rem 2rem !important;
+  padding: 1.25rem 1.25rem !important;
   border-bottom: 5px solid #115737;
   border-radius: 0.25rem;
   background-color: #fff;
+  -webkit-box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.19), 0 0.375rem 0.375rem rgba(0, 0, 0, 0.23);
+          box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.19), 0 0.375rem 0.375rem rgba(0, 0, 0, 0.23);
 }
 
-.staff-list.card-panel > .card img {
+.staff-list.card-panel > .card img.profile-picture {
   float: right;
   margin: 0 0 0 1.25rem;
 }
 
 .staff-list.card-panel > .card > .contact .summary .subtitle {
-  margin-bottom: 0;
+  display: block;
+  margin-bottom: .5rem;
 }
 
 .staff-list.card-panel > .card > .contact .summary .meta .highlight.highlight-grey > a {
@@ -6632,20 +6635,25 @@ aside .contact .profile-picture {
   background-color: #EEE;
 }
 
-.staff-list.card-panel > .card > .contact .info-area {
+.staff-list.card-panel > .card > .contact .info-areas {
+  display: none;
+}
+
+.staff-list.card-panel > .card > .contact .info-areas .info-area {
   margin-top: 1rem;
 }
 
-.staff-list.card-panel > .card > .contact .info-area h4 {
-  margin-top: 0;
+.staff-list.card-panel > .card > .contact .info-areas .info-area h4 {
+  margin: 0;
   display: inline-block;
 }
 
-.staff-list.card-panel > .card > .contact .info-area p {
+.staff-list.card-panel > .card > .contact .info-areas .info-area p {
   display: inline;
 }
 
 .staff-list.card-panel > .card .show-more-toggle {
+  display: none;
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -6668,6 +6676,36 @@ aside .contact .profile-picture {
 
 .staff-list.card-panel > .card .show-more-toggle:hover, .staff-list.card-panel > .card .show-more-toggle:active, .staff-list.card-panel > .card .show-more-toggle:focus {
   cursor: pointer;
+}
+
+.staff-list.card-panel > .card .show-more-toggle:hover .icon-caret-down,
+.staff-list.card-panel > .card .show-more-toggle:hover .icon-caret-up, .staff-list.card-panel > .card .show-more-toggle:active .icon-caret-down,
+.staff-list.card-panel > .card .show-more-toggle:active .icon-caret-up, .staff-list.card-panel > .card .show-more-toggle:focus .icon-caret-down,
+.staff-list.card-panel > .card .show-more-toggle:focus .icon-caret-up {
+  -webkit-transition: .3s ease-in;
+  transition: .3s ease-in;
+}
+
+.staff-list.card-panel > .card .show-more-toggle:hover .icon-caret-down, .staff-list.card-panel > .card .show-more-toggle:active .icon-caret-down, .staff-list.card-panel > .card .show-more-toggle:focus .icon-caret-down {
+  -webkit-transform: translateY(2px);
+          transform: translateY(2px);
+}
+
+.staff-list.card-panel > .card .show-more-toggle:hover .icon-caret-up, .staff-list.card-panel > .card .show-more-toggle:active .icon-caret-up, .staff-list.card-panel > .card .show-more-toggle:focus .icon-caret-up {
+  -webkit-transform: translateY(-2px);
+          transform: translateY(-2px);
+}
+
+.staff-list.card-panel > .card.toggle-card {
+  padding-bottom: 2.5rem !important;
+}
+
+.staff-list.card-panel > .card.toggle-card .show-more-toggle {
+  display: block;
+}
+
+.staff-list.card-panel > .card.toggle-card.expanded .info-areas {
+  display: block;
 }
 
 address.contact {

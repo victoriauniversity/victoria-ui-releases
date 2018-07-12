@@ -1,4 +1,4 @@
-/** Version: 0.10.2 (build #29e35309d21f865f024452f9054b5db5604fb9c9 + )  | Monday, June 25, 2018, 9:57 PM */
+/** Version: 0.10.2 (build #711466a3b3f5ff3007dc2b868901de150bb6454e + )  | Thursday, July 12, 2018, 10:56 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -444,7 +444,9 @@ $(function () {
   }
 
   searchFilter('.postgrad-quals li', '#filter-quals', 3, '.quals-filter .tag');
-  searchFilter('#areas-of-study li', '#search-aos', 3);
+  searchFilter('#areas-of-study li', '#search-aos', 3); //new search filter for grad quals switcher
+
+  searchFilter('.postgrad-quals li', '#search-quals', 3);
 }); //alistapart.com/article/accent-folding-for-auto-complete
 
 var accent_map = (_accent_map = {

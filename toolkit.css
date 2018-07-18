@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.2 (build #711466a3b3f5ff3007dc2b868901de150bb6454e + )  | Thursday, July 12, 2018, 10:56 PM */
+/** Version: 0.10.3 (build #28d502104ab78ce01335393490ad793cfd809a6d + )  | Wednesday, July 18, 2018, 10:31 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -6921,15 +6921,15 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   margin-bottom: 1.3rem;
 }
 
-.degrees-quals.tile-filter-tags .quals-filter #filter-quals {
-  display: none;
-}
-
 .degrees-quals.tile-filter-tags .quals-filter label {
   font-size: 1.2em;
 }
 
 .degrees-quals.tile-filter-tags .tile.is-not-matching {
+  display: none;
+}
+
+.degrees-quals.tile-filter-tags .tile.hide-filter {
   display: none;
 }
 

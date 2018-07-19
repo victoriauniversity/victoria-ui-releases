@@ -1,4 +1,4 @@
-/** Version: 0.10.3 (build #28d502104ab78ce01335393490ad793cfd809a6d + )  | Wednesday, July 18, 2018, 10:31 PM */
+/** Version: 0.10.3 (build #c114507f901cf1b90db1c9a3b16b6dc835f942c5 + )  | Thursday, July 19, 2018, 1:41 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -359,7 +359,7 @@ $(function () {
 
     $targetElements.each(function () {
       var $this = $(this);
-      $this.data('search-text', accent_fold($this.text()).toLowerCase());
+      $this.data('search-text', accent_fold($this.find('h2').text()).toLowerCase());
       $this.data('search-keywords', accent_fold($this.data('search-keywords')).toLowerCase());
     }); // console.timeEnd('removing accents from all elements');
     // $('.no-quals-message').remove();

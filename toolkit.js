@@ -1,4 +1,4 @@
-/** Version: 0.10.3 (build #ac662b1c00a175f32785c41962c9b1ea1062f359 + )  | Tuesday, July 24, 2018, 12:35 AM */
+/** Version: 0.10.3 (build #60aabedf52140da47c23c278453ffc1d7aed5b62 + )  | Tuesday, July 24, 2018, 1:53 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -189,7 +189,7 @@ function pushTrackingInfoToGtm(trackingId, trackingSource, customDataExtension) 
     event = trackingSource;
   } else {
     // is Object with custom properties OR null/undefined
-    customDataObject = trackingSource;
+    customDataObject = trackingSource || {};
   } // Event supplied -> Extract data automatically based on the type of event
 
 

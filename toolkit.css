@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.4 (build #b78407b34c66df29a28127d4300a47330712ed72 + )  | Tuesday, July 24, 2018, 2:35 AM */
+/** Version: 0.10.4 (build #390d476e048d52282521f84cec832d32200ca30d + )  | Tuesday, July 31, 2018, 11:58 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -5465,7 +5465,6 @@ aside .promo h3::before {
   color: #FFF;
   border-bottom: 0;
   line-height: 1.2;
-  text-transform: capitalize;
 }
 
 .site-header .horizontal-menu .menu-bar a.active,

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.4 (build #390d476e048d52282521f84cec832d32200ca30d + )  | Tuesday, July 31, 2018, 11:58 PM */
+/** Version: 0.10.4 (build #fb0f7734f200c0bddfdfa7b6660dfdf85b41fe33 + )  | Thursday, August 23, 2018, 2:58 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -10335,6 +10335,26 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   }
   .popup {
     margin: 0;
+  }
+}
+
+/* Container Templates
+
+*** Content page
+**  COntent block with image
+*/
+.image-block .image-block--img {
+  float: right;
+  width: 25%;
+  margin-left: 1rem;
+}
+
+@media (max-width: 29.99em) {
+  .image-block .image-block--img {
+    margin-left: 0;
+    margin-bottom: 1rem;
+    float: none;
+    width: 100%;
   }
 }
 

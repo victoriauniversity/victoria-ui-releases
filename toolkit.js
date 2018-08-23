@@ -1,4 +1,4 @@
-/** Version: 0.10.4 (build #390d476e048d52282521f84cec832d32200ca30d + )  | Tuesday, July 31, 2018, 11:58 PM */
+/** Version: 0.10.4 (build #fb0f7734f200c0bddfdfa7b6660dfdf85b41fe33 + )  | Thursday, August 23, 2018, 2:58 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,7 +82,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -151,199 +151,40 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.tracker = exports.trackerConfig = void 0;
+exports.default = void 0;
 
 var _jquery = _interopRequireDefault(__webpack_require__(0));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _fastclick = _interopRequireDefault(__webpack_require__(3));
 
-/**
- * Toolkit's standalone JS module for website tracking.
- *
- * @requires $ {jQuery}
- */
-// Members
-var GTM_TRACK_ATTRIBUTE = 'data-gtm-track';
-var GTM_ID_ATTRIBUTE = 'data-gtm-id';
-var GTM_DATA_ATTRIBUTE = 'data-gtm-vars';
-var defaultConfig = {
-  autoRegister: true
-};
-/** Start tracking automatically. */
+var _headroom = _interopRequireDefault(__webpack_require__(4));
 
-var shouldAutoRegister = true; // Public methods
+var _enquire = _interopRequireDefault(__webpack_require__(5));
 
-function pushTrackingInfoToGtm(trackingId, trackingSource, customDataExtension) {
-  if (!window.dataLayer) {
-    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script. The tracking might not work correctly!');
-    window.dataLayer = []; // Init empty as fall-back to avoid hard errors
+__webpack_require__(9);
 
-    return;
-  }
+__webpack_require__(10);
 
-  var event,
-      customDataObject = {};
+var _tracking = __webpack_require__(11);
 
-  if (trackingSource && !(typeof trackingSource.altKey === 'undefined')) {
-    // is Event (see https://developer.mozilla.org/en-US/docs/Web/API/Event)
-    event = trackingSource;
-  } else {
-    // is Object with custom properties OR null/undefined
-    customDataObject = trackingSource || {};
-  } // Event supplied -> Extract data automatically based on the type of event
-
-
-  if (event) {
-    // Custom data pre-sets based on event type (https://developer.mozilla.org/en-US/docs/Web/API/Event/type)
-    switch (event.type) {
-      case 'click':
-        customDataObject = {
-          selector: event.target,
-          href: event.currentTarget.href,
-          text: event.currentTarget.text
-        };
-        break;
-
-      default:
-        {
-          console.warn("GTM: There is no tracking preset for the event type '".concat(event.type, "'. Please, track a different event or pass an Object with custom data that should be sent to Google Tag Manager."));
-        }
-    }
-
-    customDataObject.eventType = event.type;
-  } // Extend (and override) with the custom data object (if supplied)
-
-
-  if (customDataExtension) {
-    for (var property in customDataExtension) {
-      if (customDataExtension.hasOwnProperty(property)) {
-        customDataObject[property] = customDataExtension[property];
-      }
-    }
-  }
-
-  var dataLayerObject = {
-    event: trackingId
-  };
-  if (customDataObject) dataLayerObject.custom = customDataObject; // Push to the GTM
-
-  window.dataLayer.push(dataLayerObject);
-}
-
-function addGtmTrackingListeners(elementsList, eventType, trackingId) {
-  if (!window.dataLayer) {
-    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.');
-    window.dataLayer = []; // Fallback
-
-    return;
-  }
-
-  elementsList.each(function attachTrackingHandlers() {
-    var elementToTrack = (0, _jquery.default)(this),
-        trackingEventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto',
-        id = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id,
-        customDataJsonString = elementToTrack.attr(GTM_DATA_ATTRIBUTE);
-    var customDataObject; // Convert the custom variables string into JSON
-
-    if (customDataJsonString) {
-      try {
-        customDataObject = JSON.parse(customDataJsonString);
-      } catch (err) {
-        console.error("The element with tracking ID ".concat(id, " and its element '").concat(customDataJsonString, "' contains JSON string in invalid format. These information will not be pushed into Google Tag Manager..."), customDataJsonString, err);
-      }
-    }
-
-    if (trackingEventType === 'auto') {// TODO: Determine binding event automatically based on the type of
-      // the element (e.g. <a> => 'click' etc.)
-    } else {
-      elementToTrack.on(trackingEventType, function (event) {
-        pushTrackingInfoToGtm(id, event, customDataObject);
-      });
-    }
-  });
-}
-
-function shouldTrackByGtm(element) {
-  return Boolean(element.attr(GTM_TRACK_ATTRIBUTE) !== undefined);
-} // Private functions
-
-
-function autoregisterGtmTrackingListeners() {
-  addGtmTrackingListeners((0, _jquery.default)("[".concat(GTM_TRACK_ATTRIBUTE, "]")));
-} // Run after the DOM has loaded...
-
-
-(0, _jquery.default)(function () {
-  if (shouldAutoRegister) {
-    /** Auto-register all on-demand elements to automatically start tracking. */
-    setTimeout(autoregisterGtmTrackingListeners, 0);
-  }
-}); // Public API interface
-
-var trackingApi = {
-  shouldTrackElement: shouldTrackByGtm,
-  trackEvent: pushTrackingInfoToGtm,
-
-  /** Any element or set of elements can be dynamically tracked this way */
-  registerForTracking: addGtmTrackingListeners
-};
-
-function overrideOptions() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultConfig,
-      autoRegister = _ref.autoRegister;
-
-  shouldAutoRegister = autoRegister;
-}
-
-var trackerConfig = overrideOptions;
-exports.trackerConfig = trackerConfig;
-var tracker = trackingApi; // Make API available for modules
-
-exports.tracker = tracker;
-var _default = trackingApi; // For a global imports
-
-exports.default = _default;
-
-window.toolkitTracker = function (opts) {
-  overrideOptions(opts);
-  return trackingApi;
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _jquery = _interopRequireDefault(__webpack_require__(0));
-
-var _fastclick = _interopRequireDefault(__webpack_require__(4));
-
-var _headroom = _interopRequireDefault(__webpack_require__(5));
-
-var _cookiesJs = _interopRequireDefault(__webpack_require__(6));
-
-var _enquire = _interopRequireDefault(__webpack_require__(7));
-
-var _lity = _interopRequireDefault(__webpack_require__(11));
-
-var _picturefill = _interopRequireDefault(__webpack_require__(12));
-
-var _tracking = __webpack_require__(2);
+var _popups = _interopRequireDefault(__webpack_require__(12));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/** !Toolkit's core JS */
 
+/* DEPENDENCIES & 3RD PARTY LIBRARIES IMPORTS */
+// Include all standalone modules
+// Initialise dependencies
 (0, _tracking.trackerConfig)({
   autoRegister: true
-}); // Export to the global namespace (~ window)
+}); // Export useful dependencies to the global namespace (~ window) so that
+//  they can be used outside of this toolkit.
 
-window.$ = _jquery.default;
-window.jQuery = _jquery.default;
+var _default = {};
+exports.default = _default;
 
-__webpack_require__(13); //TODO: set up multiple entry points for webpack bundles
+__webpack_require__(14); // TODO: set up multiple entry points for webpack bundles
 
 /* CONSTANT ATTRIBUTES */
 
@@ -375,6 +216,12 @@ function wrapEmbeddedIframes() {
       if (iframeClasses) singleIframe.removeClass();
     }
   });
+}
+/** Safe implementation of the 'hasOwnProperty` */
+
+
+function hasProp(obj, propName) {
+  return Object.prototype.hasOwnProperty.call(obj, propName);
 }
 /** Deletes all study areas tiles that are display: none from DOM to
 keep the markup clean (and easily handled by the CSS) */
@@ -457,115 +304,6 @@ function enhanceSidemenu(menuElement) {
     (0, _jquery.default)(btnExpanderHtml).insertAfter(listItem.children('a'));
   });
 }
-/** Popup launcher. */
-
-
-function initPopupBox(popupElement) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-      _ref$delayInMs = _ref.delayInMs,
-      delayInMs = _ref$delayInMs === void 0 ? 7000 : _ref$delayInMs,
-      _ref$suppressAfterCan = _ref.suppressAfterCanceling,
-      suppressAfterCanceling = _ref$suppressAfterCan === void 0 ? true : _ref$suppressAfterCan;
-
-  var COOKIE_ID = popupElement.get(0).id || 'popup';
-  var COOKIE_SETTINGS = {
-    expires: 2419200 // 28 days
-    //secure  : true    //If set to true the secure attribute of the cookie
-
-  };
-  var popupContainerElement = popupElement.parent(".popup-positioner");
-  popupContainerElement = popupContainerElement.length ? popupContainerElement : null;
-  var buttonOkElement = popupElement.find('.button-ok');
-  var buttonCancelElement = popupElement.find('.button-cancel');
-  var buttonCloseElement = popupElement.find('.btn-close');
-  var IS_SHOWN_CLASS = 'shown'; // Attach button events
-
-  function bindButtonEvents() {
-    buttonCloseElement.on('click', close);
-    buttonCancelElement.on('click', cancel);
-    buttonOkElement.on('click', submit);
-  }
-
-  function unbindButtonEvents() {
-    buttonCloseElement.off('click', close);
-    buttonCancelElement.off('click', cancel);
-    buttonOkElement.off('click', submit);
-  }
-
-  function close(event) {
-    // If `positionerClass` exists, hide + save 'hidden' to cookies
-    event.preventDefault();
-    event.stopPropagation();
-    closePopup();
-  }
-
-  function submit(event) {
-    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
-    closePopup();
-  }
-
-  function cancel(event) {
-    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
-    closePopup();
-  }
-
-  function showPopup() {
-    bindButtonEvents();
-    addShownClass();
-
-    if (_tracking.tracker.shouldTrackElement(popupElement)) {
-      _tracking.tracker.trackEvent(popupElement.get(0).id, {
-        eventType: 'open'
-      });
-    }
-  }
-
-  function addShownClass() {
-    if (popupContainerElement) {
-      (0, _jquery.default)(document.body).append(popupContainerElement);
-      popupContainerElement.addClass(IS_SHOWN_CLASS); //popupContainerElement.fadeIn( 'slow', function() {});
-    } else {
-      popupElement.addClass(IS_SHOWN_CLASS);
-    }
-  }
-
-  function removeShownClass() {
-    if (popupContainerElement) {
-      popupContainerElement.removeClass(IS_SHOWN_CLASS); //popupContainerElement.fadeOut( 'slow', function() {});
-    } else {
-      popupElement.removeClass(IS_SHOWN_CLASS);
-    }
-  }
-
-  function isPopupShown() {
-    return popupElement.attr('data-shown') == 'true';
-  }
-
-  function closePopup() {
-    unbindButtonEvents();
-    popupElement.attr('data-shown', false);
-    removeShownClass();
-    if (suppressAfterCanceling) closePopupPermanently();
-  }
-
-  function closePopupPermanently() {
-    _cookiesJs.default.set(COOKIE_ID, true, COOKIE_SETTINGS);
-  } // Constructor
-
-
-  (function init() {
-    var shouldShowPopup = !suppressAfterCanceling || _cookiesJs.default.get(COOKIE_ID) === undefined || !_cookiesJs.default.get(COOKIE_ID);
-
-    if (shouldShowPopup && !isPopupShown()) {
-      popupElement.attr('data-shown', true); // Must be added here to prevent triggering setTimeout when clicking multiple time
-      // If there's a positioner available, display after the timeout!
-
-      setTimeout(function () {
-        showPopup();
-      }, delayInMs);
-    }
-  })();
-}
 /** HELPERS */
 //FIXME: Should be automatically pre-populated from the build/build.config.js
 
@@ -642,17 +380,16 @@ function decodeMailAddresses() {
 
 var ERROR_TYPES = {
   SIDEBAR_WIDGETS_COUNT_EXCEEDED: 'sidebar-widgets-count-exceeded'
-  /**
-   * Renders the error message notification and adds it to the top of the
-   * content window. Will show only to administrators within non-production
-   * environments.
-   *
-   * @param {{type: string, message: string, invalidItems: Array[string]}} errorObject
-   *
-   * @returns {void}
-   */
-
 };
+/**
+ * Renders the error message notification and adds it to the top of the
+ * content window. Will show only to administrators within non-production
+ * environments.
+ *
+ * @param {{type: string, message: string, invalidItems: Array[string]}} errorObject
+ *
+ * @returns {void}
+ */
 
 function showAdminErrorMessage(errorObject) {
   if (!errorObject || !isAdminEnvironment()) return;
@@ -681,16 +418,16 @@ function showAdminErrorMessage(errorObject) {
 
 function addActiveClassToMainMenu() {
   // [url-path-segment]: [nav-item-classname]
-  var rootPages = _defineProperty({
-    future: 'future',
-    international: 'international',
-    current: 'current',
-    research: 'research'
-  }, 'learning-teaching', 'learning-teaching');
+  var rootPages = {
+    'future': 'future',
+    'international': 'international',
+    'current': 'current',
+    'research': 'research',
+    'learning-teaching': 'learning-teaching'
+  },
+      urlPathSegments = window.location.pathname.split('/');
 
-  var urlPathSegments = window.location.pathname.split('/');
-
-  if (urlPathSegments.length > 1 && urlPathSegments[1] !== '' && rootPages.hasOwnProperty(urlPathSegments[1])) {
+  if (urlPathSegments.length > 1 && urlPathSegments[1] !== '' && hasProp(rootPages, urlPathSegments[1])) {
     var activeNavItemClass = rootPages[urlPathSegments[1]];
     var activeNavItem = document.querySelector(".menu-bar .".concat(activeNavItemClass));
     if (activeNavItem) activeNavItem.classList.add('active');
@@ -723,7 +460,7 @@ function moveOrphanedStaffCardIntoList() {
     var orphanedStaffCardElement = (0, _jquery.default)(orphanAfterStaffList);
     var staffListElement = orphanedStaffCardElement.prev().children(".".concat(STAFF_LIST_CLASSNAME));
 
-    if (staffListElement.length == 0) {
+    if (staffListElement.length === 0) {
       // Staff list is not within its container - abort
       console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *previous* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), orphanAfterStaffList, staffListElement);
       return;
@@ -743,7 +480,7 @@ function moveOrphanedStaffCardIntoList() {
 
     var _staffListElement = _orphanedStaffCardElement.next().children(".".concat(STAFF_LIST_CLASSNAME));
 
-    if (_staffListElement.length == 0) {
+    if (_staffListElement.length === 0) {
       // Staff list is not within its container - abort
       console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *following* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), _orphanedStaffCardElement, _staffListElement);
       break;
@@ -770,15 +507,15 @@ function moveOrphanedStaffCardIntoList() {
 function hideCoursesOnStaffProfile() {
   if (!window.courseLocation) return;
 
-  if (window.courseLocation == 'top') {
-    (0, _jquery.default)("#courses-bottom").css({
-      'display': "none"
+  if (window.courseLocation === 'top') {
+    (0, _jquery.default)('#courses-bottom').css({
+      display: 'none'
     });
   }
 
-  if (window.courseLocation == 'bottom') {
-    (0, _jquery.default)("#courses-top").css({
-      'display': "none"
+  if (window.courseLocation === 'bottom') {
+    (0, _jquery.default)('#courses-top').css({
+      display: 'none'
     });
   }
 }
@@ -802,6 +539,8 @@ var SIDEBAR_WIDGET_CLASSNAME = 'data-sidebar',
  */
 
 function moveWidgetsToSidebar() {
+  var _this = this;
+
   // No widgets OR sidebar available -> Skip!
   if (!document.querySelector(".".concat(SIDEBAR_WIDGET_CLASSNAME)) || !document.getElementById(SIDEBAR_ID)) return; // Members
   // Original, unordered widgets
@@ -811,8 +550,8 @@ function moveWidgetsToSidebar() {
 
   var widgetsMoved = [];
   var error;
-  widgetsToMove.each(function (index) {
-    var widgetElement = (0, _jquery.default)(this);
+  widgetsToMove.each(function () {
+    var widgetElement = (0, _jquery.default)(_this);
 
     if (widgetsMoved.length >= SIDEBAR_WIDGETS_MAX) {
       if (!error) {
@@ -823,17 +562,17 @@ function moveWidgetsToSidebar() {
         };
       }
 
-      error.invalidItems.push(this.id || "".concat(widgetElement.text().trim().substring(0, 80), "..."));
+      error.invalidItems.push(_this.id || "".concat(widgetElement.text().trim().substring(0, 80), "..."));
       return;
-    } // A) Staff profile - add to the top!
-
+    }
 
     if (widgetElement.hasClass(WIDGET_LINKS_CLASSNAME)) {
+      // A) Staff profile - add to the top!
       widgetsMoved.unshift(widgetElement);
-    } // B) Others (downloads, publications etc.) - Add to the last positions
-    else {
-        widgetsMoved.push(widgetElement);
-      } // Remove from its original location
+    } else {
+      // B) Others (downloads, publications etc.) - Add to the last positions
+      widgetsMoved.push(widgetElement);
+    } // Remove from its original location
 
 
     widgetElement.detach(); // Remove `display:none` if it exists
@@ -845,39 +584,17 @@ function moveWidgetsToSidebar() {
 
   if (error) showAdminErrorMessage(error);
 }
-/**
- * Function called on the jQuery Element, opens it as a popup.
- *
- * @param {Object} { delayInMs = 0, suppressAfterCanceling = false }
- *
- * @returns {DOMElement}
- */
-
-
-function openPopup() {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref2$delayInMs = _ref2.delayInMs,
-      delayInMs = _ref2$delayInMs === void 0 ? 0 : _ref2$delayInMs,
-      _ref2$suppressAfterCa = _ref2.suppressAfterCanceling,
-      suppressAfterCanceling = _ref2$suppressAfterCa === void 0 ? false : _ref2$suppressAfterCa;
-
-  initPopupBox(this, {
-    delayInMs: delayInMs,
-    suppressAfterCanceling: suppressAfterCanceling
-  });
-  return this;
-}
 /** 'GO UP' BUTTON */
 
 
 var BTN_UP_ID = 'btn-up',
-    BTN_ADMIN_EDIT_ID = 'btn-admin';
-var ADMIN_URL_EXTENSION = '_edit';
-var SCROLL_ANIMATION_DURATION_IN_MS = 700;
+    BTN_ADMIN_EDIT_ID = 'btn-admin',
+    // ADMIN_URL_EXTENSION = '_edit', // Uncomment if the button and URL cannot be rendered by Squiz!
+SCROLL_ANIMATION_DURATION_IN_MS = 700;
 
 function initFloatingButtons() {
-  var buttonUpElement = document.getElementById(BTN_UP_ID);
-  var buttonAdminElement = isAdminEnvironment() ? document.getElementById(BTN_ADMIN_EDIT_ID) : null;
+  var buttonUpElement = document.getElementById(BTN_UP_ID),
+      buttonAdminElement = isAdminEnvironment() ? document.getElementById(BTN_ADMIN_EDIT_ID) : null;
 
   if (buttonUpElement) {
     (0, _jquery.default)(buttonUpElement).click(function (e) {
@@ -891,10 +608,10 @@ function initFloatingButtons() {
   if (buttonAdminElement) {
     (0, _jquery.default)(buttonAdminElement).css('display', ''); // Remove inline 'display'
     // Uncomment if the button and URL cannot be rendered by Squiz!
-    //$( buttonAdminElement ).click( ( e ) => {
+    // $( buttonAdminElement ).click( ( e ) => {
     //  e.preventDefault();
     //    window.location.href += `/${ADMIN_URL_EXTENSION}`;
-    //})
+    // })
   }
 } // Run after the DOM has loaded...
 
@@ -902,38 +619,23 @@ function initFloatingButtons() {
 (0, _jquery.default)(function () {
   moveWidgetsToSidebar();
   addActiveClassToMainMenu();
-  moveOrphanedStaffCardIntoList();
+  moveOrphanedStaffCardIntoList(); // FIXME: Extract out to a standalone plugin and run on staff profiles *only*
+
   hideCoursesOnStaffProfile();
 
   _fastclick.default.attach(document.body);
 
-  var $body = (0, _jquery.default)('body');
-  var $globalNav = (0, _jquery.default)('#global-nav');
-  var $globalSearch = (0, _jquery.default)('#global-search');
+  var $body = (0, _jquery.default)('body'),
+      $globalNav = (0, _jquery.default)('#global-nav'),
+      $globalSearch = (0, _jquery.default)('#global-search');
   /** Init side-menu, if it's present */
 
-  if ((0, _jquery.default)('.' + SIDEMENU_CLASS).length) {
+  if ((0, _jquery.default)(".".concat(SIDEMENU_CLASS)).length) {
     initSidemenuExpandability();
   }
 
   initFloatingButtons();
-  decodeMailAddresses(); // Find all existing popups and if they contain `data-autoload` attribute,
-  // trigger autoloading automatically.
-
-  (0, _jquery.default)('.popup').each(function () {
-    var popupElement = (0, _jquery.default)(this);
-
-    if (popupElement.attr('data-autoload') !== undefined) {
-      // Autoload (~ show/hide) popup
-      var optionsObject = {};
-
-      if (popupElement.attr('data-opts') !== undefined) {
-        optionsObject = JSON.parse(popupElement.attr('data-opts'));
-      }
-
-      initPopupBox(popupElement, optionsObject);
-    }
-  }); //http://wicky.nillia.ms/enquire.js/
+  decodeMailAddresses(); //http://wicky.nilia.ms/enquire.js/
   //TODO: Refactor and extract to its own library
 
   _enquire.default.register(MOBILE_LARGE_AND_SMALLER, function () {
@@ -1146,10 +848,10 @@ function hubMegaMenu() {
   });
 
   menuExpandButton.each(function () {
-    var _this = this;
+    var _this2 = this;
 
     (0, _jquery.default)(this).on('click', function (c) {
-      var $this = (0, _jquery.default)(_this);
+      var $this = (0, _jquery.default)(_this2);
 
       if (desktop) {
         menu.toggleClass('expanded');
@@ -1174,6 +876,12 @@ if (document.getElementsByClassName('hub-mega-menu').length > 0) {
     _tracking.tracker.registerForTracking(megaMenuExpandButton, 'click', 'megamenu-expander');
   }
 }
+
+function openPopup() {
+  _popups.default.initAndOpen(this[0]);
+
+  return this;
+}
 /**
  * jQuery's plugin as a utility factory
  * Usage as: $( jquerySelector ).vicApp().method( options )
@@ -1189,7 +897,7 @@ if (document.getElementsByClassName('hub-mega-menu').length > 0) {
 })(jQuery);
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
@@ -2032,7 +1740,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;;(function () {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -2500,187 +2208,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }));
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_RESULT__;/*
- * Cookies.js - 1.2.3
- * https://github.com/ScottHamper/Cookies
- *
- * This is free and unencumbered software released into the public domain.
- */
-(function (global, undefined) {
-    'use strict';
-
-    var factory = function (window) {
-        if (typeof window.document !== 'object') {
-            throw new Error('Cookies.js requires a `window` with a `document` object');
-        }
-
-        var Cookies = function (key, value, options) {
-            return arguments.length === 1 ?
-                Cookies.get(key) : Cookies.set(key, value, options);
-        };
-
-        // Allows for setter injection in unit tests
-        Cookies._document = window.document;
-
-        // Used to ensure cookie keys do not collide with
-        // built-in `Object` properties
-        Cookies._cacheKeyPrefix = 'cookey.'; // Hurr hurr, :)
-        
-        Cookies._maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
-
-        Cookies.defaults = {
-            path: '/',
-            secure: false
-        };
-
-        Cookies.get = function (key) {
-            if (Cookies._cachedDocumentCookie !== Cookies._document.cookie) {
-                Cookies._renewCache();
-            }
-            
-            var value = Cookies._cache[Cookies._cacheKeyPrefix + key];
-
-            return value === undefined ? undefined : decodeURIComponent(value);
-        };
-
-        Cookies.set = function (key, value, options) {
-            options = Cookies._getExtendedOptions(options);
-            options.expires = Cookies._getExpiresDate(value === undefined ? -1 : options.expires);
-
-            Cookies._document.cookie = Cookies._generateCookieString(key, value, options);
-
-            return Cookies;
-        };
-
-        Cookies.expire = function (key, options) {
-            return Cookies.set(key, undefined, options);
-        };
-
-        Cookies._getExtendedOptions = function (options) {
-            return {
-                path: options && options.path || Cookies.defaults.path,
-                domain: options && options.domain || Cookies.defaults.domain,
-                expires: options && options.expires || Cookies.defaults.expires,
-                secure: options && options.secure !== undefined ?  options.secure : Cookies.defaults.secure
-            };
-        };
-
-        Cookies._isValidDate = function (date) {
-            return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
-        };
-
-        Cookies._getExpiresDate = function (expires, now) {
-            now = now || new Date();
-
-            if (typeof expires === 'number') {
-                expires = expires === Infinity ?
-                    Cookies._maxExpireDate : new Date(now.getTime() + expires * 1000);
-            } else if (typeof expires === 'string') {
-                expires = new Date(expires);
-            }
-
-            if (expires && !Cookies._isValidDate(expires)) {
-                throw new Error('`expires` parameter cannot be converted to a valid Date instance');
-            }
-
-            return expires;
-        };
-
-        Cookies._generateCookieString = function (key, value, options) {
-            key = key.replace(/[^#$&+\^`|]/g, encodeURIComponent);
-            key = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
-            value = (value + '').replace(/[^!#$&-+\--:<-\[\]-~]/g, encodeURIComponent);
-            options = options || {};
-
-            var cookieString = key + '=' + value;
-            cookieString += options.path ? ';path=' + options.path : '';
-            cookieString += options.domain ? ';domain=' + options.domain : '';
-            cookieString += options.expires ? ';expires=' + options.expires.toUTCString() : '';
-            cookieString += options.secure ? ';secure' : '';
-
-            return cookieString;
-        };
-
-        Cookies._getCacheFromString = function (documentCookie) {
-            var cookieCache = {};
-            var cookiesArray = documentCookie ? documentCookie.split('; ') : [];
-
-            for (var i = 0; i < cookiesArray.length; i++) {
-                var cookieKvp = Cookies._getKeyValuePairFromCookieString(cookiesArray[i]);
-
-                if (cookieCache[Cookies._cacheKeyPrefix + cookieKvp.key] === undefined) {
-                    cookieCache[Cookies._cacheKeyPrefix + cookieKvp.key] = cookieKvp.value;
-                }
-            }
-
-            return cookieCache;
-        };
-
-        Cookies._getKeyValuePairFromCookieString = function (cookieString) {
-            // "=" is a valid character in a cookie value according to RFC6265, so cannot `split('=')`
-            var separatorIndex = cookieString.indexOf('=');
-
-            // IE omits the "=" when the cookie value is an empty string
-            separatorIndex = separatorIndex < 0 ? cookieString.length : separatorIndex;
-
-            var key = cookieString.substr(0, separatorIndex);
-            var decodedKey;
-            try {
-                decodedKey = decodeURIComponent(key);
-            } catch (e) {
-                if (console && typeof console.error === 'function') {
-                    console.error('Could not decode cookie with key "' + key + '"', e);
-                }
-            }
-            
-            return {
-                key: decodedKey,
-                value: cookieString.substr(separatorIndex + 1) // Defer decoding value until accessed
-            };
-        };
-
-        Cookies._renewCache = function () {
-            Cookies._cache = Cookies._getCacheFromString(Cookies._document.cookie);
-            Cookies._cachedDocumentCookie = Cookies._document.cookie;
-        };
-
-        Cookies._areEnabled = function () {
-            var testKey = 'cookies.js';
-            var areEnabled = Cookies.set(testKey, 1).get(testKey) === '1';
-            Cookies.expire(testKey);
-            return areEnabled;
-        };
-
-        Cookies.enabled = Cookies._areEnabled();
-
-        return Cookies;
-    };
-    var cookiesExport = (global && typeof global.document === 'object') ? factory(global) : factory;
-
-    // AMD support
-    if (true) {
-        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return cookiesExport; }).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    // CommonJS/Node.js support
-    } else {}
-})(typeof window === 'undefined' ? this : window);
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var MediaQueryDispatch = __webpack_require__(8);
+var MediaQueryDispatch = __webpack_require__(6);
 module.exports = new MediaQueryDispatch();
 
 
 /***/ }),
-/* 8 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MediaQuery = __webpack_require__(9);
+var MediaQuery = __webpack_require__(7);
 var Util = __webpack_require__(1);
 var each = Util.each;
 var isFunction = Util.isFunction;
@@ -2768,10 +2307,10 @@ module.exports = MediaQueryDispatch;
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var QueryHandler = __webpack_require__(10);
+var QueryHandler = __webpack_require__(8);
 var each = __webpack_require__(1).each;
 
 /**
@@ -2867,7 +2406,7 @@ module.exports = MediaQuery;
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /**
@@ -2947,7 +2486,7 @@ module.exports = QueryHandler;
 
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Lity - v2.3.1 - 2018-04-20
@@ -3588,7 +3127,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Lity - v2.3.
 
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
@@ -5139,7 +4678,601 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
 
 
 /***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.tracker = exports.trackerConfig = void 0;
+
+var _jquery = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Toolkit's standalone JS module for website tracking.
+ *
+ * @requires $ {jQuery}
+ */
+// Members
+var GTM_TRACK_ATTRIBUTE = 'data-gtm-track';
+var GTM_ID_ATTRIBUTE = 'data-gtm-id';
+var GTM_DATA_ATTRIBUTE = 'data-gtm-vars';
+var defaultConfig = {
+  autoRegister: true
+};
+/** Start tracking automatically. */
+
+var shouldAutoRegister = true; // Public methods
+
+function pushTrackingInfoToGtm(trackingId, trackingSource, customDataExtension) {
+  if (!window.dataLayer) {
+    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script. The tracking might not work correctly!');
+    window.dataLayer = []; // Init empty as fall-back to avoid hard errors
+
+    return;
+  }
+
+  var event,
+      customDataObject = {};
+
+  if (trackingSource && !(typeof trackingSource.altKey === 'undefined')) {
+    // is Event (see https://developer.mozilla.org/en-US/docs/Web/API/Event)
+    event = trackingSource;
+  } else {
+    // is Object with custom properties OR null/undefined
+    customDataObject = trackingSource || {};
+  } // Event supplied -> Extract data automatically based on the type of event
+
+
+  if (event) {
+    // Custom data pre-sets based on event type (https://developer.mozilla.org/en-US/docs/Web/API/Event/type)
+    switch (event.type) {
+      case 'click':
+        customDataObject = {
+          selector: event.target,
+          href: event.currentTarget.href,
+          text: event.currentTarget.text
+        };
+        break;
+
+      default:
+        {
+          console.warn("GTM: There is no tracking preset for the event type '".concat(event.type, "'. Please, track a different event or pass an Object with custom data that should be sent to Google Tag Manager."));
+        }
+    }
+
+    customDataObject.eventType = event.type;
+  } // Extend (and override) with the custom data object (if supplied)
+
+
+  if (customDataExtension) {
+    for (var property in customDataExtension) {
+      if (customDataExtension.hasOwnProperty(property)) {
+        customDataObject[property] = customDataExtension[property];
+      }
+    }
+  }
+
+  var dataLayerObject = {
+    event: trackingId
+  };
+  if (customDataObject) dataLayerObject.custom = customDataObject; // Push to the GTM
+
+  window.dataLayer.push(dataLayerObject);
+}
+
+function addGtmTrackingListeners(elementsList, eventType, trackingId) {
+  if (!window.dataLayer) {
+    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.');
+    window.dataLayer = []; // Fallback
+
+    return;
+  }
+
+  elementsList.each(function attachTrackingHandlers() {
+    var elementToTrack = (0, _jquery.default)(this),
+        trackingEventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto',
+        id = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id,
+        customDataJsonString = elementToTrack.attr(GTM_DATA_ATTRIBUTE);
+    var customDataObject; // Convert the custom variables string into JSON
+
+    if (customDataJsonString) {
+      try {
+        customDataObject = JSON.parse(customDataJsonString);
+      } catch (err) {
+        console.error("The element with tracking ID ".concat(id, " and its element '").concat(customDataJsonString, "' contains JSON string in invalid format. These information will not be pushed into Google Tag Manager..."), customDataJsonString, err);
+      }
+    }
+
+    if (trackingEventType === 'auto') {// TODO: Determine binding event automatically based on the type of
+      // the element (e.g. <a> => 'click' etc.)
+    } else {
+      elementToTrack.on(trackingEventType, function (event) {
+        pushTrackingInfoToGtm(id, event, customDataObject);
+      });
+    }
+  });
+}
+
+function shouldTrackByGtm(element) {
+  element = (0, _jquery.default)(element);
+  return Boolean(element.attr(GTM_TRACK_ATTRIBUTE) !== undefined);
+} // Private functions
+
+
+function autoregisterGtmTrackingListeners() {
+  addGtmTrackingListeners((0, _jquery.default)("[".concat(GTM_TRACK_ATTRIBUTE, "]")));
+} // Run after the DOM has loaded...
+
+
+(0, _jquery.default)(function () {
+  if (shouldAutoRegister) {
+    /** Auto-register all on-demand elements to automatically start tracking. */
+    setTimeout(autoregisterGtmTrackingListeners, 0);
+  }
+}); // Public API interface
+
+var trackingApi = {
+  shouldTrackElement: shouldTrackByGtm,
+  trackEvent: pushTrackingInfoToGtm,
+
+  /** Any element or set of elements can be dynamically tracked this way */
+  registerForTracking: addGtmTrackingListeners
+};
+
+function overrideOptions() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultConfig,
+      autoRegister = _ref.autoRegister;
+
+  shouldAutoRegister = autoRegister;
+}
+
+var trackerConfig = overrideOptions;
+exports.trackerConfig = trackerConfig;
+var tracker = trackingApi; // Make API available for modules
+
+exports.tracker = tracker;
+var _default = trackingApi; // For a global imports
+
+exports.default = _default;
+
+window.toolkitTracker = function (opts) {
+  overrideOptions(opts);
+  return trackingApi;
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _this = void 0;
+
+/**
+ * Toolkit's standalone JS module for popup-based interactions.
+ *
+ * @requires Cookie {cookies-js}
+ */
+// Dynamic 3rd party dependencies
+var cookie;
+var tracker = window.toolkitTracker ? window.toolkitTracker() : null;
+var CLASSNAME = {
+  POPUP_AUTOINIT: 'popup',
+  BUTTON_OK: 'button-ok',
+  BUTTON_CANCEL: 'button-cancel',
+  BUTTON_CLOSE: 'btn-close'
+};
+
+function findAncestor(el, cls) {
+  while ((el = el.parentElement) && !el.classList.contains(cls)) {
+    ;
+  }
+
+  return el;
+}
+/** Popup launcher. */
+
+
+function initPopupBox(popupElement) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref$delayInMs = _ref.delayInMs,
+      delayInMs = _ref$delayInMs === void 0 ? 7000 : _ref$delayInMs,
+      _ref$suppressAfterCan = _ref.suppressAfterCanceling,
+      suppressAfterCanceling = _ref$suppressAfterCan === void 0 ? true : _ref$suppressAfterCan;
+
+  var COOKIE_ID = popupElement.id || 'popup-default';
+  var COOKIE_SETTINGS = {
+    expires: 2419200 // 28 days
+    // secure  : true    //If set to true the secure attribute of the cookie
+
+  };
+  var popupContainerElement = findAncestor(popupElement, 'popup-positioner');
+  var buttonOkElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_OK)[0],
+      buttonCancelElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CANCEL)[0],
+      buttonCloseElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CLOSE)[0],
+      IS_SHOWN_CLASS = 'shown';
+
+  function removeShownClass() {
+    if (popupContainerElement) {
+      popupContainerElement.classList.remove(IS_SHOWN_CLASS);
+    } else {
+      popupElement.classList.remove(IS_SHOWN_CLASS);
+    }
+  }
+
+  function closePopupPermanently() {
+    if (cookie) cookie.set(COOKIE_ID, true, COOKIE_SETTINGS);
+  }
+
+  function closePopup() {
+    unbindButtonEvents();
+    popupElement.setAttribute('data-shown', false);
+    removeShownClass();
+    if (suppressAfterCanceling) closePopupPermanently();
+  }
+
+  function close(event) {
+    // If `positionerClass` exists, hide + save 'hidden' to cookies
+    event.preventDefault();
+    event.stopPropagation();
+    closePopup();
+  }
+
+  function submit() {
+    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
+    closePopup();
+  }
+
+  function cancel() {
+    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
+    closePopup();
+  } // Attach button events
+
+
+  function bindButtonEvents() {
+    if (buttonOkElement) buttonOkElement.addEventListener('click', submit);
+    if (buttonCloseElement) buttonCloseElement.addEventListener('click', close);
+    if (buttonCancelElement) buttonCancelElement.addEventListener('click', cancel);
+  }
+
+  function unbindButtonEvents() {
+    if (buttonOkElement) buttonOkElement.removeEventListener('click', submit);
+    if (buttonCloseElement) buttonCloseElement.removeEventListener('click', close);
+    if (buttonCancelElement) buttonCancelElement.removeEventListener('click', cancel);
+  }
+
+  function addShownClass() {
+    if (popupContainerElement) {
+      document.getElementsByTagName('body')[0].appendChild(popupContainerElement);
+      popupContainerElement.classList.add(IS_SHOWN_CLASS);
+    } else {
+      popupElement.classList.add(IS_SHOWN_CLASS);
+    }
+  }
+
+  function isPopupShown() {
+    return popupElement.getAttribute('data-shown') === 'true';
+  }
+
+  function showPopup() {
+    bindButtonEvents();
+    addShownClass();
+
+    if (tracker && tracker.shouldTrackElement(popupElement)) {
+      tracker.trackEvent(popupElement.id, {
+        eventType: 'open'
+      });
+    }
+  } // Constructor
+
+
+  var shouldShowPopup = !cookie || !suppressAfterCanceling || cookie.get(COOKIE_ID) === undefined || !cookie.get(COOKIE_ID);
+
+  if (shouldShowPopup && !isPopupShown()) {
+    popupElement.setAttribute('data-shown', true); // Must be added here to prevent triggering setTimeout when clicking multiple time
+    // If there's a positioner available, display after the timeout!
+
+    setTimeout(function () {
+      showPopup();
+    }, delayInMs);
+  }
+}
+/**
+ * Function called on the jQuery Element, opens it as a popup.
+ *
+ * @param {Object} { delayInMs = 0, suppressAfterCanceling = false }
+ *
+ * @returns {DOMElement}
+ */
+
+
+function openPopupInstantly(popupElement) {
+  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref2$delayInMs = _ref2.delayInMs,
+      delayInMs = _ref2$delayInMs === void 0 ? 0 : _ref2$delayInMs,
+      _ref2$suppressAfterCa = _ref2.suppressAfterCanceling,
+      suppressAfterCanceling = _ref2$suppressAfterCa === void 0 ? false : _ref2$suppressAfterCa;
+
+  initPopupBox(popupElement, {
+    delayInMs: delayInMs,
+    suppressAfterCanceling: suppressAfterCanceling
+  });
+}
+
+function autoInitialisePopups() {
+  var autoloadPopups = document.getElementsByClassName(CLASSNAME.POPUP_AUTOINIT);
+
+  for (var i = 0; i < autoloadPopups.length; i += 1) {
+    var popupElement = autoloadPopups[i];
+
+    if (popupElement.getAttribute('data-autoload') !== null) {
+      // Autoload (~ show/hide) popup
+      var optionsObject = {};
+
+      if (popupElement.getAttribute('data-opts') !== null) {
+        optionsObject = JSON.parse(popupElement.getAttribute('data-opts'));
+      }
+
+      initPopupBox(popupElement, optionsObject);
+    }
+  }
+} // Public API interface
+
+
+var popupsApi = {
+  init: initPopupBox,
+  initAndOpen: openPopupInstantly
+}; // Initialiser
+
+function init() {
+  if (!cookie) {
+    console.error('`Cookie-js` library is not available. Please, import the library for the correct functionality!');
+  }
+
+  if (!tracker) {
+    console.warn('`Toolkit.tracking` library is not available, so the user actions related to popups will not be sent to the Google Tag Manager. Please, make sure the library is included to enable the tracking.');
+  } // Run when the DOM is ready!
+
+
+  if (document.readyState === 'complete') {
+    autoInitialisePopups();
+  } else {
+    document.onreadystatechange = function () {
+      if (document.readyState === 'complete') {
+        // Find all existing popups and if they contain `data-autoload` attribute,
+        autoInitialisePopups();
+      }
+    };
+  }
+}
+
+if (!window.toolkitPopups) {
+  // Not initialised yet
+  // TODO: Move into encapsulated library module
+  try {
+    cookie = __webpack_require__(13);
+    init();
+  } catch (err) {
+    // Fallback when the cookies-js is not included - Load from the CDN
+    var isScriptLoaded = false;
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js';
+
+    s.onreadystatechange = function () {
+      // After-load handler for IE
+      if (isScriptLoaded) return;
+
+      if (_this.readyState === 'complete' || _this.readyState === 'loaded') {
+        cookie = window.Cookies;
+        init();
+        isScriptLoaded = true;
+      }
+    };
+
+    s.onload = function () {
+      // After-load handler for all the other browsers
+      if (isScriptLoaded) return;
+      cookie = window.Cookies;
+      init();
+      isScriptLoaded = true;
+    };
+
+    document.getElementsByTagName('head')[0].appendChild(s);
+  } // For a global use
+
+
+  window.toolkitPopups = popupsApi;
+} // Make API available for modules
+
+
+var _default = popupsApi;
+exports.default = _default;
+
+/***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_RESULT__;/*
+ * Cookies.js - 1.2.3
+ * https://github.com/ScottHamper/Cookies
+ *
+ * This is free and unencumbered software released into the public domain.
+ */
+(function (global, undefined) {
+    'use strict';
+
+    var factory = function (window) {
+        if (typeof window.document !== 'object') {
+            throw new Error('Cookies.js requires a `window` with a `document` object');
+        }
+
+        var Cookies = function (key, value, options) {
+            return arguments.length === 1 ?
+                Cookies.get(key) : Cookies.set(key, value, options);
+        };
+
+        // Allows for setter injection in unit tests
+        Cookies._document = window.document;
+
+        // Used to ensure cookie keys do not collide with
+        // built-in `Object` properties
+        Cookies._cacheKeyPrefix = 'cookey.'; // Hurr hurr, :)
+        
+        Cookies._maxExpireDate = new Date('Fri, 31 Dec 9999 23:59:59 UTC');
+
+        Cookies.defaults = {
+            path: '/',
+            secure: false
+        };
+
+        Cookies.get = function (key) {
+            if (Cookies._cachedDocumentCookie !== Cookies._document.cookie) {
+                Cookies._renewCache();
+            }
+            
+            var value = Cookies._cache[Cookies._cacheKeyPrefix + key];
+
+            return value === undefined ? undefined : decodeURIComponent(value);
+        };
+
+        Cookies.set = function (key, value, options) {
+            options = Cookies._getExtendedOptions(options);
+            options.expires = Cookies._getExpiresDate(value === undefined ? -1 : options.expires);
+
+            Cookies._document.cookie = Cookies._generateCookieString(key, value, options);
+
+            return Cookies;
+        };
+
+        Cookies.expire = function (key, options) {
+            return Cookies.set(key, undefined, options);
+        };
+
+        Cookies._getExtendedOptions = function (options) {
+            return {
+                path: options && options.path || Cookies.defaults.path,
+                domain: options && options.domain || Cookies.defaults.domain,
+                expires: options && options.expires || Cookies.defaults.expires,
+                secure: options && options.secure !== undefined ?  options.secure : Cookies.defaults.secure
+            };
+        };
+
+        Cookies._isValidDate = function (date) {
+            return Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime());
+        };
+
+        Cookies._getExpiresDate = function (expires, now) {
+            now = now || new Date();
+
+            if (typeof expires === 'number') {
+                expires = expires === Infinity ?
+                    Cookies._maxExpireDate : new Date(now.getTime() + expires * 1000);
+            } else if (typeof expires === 'string') {
+                expires = new Date(expires);
+            }
+
+            if (expires && !Cookies._isValidDate(expires)) {
+                throw new Error('`expires` parameter cannot be converted to a valid Date instance');
+            }
+
+            return expires;
+        };
+
+        Cookies._generateCookieString = function (key, value, options) {
+            key = key.replace(/[^#$&+\^`|]/g, encodeURIComponent);
+            key = key.replace(/\(/g, '%28').replace(/\)/g, '%29');
+            value = (value + '').replace(/[^!#$&-+\--:<-\[\]-~]/g, encodeURIComponent);
+            options = options || {};
+
+            var cookieString = key + '=' + value;
+            cookieString += options.path ? ';path=' + options.path : '';
+            cookieString += options.domain ? ';domain=' + options.domain : '';
+            cookieString += options.expires ? ';expires=' + options.expires.toUTCString() : '';
+            cookieString += options.secure ? ';secure' : '';
+
+            return cookieString;
+        };
+
+        Cookies._getCacheFromString = function (documentCookie) {
+            var cookieCache = {};
+            var cookiesArray = documentCookie ? documentCookie.split('; ') : [];
+
+            for (var i = 0; i < cookiesArray.length; i++) {
+                var cookieKvp = Cookies._getKeyValuePairFromCookieString(cookiesArray[i]);
+
+                if (cookieCache[Cookies._cacheKeyPrefix + cookieKvp.key] === undefined) {
+                    cookieCache[Cookies._cacheKeyPrefix + cookieKvp.key] = cookieKvp.value;
+                }
+            }
+
+            return cookieCache;
+        };
+
+        Cookies._getKeyValuePairFromCookieString = function (cookieString) {
+            // "=" is a valid character in a cookie value according to RFC6265, so cannot `split('=')`
+            var separatorIndex = cookieString.indexOf('=');
+
+            // IE omits the "=" when the cookie value is an empty string
+            separatorIndex = separatorIndex < 0 ? cookieString.length : separatorIndex;
+
+            var key = cookieString.substr(0, separatorIndex);
+            var decodedKey;
+            try {
+                decodedKey = decodeURIComponent(key);
+            } catch (e) {
+                if (console && typeof console.error === 'function') {
+                    console.error('Could not decode cookie with key "' + key + '"', e);
+                }
+            }
+            
+            return {
+                key: decodedKey,
+                value: cookieString.substr(separatorIndex + 1) // Defer decoding value until accessed
+            };
+        };
+
+        Cookies._renewCache = function () {
+            Cookies._cache = Cookies._getCacheFromString(Cookies._document.cookie);
+            Cookies._cachedDocumentCookie = Cookies._document.cookie;
+        };
+
+        Cookies._areEnabled = function () {
+            var testKey = 'cookies.js';
+            var areEnabled = Cookies.set(testKey, 1).get(testKey) === '1';
+            Cookies.expire(testKey);
+            return areEnabled;
+        };
+
+        Cookies.enabled = Cookies._areEnabled();
+
+        return Cookies;
+    };
+    var cookiesExport = (global && typeof global.document === 'object') ? factory(global) : factory;
+
+    // AMD support
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return cookiesExport; }).call(exports, __webpack_require__, exports, module),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    // CommonJS/Node.js support
+    } else {}
+})(typeof window === 'undefined' ? this : window);
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

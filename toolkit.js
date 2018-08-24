@@ -1,4 +1,4 @@
-/** Version: 0.10.4 (build #fb0f7734f200c0bddfdfa7b6660dfdf85b41fe33 + )  | Thursday, August 23, 2018, 2:58 AM */
+/** Version: 0.10.4 (build #e3e441c63a4ca496a804b2927a34f01bb4e540c8 + )  | Friday, August 24, 2018, 12:02 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -539,8 +539,6 @@ var SIDEBAR_WIDGET_CLASSNAME = 'data-sidebar',
  */
 
 function moveWidgetsToSidebar() {
-  var _this = this;
-
   // No widgets OR sidebar available -> Skip!
   if (!document.querySelector(".".concat(SIDEBAR_WIDGET_CLASSNAME)) || !document.getElementById(SIDEBAR_ID)) return; // Members
   // Original, unordered widgets
@@ -550,8 +548,8 @@ function moveWidgetsToSidebar() {
 
   var widgetsMoved = [];
   var error;
-  widgetsToMove.each(function () {
-    var widgetElement = (0, _jquery.default)(_this);
+  widgetsToMove.each(function moveWidgetToSidebar() {
+    var widgetElement = (0, _jquery.default)(this);
 
     if (widgetsMoved.length >= SIDEBAR_WIDGETS_MAX) {
       if (!error) {
@@ -562,7 +560,7 @@ function moveWidgetsToSidebar() {
         };
       }
 
-      error.invalidItems.push(_this.id || "".concat(widgetElement.text().trim().substring(0, 80), "..."));
+      error.invalidItems.push(this.id || "".concat(widgetElement.text().trim().substring(0, 80), "..."));
       return;
     }
 
@@ -848,10 +846,10 @@ function hubMegaMenu() {
   });
 
   menuExpandButton.each(function () {
-    var _this2 = this;
+    var _this = this;
 
     (0, _jquery.default)(this).on('click', function (c) {
-      var $this = (0, _jquery.default)(_this2);
+      var $this = (0, _jquery.default)(_this);
 
       if (desktop) {
         menu.toggleClass('expanded');

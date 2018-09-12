@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #f9b526cfbb850ebbc6f45695d756a39c1fdf64d8 + )  | Friday, August 24, 2018, 12:40 AM */
+/** Version: 0.10.5 (build #3c00b5ed81e87bbf88b1d019f460f73460849e1d + )  | Wednesday, September 12, 2018, 1:37 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -10349,13 +10349,84 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   margin-left: 1rem;
 }
 
+.image-block .image-block--img.left {
+  float: left;
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
 @media (max-width: 29.99em) {
   .image-block .image-block--img {
     margin-left: 0;
+    margin-right: 0;
     margin-bottom: 1rem;
     float: none;
     width: 100%;
   }
+  .image-block .image-block--img.left {
+    margin-right: 0;
+  }
+}
+
+/* Container Templates
+
+*** Content page
+**  Multiple videos template
+*/
+.video-section .videos {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.video-section .videos > figure {
+  -webkit-box-flex: 1;
+          flex: 1 1 auto;
+  margin-bottom: 1rem;
+  max-width: calc(33% - .8rem);
+}
+
+.video-section .videos > figure:not(:last-child) {
+  margin-right: 0.8rem;
+}
+
+.video-section .videos > figure a:hover .image-wrap:before, .video-section .videos > figure a:active .image-wrap:before, .video-section .videos > figure a:focus .image-wrap:before {
+  background: none;
+}
+
+.video-section .videos > figure .image-wrap {
+  position: relative;
+  margin-bottom: 0.8rem;
+  overflow: hidden;
+}
+
+.video-section .videos > figure .image-wrap .embed {
+  margin: 0;
+}
+
+.video-section .videos > figure .image-wrap .play-now {
+  background-color: #115737;
+  padding: .5rem;
+  color: #FFF;
+}
+
+.video-section .videos > figure .image-wrap .play-now h4, .video-section .videos > figure .image-wrap .play-now h5 {
+  color: #FFF;
+  margin-bottom: 0;
+}
+
+.video-section .videos > figure .image-wrap .play-now i {
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 42.99em) {
+  .video-section .videos > figure {
+    max-width: calc(50% - .8rem);
+  }
+}
+
+.video-section .videos.two-across > figure {
+  max-width: calc(50% - .8rem);
 }
 
 /*= TRUMP OVERRIDES ==========================================================*/

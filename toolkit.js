@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #3c00b5ed81e87bbf88b1d019f460f73460849e1d + )  | Wednesday, September 12, 2018, 1:37 AM */
+/** Version: 0.10.5 (build #65415fda5e25599dd871f1d49c3b98c25bcc67ad + )  | Wednesday, September 26, 2018, 5:00 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -743,23 +743,37 @@ function initFloatingButtons() {
     (0, _jquery.default)('.study-areas').toggleClass('hidden');
     (0, _jquery.default)('.degrees-quals').toggleClass('hidden');
   });
-  /* study areas toggle programme level initially hide postgrad */
+  /* Show the tab content that is selected */
 
-  (0, _jquery.default)('.study-areas-postgrad').hide();
+  if (document.getElementById('undergraduate').checked) {
+    switchTabToUndergrad();
+  } else if (document.getElementById('postgraduate').checked) {
+    switchTabToPostgrad();
+  }
+
   (0, _jquery.default)('.switch .switch-input').on('change', function () {
     if ((0, _jquery.default)(this).attr('value') == 'undergraduate') {
-      (0, _jquery.default)('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
-      (0, _jquery.default)('.study-areas-undergrad').show(500);
-      (0, _jquery.default)('.study-areas-postgrad').hide(500);
+      switchTabToUndergrad();
     }
 
     if ((0, _jquery.default)(this).attr('value') == 'postgraduate') {
-      (0, _jquery.default)('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span> Postgraduate subjects');
-      (0, _jquery.default)('.study-areas-postgrad').show(500);
-      (0, _jquery.default)('.study-areas-undergrad').hide(500);
+      switchTabToPostgrad();
     }
   });
+
+  function switchTabToUndergrad() {
+    (0, _jquery.default)('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
+    (0, _jquery.default)('.study-areas-undergrad').show(500);
+    (0, _jquery.default)('.study-areas-postgrad').hide(500);
+  }
+
+  function switchTabToPostgrad() {
+    (0, _jquery.default)('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span> Postgraduate subjects');
+    (0, _jquery.default)('.study-areas-postgrad').show(500);
+    (0, _jquery.default)('.study-areas-undergrad').hide(500);
+  }
   /* dynamic height for tiles. setting height of all tiles from largest tile height */
+
 
   (0, _jquery.default)('.dynamic-height-tiles ').each(function (n) {
     //get array of heights for each group of class

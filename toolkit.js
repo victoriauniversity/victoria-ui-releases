@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #65415fda5e25599dd871f1d49c3b98c25bcc67ad + )  | Wednesday, September 26, 2018, 5:00 AM */
+/** Version: 0.10.5 (build #6aff4d5fd54fc553574d61c27959530786f4b520 + )  | Wednesday, September 26, 2018, 5:13 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -745,9 +745,9 @@ function initFloatingButtons() {
   });
   /* Show the tab content that is selected */
 
-  if (document.getElementById('undergraduate').checked) {
+  if (document.getElementById('undergraduate') && document.getElementById('undergraduate').checked) {
     switchTabToUndergrad();
-  } else if (document.getElementById('postgraduate').checked) {
+  } else if (document.getElementById('postgraduate') && document.getElementById('postgraduate').checked) {
     switchTabToPostgrad();
   }
 

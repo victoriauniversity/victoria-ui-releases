@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #6aff4d5fd54fc553574d61c27959530786f4b520 + )  | Wednesday, September 26, 2018, 5:13 AM */
+/** Version: 0.10.5 (build #d170bf3df5777b58ad156aff9e86241694a84e47 + )  | Friday, September 28, 2018, 4:16 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4911,7 +4911,7 @@ function initPopupBox(popupElement) {
 
   };
   var popupContainerElement = findAncestor(popupElement, 'popup-positioner');
-  var buttonOkElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_OK)[0],
+  var buttonOkElements = popupElement.getElementsByClassName(CLASSNAME.BUTTON_OK),
       buttonCancelElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CANCEL)[0],
       buttonCloseElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CLOSE)[0],
       IS_SHOWN_CLASS = 'shown';
@@ -4954,13 +4954,19 @@ function initPopupBox(popupElement) {
 
 
   function bindButtonEvents() {
-    if (buttonOkElement) buttonOkElement.addEventListener('click', submit);
+    for (var i = 0; i < buttonOkElements.length; i++) {
+      buttonOkElements[i].addEventListener('click', submit);
+    }
+
     if (buttonCloseElement) buttonCloseElement.addEventListener('click', close);
     if (buttonCancelElement) buttonCancelElement.addEventListener('click', cancel);
   }
 
   function unbindButtonEvents() {
-    if (buttonOkElement) buttonOkElement.removeEventListener('click', submit);
+    for (var i = 0; i < buttonOkElements.length; i++) {
+      buttonOkElements[i].removeEventListener('click', submit);
+    }
+
     if (buttonCloseElement) buttonCloseElement.removeEventListener('click', close);
     if (buttonCancelElement) buttonCancelElement.removeEventListener('click', cancel);
   }

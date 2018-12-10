@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #62f896cbaee29c14d471b770548902c80e53fa7b + )  | Wednesday, November 28, 2018, 12:42 AM */
+/** Version: 0.10.5 (build #662f4c5c82036de36efb4b6cef597bc027f748eb + )  | Monday, December 10, 2018, 10:55 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -1076,6 +1076,7 @@ figure:hover img, figure:active img, figure:focus img {
 figure img {
   display: block;
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .formatting figure img + figcaption {
@@ -4710,6 +4711,7 @@ aside .promo h3::before {
   .promo-panel figure img {
     float: left;
     width: 40%;
+    margin-bottom: 0;
   }
   .promo-panel figure img + figcaption {
     margin-top: 0;

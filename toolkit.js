@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #bd3ad649918c0bafae7191b8858545c9b4ba7ef4 + )  | Wednesday, January 9, 2019, 9:55 PM */
+/** Version: 0.10.5 (build #eb95343adb5cd4ad6049fad77fb0e35adf447b93 + )  | Thursday, January 17, 2019, 6:54 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -907,6 +907,25 @@ function openPopup() {
     };
   };
 })(jQuery);
+
+if (document.getElementsByClassName('calendar-cards').length > 0) {
+  (0, _jquery.default)("#search-filter").on("keyup", function () {
+    var value = (0, _jquery.default)(this).val().toLowerCase();
+    console.log((0, _jquery.default)(this).val().length); // if input 3 or more filter
+
+    if ((0, _jquery.default)(this).val().length >= 3) {
+      (0, _jquery.default)(".calendar-cards .card").filter(function () {
+        (0, _jquery.default)(this).toggle((0, _jquery.default)(this).text().toLowerCase().indexOf(value) > -1);
+        console.log((0, _jquery.default)(this).text());
+      });
+    } else {
+      // show all if search input less then 3
+      (0, _jquery.default)(".calendar-cards .card").show();
+    }
+  });
+}
+
+;
 
 /***/ }),
 /* 3 */

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #eb95343adb5cd4ad6049fad77fb0e35adf447b93 + )  | Thursday, January 17, 2019, 6:54 PM */
+/** Version: 0.10.5 (build #4ecaa51ae5a93b3bb2d2c99b71a0e15da88c3571 + )  | Friday, January 18, 2019, 12:23 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -10402,6 +10402,11 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   display: flex;
 }
 
+.card-panel.calendar-cards .card .update .sub-head {
+  font-size: .95rem;
+  margin-bottom: 0.5rem;
+}
+
 .card-panel.calendar-cards .card .update > div {
   margin-right: 1rem;
   padding-left: .8rem;
@@ -10414,6 +10419,26 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
 
 .card-panel.calendar-cards .card strong {
   color: #707070;
+}
+
+@media (max-width: 42.99em) {
+  .card-panel.calendar-cards .card .title, .card-panel.calendar-cards .card .date {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .card-panel.calendar-cards .card .title > div:first-child, .card-panel.calendar-cards .card .date > div:first-child {
+    width: auto;
+    margin-right: 1rem;
+  }
+  .card-panel.calendar-cards .card .update {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+  .card-panel.calendar-cards .card .update > div:first-child {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .contact-card-highlight {

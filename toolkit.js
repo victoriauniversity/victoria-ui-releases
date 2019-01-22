@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #4ecaa51ae5a93b3bb2d2c99b71a0e15da88c3571 + )  | Friday, January 18, 2019, 12:23 AM */
+/** Version: 0.10.5 (build #dbcff8d812d6a5faeaf128890ef97d3fcc6302fe + )  | Tuesday, January 22, 2019, 11:52 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -909,7 +909,7 @@ function openPopup() {
 })(jQuery);
 
 if (document.getElementsByClassName('calendar-cards').length > 0) {
-  (0, _jquery.default)("#search-filter").on("keyup", function () {
+  (0, _jquery.default)("#search-filter").on("keyup search", function () {
     var value = (0, _jquery.default)(this).val().toLowerCase();
     console.log((0, _jquery.default)(this).val().length); // if input 3 or more filter
 

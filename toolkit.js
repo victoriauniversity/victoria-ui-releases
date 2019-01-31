@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #dbcff8d812d6a5faeaf128890ef97d3fcc6302fe + )  | Tuesday, January 22, 2019, 11:52 PM */
+/** Version: 0.10.5 (build #bfbbccbd60a82bc1513f98722e5c74ae00b3a4b5 + )  | Thursday, January 31, 2019, 10:32 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,7 +82,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -93,6 +93,14 @@ module.exports = jQuery;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var MediaQueryDispatch = __webpack_require__(5);
+module.exports = new MediaQueryDispatch();
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 /**
@@ -140,792 +148,6 @@ module.exports = {
     each : each
 };
 
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _jquery = _interopRequireDefault(__webpack_require__(0));
-
-var _fastclick = _interopRequireDefault(__webpack_require__(3));
-
-var _headroom = _interopRequireDefault(__webpack_require__(4));
-
-var _enquire = _interopRequireDefault(__webpack_require__(5));
-
-__webpack_require__(9);
-
-__webpack_require__(10);
-
-var _tracking = __webpack_require__(11);
-
-var _popups = _interopRequireDefault(__webpack_require__(12));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/** !Toolkit's core JS */
-
-/* DEPENDENCIES & 3RD PARTY LIBRARIES IMPORTS */
-// Include all standalone modules
-// Initialise dependencies
-(0, _tracking.trackerConfig)({
-  autoRegister: true
-}); // Export useful dependencies to the global namespace (~ window) so that
-//  they can be used outside of this toolkit.
-
-var _default = {};
-exports.default = _default;
-
-__webpack_require__(14); // TODO: set up multiple entry points for webpack bundles
-
-/* CONSTANT ATTRIBUTES */
-
-
-var TRANSITION_TIMEOUT = 200; //update in _settings.variables.scss(135)
-
-var MOBILE_LARGE_AND_SMALLER = 'screen and (max-width: 42.99em)',
-    //update in _settings.responsive.scss(57)
-DESKTOP_AND_LARGER = 'screen and (min-width: 61em)',
-    TABLET_AND_SMALLER = 'screen and (max-width: 975px)',
-    // Iframe selectors
-YOUTUBE_IFRAME_SELECTOR = 'iframe[src*="youtube"]',
-    GMAPS_IFRAME_SELECTOR = 'iframe[src*="/maps/"]',
-    VIMEO_IFRAME_SELECTOR = 'iframe[src*="vimeo"]';
-/* SUPPORTING FUNCTIONS */
-
-/** Wrap YT videos in .embed wrapper that helps with responsiveness. */
-
-function wrapEmbeddedIframes() {
-  var iframes = (0, _jquery.default)(YOUTUBE_IFRAME_SELECTOR + ', ' + GMAPS_IFRAME_SELECTOR + ', ' + VIMEO_IFRAME_SELECTOR),
-      singleIframe = null,
-      iframeClasses;
-  iframes.each(function (index) {
-    singleIframe = (0, _jquery.default)(this); // If it doesn't already have wrapper, wrap it!
-
-    if (!singleIframe.parent().hasClass('embed')) {
-      iframeClasses = singleIframe.attr("class") || '';
-      singleIframe.wrap('<div class="embed ' + iframeClasses + '"></div>');
-      if (iframeClasses) singleIframe.removeClass();
-    }
-  });
-}
-/** Safe implementation of the 'hasOwnProperty` */
-
-
-function hasProp(obj, propName) {
-  return Object.prototype.hasOwnProperty.call(obj, propName);
-}
-/** Deletes all study areas tiles that are display: none from DOM to
-keep the markup clean (and easily handled by the CSS) */
-
-
-function removedUnusedTiles() {
-  (0, _jquery.default)('.tiles-wrap .tile').each(function () {
-    if ((0, _jquery.default)(this).css("display") == "none") {
-      (0, _jquery.default)(this).remove();
-    }
-  });
-}
-
-var SIDEMENU_CLASS = 'sidemenu';
-var SIDEMENU_TOGGLE_CLASS = 'sidemenu-toggle';
-var SIDEMENU_EXPANDER_CLASS = 'btn-expander';
-var SIDEMENU_SUBMENU_CLASS = 'has-submenu';
-var SIDEMENU_SELECTED_ITEM_CLASS = 'active';
-var SIDEMENU_EXPANDED_CLASS = 'expanded';
-
-function initExpandableSubmenu() {
-  var expandableButtonElement = (0, _jquery.default)(this);
-  var submenuContainer = expandableButtonElement.parent('.' + SIDEMENU_SUBMENU_CLASS); // Init default state
-
-  var isExpanded = submenuContainer.hasClass(SIDEMENU_SELECTED_ITEM_CLASS);
-
-  function apply() {
-    if (isExpanded) {
-      submenuContainer.addClass(SIDEMENU_EXPANDED_CLASS);
-    } else {
-      submenuContainer.removeClass(SIDEMENU_EXPANDED_CLASS);
-    }
-  } // Init
-
-
-  apply(); // Bind `click` events to all expandable buttons
-
-  expandableButtonElement.on('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    isExpanded = !isExpanded;
-    apply();
-  });
-}
-
-function initSidemenuExpandability() {
-  var menuElement = (0, _jquery.default)('.' + SIDEMENU_CLASS);
-  enhanceSidemenu(menuElement); // Expanding/Collapsing of the entire side menu on mobile devices
-
-  menuElement.children('.' + SIDEMENU_TOGGLE_CLASS).children('a').on('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    (0, _jquery.default)(this).parent().toggleClass(SIDEMENU_EXPANDED_CLASS);
-  });
-  var expandableButtons = menuElement.find('.' + SIDEMENU_EXPANDER_CLASS); // Add tracking if enabled
-
-  if (_tracking.tracker.shouldTrackElement(menuElement)) {
-    _tracking.tracker.registerForTracking(menuElement.find('li > a'), 'click', 'sidemenu-link');
-
-    _tracking.tracker.registerForTracking(expandableButtons, 'click', 'sidemenu-expander');
-  }
-
-  expandableButtons.each(initExpandableSubmenu);
-} //TODO: Remove after this was implemented on the backend (~ in Squiz)
-
-/** Adds necessary classes and expanding/collapsing elements if the item has got submenu. */
-
-
-var btnExpanderHtml = '<span class="btn-expander" title="Toggle subpages"></span>';
-
-function enhanceSidemenu(menuElement) {
-  menuElement.find('li').each(function () {
-    var listItem = (0, _jquery.default)(this); // a) already has got a proper class in place? Skip!
-
-    if (listItem.hasClass(SIDEMENU_SUBMENU_CLASS)) return; // b) No submenu in <li>? Skip!
-
-    if (listItem.children('ul').length === 0) return; // c) Has got a submenu => Enhance sidemenu's HTML
-
-    listItem.addClass(SIDEMENU_SUBMENU_CLASS);
-    (0, _jquery.default)(btnExpanderHtml).insertAfter(listItem.children('a'));
-  });
-}
-/** HELPERS */
-//FIXME: Should be automatically pre-populated from the build/build.config.js
-
-
-var ENV_HOSTNAME = {
-  STAGE: 'cms.victoria.ac.nz',
-  PROD: 'www.victoria.ac.nz',
-  LOCAL: 'local.victoria.ac.nz'
-};
-
-function isAdminEnvironment() {
-  return window.location.hostname === ENV_HOSTNAME.STAGE || window.location.hostname === ENV_HOSTNAME.LOCAL;
-}
-/**
- * Decodes email address into re-usable form.
- *
- * @deprecated Very old approach that won't work today - do not use.
- */
-
-
-function decodeMailAddresses() {
-  var a = 'dre:ams0of@g1niht.lp2c9u3v8k4w7y5j6zbx-_qfntigue6los5zar7b:y4dp8v3m9h2.x1w@k0jcq-_';
-  var i, h, j, k, l, m, n, s;
-
-  for (i = 0; i < document.links.length; i += 1) {
-    h = document.links[i].hash;
-
-    if (h.substring(0, 3) == '#sd') {
-      k = '';
-      l = h.substring(3, 5);
-      m = h.lastIndexOf('?subject=');
-
-      if (m == -1) {
-        s = document.links[i].href;
-      } else {
-        s = h.substring(m);
-        h = h.substring(0, m);
-      }
-
-      ;
-
-      for (j = 5; j < h.length; j += 2) {
-        k = k + a.charAt(h.substring(j, j + 2) - l - 1);
-      }
-
-      ;
-      m = s.lastIndexOf('?subject=');
-
-      if (m == -1) {
-        document.links[i].href = k;
-      } else {
-        document.links[i].href = k + s.substring(m);
-      }
-
-      ;
-      n = document.links[i].innerHTML;
-
-      if (n == 'address') {
-        document.links[i].innerHTML = k.substring(7);
-      } else {
-        document.links[i].title = k.substring(7);
-      }
-
-      ;
-    }
-
-    ;
-  }
-
-  ;
-}
-/** MESSAGE/NOTIFICATIONS HANDLING */
-
-
-var ERROR_TYPES = {
-  SIDEBAR_WIDGETS_COUNT_EXCEEDED: 'sidebar-widgets-count-exceeded'
-};
-/**
- * Renders the error message notification and adds it to the top of the
- * content window. Will show only to administrators within non-production
- * environments.
- *
- * @param {{type: string, message: string, invalidItems: Array[string]}} errorObject
- *
- * @returns {void}
- */
-
-function showAdminErrorMessage(errorObject) {
-  if (!errorObject || !isAdminEnvironment()) return;
-  var invalidItemsListHtml;
-
-  if (errorObject.invalidItems.length > 0) {
-    invalidItemsListHtml = "\n      <ul>\n        <li>".concat(errorObject.invalidItems.join('</li><li>'), "</li>\n      </ul>\n    ");
-  } // Template
-
-
-  var errorNotificationHtml = "\n    <section class=\"flash-message error\">\n      ".concat(errorObject.message, "\n      ").concat(invalidItemsListHtml, "\n    </section>\n  ");
-  (0, _jquery.default)('.content-panel > main > .formatting').prepend(errorNotificationHtml);
-  console.error('Content-related error has occured', errorObject);
-}
-/** NAVIGATION */
-
-/**
- * Adds the 'active' class to a main menu item
- * that corresponds with the current top-level URL path
- * segment.
- *
- * Note: This is *only* done due to Squiz 5.4 limitations. Once we can render
- * this class on the backend, this function can be deprecated.
- */
-
-
-function addActiveClassToMainMenu() {
-  // [url-path-segment]: [nav-item-classname]
-  var rootPages = {
-    'future': 'future',
-    'international': 'international',
-    'current': 'current',
-    'research': 'research',
-    'learning-teaching': 'learning-teaching'
-  },
-      urlPathSegments = window.location.pathname.split('/');
-
-  if (urlPathSegments.length > 1 && urlPathSegments[1] !== '' && hasProp(rootPages, urlPathSegments[1])) {
-    var activeNavItemClass = rootPages[urlPathSegments[1]];
-    var activeNavItem = document.querySelector(".menu-bar .".concat(activeNavItemClass));
-    if (activeNavItem) activeNavItem.classList.add('active');
-  }
-}
-/** CONTENT DYNAMIC MANIPULATIONS */
-
-/**
- * Moves `non-staff` contact cards into the previous/next <ul> with
- * regular staff.
- *
- * @deprecated This approach should not be used in new updates! Please, follow
- * clear syntax, so you don't have to move elements around.
- *
- * Notice: This is required to deal with structural and visual inconsistencies * that stem from legacy code that powers rendering of non-staff contact cards. Once
- * this is removed, this slow function can be removed too.
- */
-
-
-var STAFF_LIST_CONTAINER_CLASSNAME = 'articles-container',
-    STAFF_LIST_CLASSNAME = 'staff-list',
-    STAFF_CONTACT_CLASSNAME = 'contact';
-
-function moveOrphanedStaffCardIntoList() {
-  var orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
-  var orphanAfterStaffList = document.querySelector(".".concat(STAFF_LIST_CONTAINER_CLASSNAME, " + .").concat(STAFF_CONTACT_CLASSNAME));
-  if (!orphanBeforeStaffList && !orphanAfterStaffList) return;
-
-  while (orphanAfterStaffList) {
-    var orphanedStaffCardElement = (0, _jquery.default)(orphanAfterStaffList);
-    var staffListElement = orphanedStaffCardElement.prev().children(".".concat(STAFF_LIST_CLASSNAME));
-
-    if (staffListElement.length === 0) {
-      // Staff list is not within its container - abort
-      console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *previous* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), orphanAfterStaffList, staffListElement);
-      return;
-    }
-
-    var listItem = (0, _jquery.default)('<li></li>').append(orphanedStaffCardElement);
-    staffListElement.append(listItem);
-    orphanAfterStaffList = document.querySelector(".".concat(STAFF_LIST_CONTAINER_CLASSNAME, " + .").concat(STAFF_CONTACT_CLASSNAME));
-  } // Has to be re-evaluated again to reflect the previous content manipulations
-
-
-  orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
-
-  while (orphanBeforeStaffList) {
-    var _orphanedStaffCardElement = (0, _jquery.default)(orphanBeforeStaffList).prev(".".concat(STAFF_CONTACT_CLASSNAME)); // Current selector is pointing to the <ul> - point to the previous sibling instead!
-
-
-    var _staffListElement = _orphanedStaffCardElement.next().children(".".concat(STAFF_LIST_CLASSNAME));
-
-    if (_staffListElement.length === 0) {
-      // Staff list is not within its container - abort
-      console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *following* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), _orphanedStaffCardElement, _staffListElement);
-      break;
-    }
-
-    var _listItem = (0, _jquery.default)('<li></li>').append(_orphanedStaffCardElement);
-
-    _staffListElement.prepend(_listItem);
-
-    orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
-  }
-}
-/**
- * Because two sets of taught courses are rendered (one located at the top
- * of the page, one at the bottom), it hides the other, non-used counterpart.
- *
- * @deprecated
- *
- * Note: This is legacy code and can be removed when the backend renders
- * only one set of taught courses.
- */
-
-
-function hideCoursesOnStaffProfile() {
-  if (!window.courseLocation) return;
-
-  if (window.courseLocation === 'top') {
-    (0, _jquery.default)('#courses-bottom').css({
-      display: 'none'
-    });
-  }
-
-  if (window.courseLocation === 'bottom') {
-    (0, _jquery.default)('#courses-top').css({
-      display: 'none'
-    });
-  }
-}
-/** CONTENT SIDE-BAR */
-// Constants
-
-
-var SIDEBAR_WIDGET_CLASSNAME = 'data-sidebar',
-    SIDEBAR_ID = 'rightHandMenu',
-    SIDEBAR_WIDGETS_MAX = 3,
-    WIDGET_LINKS_CLASSNAME = 'data-relatedLinks';
-/**
- * Finds all widget blocks within the main content and moves them into the
- * right-hand sidebar.
- *
- * Note: This is *only* done due to Squiz 5.4 limitations. Once we can render
- * widgets into the sidebar on our backend, this client-side solution can be
- * deprecated.
- *
- * @returns {void}
- */
-
-function moveWidgetsToSidebar() {
-  // No widgets OR sidebar available -> Skip!
-  if (!document.querySelector(".".concat(SIDEBAR_WIDGET_CLASSNAME)) || !document.getElementById(SIDEBAR_ID)) return; // Members
-  // Original, unordered widgets
-
-  var widgetsToMove = (0, _jquery.default)(".".concat(SIDEBAR_WIDGET_CLASSNAME)),
-      sidebarElement = (0, _jquery.default)("#".concat(SIDEBAR_ID)); // Correctly ordered and prepared to be rendered
-
-  var widgetsMoved = [];
-  var error;
-  widgetsToMove.each(function moveWidgetToSidebar() {
-    var widgetElement = (0, _jquery.default)(this);
-
-    if (widgetsMoved.length >= SIDEBAR_WIDGETS_MAX) {
-      if (!error) {
-        error = {
-          type: ERROR_TYPES.SIDEBAR_WIDGETS_COUNT_EXCEEDED,
-          message: "\n              <h2>Too many elements in the sidebar</h2>\n              <p>Currently added: ".concat(widgetsToMove.length, ", Maximum: ").concat(SIDEBAR_WIDGETS_MAX, ".</p>\n              <p>\n                <strong>Please remove the class '").concat(SIDEBAR_WIDGET_CLASSNAME, "' from all blocks you do not want to appear in the sidebar.</strong>\n              </p>\n              <p>\n                The blocks with following content will not be shown in the sidebar:\n              </p>\n            "),
-          invalidItems: []
-        };
-      }
-
-      error.invalidItems.push(this.id || "".concat(widgetElement.text().trim().substring(0, 80), "..."));
-      return;
-    }
-
-    if (widgetElement.hasClass(WIDGET_LINKS_CLASSNAME)) {
-      // A) Staff profile - add to the top!
-      widgetsMoved.unshift(widgetElement);
-    } else {
-      // B) Others (downloads, publications etc.) - Add to the last positions
-      widgetsMoved.push(widgetElement);
-    } // Remove from its original location
-
-
-    widgetElement.detach(); // Remove `display:none` if it exists
-
-    widgetElement.css('display', '');
-  }); // Render widgets in the sidebar
-
-  sidebarElement.append.apply(sidebarElement, widgetsMoved); // Render errors, if any
-
-  if (error) showAdminErrorMessage(error);
-}
-/** 'GO UP' BUTTON */
-
-
-var BTN_UP_ID = 'btn-up',
-    BTN_ADMIN_EDIT_ID = 'btn-admin',
-    // ADMIN_URL_EXTENSION = '_edit', // Uncomment if the button and URL cannot be rendered by Squiz!
-SCROLL_ANIMATION_DURATION_IN_MS = 700;
-
-function initFloatingButtons() {
-  var buttonUpElement = document.getElementById(BTN_UP_ID),
-      buttonAdminElement = isAdminEnvironment() ? document.getElementById(BTN_ADMIN_EDIT_ID) : null;
-
-  if (buttonUpElement) {
-    (0, _jquery.default)(buttonUpElement).click(function (e) {
-      e.preventDefault();
-      (0, _jquery.default)('html,body').animate({
-        scrollTop: 0
-      }, SCROLL_ANIMATION_DURATION_IN_MS);
-    });
-  }
-
-  if (buttonAdminElement) {
-    (0, _jquery.default)(buttonAdminElement).css('display', ''); // Remove inline 'display'
-    // Uncomment if the button and URL cannot be rendered by Squiz!
-    // $( buttonAdminElement ).click( ( e ) => {
-    //  e.preventDefault();
-    //    window.location.href += `/${ADMIN_URL_EXTENSION}`;
-    // })
-  }
-} // Run after the DOM has loaded...
-
-
-(0, _jquery.default)(function () {
-  moveWidgetsToSidebar();
-  addActiveClassToMainMenu();
-  moveOrphanedStaffCardIntoList(); // FIXME: Extract out to a standalone plugin and run on staff profiles *only*
-
-  hideCoursesOnStaffProfile();
-
-  _fastclick.default.attach(document.body);
-
-  var $body = (0, _jquery.default)('body'),
-      $globalNav = (0, _jquery.default)('#global-nav'),
-      $globalSearch = (0, _jquery.default)('#global-search');
-  /** Init side-menu, if it's present */
-
-  if ((0, _jquery.default)(".".concat(SIDEMENU_CLASS)).length) {
-    initSidemenuExpandability();
-  }
-
-  initFloatingButtons();
-  decodeMailAddresses(); //http://wicky.nilia.ms/enquire.js/
-  //TODO: Refactor and extract to its own library
-
-  _enquire.default.register(MOBILE_LARGE_AND_SMALLER, function () {
-    if ($globalNav.length) {
-      var menuOutsideClickListener = function menuOutsideClickListener(event) {
-        if (!(0, _jquery.default)(event.target).closest('#global-nav').length) {
-          toggleMobileMenu();
-        }
-      };
-
-      var eGlobalNav = $globalNav[0],
-          bannerHeaderElement = (0, _jquery.default)('.site-header'),
-          sidemenu = (0, _jquery.default)('.sidemenu');
-      var headroom = new _headroom.default(eGlobalNav, {
-        'offset': $globalNav.outerHeight(),
-        // or scroll tolerance per direction
-        tolerance: {
-          down: 5,
-          up: 20
-        },
-        'classes': {
-          'initial': 'sticky',
-          'pinned': 'slide-down',
-          'unpinned': 'slide-up',
-          'notTop': 'no-top'
-        }
-      });
-      headroom.init();
-
-      var disableHeadroom = function disableHeadroom() {
-        if (headroom) {
-          headroom.scroller.removeEventListener('scroll', headroom.debouncer, false);
-        }
-      };
-
-      var enableHeadroom = function enableHeadroom() {
-        if (headroom) {
-          headroom.scroller.addEventListener('scroll', headroom.debouncer, false);
-        }
-      };
-
-      var removeMenuOutClickListener = function removeMenuOutClickListener() {
-        document.removeEventListener('click', menuOutsideClickListener);
-      };
-
-      var registerMenuOutClickListener = function registerMenuOutClickListener() {
-        document.addEventListener('click', menuOutsideClickListener);
-      };
-
-      var toggleMobileMenu = function toggleMobileMenu() {
-        $globalNav.find('.tcon').toggleClass('tcon-transform');
-        $globalNav.toggleClass('is-open');
-        if (!headroom) return;
-
-        if ($globalNav.hasClass('is-open')) {
-          disableHeadroom();
-          $body.addClass('unscrollable');
-          registerMenuOutClickListener();
-        } else {
-          enableHeadroom();
-          $body.removeClass('unscrollable');
-          removeMenuOutClickListener();
-        }
-      };
-
-      ;
-      $body.on('click ', '.js-toggle-global-nav', function (_event) {
-        toggleMobileMenu();
-      });
-    }
-  }); // Opens/closes global search bar & gains auto-focus
-
-
-  $body.on('click ', '.js-toggle-global-search', function (_event) {
-    var $this = (0, _jquery.default)(this);
-
-    if ($this.data('js-has-active-transition')) {
-      return false;
-    }
-
-    $this.data('js-has-active-transition', true);
-    $this.find('.tcon').toggleClass('tcon-transform');
-
-    if ($globalSearch.hasClass('is-open')) {
-      $globalSearch.toggleClass('is-open', false);
-      setTimeout(function () {
-        $this.data('js-has-active-transition', false);
-      }, TRANSITION_TIMEOUT);
-    } else {
-      $globalSearch.toggleClass('is-open', true);
-      setTimeout(function () {
-        $globalSearch.find('input:text').focus();
-        $this.data('js-has-active-transition', false);
-      }, TRANSITION_TIMEOUT);
-    }
-
-    _event.preventDefault();
-  }); //Study areas tabs toggle
-
-  (0, _jquery.default)('#study-area-tabs li a').click(function () {
-    if ((0, _jquery.default)(this).parent().hasClass('active')) {
-      return;
-    }
-
-    (0, _jquery.default)('.active').removeClass('active');
-    (0, _jquery.default)(this).parent().addClass('active');
-    (0, _jquery.default)('.study-areas').toggleClass('hidden');
-    (0, _jquery.default)('.degrees-quals').toggleClass('hidden');
-  });
-  /* Show the tab content that is selected */
-
-  if (document.getElementById('undergraduate') && document.getElementById('undergraduate').checked) {
-    switchTabToUndergrad();
-  } else if (document.getElementById('postgraduate') && document.getElementById('postgraduate').checked) {
-    switchTabToPostgrad();
-  }
-
-  (0, _jquery.default)('.switch .switch-input').on('change', function () {
-    if ((0, _jquery.default)(this).attr('value') == 'undergraduate') {
-      switchTabToUndergrad();
-    }
-
-    if ((0, _jquery.default)(this).attr('value') == 'postgraduate') {
-      switchTabToPostgrad();
-    }
-  });
-
-  function switchTabToUndergrad() {
-    (0, _jquery.default)('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
-    (0, _jquery.default)('.study-areas-undergrad').show(500);
-    (0, _jquery.default)('.study-areas-postgrad').hide(500);
-  }
-
-  function switchTabToPostgrad() {
-    (0, _jquery.default)('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span> Postgraduate subjects');
-    (0, _jquery.default)('.study-areas-postgrad').show(500);
-    (0, _jquery.default)('.study-areas-undergrad').hide(500);
-  }
-  /* dynamic height for tiles. setting height of all tiles from largest tile height */
-
-
-  (0, _jquery.default)('.dynamic-height-tiles ').each(function (n) {
-    //get array of heights for each group of class
-    var tileHeights = (0, _jquery.default)(this).find('li.tile').map(function () {
-      return (0, _jquery.default)(this).height();
-    }).get(); //check heights for largest
-
-    var maxHeight = Math.max.apply(null, tileHeights); //apply maxheight to tiles
-
-    (0, _jquery.default)(this).find('li.tile').height(maxHeight + 16);
-  });
-  /* Navigation toggle on mobile */
-
-  (0, _jquery.default)('.main-menu-toggle').on('click', function () {
-    (0, _jquery.default)('.main-nav').slideToggle();
-    (0, _jquery.default)('.search-bar').slideToggle();
-    (0, _jquery.default)('.menu-toggle-icon').toggleClass('open');
-  });
-  /* Show search bar on desktop */
-
-  (0, _jquery.default)('.search-item').on('click', function () {
-    (0, _jquery.default)('.search-bar').slideToggle();
-    var searchInputElement = (0, _jquery.default)('#search-query');
-
-    if (searchInputElement.is(':visible')) {
-      searchInputElement.focus();
-    }
-  });
-  /** DOM manipulation */
-
-  wrapEmbeddedIframes();
-  removedUnusedTiles(); //TODO: Review - Can be removed after all the study areas are migrated
-  //tile accordion
-
-  (0, _jquery.default)('.tile-accordion .tile').not('.tile-accordion.content-page').on('click', function (evt) {
-    // evt.preventDefault();
-    if ((0, _jquery.default)(this).hasClass('accordion-closed')) {
-      (0, _jquery.default)(this).children('.accordion-content ').slideDown();
-      (0, _jquery.default)(this).removeClass('accordion-closed').addClass('accordion-open');
-    } else if ((0, _jquery.default)(this).hasClass('accordion-open')) {
-      (0, _jquery.default)(this).children('.accordion-content ').slideUp();
-      (0, _jquery.default)(this).removeClass('accordion-open').addClass('accordion-closed');
-    }
-
-    (0, _jquery.default)(this).find('.links a').on('click', function (event) {
-      event.stopPropagation();
-    });
-  });
-});
-/* Research hub content page tile accordian */
-
-(0, _jquery.default)('.tile-accordion.content-page .tile .toggle').on('click', function (evt) {
-  var $this = (0, _jquery.default)(this);
-  $this.toggleClass('expanded');
-  $this.siblings('p').toggle();
-});
-/* Add accessible title label for restricted links class  */
-
-function restrictedLinkTitle() {
-  var lockLinks = document.querySelectorAll('.link-restricted');
-
-  for (var i = 0; i < lockLinks.length; i++) {
-    lockLinks[i].setAttribute('title', 'Restricted intranet link');
-  }
-}
-
-restrictedLinkTitle();
-/* Research hub mega menu */
-
-function hubMegaMenu() {
-  var menu = (0, _jquery.default)('.hub-mega-menu .mega-menu-inner');
-  var menuExpandButton = (0, _jquery.default)('.hub-mega-menu .btn-expander');
-  var mobile = false;
-  var desktop = false;
-
-  _enquire.default.register(DESKTOP_AND_LARGER, function () {
-    desktop = true;
-    mobile = false;
-  });
-
-  _enquire.default.register(TABLET_AND_SMALLER, function () {
-    desktop = false;
-    mobile = true;
-  });
-
-  menuExpandButton.each(function () {
-    var _this = this;
-
-    (0, _jquery.default)(this).on('click', function (c) {
-      var $this = (0, _jquery.default)(_this);
-
-      if (desktop) {
-        menu.toggleClass('expanded');
-      }
-
-      if (mobile) {
-        menu.addClass('expanded');
-        $this.parent().toggleClass('js-dropdown-show');
-      }
-    });
-  });
-}
-
-if (document.getElementsByClassName('hub-mega-menu').length > 0) {
-  var hubMegaMenuElement = (0, _jquery.default)('.hub-mega-menu');
-  var megaMenuExpandButton = (0, _jquery.default)('.hub-mega-menu .btn-expander');
-  hubMegaMenu();
-
-  if (_tracking.tracker.shouldTrackElement(hubMegaMenuElement)) {
-    _tracking.tracker.registerForTracking(hubMegaMenuElement.find('li > a'), 'click', 'megamenu-link');
-
-    _tracking.tracker.registerForTracking(megaMenuExpandButton, 'click', 'megamenu-expander');
-  }
-}
-
-function openPopup() {
-  _popups.default.initAndOpen(this[0]);
-
-  return this;
-}
-/**
- * jQuery's plugin as a utility factory
- * Usage as: $( jquerySelector ).vicApp().method( options )
- */
-
-
-(function ($) {
-  $.fn.vicApp = function () {
-    return {
-      openPopup: openPopup.bind(this)
-    };
-  };
-})(jQuery);
-
-if (document.getElementsByClassName('calendar-cards').length > 0) {
-  (0, _jquery.default)("#search-filter").on("keyup search", function () {
-    var value = (0, _jquery.default)(this).val().toLowerCase();
-    console.log((0, _jquery.default)(this).val().length); // if input 3 or more filter
-
-    if ((0, _jquery.default)(this).val().length >= 3) {
-      (0, _jquery.default)(".calendar-cards .card").filter(function () {
-        (0, _jquery.default)(this).toggle((0, _jquery.default)(this).text().toLowerCase().indexOf(value) > -1);
-        console.log((0, _jquery.default)(this).text());
-      });
-    } else {
-      // show all if search input less then 3
-      (0, _jquery.default)(".calendar-cards .card").show();
-    }
-  });
-}
-
-;
 
 /***/ }),
 /* 3 */
@@ -2242,16 +1464,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var MediaQueryDispatch = __webpack_require__(6);
-module.exports = new MediaQueryDispatch();
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var MediaQuery = __webpack_require__(7);
-var Util = __webpack_require__(1);
+var MediaQuery = __webpack_require__(6);
+var Util = __webpack_require__(2);
 var each = Util.each;
 var isFunction = Util.isFunction;
 var isArray = Util.isArray;
@@ -2338,11 +1552,11 @@ module.exports = MediaQueryDispatch;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var QueryHandler = __webpack_require__(8);
-var each = __webpack_require__(1).each;
+var QueryHandler = __webpack_require__(7);
+var each = __webpack_require__(2).each;
 
 /**
  * Represents a single media query, manages it's state and registered handlers for this query
@@ -2437,7 +1651,7 @@ module.exports = MediaQuery;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /**
@@ -2517,7 +1731,7 @@ module.exports = QueryHandler;
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Lity - v2.3.1 - 2018-04-20
@@ -3158,7 +2372,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Lity - v2.3.
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
@@ -4691,7 +3905,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
 	window.picturefill = picturefill;
 
 	/* expose picturefill */
-	if ( typeof module === "object" && typeof module.exports === "object" ) {
+	if (  true && typeof module.exports === "object" ) {
 		// CommonJS, just export
 		module.exports = picturefill;
 	} else if ( true ) {
@@ -4709,438 +3923,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.tracker = exports.trackerConfig = void 0;
-
-var _jquery = _interopRequireDefault(__webpack_require__(0));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * Toolkit's standalone JS module for website tracking.
- *
- * @requires $ {jQuery}
- */
-// Members
-var GTM_TRACK_ATTRIBUTE = 'data-gtm-track';
-var GTM_ID_ATTRIBUTE = 'data-gtm-id';
-var GTM_DATA_ATTRIBUTE = 'data-gtm-vars';
-var defaultConfig = {
-  autoRegister: true
-};
-/** Start tracking automatically. */
-
-var shouldAutoRegister = true; // Public methods
-
-function pushTrackingInfoToGtm(trackingId, trackingSource, customDataExtension) {
-  if (!window.dataLayer) {
-    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script. The tracking might not work correctly!');
-    window.dataLayer = []; // Init empty as fall-back to avoid hard errors
-
-    return;
-  }
-
-  var event,
-      customDataObject = {};
-
-  if (trackingSource && !(typeof trackingSource.altKey === 'undefined')) {
-    // is Event (see https://developer.mozilla.org/en-US/docs/Web/API/Event)
-    event = trackingSource;
-  } else {
-    // is Object with custom properties OR null/undefined
-    customDataObject = trackingSource || {};
-  } // Event supplied -> Extract data automatically based on the type of event
-
-
-  if (event) {
-    // Custom data pre-sets based on event type (https://developer.mozilla.org/en-US/docs/Web/API/Event/type)
-    switch (event.type) {
-      case 'click':
-        customDataObject = {
-          selector: event.target,
-          href: event.currentTarget.href,
-          text: event.currentTarget.text
-        };
-        break;
-
-      default:
-        {
-          console.warn("GTM: There is no tracking preset for the event type '".concat(event.type, "'. Please, track a different event or pass an Object with custom data that should be sent to Google Tag Manager."));
-        }
-    }
-
-    customDataObject.eventType = event.type;
-  } // Extend (and override) with the custom data object (if supplied)
-
-
-  if (customDataExtension) {
-    for (var property in customDataExtension) {
-      if (customDataExtension.hasOwnProperty(property)) {
-        customDataObject[property] = customDataExtension[property];
-      }
-    }
-  }
-
-  var dataLayerObject = {
-    event: trackingId
-  };
-  if (customDataObject) dataLayerObject.custom = customDataObject; // Push to the GTM
-
-  window.dataLayer.push(dataLayerObject);
-}
-
-function addGtmTrackingListeners(elementsList, eventType, trackingId) {
-  if (!window.dataLayer) {
-    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.');
-    window.dataLayer = []; // Fallback
-
-    return;
-  }
-
-  elementsList.each(function attachTrackingHandlers() {
-    var elementToTrack = (0, _jquery.default)(this),
-        trackingEventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto',
-        id = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id,
-        customDataJsonString = elementToTrack.attr(GTM_DATA_ATTRIBUTE);
-    var customDataObject; // Convert the custom variables string into JSON
-
-    if (customDataJsonString) {
-      try {
-        customDataObject = JSON.parse(customDataJsonString);
-      } catch (err) {
-        console.error("The element with tracking ID ".concat(id, " and its element '").concat(customDataJsonString, "' contains JSON string in invalid format. These information will not be pushed into Google Tag Manager..."), customDataJsonString, err);
-      }
-    }
-
-    if (trackingEventType === 'auto') {// TODO: Determine binding event automatically based on the type of
-      // the element (e.g. <a> => 'click' etc.)
-    } else {
-      elementToTrack.on(trackingEventType, function (event) {
-        pushTrackingInfoToGtm(id, event, customDataObject);
-      });
-    }
-  });
-}
-
-function shouldTrackByGtm(element) {
-  element = (0, _jquery.default)(element);
-  return Boolean(element.attr(GTM_TRACK_ATTRIBUTE) !== undefined);
-} // Private functions
-
-
-function autoregisterGtmTrackingListeners() {
-  addGtmTrackingListeners((0, _jquery.default)("[".concat(GTM_TRACK_ATTRIBUTE, "]")));
-} // Run after the DOM has loaded...
-
-
-(0, _jquery.default)(function () {
-  if (shouldAutoRegister) {
-    /** Auto-register all on-demand elements to automatically start tracking. */
-    setTimeout(autoregisterGtmTrackingListeners, 0);
-  }
-}); // Public API interface
-
-var trackingApi = {
-  shouldTrackElement: shouldTrackByGtm,
-  trackEvent: pushTrackingInfoToGtm,
-
-  /** Any element or set of elements can be dynamically tracked this way */
-  registerForTracking: addGtmTrackingListeners
-};
-
-function overrideOptions() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultConfig,
-      autoRegister = _ref.autoRegister;
-
-  shouldAutoRegister = autoRegister;
-}
-
-var trackerConfig = overrideOptions;
-exports.trackerConfig = trackerConfig;
-var tracker = trackingApi; // Make API available for modules
-
-exports.tracker = tracker;
-var _default = trackingApi; // For a global imports
-
-exports.default = _default;
-
-window.toolkitTracker = function (opts) {
-  overrideOptions(opts);
-  return trackingApi;
-};
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _this = void 0;
-
-/**
- * Toolkit's standalone JS module for popup-based interactions.
- *
- * @requires Cookie {cookies-js}
- */
-// Dynamic 3rd party dependencies
-var cookie;
-var tracker = window.toolkitTracker ? window.toolkitTracker() : null;
-var CLASSNAME = {
-  POPUP_AUTOINIT: 'popup',
-  BUTTON_OK: 'button-ok',
-  BUTTON_CANCEL: 'button-cancel',
-  BUTTON_CLOSE: 'btn-close'
-};
-
-function findAncestor(el, cls) {
-  while ((el = el.parentElement) && !el.classList.contains(cls)) {
-    ;
-  }
-
-  return el;
-}
-/** Popup launcher. */
-
-
-function initPopupBox(popupElement) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-      _ref$delayInMs = _ref.delayInMs,
-      delayInMs = _ref$delayInMs === void 0 ? 7000 : _ref$delayInMs,
-      _ref$suppressAfterCan = _ref.suppressAfterCanceling,
-      suppressAfterCanceling = _ref$suppressAfterCan === void 0 ? true : _ref$suppressAfterCan;
-
-  var COOKIE_ID = popupElement.id || 'popup-default';
-  var COOKIE_SETTINGS = {
-    expires: 2419200 // 28 days
-    // secure  : true    //If set to true the secure attribute of the cookie
-
-  };
-  var popupContainerElement = findAncestor(popupElement, 'popup-positioner');
-  var buttonOkElements = popupElement.getElementsByClassName(CLASSNAME.BUTTON_OK),
-      buttonCancelElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CANCEL)[0],
-      buttonCloseElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CLOSE)[0],
-      IS_SHOWN_CLASS = 'shown';
-
-  function removeShownClass() {
-    if (popupContainerElement) {
-      popupContainerElement.classList.remove(IS_SHOWN_CLASS);
-    } else {
-      popupElement.classList.remove(IS_SHOWN_CLASS);
-    }
-  }
-
-  function closePopupPermanently() {
-    if (cookie) cookie.set(COOKIE_ID, true, COOKIE_SETTINGS);
-  }
-
-  function closePopup() {
-    unbindButtonEvents();
-    popupElement.setAttribute('data-shown', false);
-    removeShownClass();
-    if (suppressAfterCanceling) closePopupPermanently();
-  }
-
-  function close(event) {
-    // If `positionerClass` exists, hide + save 'hidden' to cookies
-    event.preventDefault();
-    event.stopPropagation();
-    closePopup();
-  }
-
-  function submit() {
-    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
-    closePopup();
-  }
-
-  function cancel() {
-    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
-    closePopup();
-  } // Attach button events
-
-
-  function bindButtonEvents() {
-    for (var i = 0; i < buttonOkElements.length; i++) {
-      buttonOkElements[i].addEventListener('click', submit);
-    }
-
-    if (buttonCloseElement) buttonCloseElement.addEventListener('click', close);
-    if (buttonCancelElement) buttonCancelElement.addEventListener('click', cancel);
-  }
-
-  function unbindButtonEvents() {
-    for (var i = 0; i < buttonOkElements.length; i++) {
-      buttonOkElements[i].removeEventListener('click', submit);
-    }
-
-    if (buttonCloseElement) buttonCloseElement.removeEventListener('click', close);
-    if (buttonCancelElement) buttonCancelElement.removeEventListener('click', cancel);
-  }
-
-  function addShownClass() {
-    if (popupContainerElement) {
-      document.getElementsByTagName('body')[0].appendChild(popupContainerElement);
-      popupContainerElement.classList.add(IS_SHOWN_CLASS);
-    } else {
-      popupElement.classList.add(IS_SHOWN_CLASS);
-    }
-  }
-
-  function isPopupShown() {
-    return popupElement.getAttribute('data-shown') === 'true';
-  }
-
-  function showPopup() {
-    bindButtonEvents();
-    addShownClass();
-
-    if (tracker && tracker.shouldTrackElement(popupElement)) {
-      tracker.trackEvent(popupElement.id, {
-        eventType: 'open'
-      });
-    }
-  } // Constructor
-
-
-  var shouldShowPopup = !cookie || !suppressAfterCanceling || cookie.get(COOKIE_ID) === undefined || !cookie.get(COOKIE_ID);
-
-  if (shouldShowPopup && !isPopupShown()) {
-    popupElement.setAttribute('data-shown', true); // Must be added here to prevent triggering setTimeout when clicking multiple time
-    // If there's a positioner available, display after the timeout!
-
-    setTimeout(function () {
-      showPopup();
-    }, delayInMs);
-  }
-}
-/**
- * Function called on the jQuery Element, opens it as a popup.
- *
- * @param {Object} { delayInMs = 0, suppressAfterCanceling = false }
- *
- * @returns {DOMElement}
- */
-
-
-function openPopupInstantly(popupElement) {
-  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-      _ref2$delayInMs = _ref2.delayInMs,
-      delayInMs = _ref2$delayInMs === void 0 ? 0 : _ref2$delayInMs,
-      _ref2$suppressAfterCa = _ref2.suppressAfterCanceling,
-      suppressAfterCanceling = _ref2$suppressAfterCa === void 0 ? false : _ref2$suppressAfterCa;
-
-  initPopupBox(popupElement, {
-    delayInMs: delayInMs,
-    suppressAfterCanceling: suppressAfterCanceling
-  });
-}
-
-function autoInitialisePopups() {
-  var autoloadPopups = document.getElementsByClassName(CLASSNAME.POPUP_AUTOINIT);
-
-  for (var i = 0; i < autoloadPopups.length; i += 1) {
-    var popupElement = autoloadPopups[i];
-
-    if (popupElement.getAttribute('data-autoload') !== null) {
-      // Autoload (~ show/hide) popup
-      var optionsObject = {};
-
-      if (popupElement.getAttribute('data-opts') !== null) {
-        optionsObject = JSON.parse(popupElement.getAttribute('data-opts'));
-      }
-
-      initPopupBox(popupElement, optionsObject);
-    }
-  }
-} // Public API interface
-
-
-var popupsApi = {
-  init: initPopupBox,
-  initAndOpen: openPopupInstantly
-}; // Initialiser
-
-function init() {
-  if (!cookie) {
-    console.error('`Cookie-js` library is not available. Please, import the library for the correct functionality!');
-  }
-
-  if (!tracker) {
-    console.warn('`Toolkit.tracking` library is not available, so the user actions related to popups will not be sent to the Google Tag Manager. Please, make sure the library is included to enable the tracking.');
-  } // Run when the DOM is ready!
-
-
-  if (document.readyState === 'complete') {
-    autoInitialisePopups();
-  } else {
-    document.onreadystatechange = function () {
-      if (document.readyState === 'complete') {
-        // Find all existing popups and if they contain `data-autoload` attribute,
-        autoInitialisePopups();
-      }
-    };
-  }
-}
-
-if (!window.toolkitPopups) {
-  // Not initialised yet
-  // TODO: Move into encapsulated library module
-  try {
-    cookie = __webpack_require__(13);
-    init();
-  } catch (err) {
-    // Fallback when the cookies-js is not included - Load from the CDN
-    var isScriptLoaded = false;
-    var s = document.createElement('script');
-    s.type = 'text/javascript';
-    s.async = true;
-    s.src = '//cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js';
-
-    s.onreadystatechange = function () {
-      // After-load handler for IE
-      if (isScriptLoaded) return;
-
-      if (_this.readyState === 'complete' || _this.readyState === 'loaded') {
-        cookie = window.Cookies;
-        init();
-        isScriptLoaded = true;
-      }
-    };
-
-    s.onload = function () {
-      // After-load handler for all the other browsers
-      if (isScriptLoaded) return;
-      cookie = window.Cookies;
-      init();
-      isScriptLoaded = true;
-    };
-
-    document.getElementsByTagName('head')[0].appendChild(s);
-  } // For a global use
-
-
-  window.toolkitPopups = popupsApi;
-} // Make API available for modules
-
-
-var _default = popupsApi;
-exports.default = _default;
-
-/***/ }),
-/* 13 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -5309,11 +4092,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*
 })(typeof window === 'undefined' ? this : window);
 
 /***/ }),
-/* 14 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 var _accent_map;
 
@@ -5804,6 +4584,1702 @@ function accent_fold(s) {
   }
 
   return ret;
+}
+
+;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: external "jQuery"
+var external_jQuery_ = __webpack_require__(0);
+var external_jQuery_default = /*#__PURE__*/__webpack_require__.n(external_jQuery_);
+
+// EXTERNAL MODULE: ./node_modules/fastclick/lib/fastclick.js
+var fastclick = __webpack_require__(3);
+var fastclick_default = /*#__PURE__*/__webpack_require__.n(fastclick);
+
+// EXTERNAL MODULE: ./node_modules/headroom.js/dist/headroom.js
+var dist_headroom = __webpack_require__(4);
+var headroom_default = /*#__PURE__*/__webpack_require__.n(dist_headroom);
+
+// EXTERNAL MODULE: ./node_modules/enquire.js/src/index.js
+var src = __webpack_require__(1);
+var src_default = /*#__PURE__*/__webpack_require__.n(src);
+
+// EXTERNAL MODULE: ./node_modules/lity/dist/lity.js
+var lity = __webpack_require__(8);
+
+// EXTERNAL MODULE: ./node_modules/picturefill/dist/picturefill.js
+var picturefill = __webpack_require__(9);
+
+// CONCATENATED MODULE: ./src/assets/toolkit/scripts/modules/tracking.js
+/**
+ * Toolkit's standalone JS module for website tracking.
+ *
+ * @requires $ {jQuery}
+ */
+ // Members
+
+var GTM_TRACK_ATTRIBUTE = 'data-gtm-track';
+var GTM_ID_ATTRIBUTE = 'data-gtm-id';
+var GTM_DATA_ATTRIBUTE = 'data-gtm-vars';
+var defaultConfig = {
+  autoRegister: true
+};
+/** Start tracking automatically. */
+
+var shouldAutoRegister = true; // Public methods
+
+function pushTrackingInfoToGtm(trackingId, trackingSource, customDataExtension) {
+  if (!window.dataLayer) {
+    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script. The tracking might not work correctly!');
+    window.dataLayer = []; // Init empty as fall-back to avoid hard errors
+
+    return;
+  }
+
+  var event,
+      customDataObject = {};
+
+  if (trackingSource && !(typeof trackingSource.altKey === 'undefined')) {
+    // is Event (see https://developer.mozilla.org/en-US/docs/Web/API/Event)
+    event = trackingSource;
+  } else {
+    // is Object with custom properties OR null/undefined
+    customDataObject = trackingSource || {};
+  } // Event supplied -> Extract data automatically based on the type of event
+
+
+  if (event) {
+    // Custom data pre-sets based on event type (https://developer.mozilla.org/en-US/docs/Web/API/Event/type)
+    switch (event.type) {
+      case 'click':
+        customDataObject = {
+          selector: event.target,
+          href: event.currentTarget.href,
+          text: event.currentTarget.text
+        };
+        break;
+
+      default:
+        {
+          console.warn("GTM: There is no tracking preset for the event type '".concat(event.type, "'. Please, track a different event or pass an Object with custom data that should be sent to Google Tag Manager."));
+        }
+    }
+
+    customDataObject.eventType = event.type;
+  } // Extend (and override) with the custom data object (if supplied)
+
+
+  if (customDataExtension) {
+    for (var property in customDataExtension) {
+      if (customDataExtension.hasOwnProperty(property)) {
+        customDataObject[property] = customDataExtension[property];
+      }
+    }
+  }
+
+  var dataLayerObject = {
+    event: trackingId
+  };
+  if (customDataObject) dataLayerObject.custom = customDataObject; // Push to the GTM
+
+  window.dataLayer.push(dataLayerObject);
+}
+
+function addGtmTrackingListeners(elementsList, eventType, trackingId) {
+  if (!window.dataLayer) {
+    console.warn('`dataLayer` variable is unavailable. Please, check that your Google Tag Manager script is loading before any other script.');
+    window.dataLayer = []; // Fallback
+
+    return;
+  }
+
+  elementsList.each(function attachTrackingHandlers() {
+    var elementToTrack = external_jQuery_default()(this),
+        trackingEventType = eventType || elementToTrack.attr(GTM_TRACK_ATTRIBUTE) || 'auto',
+        id = trackingId || elementToTrack.attr(GTM_ID_ATTRIBUTE) || elementToTrack[0].id,
+        customDataJsonString = elementToTrack.attr(GTM_DATA_ATTRIBUTE);
+    var customDataObject; // Convert the custom variables string into JSON
+
+    if (customDataJsonString) {
+      try {
+        customDataObject = JSON.parse(customDataJsonString);
+      } catch (err) {
+        console.error("The element with tracking ID ".concat(id, " and its element '").concat(customDataJsonString, "' contains JSON string in invalid format. These information will not be pushed into Google Tag Manager..."), customDataJsonString, err);
+      }
+    }
+
+    if (trackingEventType === 'auto') {// TODO: Determine binding event automatically based on the type of
+      // the element (e.g. <a> => 'click' etc.)
+    } else {
+      elementToTrack.on(trackingEventType, function (event) {
+        pushTrackingInfoToGtm(id, event, customDataObject);
+      });
+    }
+  });
+}
+
+function shouldTrackByGtm(element) {
+  element = external_jQuery_default()(element);
+  return Boolean(element.attr(GTM_TRACK_ATTRIBUTE) !== undefined);
+} // Private functions
+
+
+function autoregisterGtmTrackingListeners() {
+  addGtmTrackingListeners(external_jQuery_default()("[".concat(GTM_TRACK_ATTRIBUTE, "]")));
+} // Run after the DOM has loaded...
+
+
+external_jQuery_default()(function () {
+  if (shouldAutoRegister) {
+    /** Auto-register all on-demand elements to automatically start tracking. */
+    setTimeout(autoregisterGtmTrackingListeners, 0);
+  }
+}); // Public API interface
+
+var trackingApi = {
+  shouldTrackElement: shouldTrackByGtm,
+  trackEvent: pushTrackingInfoToGtm,
+
+  /** Any element or set of elements can be dynamically tracked this way */
+  registerForTracking: addGtmTrackingListeners
+};
+
+function overrideOptions() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultConfig,
+      autoRegister = _ref.autoRegister;
+
+  shouldAutoRegister = autoRegister;
+}
+
+var trackerConfig = overrideOptions;
+var tracker = trackingApi; // Make API available for modules
+
+/* harmony default export */ var tracking = (trackingApi); // For a global imports
+
+window.toolkitTracker = function (opts) {
+  overrideOptions(opts);
+  return trackingApi;
+};
+// CONCATENATED MODULE: ./src/assets/toolkit/scripts/modules/popups.js
+var popups_this = undefined;
+
+/**
+ * Toolkit's standalone JS module for popup-based interactions.
+ *
+ * @requires Cookie {cookies-js}
+ */
+// Dynamic 3rd party dependencies
+var cookie;
+var popups_tracker = window.toolkitTracker ? window.toolkitTracker() : null;
+var CLASSNAME = {
+  POPUP_AUTOINIT: 'popup',
+  BUTTON_OK: 'button-ok',
+  BUTTON_CANCEL: 'button-cancel',
+  BUTTON_CLOSE: 'btn-close'
+};
+
+function findAncestor(el, cls) {
+  while ((el = el.parentElement) && !el.classList.contains(cls)) {
+    ;
+  }
+
+  return el;
+}
+/** Popup launcher. */
+
+
+function initPopupBox(popupElement) {
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref$delayInMs = _ref.delayInMs,
+      delayInMs = _ref$delayInMs === void 0 ? 7000 : _ref$delayInMs,
+      _ref$suppressAfterCan = _ref.suppressAfterCanceling,
+      suppressAfterCanceling = _ref$suppressAfterCan === void 0 ? true : _ref$suppressAfterCan;
+
+  var COOKIE_ID = popupElement.id || 'popup-default';
+  var COOKIE_SETTINGS = {
+    expires: 2419200 // 28 days
+    // secure  : true    //If set to true the secure attribute of the cookie
+
+  };
+  var popupContainerElement = findAncestor(popupElement, 'popup-positioner');
+  var buttonOkElements = popupElement.getElementsByClassName(CLASSNAME.BUTTON_OK),
+      buttonCancelElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CANCEL)[0],
+      buttonCloseElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CLOSE)[0],
+      IS_SHOWN_CLASS = 'shown';
+
+  function removeShownClass() {
+    if (popupContainerElement) {
+      popupContainerElement.classList.remove(IS_SHOWN_CLASS);
+    } else {
+      popupElement.classList.remove(IS_SHOWN_CLASS);
+    }
+  }
+
+  function closePopupPermanently() {
+    if (cookie) cookie.set(COOKIE_ID, true, COOKIE_SETTINGS);
+  }
+
+  function closePopup() {
+    unbindButtonEvents();
+    popupElement.setAttribute('data-shown', false);
+    removeShownClass();
+    if (suppressAfterCanceling) closePopupPermanently();
+  }
+
+  function close(event) {
+    // If `positionerClass` exists, hide + save 'hidden' to cookies
+    event.preventDefault();
+    event.stopPropagation();
+    closePopup();
+  }
+
+  function submit() {
+    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
+    closePopup();
+  }
+
+  function cancel() {
+    // If `positionerClass` exists, hide + save 'hidden' to cookies + continue to the page
+    closePopup();
+  } // Attach button events
+
+
+  function bindButtonEvents() {
+    for (var i = 0; i < buttonOkElements.length; i++) {
+      buttonOkElements[i].addEventListener('click', submit);
+    }
+
+    if (buttonCloseElement) buttonCloseElement.addEventListener('click', close);
+    if (buttonCancelElement) buttonCancelElement.addEventListener('click', cancel);
+  }
+
+  function unbindButtonEvents() {
+    for (var i = 0; i < buttonOkElements.length; i++) {
+      buttonOkElements[i].removeEventListener('click', submit);
+    }
+
+    if (buttonCloseElement) buttonCloseElement.removeEventListener('click', close);
+    if (buttonCancelElement) buttonCancelElement.removeEventListener('click', cancel);
+  }
+
+  function addShownClass() {
+    if (popupContainerElement) {
+      document.getElementsByTagName('body')[0].appendChild(popupContainerElement);
+      popupContainerElement.classList.add(IS_SHOWN_CLASS);
+    } else {
+      popupElement.classList.add(IS_SHOWN_CLASS);
+    }
+  }
+
+  function isPopupShown() {
+    return popupElement.getAttribute('data-shown') === 'true';
+  }
+
+  function showPopup() {
+    bindButtonEvents();
+    addShownClass();
+
+    if (popups_tracker && popups_tracker.shouldTrackElement(popupElement)) {
+      popups_tracker.trackEvent(popupElement.id, {
+        eventType: 'open'
+      });
+    }
+  } // Constructor
+
+
+  var shouldShowPopup = !cookie || !suppressAfterCanceling || cookie.get(COOKIE_ID) === undefined || !cookie.get(COOKIE_ID);
+
+  if (shouldShowPopup && !isPopupShown()) {
+    popupElement.setAttribute('data-shown', true); // Must be added here to prevent triggering setTimeout when clicking multiple time
+    // If there's a positioner available, display after the timeout!
+
+    setTimeout(function () {
+      showPopup();
+    }, delayInMs);
+  }
+}
+/**
+ * Function called on the jQuery Element, opens it as a popup.
+ *
+ * @param {Object} { delayInMs = 0, suppressAfterCanceling = false }
+ *
+ * @returns {DOMElement}
+ */
+
+
+function openPopupInstantly(popupElement) {
+  var _ref2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref2$delayInMs = _ref2.delayInMs,
+      delayInMs = _ref2$delayInMs === void 0 ? 0 : _ref2$delayInMs,
+      _ref2$suppressAfterCa = _ref2.suppressAfterCanceling,
+      suppressAfterCanceling = _ref2$suppressAfterCa === void 0 ? false : _ref2$suppressAfterCa;
+
+  initPopupBox(popupElement, {
+    delayInMs: delayInMs,
+    suppressAfterCanceling: suppressAfterCanceling
+  });
+}
+
+function autoInitialisePopups() {
+  var autoloadPopups = document.getElementsByClassName(CLASSNAME.POPUP_AUTOINIT);
+
+  for (var i = 0; i < autoloadPopups.length; i += 1) {
+    var popupElement = autoloadPopups[i];
+
+    if (popupElement.getAttribute('data-autoload') !== null) {
+      // Autoload (~ show/hide) popup
+      var optionsObject = {};
+
+      if (popupElement.getAttribute('data-opts') !== null) {
+        optionsObject = JSON.parse(popupElement.getAttribute('data-opts'));
+      }
+
+      initPopupBox(popupElement, optionsObject);
+    }
+  }
+} // Public API interface
+
+
+var popupsApi = {
+  init: initPopupBox,
+  initAndOpen: openPopupInstantly
+}; // Initialiser
+
+function init() {
+  if (!cookie) {
+    console.error('`Cookie-js` library is not available. Please, import the library for the correct functionality!');
+  }
+
+  if (!popups_tracker) {
+    console.warn('`Toolkit.tracking` library is not available, so the user actions related to popups will not be sent to the Google Tag Manager. Please, make sure the library is included to enable the tracking.');
+  } // Run when the DOM is ready!
+
+
+  if (document.readyState === 'complete') {
+    autoInitialisePopups();
+  } else {
+    document.onreadystatechange = function () {
+      if (document.readyState === 'complete') {
+        // Find all existing popups and if they contain `data-autoload` attribute,
+        autoInitialisePopups();
+      }
+    };
+  }
+}
+
+if (!window.toolkitPopups) {
+  // Not initialised yet
+  // TODO: Move into encapsulated library module
+  try {
+    cookie = __webpack_require__(10);
+    init();
+  } catch (err) {
+    // Fallback when the cookies-js is not included - Load from the CDN
+    var isScriptLoaded = false;
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js';
+
+    s.onreadystatechange = function () {
+      // After-load handler for IE
+      if (isScriptLoaded) return;
+
+      if (popups_this.readyState === 'complete' || popups_this.readyState === 'loaded') {
+        cookie = window.Cookies;
+        init();
+        isScriptLoaded = true;
+      }
+    };
+
+    s.onload = function () {
+      // After-load handler for all the other browsers
+      if (isScriptLoaded) return;
+      cookie = window.Cookies;
+      init();
+      isScriptLoaded = true;
+    };
+
+    document.getElementsByTagName('head')[0].appendChild(s);
+  } // For a global use
+
+
+  window.toolkitPopups = popupsApi;
+} // Make API available for modules
+
+
+/* harmony default export */ var popups = (popupsApi);
+// CONCATENATED MODULE: ./src/assets/toolkit/scripts/utils/helpers.js
+/**
+ * Utility library with helper functions.
+ *
+ * It SHOULD NOT be used as a standalone library, but only
+ * imported as a dependency.
+ *
+ * Add ONLY function that are generic enough to be reused
+ * by almost any module.
+ */
+
+/** Checks whether an element is `display: none;` or not. */
+function isElementHidden(element) {
+  return element.offsetParent === null; // *ONLY* happens when the element is not fixed
+}
+/**
+ * Remove attribute from a DOM Element in a browser-compatible manner.
+ *
+ * @param {Element} domElement
+ * @param {string} attributeName
+ */
+
+function removeAttribute(domElement, attributeName) {
+  domElement.setAttribute(attributeName, false); // Hack for IE11 / MS Edge
+
+  domElement.removeAttribute(attributeName); // All other normal browsers
+}
+/**
+ * Detects if the device is likely to be from Apple.
+ * Should only be used for fixing or hacking critical issues.
+ *
+ * @param {String} customUserAgent -
+ *  Allows to specify the HTTP Header's `User-Agent` string.
+ *
+ * @return {boolean}
+ */
+
+function isAppleMobileDevice(customUserAgent) {
+  var userAgent = customUserAgent || (typeof window.navigator !== 'undefined' ? window.navigator.userAgent : '');
+  return /iPhone|iPod|iPad/i.test(userAgent) && !/Windows Phone/i.test(userAgent);
+}
+// CONCATENATED MODULE: ./src/assets/toolkit/scripts/modules/tooltips.js
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+ // API interface
+
+var tooltipsApi = window.toolkitTooltips || {};
+/**
+ * A module providing basic tooltips UI and functionality.
+ * Can be accessed globally through `window.toolkitTooltips` or
+ * imported/required as a JS module.
+ *
+ * @typedef {Object} toolkitTooltip
+ *
+ * @property {function} initTooltip
+ * @property {function} initTooltips
+ * @property {function} getAllTooltips
+ * @property {function} destroyAllTooltips
+ */
+
+(function ToolkitTooltip() {
+  if (window.toolkitTooltips) {
+    // Available already - do not initialise again!
+    return;
+  }
+
+  window.toolkitTooltips = tooltipsApi; // Import for a global access
+
+  /** @constant */
+
+  var VALUE_ID = 'toolkit-tooltip',
+      ATTRIBUTE_NAME_TOOLTIP = 'data-tooltip',
+      ATTRIBUTE_NAME_CONTENT = 'title',
+      SIZES = {
+    SCREEN_PADDING: 20,
+    MAX_WIDTH: 400,
+    CARET_SIZE: 20
+  },
+      TRIGGER_TYPE = {
+    HOVER: 'hover',
+    CLICK: 'click'
+  };
+  /** PRIVATE MEMBERS */
+
+  var globalTooltipElement, lastInteractedSourceElement, outsideClickListenerFn;
+  /** List of active tooltips */
+
+  var tooltipsList = [];
+  /** PRIVATE FUNCTIONS */
+
+  function appendTooltipElement() {
+    var tooltipElement = document.createElement('div');
+    tooltipElement.setAttribute('id', VALUE_ID);
+    tooltipElement.setAttribute('class', 'tooltip');
+    tooltipElement.setAttribute('role', 'tooltip');
+    tooltipElement.setAttribute('hidden', '');
+    document.body.appendChild(tooltipElement);
+    globalTooltipElement = tooltipElement;
+  }
+
+  function removeTooltipElement() {
+    globalTooltipElement = undefined;
+    document.body.removeChild(globalTooltipElement);
+  }
+  /** INLINE CLASSES. */
+
+  /**
+   * Takes care of all the data and UI operations
+   *
+   * @typedef {Class} Tooltip
+   *
+   * @property {Element} sourceElement
+   * @property {string} content
+   * @property {string} triggerType
+   *
+   * @property {function} destroy
+   * @property {function} showTooltip
+   * @property {function} hideTooltip
+   * @property {function} toggleTooltip
+   *
+   */
+
+
+  var Tooltip =
+  /*#__PURE__*/
+  function () {
+    /**
+     * @param {Element} sourceElement -
+     *  DOM Element that will toggle the tooltip.
+     * @param {{content:string, attributeNameContent:string,trigger:string}} -
+     *   Optional custom settings.
+     *
+     * @memberof Tooltip
+     */
+    function Tooltip(sourceElement) {
+      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+          content = _ref.content,
+          _ref$attributeNameCon = _ref.attributeNameContent,
+          attributeNameContent = _ref$attributeNameCon === void 0 ? ATTRIBUTE_NAME_CONTENT : _ref$attributeNameCon,
+          _ref$trigger = _ref.trigger,
+          trigger = _ref$trigger === void 0 ? TRIGGER_TYPE.HOVER : _ref$trigger;
+
+      _classCallCheck(this, Tooltip);
+
+      this.sourceElement = sourceElement;
+      this.content = content || sourceElement.getAttribute(attributeNameContent);
+      this.triggerType = trigger;
+
+      if (this.content) {
+        this.init();
+      } else {
+        console.warn('There is no available content to show in the tooltip for element. The tooltip will not be created. ', this.sourceElement, this.content);
+      }
+
+      this.bindEvents();
+      this.enhanceAccessibility();
+    }
+    /** PUBLIC METHODS */
+
+    /** Removes the tooltip and cleans up. */
+
+
+    _createClass(Tooltip, [{
+      key: "destroy",
+      value: function destroy() {
+        // Remove this instance from the list of tooltips
+        var tooltipIndex = tooltipsList.indexOf(this);
+
+        if (tooltipIndex > -1) {
+          tooltipsList.splice(tooltipIndex, 1); // TODO: + Unbind all events
+        }
+
+        if (tooltipsList.length === 0) removeTooltipElement();
+      }
+    }, {
+      key: "showTooltip",
+      value: function showTooltip($event) {
+        // Mobile Safari *ONLY* quirk: https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
+        if (isAppleMobileDevice()) document.body.style.cursor = 'pointer';
+        removeAttribute(this.sourceElement, 'title'); // Remove title attribute to prevent default system behavior
+
+        this.sourceElement.setAttribute('aria-describedby', VALUE_ID); // Accessibility
+
+        removeAttribute(globalTooltipElement, 'hidden'); // Accessibility
+
+        globalTooltipElement.style.opacity = 0; // FIXME: SHOULD support HTML-based content too!
+
+        globalTooltipElement.textContent = this.content;
+        globalTooltipElement.style.display = 'block';
+        this.positionTooltip();
+        return $event;
+      }
+    }, {
+      key: "hideTooltip",
+      value: function hideTooltip($event) {
+        globalTooltipElement.style.opacity = 0; // TODO: Animate disappearance
+
+        this.sourceElement.setAttribute(ATTRIBUTE_NAME_CONTENT, this.content);
+        removeAttribute(this.sourceElement, 'aria-describedby');
+        globalTooltipElement.setAttribute('hidden', ''); // Accessibility
+        // Mobile Safari *ONLY* quirk: https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
+
+        if (isAppleMobileDevice()) document.body.style.cursor = null;
+        globalTooltipElement.style.display = 'none';
+        return $event;
+      }
+    }, {
+      key: "toggleTooltip",
+      value: function toggleTooltip($event) {
+        var _this = this;
+
+        if (isElementHidden(globalTooltipElement)) {
+          if (outsideClickListenerFn) window.removeEventListener('click', outsideClickListenerFn);
+          outsideClickListenerFn = this.handleClickOutsideTooltip.bind(this);
+          window.addEventListener('click', outsideClickListenerFn);
+          this.showTooltip($event);
+        } else {
+          window.removeEventListener('click', outsideClickListenerFn);
+          this.hideTooltip($event);
+
+          if (lastInteractedSourceElement !== this.sourceElement) {
+            setTimeout(function () {
+              // `setTimeout()` forces the tooltip to re-open (by pushing it into )
+              _this.toggleTooltip($event);
+            });
+          }
+        }
+
+        lastInteractedSourceElement = this.sourceElement;
+      }
+      /** PRIVATE FUNCTIONS */
+
+      /** Builds tooltip, attaches events and adds generic DOM. */
+
+    }, {
+      key: "init",
+      value: function init() {
+        tooltipsList.push(this); // First initiated tooltip -> add the global tooltip element
+
+        if (tooltipsList.length === 1) appendTooltipElement();
+      }
+    }, {
+      key: "bindEvents",
+      value: function bindEvents() {
+        if (this.triggerType === TRIGGER_TYPE.CLICK) {
+          this.sourceElement.addEventListener('click', this.toggleTooltip.bind(this));
+        } else if (this.triggerType === TRIGGER_TYPE.HOVER) {
+          this.bindMouseHovering();
+          this.bindAccessibilityFeatures();
+        } else {
+          console.error('Unsupported type of trigger `%s`. The tooltip will not be shown for your element', this.triggerType, this.sourceElement);
+        }
+      }
+    }, {
+      key: "bindAccessibilityFeatures",
+      value: function bindAccessibilityFeatures() {
+        this.sourceElement.addEventListener('focus', this.showTooltip.bind(this));
+        this.sourceElement.addEventListener('focusout', this.hideTooltip.bind(this));
+        this.sourceElement.addEventListener('keydown', this.hideTooltipOnEscKey.bind(this));
+      }
+    }, {
+      key: "bindMouseHovering",
+      value: function bindMouseHovering() {
+        this.sourceElement.addEventListener('mouseenter', this.showTooltip.bind(this));
+        this.sourceElement.addEventListener('mouseout', this.hideTooltip.bind(this));
+      }
+    }, {
+      key: "enhanceAccessibility",
+      value: function enhanceAccessibility() {
+        this.sourceElement.setAttribute('tabindex', 0);
+      }
+    }, {
+      key: "handleClickOutsideTooltip",
+      value: function handleClickOutsideTooltip($event) {
+        if ($event.target !== this.sourceElement && $event.target !== globalTooltipElement) {
+          window.removeEventListener('click', outsideClickListenerFn);
+          this.hideTooltip($event);
+        }
+      }
+    }, {
+      key: "hideTooltipOnEscKey",
+      value: function hideTooltipOnEscKey($event) {
+        var KEY_ESC_ID = 27;
+
+        if ($event.which === KEY_ESC_ID) {
+          this.hideTooltip();
+          $event.preventDefault();
+          return false;
+        }
+
+        return true;
+      }
+    }, {
+      key: "getSourceElementCenterX",
+      value: function getSourceElementCenterX() {
+        return this.sourceElement.getBoundingClientRect().left + this.sourceElement.getBoundingClientRect().width / 2;
+      }
+    }, {
+      key: "calculateTooltipPositionX",
+      value: function calculateTooltipPositionX() {
+        var positionX = 0;
+        var expectedTooltipWidth = Math.floor(globalTooltipElement.getBoundingClientRect().width),
+            viewPortWidth = window.innerWidth,
+            caretOffset = 20,
+            // Half of the caret size + margin from the edge of the tooltip
+        elementCenterX = this.getSourceElementCenterX(),
+            potentialTooltipLeftPositionX = elementCenterX - caretOffset,
+            potentialTooltipRightPositionX = elementCenterX - expectedTooltipWidth + caretOffset;
+
+        if (viewPortWidth < potentialTooltipLeftPositionX + expectedTooltipWidth && elementCenterX - caretOffset >= 0) {
+          globalTooltipElement.classList.add('right');
+          positionX = potentialTooltipRightPositionX;
+        } else {
+          // Default
+          globalTooltipElement.classList.add('left');
+          positionX = potentialTooltipLeftPositionX;
+        }
+
+        return positionX;
+      }
+    }, {
+      key: "calculateTooltipPositionY",
+      value: function calculateTooltipPositionY() {
+        var positionY = 0;
+        var caretOffset = 16,
+            // Caret's height + margin between the tip and the element
+        expectedTooltipHeight = globalTooltipElement.getBoundingClientRect().height,
+            viewPortTopY = window.window.pageYOffset,
+            viewPortBottomY = viewPortTopY + window.innerHeight,
+            elementTopY = this.sourceElement.getBoundingClientRect().top,
+            elementBottomY = elementTopY + this.sourceElement.getBoundingClientRect().height,
+            potentialTooltipTopPositionY = elementTopY - caretOffset - expectedTooltipHeight,
+            potentialTooltipBottomPositionY = elementBottomY + caretOffset;
+
+        if (potentialTooltipTopPositionY < SIZES.SCREEN_PADDING && elementBottomY + caretOffset + expectedTooltipHeight <= viewPortBottomY - SIZES.SCREEN_PADDING) {
+          globalTooltipElement.classList.add('top');
+          positionY = potentialTooltipBottomPositionY;
+        } else {
+          // Default
+          globalTooltipElement.classList.add('bottom');
+          positionY = potentialTooltipTopPositionY;
+        }
+
+        return positionY + viewPortTopY;
+      }
+    }, {
+      key: "setTooltipWidth",
+      value: function setTooltipWidth() {
+        // Pre-calculate required dimensions
+        var expectedTooltipWidth = Math.floor(globalTooltipElement.getBoundingClientRect().width),
+            viewPortWidth = window.innerWidth,
+            caretOffset = 20,
+            // Half of the caret size + margin from the edge of the tooltip
+        elementCenterX = this.getSourceElementCenterX(),
+            potentialTooltipLeftPositionX = elementCenterX - caretOffset,
+            potentialTooltipRightPositionX = elementCenterX - expectedTooltipWidth + caretOffset,
+            potentialTooltipLeftSpace = viewPortWidth - potentialTooltipLeftPositionX,
+            potentialTooltipRightSpace = potentialTooltipRightPositionX + expectedTooltipWidth; // 2. Check if the tooltip is going to fit there
+
+        if (potentialTooltipLeftSpace - SIZES.SCREEN_PADDING >= expectedTooltipWidth || potentialTooltipRightSpace - SIZES.SCREEN_PADDING >= expectedTooltipWidth) {
+          globalTooltipElement.style.width = "".concat(expectedTooltipWidth + 1, "px");
+          return;
+        }
+
+        if (potentialTooltipLeftSpace < potentialTooltipRightSpace) {
+          // Tooltip right is better
+          globalTooltipElement.style.width = "".concat(potentialTooltipRightSpace - SIZES.SCREEN_PADDING, "px");
+        } else {
+          // Tooltip left is better
+          globalTooltipElement.style.width = "".concat(potentialTooltipLeftSpace - SIZES.SCREEN_PADDING, "px");
+        }
+      }
+    }, {
+      key: "positionTooltip",
+      value: function positionTooltip() {
+        // Reset positioning classes
+        globalTooltipElement.classList.remove('left');
+        globalTooltipElement.classList.remove('right');
+        globalTooltipElement.classList.remove('top');
+        globalTooltipElement.classList.remove('bottom');
+        globalTooltipElement.style.width = ''; // Revert into 'auto'
+
+        globalTooltipElement.style.height = ''; // Revert into 'auto'
+
+        this.setTooltipWidth();
+        globalTooltipElement.style.left = "".concat(this.calculateTooltipPositionX(), "px");
+        globalTooltipElement.style.top = "".concat(this.calculateTooltipPositionY(), "px");
+        globalTooltipElement.style.opacity = 1;
+      }
+    }]);
+
+    return Tooltip;
+  }();
+  /** PUBLIC METHODS. */
+
+  /**
+   * Initialises a tooltip for a given element. If the `configObject` is not
+   * passed, it tries to parse it from a `data-tooltip` attribute (JSON-valid
+   * string object) of the element.
+   *
+   * @param {Element} tooltipableElement -
+   *    A single element that should be used to initialise a tooltip.
+   * @param {Object} configObject -
+   *    Object specifying configurable options to adjust tooltip's behaviour.
+   *
+   * @return {Tooltip}
+   */
+
+
+  function initTooltip(tooltipableElement, configObject) {
+    var tooltipConfigObject = configObject;
+    var tooltipElementConfigString = tooltipableElement.getAttribute(ATTRIBUTE_NAME_TOOLTIP);
+
+    if (!tooltipConfigObject && tooltipElementConfigString && tooltipConfigObject !== '') {
+      try {
+        tooltipConfigObject = JSON.parse(tooltipElementConfigString);
+      } catch (err) {
+        console.error('Custom configuration options for a tooltip MUST be in a valid JSON format: ', tooltipElementConfigString, tooltipableElement, err);
+      }
+    }
+
+    return new Tooltip(tooltipableElement, tooltipConfigObject);
+  }
+  /**
+   * If no parameter is passed, auto-initialise a tooltip for all
+   * elements that contain `data-tooltip` attribute.
+   *
+   * @param {Array<Element>} tooltipableDomElements -
+   *    A list of all elements to initialise a tooltip for.
+   *
+   * @return {Array<Tooltip>|null} List of newly created Tooltips.
+   */
+
+
+  function initTooltips(tooltipableDomElements) {
+    /** @type {NodeList} */
+    var tooltipableElementList = tooltipableDomElements || document.querySelectorAll("[".concat(ATTRIBUTE_NAME_TOOLTIP, "]"));
+    var newTooltipInstances = [];
+    tooltipableElementList.forEach(function (element) {
+      return newTooltipInstances.push(initTooltip(element));
+    });
+    return newTooltipInstances.length > 0 ? newTooltipInstances : null;
+  }
+  /**
+   * Retrieves all existing active tooltips.
+   *
+   * @return {Array<Tooltip>}
+   */
+
+
+  function getAllTooltips() {
+    return tooltipsList;
+  }
+  /**
+   * Removes all the Tooltips safely to prevent memory leaks.
+   *
+   * @returns {boolean}
+   */
+
+
+  function destroyAllTooltips() {
+    while (tooltipsList.length) {
+      tooltipsList[0].destroy();
+    }
+
+    return true;
+  } // Populate public API interface
+
+
+  tooltipsApi.initTooltip = initTooltip;
+  tooltipsApi.initTooltips = initTooltips;
+  tooltipsApi.getAllTooltips = getAllTooltips;
+  tooltipsApi.destroyAllTooltips = destroyAllTooltips;
+  /** MODULE INITIALISATIONS. */
+
+  /**
+   * Check for dependencies and report/auto-import if any are missing.
+   */
+
+  function areDependenciesAvailable() {}
+  /** @constructor */
+
+
+  function constructor() {}
+  /** Initialisations after the DOM becomes ready. */
+
+
+  function initOnDomReady() {}
+
+  (function init() {
+    if (!areDependenciesAvailable()) return;
+    constructor();
+    initOnDomReady();
+  })();
+})(); // Make API available for Modular JS codebases
+
+
+/* harmony default export */ var tooltips = (tooltipsApi);
+// CONCATENATED MODULE: ./src/assets/toolkit/scripts/toolkit.js
+/** !Toolkit's core JS */
+
+/* DEPENDENCIES & 3RD PARTY LIBRARIES IMPORTS */
+
+
+
+
+
+ // Include all standalone modules
+
+
+
+ // Initialise dependencies
+
+trackerConfig({
+  autoRegister: true
+}); // Export useful dependencies to the global namespace (~ window) so that
+//  they can be used outside of this toolkit.
+
+/* harmony default export */ var toolkit = __webpack_exports__["default"] = ({});
+
+__webpack_require__(11); // TODO: set up multiple entry points for webpack bundles
+
+/* CONSTANT ATTRIBUTES */
+
+
+var TRANSITION_TIMEOUT = 200; //update in _settings.variables.scss(135)
+
+var MOBILE_LARGE_AND_SMALLER = 'screen and (max-width: 42.99em)',
+    //update in _settings.responsive.scss(57)
+DESKTOP_AND_LARGER = 'screen and (min-width: 61em)',
+    TABLET_AND_SMALLER = 'screen and (max-width: 975px)',
+    // Iframe selectors
+YOUTUBE_IFRAME_SELECTOR = 'iframe[src*="youtube"]',
+    GMAPS_IFRAME_SELECTOR = 'iframe[src*="/maps/"]',
+    VIMEO_IFRAME_SELECTOR = 'iframe[src*="vimeo"]';
+/* SUPPORTING FUNCTIONS */
+
+/** Wrap YT videos in .embed wrapper that helps with responsiveness. */
+
+function wrapEmbeddedIframes() {
+  var iframes = external_jQuery_default()(YOUTUBE_IFRAME_SELECTOR + ', ' + GMAPS_IFRAME_SELECTOR + ', ' + VIMEO_IFRAME_SELECTOR),
+      singleIframe = null,
+      iframeClasses;
+  iframes.each(function (index) {
+    singleIframe = external_jQuery_default()(this); // If it doesn't already have wrapper, wrap it!
+
+    if (!singleIframe.parent().hasClass('embed')) {
+      iframeClasses = singleIframe.attr("class") || '';
+      singleIframe.wrap('<div class="embed ' + iframeClasses + '"></div>');
+      if (iframeClasses) singleIframe.removeClass();
+    }
+  });
+}
+/** Safe implementation of the 'hasOwnProperty` */
+
+
+function hasProp(obj, propName) {
+  return Object.prototype.hasOwnProperty.call(obj, propName);
+}
+/** Deletes all study areas tiles that are display: none from DOM to
+keep the markup clean (and easily handled by the CSS) */
+
+
+function removedUnusedTiles() {
+  external_jQuery_default()('.tiles-wrap .tile').each(function () {
+    if (external_jQuery_default()(this).css("display") == "none") {
+      external_jQuery_default()(this).remove();
+    }
+  });
+}
+
+var SIDEMENU_CLASS = 'sidemenu';
+var SIDEMENU_TOGGLE_CLASS = 'sidemenu-toggle';
+var SIDEMENU_EXPANDER_CLASS = 'btn-expander';
+var SIDEMENU_SUBMENU_CLASS = 'has-submenu';
+var SIDEMENU_SELECTED_ITEM_CLASS = 'active';
+var SIDEMENU_EXPANDED_CLASS = 'expanded';
+
+function initExpandableSubmenu() {
+  var expandableButtonElement = external_jQuery_default()(this);
+  var submenuContainer = expandableButtonElement.parent('.' + SIDEMENU_SUBMENU_CLASS); // Init default state
+
+  var isExpanded = submenuContainer.hasClass(SIDEMENU_SELECTED_ITEM_CLASS);
+
+  function apply() {
+    if (isExpanded) {
+      submenuContainer.addClass(SIDEMENU_EXPANDED_CLASS);
+    } else {
+      submenuContainer.removeClass(SIDEMENU_EXPANDED_CLASS);
+    }
+  } // Init
+
+
+  apply(); // Bind `click` events to all expandable buttons
+
+  expandableButtonElement.on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    isExpanded = !isExpanded;
+    apply();
+  });
+}
+
+function initSidemenuExpandability() {
+  var menuElement = external_jQuery_default()('.' + SIDEMENU_CLASS);
+  enhanceSidemenu(menuElement); // Expanding/Collapsing of the entire side menu on mobile devices
+
+  menuElement.children('.' + SIDEMENU_TOGGLE_CLASS).children('a').on('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    external_jQuery_default()(this).parent().toggleClass(SIDEMENU_EXPANDED_CLASS);
+  });
+  var expandableButtons = menuElement.find('.' + SIDEMENU_EXPANDER_CLASS); // Add tracking if enabled
+
+  if (tracker.shouldTrackElement(menuElement)) {
+    tracker.registerForTracking(menuElement.find('li > a'), 'click', 'sidemenu-link');
+    tracker.registerForTracking(expandableButtons, 'click', 'sidemenu-expander');
+  }
+
+  expandableButtons.each(initExpandableSubmenu);
+} //TODO: Remove after this was implemented on the backend (~ in Squiz)
+
+/** Adds necessary classes and expanding/collapsing elements if the item has got submenu. */
+
+
+var btnExpanderHtml = '<span class="btn-expander" title="Toggle subpages"></span>';
+
+function enhanceSidemenu(menuElement) {
+  menuElement.find('li').each(function () {
+    var listItem = external_jQuery_default()(this); // a) already has got a proper class in place? Skip!
+
+    if (listItem.hasClass(SIDEMENU_SUBMENU_CLASS)) return; // b) No submenu in <li>? Skip!
+
+    if (listItem.children('ul').length === 0) return; // c) Has got a submenu => Enhance sidemenu's HTML
+
+    listItem.addClass(SIDEMENU_SUBMENU_CLASS);
+    external_jQuery_default()(btnExpanderHtml).insertAfter(listItem.children('a'));
+  });
+}
+/** HELPERS */
+//FIXME: Should be automatically pre-populated from the build/build.config.js
+
+
+var ENV_HOSTNAME = {
+  STAGE: 'cms.victoria.ac.nz',
+  PROD: 'www.victoria.ac.nz',
+  LOCAL: 'local.victoria.ac.nz'
+};
+
+function isAdminEnvironment() {
+  return window.location.hostname === ENV_HOSTNAME.STAGE || window.location.hostname === ENV_HOSTNAME.LOCAL;
+}
+/**
+ * Decodes email address into re-usable form.
+ *
+ * @deprecated Very old approach that won't work today - do not use.
+ */
+
+
+function decodeMailAddresses() {
+  var a = 'dre:ams0of@g1niht.lp2c9u3v8k4w7y5j6zbx-_qfntigue6los5zar7b:y4dp8v3m9h2.x1w@k0jcq-_';
+  var i, h, j, k, l, m, n, s;
+
+  for (i = 0; i < document.links.length; i += 1) {
+    h = document.links[i].hash;
+
+    if (h.substring(0, 3) == '#sd') {
+      k = '';
+      l = h.substring(3, 5);
+      m = h.lastIndexOf('?subject=');
+
+      if (m == -1) {
+        s = document.links[i].href;
+      } else {
+        s = h.substring(m);
+        h = h.substring(0, m);
+      }
+
+      ;
+
+      for (j = 5; j < h.length; j += 2) {
+        k = k + a.charAt(h.substring(j, j + 2) - l - 1);
+      }
+
+      ;
+      m = s.lastIndexOf('?subject=');
+
+      if (m == -1) {
+        document.links[i].href = k;
+      } else {
+        document.links[i].href = k + s.substring(m);
+      }
+
+      ;
+      n = document.links[i].innerHTML;
+
+      if (n == 'address') {
+        document.links[i].innerHTML = k.substring(7);
+      } else {
+        document.links[i].title = k.substring(7);
+      }
+
+      ;
+    }
+
+    ;
+  }
+
+  ;
+}
+/** MESSAGE/NOTIFICATIONS HANDLING */
+
+
+var ERROR_TYPES = {
+  SIDEBAR_WIDGETS_COUNT_EXCEEDED: 'sidebar-widgets-count-exceeded'
+};
+/**
+ * Renders the error message notification and adds it to the top of the
+ * content window. Will show only to administrators within non-production
+ * environments.
+ *
+ * @param {{type: string, message: string, invalidItems: Array[string]}} errorObject
+ *
+ * @returns {void}
+ */
+
+function showAdminErrorMessage(errorObject) {
+  if (!errorObject || !isAdminEnvironment()) return;
+  var invalidItemsListHtml;
+
+  if (errorObject.invalidItems.length > 0) {
+    invalidItemsListHtml = "\n      <ul>\n        <li>".concat(errorObject.invalidItems.join('</li><li>'), "</li>\n      </ul>\n    ");
+  } // Template
+
+
+  var errorNotificationHtml = "\n    <section class=\"flash-message error\">\n      ".concat(errorObject.message, "\n      ").concat(invalidItemsListHtml, "\n    </section>\n  ");
+  external_jQuery_default()('.content-panel > main > .formatting').prepend(errorNotificationHtml);
+  console.error('Content-related error has occured', errorObject);
+}
+/** NAVIGATION */
+
+/**
+ * Adds the 'active' class to a main menu item
+ * that corresponds with the current top-level URL path
+ * segment.
+ *
+ * Note: This is *only* done due to Squiz 5.4 limitations. Once we can render
+ * this class on the backend, this function can be deprecated.
+ */
+
+
+function addActiveClassToMainMenu() {
+  // [url-path-segment]: [nav-item-classname]
+  var rootPages = {
+    'future': 'future',
+    'international': 'international',
+    'current': 'current',
+    'research': 'research',
+    'learning-teaching': 'learning-teaching'
+  },
+      urlPathSegments = window.location.pathname.split('/');
+
+  if (urlPathSegments.length > 1 && urlPathSegments[1] !== '' && hasProp(rootPages, urlPathSegments[1])) {
+    var activeNavItemClass = rootPages[urlPathSegments[1]];
+    var activeNavItem = document.querySelector(".menu-bar .".concat(activeNavItemClass));
+    if (activeNavItem) activeNavItem.classList.add('active');
+  }
+}
+/** CONTENT DYNAMIC MANIPULATIONS */
+
+/**
+ * Moves `non-staff` contact cards into the previous/next <ul> with
+ * regular staff.
+ *
+ * @deprecated This approach should not be used in new updates! Please, follow
+ * clear syntax, so you don't have to move elements around.
+ *
+ * Notice: This is required to deal with structural and visual
+ * inconsistencies that stem from legacy code that powers rendering
+ * of non-staff contact cards. Once this is removed, this slow
+ * function can be removed too.
+ */
+
+
+var STAFF_LIST_CONTAINER_CLASSNAME = 'articles-container',
+    STAFF_LIST_CLASSNAME = 'staff-list',
+    STAFF_CONTACT_CLASSNAME = 'contact';
+
+function moveOrphanedStaffCardIntoList() {
+  var orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
+  var orphanAfterStaffList = document.querySelector(".".concat(STAFF_LIST_CONTAINER_CLASSNAME, " + .").concat(STAFF_CONTACT_CLASSNAME));
+  if (!orphanBeforeStaffList && !orphanAfterStaffList) return;
+
+  while (orphanAfterStaffList) {
+    var orphanedStaffCardElement = external_jQuery_default()(orphanAfterStaffList);
+    var staffListElement = orphanedStaffCardElement.prev().children(".".concat(STAFF_LIST_CLASSNAME));
+
+    if (staffListElement.length === 0) {
+      // Staff list is not within its container - abort
+      console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *previous* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), orphanAfterStaffList, staffListElement);
+      return;
+    }
+
+    var listItem = external_jQuery_default()('<li></li>').append(orphanedStaffCardElement);
+    staffListElement.append(listItem);
+    orphanAfterStaffList = document.querySelector(".".concat(STAFF_LIST_CONTAINER_CLASSNAME, " + .").concat(STAFF_CONTACT_CLASSNAME));
+  } // Has to be re-evaluated again to reflect the previous content manipulations
+
+
+  orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
+
+  while (orphanBeforeStaffList) {
+    var _orphanedStaffCardElement = external_jQuery_default()(orphanBeforeStaffList).prev(".".concat(STAFF_CONTACT_CLASSNAME)); // Current selector is pointing to the <ul> - point to the previous sibling instead!
+
+
+    var _staffListElement = _orphanedStaffCardElement.next().children(".".concat(STAFF_LIST_CLASSNAME));
+
+    if (_staffListElement.length === 0) {
+      // Staff list is not within its container - abort
+      console.warn("The 'non-staff' profile could not be placed within the list of other 'staff' profiles, beceause the *following* block does not contain '".concat(STAFF_LIST_CLASSNAME, "' class. You might experience visual inconsistencies."), _orphanedStaffCardElement, _staffListElement);
+      break;
+    }
+
+    var _listItem = external_jQuery_default()('<li></li>').append(_orphanedStaffCardElement);
+
+    _staffListElement.prepend(_listItem);
+
+    orphanBeforeStaffList = document.querySelector(".".concat(STAFF_CONTACT_CLASSNAME, " + .").concat(STAFF_LIST_CONTAINER_CLASSNAME));
+  }
+}
+/**
+ * Because two sets of taught courses are rendered (one located at the top
+ * of the page, one at the bottom), it hides the other, non-used counterpart.
+ *
+ * @deprecated
+ *
+ * Note: This is legacy code and can be removed when the backend renders
+ * only one set of taught courses.
+ */
+
+
+function hideCoursesOnStaffProfile() {
+  if (!window.courseLocation) return;
+
+  if (window.courseLocation === 'top') {
+    external_jQuery_default()('#courses-bottom').css({
+      display: 'none'
+    });
+  }
+
+  if (window.courseLocation === 'bottom') {
+    external_jQuery_default()('#courses-top').css({
+      display: 'none'
+    });
+  }
+}
+/** CONTENT SIDE-BAR */
+// Constants
+
+
+var SIDEBAR_WIDGET_CLASSNAME = 'data-sidebar',
+    SIDEBAR_ID = 'rightHandMenu',
+    SIDEBAR_WIDGETS_MAX = 3,
+    WIDGET_LINKS_CLASSNAME = 'data-relatedLinks';
+/**
+ * Finds all widget blocks within the main content and moves them into the
+ * right-hand sidebar.
+ *
+ * Note: This is *only* done due to Squiz 5.4 limitations. Once we can render
+ * widgets into the sidebar on our backend, this client-side solution can be
+ * deprecated.
+ *
+ * @returns {void}
+ */
+
+function moveWidgetsToSidebar() {
+  // No widgets OR sidebar available -> Skip!
+  if (!document.querySelector(".".concat(SIDEBAR_WIDGET_CLASSNAME)) || !document.getElementById(SIDEBAR_ID)) return; // Members
+  // Original, unordered widgets
+
+  var widgetsToMove = external_jQuery_default()(".".concat(SIDEBAR_WIDGET_CLASSNAME)),
+      sidebarElement = external_jQuery_default()("#".concat(SIDEBAR_ID)); // Correctly ordered and prepared to be rendered
+
+  var widgetsMoved = [];
+  var error;
+  widgetsToMove.each(function moveWidgetToSidebar() {
+    var widgetElement = external_jQuery_default()(this);
+
+    if (widgetsMoved.length >= SIDEBAR_WIDGETS_MAX) {
+      if (!error) {
+        error = {
+          type: ERROR_TYPES.SIDEBAR_WIDGETS_COUNT_EXCEEDED,
+          message: "\n              <h2>Too many elements in the sidebar</h2>\n              <p>Currently added: ".concat(widgetsToMove.length, ", Maximum: ").concat(SIDEBAR_WIDGETS_MAX, ".</p>\n              <p>\n                <strong>Please remove the class '").concat(SIDEBAR_WIDGET_CLASSNAME, "' from all blocks you do not want to appear in the sidebar.</strong>\n              </p>\n              <p>\n                The blocks with following content will not be shown in the sidebar:\n              </p>\n            "),
+          invalidItems: []
+        };
+      }
+
+      error.invalidItems.push(this.id || "".concat(widgetElement.text().trim().substring(0, 80), "..."));
+      return;
+    }
+
+    if (widgetElement.hasClass(WIDGET_LINKS_CLASSNAME)) {
+      // A) Staff profile - add to the top!
+      widgetsMoved.unshift(widgetElement);
+    } else {
+      // B) Others (downloads, publications etc.) - Add to the last positions
+      widgetsMoved.push(widgetElement);
+    } // Remove from its original location
+
+
+    widgetElement.detach(); // Remove `display:none` if it exists
+
+    widgetElement.css('display', '');
+  }); // Render widgets in the sidebar
+
+  sidebarElement.append.apply(sidebarElement, widgetsMoved); // Render errors, if any
+
+  if (error) showAdminErrorMessage(error);
+}
+/** 'GO UP' BUTTON */
+
+
+var BTN_UP_ID = 'btn-up',
+    BTN_ADMIN_EDIT_ID = 'btn-admin',
+    // ADMIN_URL_EXTENSION = '_edit', // Uncomment if the button and URL cannot be rendered by Squiz!
+SCROLL_ANIMATION_DURATION_IN_MS = 700;
+
+function initFloatingButtons() {
+  var buttonUpElement = document.getElementById(BTN_UP_ID),
+      buttonAdminElement = isAdminEnvironment() ? document.getElementById(BTN_ADMIN_EDIT_ID) : null;
+
+  if (buttonUpElement) {
+    external_jQuery_default()(buttonUpElement).click(function (e) {
+      e.preventDefault();
+      external_jQuery_default()('html,body').animate({
+        scrollTop: 0
+      }, SCROLL_ANIMATION_DURATION_IN_MS);
+    });
+  }
+
+  if (buttonAdminElement) {
+    external_jQuery_default()(buttonAdminElement).css('display', ''); // Remove inline 'display'
+    // Uncomment if the button and URL cannot be rendered by Squiz!
+    // $( buttonAdminElement ).click( ( e ) => {
+    //  e.preventDefault();
+    //    window.location.href += `/${ADMIN_URL_EXTENSION}`;
+    // })
+  }
+} // Run after the DOM has loaded...
+
+
+external_jQuery_default()(function () {
+  moveWidgetsToSidebar();
+  addActiveClassToMainMenu();
+  moveOrphanedStaffCardIntoList();
+  tooltips.initTooltips(); // FIXME: Extract out to a standalone plugin and run on staff profiles *only*
+
+  hideCoursesOnStaffProfile();
+  fastclick_default.a.attach(document.body);
+  var $body = external_jQuery_default()('body'),
+      $globalNav = external_jQuery_default()('#global-nav'),
+      $globalSearch = external_jQuery_default()('#global-search');
+  /** Init side-menu, if it's present */
+
+  if (external_jQuery_default()(".".concat(SIDEMENU_CLASS)).length) {
+    initSidemenuExpandability();
+  }
+
+  initFloatingButtons();
+  decodeMailAddresses(); //http://wicky.nilia.ms/enquire.js/
+  //TODO: Refactor and extract to its own library
+
+  src_default.a.register(MOBILE_LARGE_AND_SMALLER, function () {
+    if ($globalNav.length) {
+      var menuOutsideClickListener = function menuOutsideClickListener(event) {
+        if (!external_jQuery_default()(event.target).closest('#global-nav').length) {
+          toggleMobileMenu();
+        }
+      };
+
+      var eGlobalNav = $globalNav[0],
+          bannerHeaderElement = external_jQuery_default()('.site-header'),
+          sidemenu = external_jQuery_default()('.sidemenu');
+      var headroom = new headroom_default.a(eGlobalNav, {
+        'offset': $globalNav.outerHeight(),
+        // or scroll tolerance per direction
+        tolerance: {
+          down: 5,
+          up: 20
+        },
+        'classes': {
+          'initial': 'sticky',
+          'pinned': 'slide-down',
+          'unpinned': 'slide-up',
+          'notTop': 'no-top'
+        }
+      });
+      headroom.init();
+
+      var disableHeadroom = function disableHeadroom() {
+        if (headroom) {
+          headroom.scroller.removeEventListener('scroll', headroom.debouncer, false);
+        }
+      };
+
+      var enableHeadroom = function enableHeadroom() {
+        if (headroom) {
+          headroom.scroller.addEventListener('scroll', headroom.debouncer, false);
+        }
+      };
+
+      var removeMenuOutClickListener = function removeMenuOutClickListener() {
+        document.removeEventListener('click', menuOutsideClickListener);
+      };
+
+      var registerMenuOutClickListener = function registerMenuOutClickListener() {
+        document.addEventListener('click', menuOutsideClickListener);
+      };
+
+      var toggleMobileMenu = function toggleMobileMenu() {
+        $globalNav.find('.tcon').toggleClass('tcon-transform');
+        $globalNav.toggleClass('is-open');
+        if (!headroom) return;
+
+        if ($globalNav.hasClass('is-open')) {
+          disableHeadroom();
+          $body.addClass('unscrollable');
+          registerMenuOutClickListener();
+        } else {
+          enableHeadroom();
+          $body.removeClass('unscrollable');
+          removeMenuOutClickListener();
+        }
+      };
+
+      ;
+      $body.on('click ', '.js-toggle-global-nav', function (_event) {
+        toggleMobileMenu();
+      });
+    }
+  }); // Opens/closes global search bar & gains auto-focus
+
+  $body.on('click ', '.js-toggle-global-search', function (_event) {
+    var $this = external_jQuery_default()(this);
+
+    if ($this.data('js-has-active-transition')) {
+      return false;
+    }
+
+    $this.data('js-has-active-transition', true);
+    $this.find('.tcon').toggleClass('tcon-transform');
+
+    if ($globalSearch.hasClass('is-open')) {
+      $globalSearch.toggleClass('is-open', false);
+      setTimeout(function () {
+        $this.data('js-has-active-transition', false);
+      }, TRANSITION_TIMEOUT);
+    } else {
+      $globalSearch.toggleClass('is-open', true);
+      setTimeout(function () {
+        $globalSearch.find('input:text').focus();
+        $this.data('js-has-active-transition', false);
+      }, TRANSITION_TIMEOUT);
+    }
+
+    _event.preventDefault();
+  }); //Study areas tabs toggle
+
+  external_jQuery_default()('#study-area-tabs li a').click(function () {
+    if (external_jQuery_default()(this).parent().hasClass('active')) {
+      return;
+    }
+
+    external_jQuery_default()('.active').removeClass('active');
+    external_jQuery_default()(this).parent().addClass('active');
+    external_jQuery_default()('.study-areas').toggleClass('hidden');
+    external_jQuery_default()('.degrees-quals').toggleClass('hidden');
+  });
+  /* Show the tab content that is selected */
+
+  if (document.getElementById('undergraduate') && document.getElementById('undergraduate').checked) {
+    switchTabToUndergrad();
+  } else if (document.getElementById('postgraduate') && document.getElementById('postgraduate').checked) {
+    switchTabToPostgrad();
+  }
+
+  external_jQuery_default()('.switch .switch-input').on('change', function () {
+    if (external_jQuery_default()(this).attr('value') == 'undergraduate') {
+      switchTabToUndergrad();
+    }
+
+    if (external_jQuery_default()(this).attr('value') == 'postgraduate') {
+      switchTabToPostgrad();
+    }
+  });
+
+  function switchTabToUndergrad() {
+    external_jQuery_default()('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span>Subject areas');
+    external_jQuery_default()('.study-areas-undergrad').show(500);
+    external_jQuery_default()('.study-areas-postgrad').hide(500);
+  }
+
+  function switchTabToPostgrad() {
+    external_jQuery_default()('#study-area-tabs > ul > li:nth-child(1) h4').html('<span class="icon-book-open"></span> Postgraduate subjects');
+    external_jQuery_default()('.study-areas-postgrad').show(500);
+    external_jQuery_default()('.study-areas-undergrad').hide(500);
+  }
+  /* dynamic height for tiles. setting height of all tiles from largest tile height */
+
+
+  external_jQuery_default()('.dynamic-height-tiles ').each(function (n) {
+    //get array of heights for each group of class
+    var tileHeights = external_jQuery_default()(this).find('li.tile').map(function () {
+      return external_jQuery_default()(this).height();
+    }).get(); //check heights for largest
+
+    var maxHeight = Math.max.apply(null, tileHeights); //apply maxheight to tiles
+
+    external_jQuery_default()(this).find('li.tile').height(maxHeight + 16);
+  });
+  /* Navigation toggle on mobile */
+
+  external_jQuery_default()('.main-menu-toggle').on('click', function () {
+    external_jQuery_default()('.main-nav').slideToggle();
+    external_jQuery_default()('.search-bar').slideToggle();
+    external_jQuery_default()('.menu-toggle-icon').toggleClass('open');
+  });
+  /* Show search bar on desktop */
+
+  external_jQuery_default()('.search-item').on('click', function () {
+    external_jQuery_default()('.search-bar').slideToggle();
+    var searchInputElement = external_jQuery_default()('#search-query');
+
+    if (searchInputElement.is(':visible')) {
+      searchInputElement.focus();
+    }
+  });
+  /** DOM manipulation */
+
+  wrapEmbeddedIframes();
+  removedUnusedTiles(); //TODO: Review - Can be removed after all the study areas are migrated
+  //tile accordion
+
+  external_jQuery_default()('.tile-accordion .tile').not('.tile-accordion.content-page').on('click', function (evt) {
+    // evt.preventDefault();
+    if (external_jQuery_default()(this).hasClass('accordion-closed')) {
+      external_jQuery_default()(this).children('.accordion-content ').slideDown();
+      external_jQuery_default()(this).removeClass('accordion-closed').addClass('accordion-open');
+    } else if (external_jQuery_default()(this).hasClass('accordion-open')) {
+      external_jQuery_default()(this).children('.accordion-content ').slideUp();
+      external_jQuery_default()(this).removeClass('accordion-open').addClass('accordion-closed');
+    }
+
+    external_jQuery_default()(this).find('.links a').on('click', function (event) {
+      event.stopPropagation();
+    });
+  });
+  /** Runs any custom scripts that could be added in the content. */
+
+  if (onDocumentReadyFunctions && onDocumentReadyFunctions.length) {
+    onDocumentReadyFunctions.forEach(function (singleFunction) {
+      singleFunction();
+    });
+  }
+});
+/* Research hub content page tile accordian */
+
+external_jQuery_default()('.tile-accordion.content-page .tile .toggle').on('click', function (evt) {
+  var $this = external_jQuery_default()(this);
+  $this.toggleClass('expanded');
+  $this.siblings('p').toggle();
+});
+/* Add accessible title label for restricted links class  */
+
+function restrictedLinkTitle() {
+  var lockLinks = document.querySelectorAll('.link-restricted');
+
+  for (var i = 0; i < lockLinks.length; i++) {
+    lockLinks[i].setAttribute('title', 'Restricted intranet link');
+  }
+}
+
+restrictedLinkTitle();
+/* Research hub mega menu */
+
+function hubMegaMenu() {
+  var menu = external_jQuery_default()('.hub-mega-menu .mega-menu-inner');
+  var menuExpandButton = external_jQuery_default()('.hub-mega-menu .btn-expander');
+  var mobile = false;
+  var desktop = false;
+  src_default.a.register(DESKTOP_AND_LARGER, function () {
+    desktop = true;
+    mobile = false;
+  });
+  src_default.a.register(TABLET_AND_SMALLER, function () {
+    desktop = false;
+    mobile = true;
+  });
+  menuExpandButton.each(function () {
+    var _this = this;
+
+    external_jQuery_default()(this).on('click', function (c) {
+      var $this = external_jQuery_default()(_this);
+
+      if (desktop) {
+        menu.toggleClass('expanded');
+      }
+
+      if (mobile) {
+        menu.addClass('expanded');
+        $this.parent().toggleClass('js-dropdown-show');
+      }
+    });
+  });
+}
+
+if (document.getElementsByClassName('hub-mega-menu').length > 0) {
+  var hubMegaMenuElement = external_jQuery_default()('.hub-mega-menu');
+  var megaMenuExpandButton = external_jQuery_default()('.hub-mega-menu .btn-expander');
+  hubMegaMenu();
+
+  if (tracker.shouldTrackElement(hubMegaMenuElement)) {
+    tracker.registerForTracking(hubMegaMenuElement.find('li > a'), 'click', 'megamenu-link');
+    tracker.registerForTracking(megaMenuExpandButton, 'click', 'megamenu-expander');
+  }
+}
+
+function openPopup() {
+  popups.initAndOpen(this[0]);
+  return this;
+}
+/**
+ * jQuery's plugin as a utility factory
+ * Usage as: $( jquerySelector ).vicApp().method( options )
+ */
+
+
+(function ($) {
+  $.fn.vicApp = function () {
+    return {
+      openPopup: openPopup.bind(this)
+    };
+  };
+})(jQuery);
+
+if (document.getElementsByClassName('calendar-cards').length > 0) {
+  external_jQuery_default()("#search-filter").on("keyup search", function () {
+    var value = external_jQuery_default()(this).val().toLowerCase();
+    console.log(external_jQuery_default()(this).val().length); // if input 3 or more filter
+
+    if (external_jQuery_default()(this).val().length >= 3) {
+      external_jQuery_default()(".calendar-cards .card").filter(function () {
+        external_jQuery_default()(this).toggle(external_jQuery_default()(this).text().toLowerCase().indexOf(value) > -1);
+        console.log(external_jQuery_default()(this).text());
+      });
+    } else {
+      // show all if search input less then 3
+      external_jQuery_default()(".calendar-cards .card").show();
+    }
+  });
 }
 
 ;

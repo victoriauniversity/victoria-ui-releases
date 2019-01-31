@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #dbcff8d812d6a5faeaf128890ef97d3fcc6302fe + )  | Tuesday, January 22, 2019, 11:52 PM */
+/** Version: 0.10.5 (build #bfbbccbd60a82bc1513f98722e5c74ae00b3a4b5 + )  | Thursday, January 31, 2019, 10:32 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -8890,7 +8890,7 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   width: 2em;
   background: transparent;
   outline: none;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -10590,6 +10590,70 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   .popup {
     margin: 0;
   }
+}
+
+/** TOOLTIPS */
+.tooltip {
+  z-index: 9999;
+  position: absolute;
+  padding: 0.75rem;
+  max-width: 400px;
+  font-size: 90%;
+  text-align: center;
+  color: #FFF;
+  background: #1D2624;
+  -webkit-transition: opacity .2s ease-in-out;
+  transition: opacity .2s ease-in-out;
+  /* Tooltip's `tip` */
+}
+
+.tooltip[hidden] {
+  opacity: 0;
+}
+
+.tooltip::after {
+  position: absolute;
+  display: inline-block;
+  content: "";
+  height: 0;
+  width: 0;
+  left: 50%;
+  margin-left: -20px;
+}
+
+.tooltip.bottom::after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: #1D2624 transparent transparent;
+  border-width: 10px 10px 0;
+  top: auto;
+  bottom: -9px;
+}
+
+.tooltip.top::after {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent transparent #1D2624;
+  border-width: 0 10px 10px;
+  top: -9px;
+  bottom: auto;
+}
+
+.tooltip.left::after {
+  left: 10px;
+  margin: 0;
+}
+
+.tooltip.right::after {
+  right: 10px;
+  left: auto;
+  margin: 0;
+}
+
+.tooltip-popup {
+  cursor: pointer;
 }
 
 /* Container Templates

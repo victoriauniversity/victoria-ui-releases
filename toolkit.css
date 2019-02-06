@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #659dfbe277c80fc8aed8c0d51ec8fb017c59a622 + )  | Tuesday, February 5, 2019, 1:22 AM */
+/** Version: 0.10.5 (build #4545196eb8b81f44dc38de0ada021ac1db4209d0 + )  | Wednesday, February 6, 2019, 10:32 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -8228,7 +8228,15 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
 }
 
 .page-sub-nav.nav-buttons.hub-mega-menu nav > ul:not(.expanded) .btn-expander::after {
-  content: '+';
+  content: "";
+  border-left: .25em solid transparent;
+  border-right: .25em solid transparent;
+  border-top: .25em solid #fff;
+  top: -.15em;
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
 }
 
 .page-sub-nav.nav-buttons.hub-mega-menu nav > ul > li {

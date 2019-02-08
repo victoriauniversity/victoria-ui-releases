@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #4545196eb8b81f44dc38de0ada021ac1db4209d0 + )  | Wednesday, February 6, 2019, 10:32 PM */
+/** Version: 0.10.5 (build #606d60118eccba6dbac4a4c7a7b97890b8cbe0a4 + )  | Friday, February 8, 2019, 1:51 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -5064,7 +5064,21 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
- // API interface
+
+/** Library-specific polyfills */
+
+if ('NodeList' in window && !NodeList.prototype.forEach) {
+  console.info('polyfill for IE11');
+
+  NodeList.prototype.forEach = function (callback, thisArg) {
+    thisArg = thisArg || window;
+
+    for (var i = 0; i < this.length; i++) {
+      callback.call(thisArg, this[i], i, this);
+    }
+  };
+} // API interface
+
 
 var tooltipsApi = window.toolkitTooltips || {};
 /**

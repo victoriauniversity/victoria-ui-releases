@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #565bf0d97391e9482a9c8e2c7854dc73cd069598 + )  | Sunday, February 10, 2019, 9:47 PM */
+/** Version: 0.10.5 (build #fb5773499b5e83b12b6be0f3a8ee7e68877f5d8f + )  | Thursday, February 14, 2019, 7:47 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6250,7 +6250,43 @@ function hubMegaMenu() {
   });
 }
 
-if (document.getElementsByClassName('hub-mega-menu').length > 0) {
+function hubMegaMenu2() {
+  var menu = external_jQuery_default()('.hub-mega-menu .mega-menu-inner');
+  var menuExpandButton = external_jQuery_default()('.hub-mega-menu .btn-expander').parent().parent();
+  var mobile = false;
+  var desktop = false;
+  src_default.a.register(DESKTOP_AND_LARGER, function () {
+    desktop = true;
+    mobile = false;
+  });
+  src_default.a.register(TABLET_AND_SMALLER, function () {
+    desktop = false;
+    mobile = true;
+  });
+  menuExpandButton.each(function () {
+    var $this = external_jQuery_default()(this); //Create and append Title to list of expanded links 
+
+    var title = $this.children('a').text();
+    var titleLink = $this.children('a').attr('href');
+    var newLink = "<li class=\"js-inject-title\"><a href=\"".concat(titleLink, "\"> ").concat(title, " </a></li>");
+    $this.children('ul').prepend(newLink); // subnav expand function
+
+    external_jQuery_default()(this).on('click', function (c) {
+      c.preventDefault();
+
+      if (desktop) {
+        menu.toggleClass('expanded');
+      }
+
+      if (mobile) {
+        menu.addClass('expanded');
+        $this.toggleClass('js-dropdown-show');
+      }
+    });
+  });
+}
+
+if (document.getElementsByClassName('hub-mega-menu').length > 0 && !document.getElementsByClassName('mega-menu-bar').length > 0) {
   var hubMegaMenuElement = external_jQuery_default()('.hub-mega-menu');
   var megaMenuExpandButton = external_jQuery_default()('.hub-mega-menu .btn-expander');
   hubMegaMenu();
@@ -6259,6 +6295,13 @@ if (document.getElementsByClassName('hub-mega-menu').length > 0) {
     tracker.registerForTracking(hubMegaMenuElement.find('li > a'), 'click', 'megamenu-link');
     tracker.registerForTracking(megaMenuExpandButton, 'click', 'megamenu-expander');
   }
+}
+/* New hub mega menu */
+
+
+if (document.getElementsByClassName('hub-mega-menu').length > 0 && document.getElementsByClassName('mega-menu-bar').length > 0) {
+  hubMegaMenu2();
+  console.log('new menu bar strip thing cool ');
 }
 
 function openPopup() {

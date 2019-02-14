@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #565bf0d97391e9482a9c8e2c7854dc73cd069598 + )  | Sunday, February 10, 2019, 9:47 PM */
+/** Version: 0.10.5 (build #fb5773499b5e83b12b6be0f3a8ee7e68877f5d8f + )  | Thursday, February 14, 2019, 7:47 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -8564,7 +8564,15 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
     width: auto;
   }
   .page-sub-nav.nav-buttons.hub-mega-menu nav > ul.expanded > li .btn-expander::after {
-    content: '+';
+    position: relative;
+    display: inline-block;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: #FFF transparent transparent;
+    border-width: 0.2em 0.25em 0;
+    top: -.15em;
   }
   .page-sub-nav.nav-buttons.hub-mega-menu nav > ul.expanded > li a:hover, .page-sub-nav.nav-buttons.hub-mega-menu nav > ul.expanded > li a:active, .page-sub-nav.nav-buttons.hub-mega-menu nav > ul.expanded > li a:focus {
     color: #FFF;
@@ -8602,6 +8610,159 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   .page-sub-nav.nav-buttons.hub-mega-menu nav > ul.expanded > li.js-dropdown-show > ul {
     display: -webkit-box;
     display: flex;
+  }
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar {
+  margin-top: 0;
+  background-color: #115737;
+  border-bottom: 5px solid #0D4B2F;
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li {
+  border-bottom: none;
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li:first-child {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 88em) {
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a {
+    white-space: nowrap;
+  }
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a .btn-expander {
+  margin-left: 1rem;
+  margin-right: 0;
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a:hover, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a:active, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a:focus {
+  text-decoration: none;
+  -webkit-transition: none;
+  transition: none;
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li:hover .btn-expander, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li:active .btn-expander, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li:focus .btn-expander {
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li:hover > a, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li:active > a, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li:focus > a {
+  background-color: #0D4B2F;
+}
+
+@media (min-width: 61em) {
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+            justify-content: space-between;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li.active {
+    border-bottom: none;
+  }
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded .bg {
+  display: none;
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li {
+  border-bottom: none;
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:hover, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:active, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:focus {
+  background-color: #0D4B2F;
+}
+
+.page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:hover > a, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:active > a, .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:focus > a {
+  background-color: #0D4B2F;
+}
+
+@media (min-width: 61em) {
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li > a {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+            justify-content: space-between;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li > a .btn-expander::after {
+    position: relative;
+    display: inline-block;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent transparent #FFF;
+    border-width: 0 0.25em 0.2em;
+    top: -.15em;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li.active {
+    border-bottom: none;
+    -webkit-transform: none;
+            transform: none;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:hover:not(.active) {
+    -webkit-animation-name: none;
+            animation-name: none;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li:hover:not(.active) li:not(:last-child):after {
+    border-bottom: 1px solid #115737;
+  }
+}
+
+@media (max-width: 60.99em) {
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li {
+    border-bottom: 5px solid #0D4B2F !important;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+            justify-content: space-between;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul > li > a .btn-expander::after {
+    position: relative;
+    display: inline-block;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: #FFF transparent transparent;
+    border-width: 0.2em 0.25em 0;
+    top: -.15em;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li > a {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+            justify-content: space-between;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li.js-dropdown-show {
+    padding-bottom: 1rem;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li.js-dropdown-show .btn-expander::after {
+    position: relative;
+    display: inline-block;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent transparent #FFF;
+    border-width: 0 0.25em 0.2em;
+    top: -.15em;
+  }
+  .page-sub-nav.nav-buttons.mega-menu-bar nav > ul.expanded > li.active {
+    border-bottom: 5px solid #115737 !important;
+  }
+}
+
+@media (max-width: 60.99em) {
+  .page-sub-nav.nav-buttons.mega-menu-bar {
+    border-bottom: none;
   }
 }
 

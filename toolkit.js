@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #ba68f9e3a6238ae52489447046814d432693e262 + )  | Sunday, February 17, 2019, 11:03 PM */
+/** Version: 0.10.5 (build #f1a4f4519431002deb5b9aa310f4b0242b701183 + )  | Monday, February 18, 2019, 12:34 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6324,17 +6324,40 @@ function openPopup() {
 
 if (document.getElementsByClassName('calendar-cards').length > 0) {
   external_jQuery_default()("#search-filter").on("keyup search", function () {
-    var value = external_jQuery_default()(this).val().toLowerCase();
-    console.log(external_jQuery_default()(this).val().length); // if input 3 or more filter
+    var value = external_jQuery_default()(this).val().toLowerCase(); // if input 3 or more filter
 
-    if (external_jQuery_default()(this).val().length >= 3) {
+    if (external_jQuery_default()(this).val().length >= 2) {
       external_jQuery_default()(".calendar-cards .card").filter(function () {
         external_jQuery_default()(this).toggle(external_jQuery_default()(this).text().toLowerCase().indexOf(value) > -1);
-        console.log(external_jQuery_default()(this).text());
       });
     } else {
-      // show all if search input less then 3
+      // show all if search input less then 2
       external_jQuery_default()(".calendar-cards .card").show();
+    }
+  }); // Filter on type tags
+
+  external_jQuery_default()('.tags .tag').on('click', function () {
+    if (external_jQuery_default()(this).hasClass("selected")) {
+      external_jQuery_default()(this).removeClass("selected");
+      external_jQuery_default()('.calendar-cards .card').show();
+    } else {
+      external_jQuery_default()('.tags .tag').removeClass("selected");
+      external_jQuery_default()('.calendar-cards .card').show();
+
+      if (external_jQuery_default()(this).text() === "Amendment") {
+        external_jQuery_default()(this).addClass('selected');
+        external_jQuery_default()('.calendar-cards .card').filter(':not([data-type="Amendment"])').hide();
+      }
+
+      if (external_jQuery_default()(this).text() === "New") {
+        external_jQuery_default()(this).addClass('selected');
+        external_jQuery_default()('.calendar-cards .card').filter(':not([data-type="New"])').hide();
+      }
+
+      if (external_jQuery_default()(this).text() === "Errata") {
+        external_jQuery_default()(this).addClass('selected');
+        external_jQuery_default()('.calendar-cards .card').filter(':not([data-type="Errata"])').hide();
+      }
     }
   });
 }

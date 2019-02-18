@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #f1a4f4519431002deb5b9aa310f4b0242b701183 + )  | Monday, February 18, 2019, 12:34 AM */
+/** Version: 0.10.5 (build #ee9687e5a574f5548f4d36231380dd7d2ad61217 + )  | Monday, February 18, 2019, 9:51 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -10610,6 +10610,10 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   margin-bottom: 0.5rem;
 }
 
+.card-panel.calendar-cards .card .update .sub-head strong {
+  color: #424242;
+}
+
 .card-panel.calendar-cards .card .update > div {
   margin-right: 1rem;
   padding-left: .8rem;
@@ -10618,6 +10622,10 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
 
 .card-panel.calendar-cards .card .update > div:last-child {
   margin-right: 0;
+}
+
+.card-panel.calendar-cards .card .update .content p + table {
+  margin-top: 1rem;
 }
 
 .card-panel.calendar-cards .card .update .content hr {

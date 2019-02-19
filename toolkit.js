@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #ee9687e5a574f5548f4d36231380dd7d2ad61217 + )  | Monday, February 18, 2019, 9:51 PM */
+/** Version: 0.10.5 (build #53c7d3c1d89286a28588772db36ee052eeea7e24 + )  | Tuesday, February 19, 2019, 2:05 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6158,6 +6158,7 @@ external_jQuery_default()(function () {
 
   external_jQuery_default()('.main-menu-toggle').on('click', function () {
     external_jQuery_default()('.main-nav').slideToggle();
+    external_jQuery_default()('.sub-nav').slideToggle();
     external_jQuery_default()('.search-bar').slideToggle();
     external_jQuery_default()('.menu-toggle-icon').toggleClass('open');
   });

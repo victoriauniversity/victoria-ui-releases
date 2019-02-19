@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #ee9687e5a574f5548f4d36231380dd7d2ad61217 + )  | Monday, February 18, 2019, 9:51 PM */
+/** Version: 0.10.5 (build #53c7d3c1d89286a28588772db36ee052eeea7e24 + )  | Tuesday, February 19, 2019, 2:05 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -5517,7 +5517,6 @@ aside .promo h3::before {
   padding: 0 1.5rem 0 0;
   font-size: 85%;
   color: #CCC;
-  text-transform: uppercase;
 }
 
 @media (min-width: 88em) {
@@ -5681,6 +5680,7 @@ aside .promo h3::before {
     font-size: 2.5em;
     color: #FFF;
     cursor: pointer;
+    margin-left: auto;
   }
   .site-header .main-menu-toggle .icon-menu::before,
   .main-site-header .main-menu-toggle .icon-menu::before {
@@ -5691,14 +5691,44 @@ aside .promo h3::before {
     -webkit-box-flex: 1;
             flex: 1 1 100%;
     margin-top: .3rem;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+    -webkit-box-ordinal-group: 6;
+            order: 5;
   }
   .site-header .menu-container .sub-nav,
   .main-site-header .menu-container .sub-nav {
     display: none;
+    -webkit-box-ordinal-group: 3;
+            order: 2;
+  }
+  .site-header .menu-container .sub-nav .menu-bar,
+  .main-site-header .menu-container .sub-nav .menu-bar {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    -webkit-box-pack: center;
+            justify-content: center;
+  }
+  .site-header .menu-container .sub-nav .menu-bar a,
+  .main-site-header .menu-container .sub-nav .menu-bar a {
+    padding: .5rem 1.5rem .5rem 0;
+    font-size: 95%;
+    color: #fff;
+    text-transform: inherit;
+    text-decoration: underline;
+    font-weight: 500;
   }
   .site-header .menu-container .horizontal-menu.main-nav,
   .main-site-header .menu-container .horizontal-menu.main-nav {
     display: none;
+    -webkit-box-ordinal-group: 2;
+            order: 1;
+    margin-top: 1rem;
   }
   .site-header .menu-container .horizontal-menu.main-nav .menu-bar,
   .main-site-header .menu-container .horizontal-menu.main-nav .menu-bar {
@@ -5711,7 +5741,7 @@ aside .promo h3::before {
   }
   .site-header .menu-container .horizontal-menu.main-nav .menu-bar a,
   .main-site-header .menu-container .horizontal-menu.main-nav .menu-bar a {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
     padding: 1rem 1.5rem;
     font-size: 1.4rem;
     border-bottom: 2px solid #707070;

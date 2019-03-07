@@ -1,4 +1,4 @@
-/** Version: 0.10.5 (build #c9222803cb2f4d07af9eaccf930c123b76d628b1 + )  | Thursday, March 7, 2019, 1:25 AM */
+/** Version: 0.10.5 (build #36b97807511e076cba231e6d6274f80e2f2f56db + )  | Thursday, March 7, 2019, 10:00 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6253,7 +6253,7 @@ function hubMegaMenu() {
 
 function hubMegaMenu2() {
   var menu = external_jQuery_default()('.hub-mega-menu .mega-menu-inner');
-  var menuExpandButton = external_jQuery_default()('.hub-mega-menu .btn-expander').parent().parent();
+  var menuExpandButton = external_jQuery_default()('.hub-mega-menu .btn-expander').parent();
   var mobile = false;
   var desktop = false;
   src_default.a.register(DESKTOP_AND_LARGER, function () {

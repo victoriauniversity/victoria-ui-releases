@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.5 (build #6e2a984d18ccf8c6ce750965f1bd08573f6b2cbe + )  | Monday, March 11, 2019, 8:59 PM */
+/** Version: 0.10.5 (build #561ce2e70969a8c00345526e77534c1132649c66 + )  | Monday, March 11, 2019, 9:48 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -3328,8 +3328,7 @@ ul.meta--labelled .meta__item {
 }
 
 .pagination--alpha {
-  margin: 0.75rem 0;
-  padding: 1.5rem;
+  padding: 1.5rem 0.75rem;
   background: #DDD;
 }
 
@@ -3343,8 +3342,19 @@ ul.meta--labelled .meta__item {
   }
 }
 
+.pagination__list {
+  margin: 0 !important;
+}
+
 .pagination__list li {
   display: inline-block;
+  list-style: none;
+}
+
+@media (min-width: 61em) {
+  .pagination__list li {
+    margin-bottom: 0 !important;
+  }
 }
 
 /*============================================================================*\
@@ -3716,6 +3726,11 @@ aside .list.publications li {
   color: #AF1B1B;
 }
 
+.form .group.group--solo {
+  margin-bottom: 0;
+  text-align: center;
+}
+
 .form label {
   display: inline-block;
   padding-right: .7rem;
@@ -3745,6 +3760,13 @@ aside .list.publications li {
 .form textarea:focus {
   outline: none;
   border: 2px solid #3363B3;
+}
+
+@media (min-width: 61em) {
+  .form input:not([type=submit]).field__input--wide,
+  .form textarea.field__input--wide {
+    width: 300px;
+  }
 }
 
 .form textarea {

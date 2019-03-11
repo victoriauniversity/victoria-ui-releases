@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.6 (build #45a0d61e059b2278b17612590c480ea183dc1140 + )  | Monday, March 11, 2019, 10:20 PM */
+/** Version: 0.10.6 (build #d3818d0cc8feb535fbca2c085cff21308c3ab520 + )  | Monday, March 11, 2019, 10:29 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -3353,7 +3353,7 @@ ul.meta--labelled .meta__item {
 
 @media (min-width: 61em) {
   .pagination__list li {
-    margin-bottom: 0 !important;
+    margin: 0.3125rem 0 !important;
   }
 }
 

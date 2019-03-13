@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.6 (build #d3818d0cc8feb535fbca2c085cff21308c3ab520 + )  | Monday, March 11, 2019, 10:29 PM */
+/** Version: 0.10.7 (build #fdc116bda8ca3e964d88818c130493843877ef1f + )  | Wednesday, March 13, 2019, 10:09 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -8945,6 +8945,21 @@ address.contact > img {
   align-content: stretch;
   color: #DDD;
   line-height: 1.25;
+}
+
+.sidemenu a.sidemenu__link--withIcon {
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.sidemenu a.sidemenu__link--withIcon i::before {
+  margin: 0 5px;
+}
+
+@media (min-width: 61em) {
+  .sidemenu a.sidemenu__link--withIcon i::before {
+    margin: 0;
+  }
 }
 
 .sidemenu a:hover, .sidemenu a:active, .sidemenu a:focus {

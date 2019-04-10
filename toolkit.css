@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.8 (build #30ea57694e97d8c86dbf4930580383f9d0fe4e19 + )  | Wednesday, March 27, 2019, 9:22 PM */
+/** Version: 0.10.9 (build #b3a56530bb7a0f45a50b5b55fe1464a5ebc4f8ac + )  | Wednesday, April 10, 2019, 9:00 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -835,28 +835,28 @@ template {
   font-family: "National";
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/NationalWebLF-Regular.woff2") format("woff2"), url("./fonts/NationalWebLF-Regular.woff") format("woff"), url("./fonts/NationalWebLF-Regular.ttf") format("truetype");
+  src: url("./fonts/NationalWebLF-Regular.woff") format("woff"), url("./fonts/NationalWebLF-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "National";
   font-style: normal;
   font-weight: 600;
-  src: url("./fonts/NationalWebLF-Semibold.woff2") format("woff2"), url("./fonts/NationalWebLF-Semibold.woff") format("woff"), url("./fonts/NationalWebLF-Semibold.ttf") format("truetype");
+  src: url("./fonts/NationalWebLF-Semibold.woff") format("woff"), url("./fonts/NationalWebLF-Semibold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "National";
   font-style: normal;
   font-weight: 800;
-  src: url("./fonts/NationalWebLF-Extrabold.woff2") format("woff2"), url("./fonts/NationalWebLF-Extrabold.woff") format("woff"), url("./fonts/NationalWebLF-Extrabold.ttf") format("truetype");
+  src: url("./fonts/NationalWebLF-Extrabold.woff") format("woff"), url("./fonts/NationalWebLF-Extrabold.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "VicIcons";
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/vic-icons.woff2") format("woff2"), url("./fonts/vic-icons.woff") format("woff"), url("./fonts/vic-icons.ttf") format("truetype");
+  src: url("./fonts/vicicons.woff") format("woff"), url("./fonts/vicicons.ttf") format("truetype");
 }
 
 html {
@@ -1438,271 +1438,275 @@ a [class^=icon-]::before {
 }
 
 .icon-search::before {
-  content: "";
+  content: "";
 }
 
 .icon-mail::before {
-  content: "";
+  content: "";
 }
 
 .icon-heart::before {
-  content: "";
+  content: "";
 }
 
 .icon-check::before {
-  content: "";
+  content: "";
 }
 
 .icon-star::before {
-  content: "";
+  content: "";
 }
 
 .icon-help::before {
-  content: "";
+  content: "";
 }
 
 .icon-people::before {
-  content: "";
+  content: "";
 }
 
 .icon-user::before {
-  content: "";
+  content: "";
 }
 
 .icon-info::before {
-  content: "";
+  content: "";
 }
 
 .icon-home::before {
-  content: "";
+  content: "";
 }
 
 .icon-back::before {
-  content: "";
+  content: "";
 }
 
 .icon-pictures::before {
-  content: "";
+  content: "";
 }
 
 .icon-popup::before {
-  content: "";
+  content: "";
 }
 
 .icon-clock::before {
-  content: "";
+  content: "";
 }
 
 .icon-tag::before {
-  content: "";
+  content: "";
 }
 
 .icon-book::before {
-  content: "";
+  content: "";
 }
 
 .icon-book-open::before {
-  content: "";
+  content: "";
 }
 
 .icon-pin::before {
-  content: "";
+  content: "";
 }
 
 .icon-vcard::before {
-  content: "";
+  content: "";
 }
 
 .icon-chat::before {
-  content: "";
+  content: "";
 }
 
 .icon-flag::before {
-  content: "";
+  content: "";
 }
 
 .icon-external::before {
-  content: "";
+  content: "";
 }
 
 .icon-printer::before {
-  content: "";
+  content: "";
 }
 
 .icon-camera::before {
-  content: "";
+  content: "";
 }
 
 .icon-lock::before {
-  content: "";
+  content: "";
 }
 
 .icon-lock-open::before {
-  content: "";
+  content: "";
 }
 
 .icon-phone::before {
-  content: "";
+  content: "";
 }
 
 .icon-attention::before {
-  content: "";
+  content: "";
 }
 
 .icon-resize-up::before {
-  content: "";
+  content: "";
 }
 
 .icon-resize-down::before {
-  content: "";
+  content: "";
 }
 
 .icon-mic::before {
-  content: "";
+  content: "";
 }
 
 .icon-cog::before {
-  content: "";
+  content: "";
 }
 
 .icon-share::before {
-  content: "";
+  content: "";
 }
 
 .icon-basket::before {
-  content: "";
+  content: "";
 }
 
 .icon-comment::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-down-thin::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-left-thin::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-right-thin::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-up-thin::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-down::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-left::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-right::before {
-  content: "";
+  content: "";
 }
 
 .icon-caret-up::before {
-  content: "";
+  content: "";
 }
 
 .icon-triangle-down::before {
-  content: "";
+  content: "";
 }
 
 .icon-triangle-left::before {
-  content: "";
+  content: "";
 }
 
 .icon-triangle-right::before {
-  content: "";
+  content: "";
 }
 
 .icon-triangle-up::before {
-  content: "";
+  content: "";
 }
 
 .icon-refresh::before {
-  content: "";
+  content: "";
 }
 
 .icon-graduation-cap::before {
-  content: "";
+  content: "";
 }
 
 .icon-ticket::before {
-  content: "";
+  content: "";
 }
 
 .icon-megaphone::before {
-  content: "";
+  content: "";
 }
 
 .icon-calendar::before {
-  content: "";
+  content: "";
 }
 
 .icon-globe::before {
-  content: "";
+  content: "";
 }
 
 .icon-dots::before {
-  content: "";
+  content: "";
 }
 
 .icon-arrow-down::before {
-  content: "";
+  content: "";
 }
 
 .icon-arrow-left::before {
-  content: "";
+  content: "";
 }
 
 .icon-layout::before {
-  content: "";
+  content: "";
 }
 
 .icon-attach::before {
-  content: "";
+  content: "";
 }
 
 .icon-menu::before {
-  content: "";
+  content: "";
 }
 
 .icon-arrow-right::before {
-  content: "";
+  content: "";
 }
 
 .icon-arrow-up::before {
-  content: "";
+  content: "";
 }
 
 .icon-edit::before {
-  content: "";
+  content: "";
 }
 
 .icon-download::before {
-  content: "";
+  content: "";
 }
 
 .icon-audio::before {
-  content: "";
+  content: "";
 }
 
 .icon-quote-down::before {
-  content: "";
+  content: "";
 }
 
 .icon-quote-up::before {
-  content: "";
+  content: "";
 }
 
 .icon-list::before {
-  content: "";
+  content: "";
+}
+
+.icon-money::before {
+  content: "";
 }
 
 /*= ICONS WITH UNUSUAL STYLING ============================================== */
@@ -1764,7 +1768,7 @@ a [class^=icon-]::before {
 }
 
 .link-external::after {
-  content: "";
+  content: "";
 }
 
 .link-external::after {
@@ -1793,7 +1797,7 @@ a [class^=icon-]::before {
 }
 
 .link-restricted::after {
-  content: "";
+  content: "";
 }
 
 .link-restricted::after {
@@ -1823,7 +1827,7 @@ a [class^=icon-]::before {
 }
 
 .link-download::before {
-  content: "";
+  content: "";
 }
 
 .link-download::before {
@@ -1851,7 +1855,7 @@ a [class^=icon-]::before {
 }
 
 .link-more::after {
-  content: "";
+  content: "";
 }
 
 .link-more::after {
@@ -1881,7 +1885,7 @@ a [class^=icon-]::before {
 }
 
 .link-audio::before {
-  content: "";
+  content: "";
 }
 
 .link-audio::before {
@@ -2029,7 +2033,7 @@ button:not(.flat):not(.no-icon)::after,
 
 button:not(.flat):not(.no-icon)::after,
 .button:not(.flat):not(.no-icon)::after {
-  content: "";
+  content: "";
 }
 
 button:not(.flat):not(.no-icon)::after,
@@ -2530,7 +2534,7 @@ blockquote.quote {
 }
 
 .quote.full blockquote::before {
-  content: "";
+  content: "";
 }
 
 .quote.full blockquote::before {
@@ -2559,7 +2563,7 @@ blockquote.quote {
 }
 
 .quote.full blockquote::after {
-  content: "";
+  content: "";
 }
 
 .quote.full blockquote::after {
@@ -2810,7 +2814,7 @@ blockquote.quote {
 }
 
 .flash-message.error > h2::before {
-  content: "";
+  content: "";
 }
 
 .flash-message.error > h2::before {
@@ -2842,7 +2846,7 @@ blockquote.quote {
 }
 
 .flash-message.warning > h2::before {
-  content: "";
+  content: "";
 }
 
 .flash-message.warning > h2::before {
@@ -2874,7 +2878,7 @@ blockquote.quote {
 }
 
 .flash-message.info > h2::before {
-  content: "";
+  content: "";
 }
 
 .flash-message.info > h2::before {
@@ -2906,7 +2910,7 @@ blockquote.quote {
 }
 
 .flash-message.success > h2::before {
-  content: "";
+  content: "";
 }
 
 .flash-message.success > h2::before {
@@ -3251,7 +3255,7 @@ ul.meta--labelled .meta__item {
 }
 
 .pagination .previous::before {
-  content: "";
+  content: "";
 }
 
 .pagination .previous::before {
@@ -3281,7 +3285,7 @@ ul.meta--labelled .meta__item {
 }
 
 .pagination .next::after {
-  content: "";
+  content: "";
 }
 
 .pagination .next::after {
@@ -4497,7 +4501,7 @@ aside .promo h3::before {
 }
 
 .events .time::before {
-  content: "";
+  content: "";
 }
 
 .events .time::before {
@@ -7589,7 +7593,7 @@ address.contact > img {
     line-height: 1;
   }
   .site > ul > li:last-child > a::before {
-    content: "";
+    content: "";
   }
   .site > ul > li:last-child > a::before {
     text-decoration: underline;
@@ -7971,7 +7975,7 @@ address.contact > img {
 }
 
 .footer-secondary .phones::before {
-  content: "";
+  content: "";
 }
 
 .footer-secondary .phones::before {
@@ -7995,7 +7999,7 @@ address.contact > img {
 }
 
 .footer-secondary .mails::before {
-  content: "";
+  content: "";
 }
 
 .footer-secondary .mails::before {
@@ -8120,7 +8124,7 @@ address.contact > img {
 }
 
 .breadcrumbs > li:first-child a::before {
-  content: "";
+  content: "";
 }
 
 .breadcrumbs > li:first-child a::before {
@@ -8151,7 +8155,7 @@ address.contact > img {
 }
 
 .breadcrumbs > li::after {
-  content: "";
+  content: "";
 }
 
 .breadcrumbs > li::after {
@@ -9129,7 +9133,7 @@ address.contact > img {
 }
 
 .sidemenu .sidemenu-toggle a::after {
-  content: "";
+  content: "";
 }
 
 .sidemenu .sidemenu-toggle a::after {
@@ -9147,7 +9151,7 @@ address.contact > img {
 }
 
 .sidemenu .sidemenu-toggle.expanded a::after {
-  content: "";
+  content: "";
 }
 
 @media (min-width: 61em) {

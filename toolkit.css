@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.9 (build #0165b7562c111906aae96d26584ceedd879285b6 + )  | Wednesday, April 10, 2019, 9:05 PM */
+/** Version: 0.10.10 (build #30c927635acc96ded4fc9c02bb94920b379220f0 + )  | Wednesday, April 10, 2019, 10:26 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -1424,7 +1424,7 @@ a.link-more:hover, a.link-more:active, a.link-more:focus {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -1762,7 +1762,7 @@ a [class^=icon-]::before {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -1791,7 +1791,7 @@ a [class^=icon-]::before {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -1821,7 +1821,7 @@ a [class^=icon-]::before {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -1849,7 +1849,7 @@ a [class^=icon-]::before {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -1879,7 +1879,7 @@ a [class^=icon-]::before {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -2026,7 +2026,7 @@ button:not(.flat):not(.no-icon)::after,
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -2528,7 +2528,7 @@ blockquote.quote {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -2557,7 +2557,7 @@ blockquote.quote {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -2808,7 +2808,7 @@ blockquote.quote {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -2840,7 +2840,7 @@ blockquote.quote {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -2872,7 +2872,7 @@ blockquote.quote {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -2904,7 +2904,7 @@ blockquote.quote {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -3249,7 +3249,7 @@ ul.meta--labelled .meta__item {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -3279,7 +3279,7 @@ ul.meta--labelled .meta__item {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -4495,7 +4495,7 @@ aside .promo h3::before {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -7588,7 +7588,7 @@ address.contact > img {
     font-family: "VicIcons";
     margin: 0 0.5em 0 0;
     width: 1em;
-    vertical-align: -7.5%;
+    vertical-align: -0.222em;
     text-align: center;
     line-height: 1;
   }
@@ -7671,7 +7671,7 @@ address.contact > img {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -7951,6 +7951,7 @@ address.contact > img {
 
 .footer-secondary .contacts address ul::before {
   position: absolute;
+  top: 2px;
   margin-left: -1.6rem;
   line-height: 1.4;
   font-size: 115%;
@@ -7969,7 +7970,7 @@ address.contact > img {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -7993,7 +7994,7 @@ address.contact > img {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -8118,7 +8119,7 @@ address.contact > img {
   font-family: "VicIcons";
   margin: 0 0.5em 0 0;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -8149,7 +8150,7 @@ address.contact > img {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -9127,7 +9128,7 @@ address.contact > img {
   font-family: "VicIcons";
   margin: 0 0 0 0.5em;
   width: 1em;
-  vertical-align: -7.5%;
+  vertical-align: -0.222em;
   text-align: center;
   line-height: 1;
 }
@@ -9571,6 +9572,7 @@ address.contact > img {
 
 .updated-tile-grid .tiles-wrap li.tile a h4::before {
   font-size: 85%;
+  vertical-align: -1px;
 }
 
 .updated-tile-grid .tiles-wrap li.tile a h2,

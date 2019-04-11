@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.11 (build #e23f7467b8987d4fd7b98d9b10bcbc38dae366cb + )  | Thursday, April 11, 2019, 4:08 AM */
+/** Version: 0.10.11 (build #5520f5019e2b42a99d106cbe9ccd01ef0538b6be + )  | Thursday, April 11, 2019, 11:14 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -8918,7 +8918,7 @@ address.contact > img {
   text-transform: uppercase;
   border-bottom: 1px solid white;
   font-family: "National", "Helvetica Neue", "Segoe WP", "Helvetica", "Arial";
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @media (max-width: 42.99em) {
@@ -8929,7 +8929,6 @@ address.contact > img {
 
 .sidemenu .sidemenu__label a {
   padding: 6px 14px;
-  font-size: 17px !important;
 }
 
 .sidemenu ul {

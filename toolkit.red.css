@@ -2,14 +2,6 @@
 /** Version: 0.10.11 (build #9292f4c84f61b90a698c9ceb54ff6cd1462051d0 + )  | Monday, May 13, 2019, 8:59 PM */
 @charset "UTF-8";
 /*============================================================================*\
-| VICTORIA UI TOOLKIT STYLES
-\*============================================================================*/
-/*= CORE VICTORIA UTILITIES ==================================================*/
-/*============================================================================*\
-| PROJECT-SPECIFIC OVERRIDES OF CORE UTILITIES' VARIABLES
-\*============================================================================*/
-/*= LAYOUT ===================================================================*/
-/*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
 \*============================================================================*/
 /*= FUNCTIONS ================================================================*/
@@ -931,7 +923,7 @@ h5,
 h6 {
   font-family: "National", "Helvetica Neue", "Segoe WP", "Helvetica", "Arial";
   font-weight: 600;
-  color: #115737;
+  color: #AF1B1B;
   line-height: 1.08;
   letter-spacing: -0.03em;
 }
@@ -1279,7 +1271,7 @@ figure img {
   margin-top: 1.5rem;
   font-size: 1.22rem;
   font-weight: 600;
-  color: #3D6353;
+  color: rgba(175, 27, 27, 0.8);
 }
 
 .formatting .inline {
@@ -1358,7 +1350,7 @@ aside > .formatting h2::before {
   width: 2rem;
   padding-top: 0.1875rem;
   padding-bottom: 0.1875rem;
-  border-top: 0.1875rem solid #115737;
+  border-top: 0.1875rem solid #AF1B1B;
   margin-bottom: 0.125em;
 }
 
@@ -1956,7 +1948,7 @@ button.flat:hover, button.flat:active, button.flat:focus,
 
 button.primary,
 .button.primary {
-  background-color: #3363B3;
+  background-color: #333;
   color: #FFF;
 }
 
@@ -1965,14 +1957,14 @@ button.primary:hover, button.primary:active, button.primary:focus,
 .button.primary:active,
 .button.primary:focus {
   color: #FFF;
-  background: #285189;
+  background: #666666;
 }
 
 button.flat-border,
 .button.flat-border {
   background: transparent;
-  border: 0.125rem solid #3363B3;
-  color: #3363B3;
+  border: 0.125rem solid #333;
+  color: #333;
 }
 
 button.flat-border:hover, button.flat-border:active, button.flat-border:focus,
@@ -1980,7 +1972,7 @@ button.flat-border:hover, button.flat-border:active, button.flat-border:focus,
 .button.flat-border:active,
 .button.flat-border:focus {
   color: #FFF;
-  background: #3363B3;
+  background: #333;
 }
 
 button.danger,
@@ -2606,7 +2598,7 @@ blockquote.quote {
 .quote-panel .quote {
   margin-bottom: 0;
   padding: 1.875rem;
-  border-left: 5px solid #115737;
+  border-left: 5px solid #AE2327;
 }
 
 .quote-panel .quote blockquote {
@@ -2614,11 +2606,11 @@ blockquote.quote {
 }
 
 .quote-panel .quote blockquote h3 {
-  color: #115737 !important;
+  color: #333 !important;
 }
 
 .quote-panel .quote blockquote::before, .quote-panel .quote blockquote::after {
-  color: #115737;
+  color: #AE2327;
 }
 
 .quote-panel .quote figcaption {
@@ -3084,8 +3076,8 @@ ul.meta .highlight [class^=icon-]::before {
 ul.meta .highlight > a {
   display: block;
   padding: .2rem .5rem;
-  background-color: #d4e2dc;
-  color: #115737;
+  background-color: #edd0d0;
+  color: #AF1B1B;
   text-decoration: none;
 }
 
@@ -3123,7 +3115,7 @@ ul.meta--labelled .meta__item:last-child {
 }
 
 .meta__label {
-  color: #64A659;
+  color: #AE2327;
 }
 
 @media (max-width: 42.99em) {
@@ -3699,7 +3691,7 @@ ul.complex-list .description > em {
   width: 2rem;
   padding-top: 0.1875rem;
   padding-bottom: 0.1875rem;
-  border-top: 0.1875rem solid #115737;
+  border-top: 0.1875rem solid #AF1B1B;
 }
 
 .list.publications li > * {
@@ -3915,7 +3907,7 @@ aside .highlight h3::before {
 
 .media.featured figcaption {
   z-index: 1;
-  background-color: #115737;
+  background-color: #AF1B1B;
   border-left: 0;
 }
 
@@ -4470,7 +4462,7 @@ aside .promo h3::before {
 .events .highlight-strip {
   display: block;
   padding-left: 1rem;
-  border-left: 0.25rem solid #115737;
+  border-left: 0.25rem solid #831212;
 }
 
 .events .highlight-strip p {
@@ -4499,7 +4491,7 @@ aside .promo h3::before {
 .events .time {
   display: block;
   font-family: "National", "Helvetica Neue", "Segoe WP", "Helvetica", "Arial";
-  color: #115737;
+  color: #AF1B1B;
   line-height: 1.1;
 }
 
@@ -4598,7 +4590,7 @@ aside .promo h3::before {
 }
 
 .banner-in-page figcaption {
-  background-color: #115737;
+  background-color: #AF1B1B;
 }
 
 @media (min-width: 43em) {
@@ -4989,7 +4981,7 @@ aside .promo h3::before {
   margin-bottom: 0;
   margin-left: -0.75rem;
   padding: 0.75rem 1.5rem;
-  background-color: #115737;
+  background-color: #AF1B1B;
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
@@ -5084,7 +5076,7 @@ aside .promo h3::before {
 
 .promo-panel.two-panels figure figcaption h1, .promo-panel.two-panels figure figcaption h2 {
   color: #FFF;
-  background-color: #115737;
+  background-color: #AF1B1B;
   padding: 0.4em 0.5em;
   display: inline-block;
   margin-left: -0.5em;
@@ -5290,7 +5282,7 @@ aside .promo h3::before {
   margin: 0;
   padding: 1em;
   width: 100%;
-  background-color: #115737;
+  background-color: #AF1B1B;
 }
 
 .promo-panel.title-image figure figcaption h1,
@@ -5564,7 +5556,7 @@ aside .promo h3::before {
 .main-site-header {
   padding-top: .5rem;
   background: #1D2624;
-  border-bottom: 6px solid #115737;
+  border-bottom: 6px solid #AF1B1B;
   /* Victoria main logotype */
   /* Site's introduction - eg. sitename, motto, short abstract */
 }
@@ -8240,8 +8232,8 @@ address.contact > img {
 =                     Page Sub navigation          =
 ==================================================*/
 .page-sub-nav {
-  border-bottom: 5px solid #115737;
-  background-color: #1D2624;
+  border-bottom: 5px solid #AF1B1B;
+  background-color: #333;
 }
 
 .page-sub-nav .centraliser nav > ul {
@@ -8267,12 +8259,12 @@ address.contact > img {
 }
 
 .page-sub-nav .centraliser nav > ul > li > a.active {
-  background-color: #115737;
+  background-color: #AF1B1B;
 }
 
 .page-sub-nav .centraliser nav > ul > li > a:hover, .page-sub-nav .centraliser nav > ul > li > a:active, .page-sub-nav .centraliser nav > ul > li > a:focus {
   text-decoration: underline;
-  background-color: #0D4B2F;
+  background-color: #831212;
   -webkit-transition: all .5s ease;
   transition: all .5s ease;
 }
@@ -8943,7 +8935,7 @@ address.contact > img {
   z-index: 1;
   overflow: hidden;
   margin: 0 0 1.5rem;
-  background: #115737;
+  background: #AF1B1B;
 }
 
 .sidemenu .sidemenu__label {
@@ -9030,7 +9022,7 @@ address.contact > img {
 }
 
 .sidemenu > ul > li {
-  border-bottom: 0.0625rem solid #0D4B2F;
+  border-bottom: 0.0625rem solid #831212;
 }
 
 .sidemenu > ul > li > a {
@@ -9043,7 +9035,7 @@ address.contact > img {
 
 .sidemenu > ul > li.active > a {
   padding-left: .35em;
-  background-color: #0D4B2F;
+  background-color: #831212;
 }
 
 .sidemenu > ul > li.active > a::before {
@@ -9101,7 +9093,7 @@ address.contact > img {
 }
 
 .sidemenu .has-submenu.active {
-  background-color: #0D4B2F;
+  background-color: #831212;
 }
 
 .sidemenu .has-submenu > ul {
@@ -9450,7 +9442,7 @@ address.contact > img {
   display: block;
   padding: 1rem 0.75rem;
   height: 100%;
-  border-left: 0.25rem solid #115737;
+  border-left: 0.25rem solid #AF1B1B;
 }
 
 .updated-tile-grid li.tile a:hover, .updated-tile-grid li.tile a:active, .updated-tile-grid li.tile a:focus,
@@ -10076,7 +10068,7 @@ address.contact > img {
 .tiles-study-hub h3,
 .tiles-study-hub-about h2,
 .tiles-study-hub-about h3 {
-  color: #64A659;
+  color: #AE2327;
 }
 
 .tiles-study-hub .tiles-wrap li.tile,
@@ -10086,7 +10078,7 @@ address.contact > img {
 
 .tiles-study-hub .tiles-wrap li.tile a h2,
 .tiles-study-hub-about .tiles-wrap li.tile a h2 {
-  color: #64A659;
+  color: #AE2327;
 }
 
 .tiles-study-hub .tiles-wrap li.tile .tile-icon,
@@ -10120,7 +10112,7 @@ address.contact > img {
 .tiles-panel.tile-steps .tiles-wrap li.tile {
   width: 100%;
   height: auto;
-  background-color: #64A659;
+  background-color: #AE2327;
 }
 
 .tiles-panel.tile-steps .tiles-wrap li.tile a {
@@ -10259,7 +10251,7 @@ address.contact > img {
 }
 
 .promo-panel.strip-banner figcaption .block > * {
-  background-color: rgba(17, 87, 55, 0.9);
+  background-color: rgba(175, 27, 27, 0.9);
 }
 
 .promo-panel.strip-banner .block:last-child {
@@ -10309,7 +10301,7 @@ address.contact > img {
 
 @media (min-width: 61em) {
   .promo-panel.strip-banner {
-    border-bottom: 0.25rem solid #115737;
+    border-bottom: 0.25rem solid #AF1B1B;
   }
   .promo-panel.strip-banner figure {
     display: block;
@@ -10613,7 +10605,7 @@ address.contact > img {
   width: 3.125rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  border-top: 0.25rem solid #115737;
+  border-top: 0.25rem solid #AF1B1B;
   margin-top: 0.75rem;
 }
 
@@ -11127,9 +11119,9 @@ address.contact > img {
   width: 3.125rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  border-top: 0.25rem solid #115737;
+  border-top: 0.25rem solid #AF1B1B;
   margin-top: 0.75rem;
-  border-color: #64A659;
+  border-color: #AE2327;
 }
 
 .c-stack__link {

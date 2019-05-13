@@ -1,4 +1,4 @@
-/** Version: 0.10.11 (build #9292f4c84f61b90a698c9ceb54ff6cd1462051d0 + )  | Monday, May 13, 2019, 8:59 PM */
+/** Version: 0.10.11 (build #fd971c1fd670fa070a1a7656814fbe7d8304c24a + )  | Monday, May 13, 2019, 9:13 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -9337,7 +9337,8 @@ function initToolbarUrlListeners() {
 function initToolbarLoader(extraDependenciesList) {
   var WINDOW_NAMESPACE_TOOLBAR_LOADER = 'toolkitToolbarLoader',
       WINDOW_NAMESPACE_TOOLBAR = 'toolkitToolbar',
-      URL_SCRIPT_TOOLBAR = "//".concat(envConfig.server.host).concat(envConfig.name === 'development' ? ":".concat(envConfig.server.port) : '', "/toolkit.toolbar.js"); // Public API endpoint
+      minifiedString = envConfig.name === 'production' ? '.min' : '',
+      URL_SCRIPT_TOOLBAR = "//".concat(envConfig.server.host).concat(envConfig.name === 'development' ? ":".concat(envConfig.server.port) : '', "/toolkit.toolbar").concat(minifiedString, ".js"); // Public API endpoint
 
   window[WINDOW_NAMESPACE_TOOLBAR_LOADER] = function (configObjectOrUrl) {
     // 1) Assemble dependencies

@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #32f8e898beed2d89fe169b7027a34a38a9bed6fc + )  | Sunday, May 19, 2019, 10:17 PM */
+/** Version: 0.10.13 (build #cb3c7fe499e7e32e6b6847a55d6e373651a75b8e + )  | Sunday, May 19, 2019, 10:42 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -8479,9 +8479,9 @@ var envConfig = __webpack_require__(17);
 
 
 function initToolbarUrlListeners() {
-  urls.onLoadWhenQueryExists('toolbar', function () {
-    if (window.toolkitToolbarLoader) window.toolkitToolbarLoader('https://www.victoria.ac.nz/api/toolbar/staff');
-  });
+  //UrlManager.onLoadWhenQueryExists( 'toolbar', () => {
+  //  if ( window.toolkitToolbarLoader ) window.toolkitToolbarLoader( 'https://www.victoria.ac.nz/api/toolbar/staff' );
+  //});
   urls.onLoadWhenQueryExists('mytools', function () {
     if (window.toolkitToolbarLoader) window.toolkitToolbarLoader('https://www.victoria.ac.nz/api/toolbar/students');
   });

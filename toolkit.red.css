@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.12 (build #422b2c8900d12892f818a3450f1d9b2a1d58202a + )  | Thursday, May 16, 2019, 10:44 PM */
+/** Version: 0.10.13 (build #5b63cafb5131b72acd0e4d58f962523936f82f94 + )  | Sunday, May 19, 2019, 10:14 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -3808,6 +3808,24 @@ aside .list.publications li {
 
 .form.course-search-bar input[type=text] {
   width: 80%;
+}
+
+.group--vspace {
+  margin: 1.5rem 0;
+}
+
+.group__list {
+  display: inline-block;
+}
+
+@media (min-width: 43em) {
+  .group__list li {
+    display: inline-block;
+  }
+}
+
+.group__list li label {
+  vertical-align: middle;
 }
 
 /** Non-clickable highlight boxes */
@@ -10822,6 +10840,12 @@ address.contact > img {
 
 .card-panel.calendar-cards .card .update > div:last-child {
   margin-right: 0;
+}
+
+@media (max-width: 42.99em) {
+  .card-panel.calendar-cards .card .update .content {
+    overflow-x: scroll;
+  }
 }
 
 .card-panel.calendar-cards .card .update .content p + table {

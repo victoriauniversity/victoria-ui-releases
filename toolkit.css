@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #9f96cc5d1eedf3e2ccccfa30bfe3547ca4c2202b + )  | Tuesday, May 21, 2019, 4:29 AM */
+/** Version: 0.10.13 (build #ee232f244f307f9cb5ed3b2a3b514fcd5f5e5203 + )  | Tuesday, June 25, 2019, 3:05 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -11457,6 +11457,69 @@ address.contact > img {
 
 .video-section .videos.two-across > figure {
   max-width: calc(50% - .8rem);
+}
+
+/* Container Templates
+
+*** home page
+**  Hero video
+*/
+.hero--video a:hover h2, .hero--video a:hover h3, .hero--video a:hover h4 {
+  color: #FFF;
+}
+
+.hero--video figure {
+  position: relative;
+  overflow: hidden;
+  max-height: 500px;
+}
+
+.hero--video figure img {
+  margin-bottom: 0;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.hero--video figure figcaption {
+  position: absolute;
+  padding: 1.5rem;
+  background-color: #115737;
+}
+
+.hero--video figure figcaption h2, .hero--video figure figcaption h3, .hero--video figure figcaption h4 {
+  margin-bottom: 0;
+  color: #FFF;
+  text-decoration: none;
+}
+
+.hero--video figure figcaption.bottom-right {
+  right: 0;
+  bottom: 0;
+}
+
+.hero--video figure figcaption.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.hero--video figure figcaption.top-right {
+  top: 0;
+  right: 0;
+  margin-top: 0;
+}
+
+.hero--video figure figcaption.top-left {
+  top: 0;
+  left: 0;
+  margin-top: 0;
+}
+
+@media (max-width: 42.99em) {
+  .hero--video figure figcaption {
+    position: relative;
+    margin-top: 0 !important;
+    padding: 1rem;
+  }
 }
 
 /*= COMPONENTS - MOLECULES ========================*/

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #0754eced78dde5d32685cabfeb78c23c630c5b96 + )  | Wednesday, June 26, 2019, 1:46 AM */
+/** Version: 0.10.13 (build #18c7781b362337c4c402ff9bf72b9ca109f43bc6 + )  | Thursday, June 27, 2019, 8:08 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -7263,6 +7263,118 @@ address.contact > img {
   transition: opacity 0.5s ease;
   font-size: .75rem;
   color: #115737;
+}
+
+.animate-scroll.horizontal {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.animate-scroll.horizontal section {
+  width: 100%;
+  padding-left: 0;
+  min-height: 550px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  flex-wrap: nowrap;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  padding: 1rem 2rem;
+}
+
+.animate-scroll.horizontal section .animate-scroll--image {
+  padding-left: 1.5rem;
+  width: 40%;
+}
+
+.animate-scroll.horizontal section .animate-scroll--text {
+  width: 60%;
+  padding-left: 1rem;
+  padding-right: 1.5rem;
+}
+
+@media (max-width: 42.99em) {
+  .animate-scroll.horizontal section {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+  .animate-scroll.horizontal section .animate-scroll--image {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+  }
+  .animate-scroll.horizontal section .animate-scroll--text {
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.animate-scroll.horizontal .owl-nav {
+  position: absolute;
+  top: 45%;
+  width: 100%;
+}
+
+.animate-scroll.horizontal .owl-nav button {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+}
+
+.animate-scroll.horizontal .owl-nav button:focus {
+  outline: none;
+}
+
+.animate-scroll.horizontal .owl-nav button:focus span {
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.animate-scroll.horizontal .owl-nav button:after {
+  content: none;
+}
+
+.animate-scroll.horizontal .owl-nav button span {
+  font-size: 350%;
+  color: #115737;
+}
+
+.animate-scroll.horizontal .owl-nav button.owl-next {
+  right: 0;
+}
+
+.animate-scroll.horizontal .owl-nav button.owl-prev {
+  left: 0;
+}
+
+.animate-scroll.horizontal .owl-dots {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.animate-scroll.horizontal .owl-dots .owl-dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: 1px solid #115737;
+  margin: 0 5px;
+}
+
+.animate-scroll.horizontal .owl-dots .owl-dot.active {
+  background-color: #115737;
+}
+
+.animate-scroll.horizontal .owl-dots .owl-dot:after {
+  content: none;
 }
 
 @media (max-width: 42.99em) {

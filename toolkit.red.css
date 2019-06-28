@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #18c7781b362337c4c402ff9bf72b9ca109f43bc6 + )  | Thursday, June 27, 2019, 8:08 PM */
+/** Version: 0.10.13 (build #5e29f88a48a5749bef593cba3380daf6a9ed6644 + )  | Friday, June 28, 2019, 1:07 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -7135,7 +7135,7 @@ address.contact > img {
   display: none;
 }
 
-/* Styles for parallax implementation */
+/* Styles for parallax/carousel implementation */
 .animate-scroll {
   overflow: hidden;
 }
@@ -7181,80 +7181,6 @@ address.contact > img {
     -webkit-box-direction: normal;
             flex-direction: row;
   }
-}
-
-.animate-scroll .pagination-scroll {
-  position: fixed;
-  left: 20px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  font-size: 1.4em;
-  z-index: 10;
-  opacity: 0;
-}
-
-.animate-scroll .pagination-scroll.show-pag {
-  -webkit-transition: opacity .8s ease;
-  transition: opacity .8s ease;
-  opacity: 1;
-}
-
-.animate-scroll .pagination-scroll li {
-  list-style-type: none;
-}
-
-.animate-scroll .pagination-scroll li a {
-  position: relative;
-  display: block;
-  height: 20px;
-  margin-bottom: 5px;
-  color: white;
-  padding: 4px;
-}
-
-.animate-scroll .pagination-scroll li a:hover .hover-text {
-  opacity: 1;
-}
-
-.animate-scroll .pagination-scroll li a:after {
-  color: #115737;
-  -webkit-transition: -webkit-box-shadow 0.5s ease;
-  transition: -webkit-box-shadow 0.5s ease;
-  transition: box-shadow 0.5s ease;
-  transition: box-shadow 0.5s ease, -webkit-box-shadow 0.5s ease;
-  width: 10px;
-  height: 10px;
-  display: block;
-  border: 1px solid;
-  border-radius: 50%;
-  content: '';
-  position: absolute;
-  margin: auto;
-  top: 0;
-  right: 4px;
-  bottom: 0;
-}
-
-.animate-scroll .pagination-scroll li a.active {
-  color: #115737;
-}
-
-.animate-scroll .pagination-scroll li a.active:after {
-  -webkit-box-shadow: inset 0 0 0 5px;
-          box-shadow: inset 0 0 0 5px;
-}
-
-.animate-scroll .pagination-scroll li a .hover-text {
-  position: absolute;
-  top: 2px;
-  left: 15px;
-  padding-right: 15px;
-  opacity: 0;
-  -webkit-transition: opacity 0.5s ease;
-  transition: opacity 0.5s ease;
-  font-size: .75rem;
-  color: #115737;
 }
 
 .animate-scroll.horizontal {

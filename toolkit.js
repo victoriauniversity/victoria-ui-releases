@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #335b6c9785ea55f8fcd5554ebe60886f9c7a4abd + )  | Wednesday, July 3, 2019, 9:48 PM */
+/** Version: 0.10.13 (build #4f7ed98788edf4b65c91cbd4532218082b5f4398 + )  | Monday, July 15, 2019, 1:00 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6962,7 +6962,7 @@ function initPopupBox(popupElement) {
   };
   var popupContainerElement = findAncestor(popupElement, 'popup-positioner');
   var buttonOkElements = popupElement.getElementsByClassName(CLASSNAME.BUTTON_OK),
-      buttonCancelElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CANCEL)[0],
+      buttonCancelElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CANCEL),
       buttonCloseElement = popupElement.getElementsByClassName(CLASSNAME.BUTTON_CLOSE)[0],
       IS_SHOWN_CLASS = 'shown';
 
@@ -7009,7 +7009,12 @@ function initPopupBox(popupElement) {
     }
 
     if (buttonCloseElement) buttonCloseElement.addEventListener('click', close);
-    if (buttonCancelElement) buttonCancelElement.addEventListener('click', cancel);
+
+    if (buttonCancelElement) {
+      for (var _i = 0; _i < buttonCancelElement.length; _i++) {
+        buttonCancelElement[_i].addEventListener('click', cancel);
+      }
+    }
   }
 
   function unbindButtonEvents() {
@@ -7018,7 +7023,12 @@ function initPopupBox(popupElement) {
     }
 
     if (buttonCloseElement) buttonCloseElement.removeEventListener('click', close);
-    if (buttonCancelElement) buttonCancelElement.removeEventListener('click', cancel);
+
+    if (buttonCancelElement) {
+      for (var _i2 = 0; _i2 < buttonCancelElement.length; _i2++) {
+        buttonCancelElement[_i2].removeEventListener('click', cancel);
+      }
+    }
   }
 
   function addShownClass() {

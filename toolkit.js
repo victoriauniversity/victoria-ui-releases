@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #4f7ed98788edf4b65c91cbd4532218082b5f4398 + )  | Monday, July 15, 2019, 1:00 AM */
+/** Version: 0.10.13 (build #85d5daafc6439ba1f0549623c37241536956e53d + )  | Thursday, August 1, 2019, 9:42 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,7 +82,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -6750,6 +6750,118 @@ function accent_fold(s) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var enquire_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var enquire_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(enquire_js__WEBPACK_IMPORTED_MODULE_0__);
+
+$(function () {
+  /* Tab state */
+  var tabState = window.sessionStorage.tabState; // console.log( 'tabstate== ', tabState );
+  // Only execute if tabs exist
+
+  if (document.querySelectorAll('#search-tab-js').length > 0) {
+    /* Get secondary tab data values hide if not relevant results -- fixes pgination issue in squiz */
+    $('.tab-secondary').each(function (_indexInArray, sectab) {
+      var $sectab = $(sectab);
+      var fullyMatching = $sectab.data('matching');
+      var currStart = $sectab.data('currstart');
+
+      if (fullyMatching === 0) {
+        $sectab.find('a').click('false');
+      }
+    });
+    var defaultActive = $('.p-search__tabs .active a').data('tab');
+    var tabs = $('.p-search__tab a'); // console.log( defaultActive );
+
+    var $resultSections = $('.search-results'); // console.log( $resultSections );
+
+    /* Sets default vault based on default active tab */
+
+    $resultSections.each(function (index, section) {
+      // element == this
+      var $section = $(section);
+      var sectionData = $section.data('content'); // console.log( $section.data('content' ));
+      // eslint-disable-next-line eqeqeq
+
+      if (sectionData == defaultActive) {
+        // console.log( 'match ' + sectionData, defaultActive );
+        $section.addClass('search-active');
+      } else {
+        $section.addClass('search-inactive');
+      }
+    });
+    /* Tab click */
+
+    tabs.each(function (_index, tab) {
+      // element == this
+      var $tab = $(tab);
+      $tab.on('click', function () {
+        // console.log( $tab );
+        if (!$tab.parent().hasClass('active')) {
+          // not active tab add class and remove from current
+          tabs.parents().removeClass('active');
+          $tab.parent().addClass('active'); // set matching content to show
+          // console.log( $tab.data( 'tab' ));
+          // Match tab with content
+
+          var tabContent = $tab.data('tab');
+          var $resultsContainer = $(".search-results[data-content=\"".concat(tabContent, "\"]")); // console.log( $resultsContainer );
+          // Toggle active state
+
+          $resultSections.removeClass('search-active').addClass('search-inactive');
+          $resultsContainer.toggleClass('search-active').toggleClass('search-inactive');
+          /* Set active tab state */
+
+          tabState = $tab.data('tab');
+          window.sessionStorage.setItem('tabState', tabState); // console.log( tabState );
+          // console.log( 'sessionStorage state == ', window.sessionStorage.tabState );
+        } else {// is active tab
+          }
+      });
+    }); // change state based on session storage tab state
+
+    if (window.sessionStorage.tabState) {
+      // console.log('tabstate exists in local storage');
+      var tabStorage = window.sessionStorage.tabState; // get tabs
+
+      tabs.each(function (index, tab) {
+        var $tab = $(tab);
+        var tabData = $(tab).data('tab'); // match against sessionStorage
+
+        if (tabData === tabState) {
+          // console.log( 'tab should be set to --- ', tabState );
+          // set content state
+          $(".p-search__tab a[data-tab=\"".concat(tabState, "\"]")).trigger('click');
+        }
+      });
+    }
+    /* Filter toggle on mobile */
+
+
+    var TABLET_AND_SMALLER = 'screen and (max-width: 975px)';
+    var isTabletAndBelow = false;
+    enquire_js__WEBPACK_IMPORTED_MODULE_0___default.a.register(TABLET_AND_SMALLER, function () {
+      isTabletAndBelow = true;
+    }); // console.log( isTabletAndBelow );
+
+    if (isTabletAndBelow) {
+      $('.filter-results-title').on('click', function (e) {
+        var $this = $(e); // console.log( $this );
+        // Change caret
+
+        $('.filter-results-title span').toggleClass('icon-caret-down').toggleClass('icon-caret-right'); // show filters
+
+        $('.p-search-filter-group').toggle('medium', function () {});
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external "jQuery"
 var external_jQuery_ = __webpack_require__(0);
@@ -8590,6 +8702,8 @@ trackerConfig({
 
 __webpack_require__(18); // TODO: set up multiple entry points for webpack bundles
 
+
+__webpack_require__(19);
 /* CONSTANT ATTRIBUTES */
 
 

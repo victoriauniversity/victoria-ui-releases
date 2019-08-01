@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #4f7ed98788edf4b65c91cbd4532218082b5f4398 + )  | Monday, July 15, 2019, 1:00 AM */
+/** Version: 0.10.13 (build #85d5daafc6439ba1f0549623c37241536956e53d + )  | Thursday, August 1, 2019, 9:42 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -11702,14 +11702,114 @@ address.contact > img {
   .p-search {
     -webkit-box-pack: justify;
             justify-content: space-between;
-    -webkit-box-orient: horizontal;
+    -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-            flex-direction: row;
+            flex-direction: column;
+    flex-direction: row;
+    -webkit-box-align: start;
+            align-items: start;
   }
 }
 
+.p-search.p-search__grey {
+  background-color: #eee;
+}
+
+.p-search.search-results {
+  width: 100%;
+}
+
+.p-search.search-results.search-active {
+  display: -webkit-box;
+  display: flex;
+}
+
+.p-search.search-results.search-inactive {
+  display: none;
+}
+
+.p-search .animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.p-search .fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.p-search__tabs {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.p-search__tabs .p-search__tab {
+  position: relative;
+  margin-right: 1rem;
+  padding-right: 1rem;
+  font-size: 1.25rem;
+}
+
+.p-search__tabs .p-search__tab:hover, .p-search__tabs .p-search__tab:active, .p-search__tabs .p-search__tab:focus {
+  opacity: .8;
+}
+
+.p-search__tabs .p-search__tab a {
+  color: #424242;
+}
+
+.p-search__tabs .p-search__tab.active a {
+  position: relative;
+  color: #115737;
+  font-weight: 600;
+}
+
+.p-search__tabs .p-search__tab.active a:after {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  content: '';
+  width: 80%;
+  height: 4px;
+  background-color: #115737;
+}
+
+.p-search__tabs .p-search__tab:not(:last-child)::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '|';
+  color: #115737;
+}
+
 .p-search__main {
-  max-width: 100%;
+  -webkit-box-flex: 1;
+          flex: 1 0 100%;
 }
 
 @media (min-width: 61em) {
@@ -11731,22 +11831,74 @@ address.contact > img {
 }
 
 .p-search__aside {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
   padding-bottom: 1.5rem;
+  border-top: 5px solid #AAA;
+}
+
+.p-search__aside .p-search-filter > h3 {
+  display: inline-block;
+  margin-right: 1.5rem;
+  margin-bottom: 0;
+}
+
+.p-search__aside .p-search-filter > h3 span {
+  display: none;
+}
+
+.p-search__aside .p-search-filter .search-filter-remove {
+  position: relative;
+  margin-left: .5rem;
+}
+
+.p-search__aside .p-search-filter .search-filter-remove svg {
+  position: absolute;
+  top: -7px;
+  width: 15px;
+  fill: #005EA5;
+}
+
+.p-search__aside .p-search-filter .p-search-filter-group {
+  margin-top: 1.5rem;
+}
+
+.p-search__aside .p-search-filter .p-search-filter-group ul {
+  padding-left: 0;
+}
+
+.p-search__aside .facet_links {
+  margin-bottom: .8rem;
+}
+
+.p-search__aside .facet_links > a {
+  white-space: normal;
 }
 
 @media (min-width: 61em) {
   .p-search__aside {
     -webkit-box-flex: 1;
             flex-grow: 1;
-    padding-left: 30px;
+    margin-left: 2rem;
     width: 10%;
   }
 }
 
 @media (min-width: 88em) {
   .p-search__aside {
-    padding-left: 0;
     max-width: 350px;
+  }
+}
+
+@media (max-width: 60.99em) {
+  .p-search__aside .p-search-filter > h3 span {
+    display: inline;
+  }
+  .p-search__aside .p-search-filter > a {
+    margin-left: 2rem;
+  }
+  .p-search__aside .p-search-filter-group {
+    display: none;
   }
 }
 

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #b348f79fdb04dc8cc8e5e57bfdb89ca7f76ff48a + )  | Monday, August 5, 2019, 3:32 AM */
+/** Version: 0.10.13 (build #782b7b4ac823fbae267416e6e29fa7e50d674701 + )  | Tuesday, August 13, 2019, 2:42 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -1708,6 +1708,10 @@ a [class^=icon-]::before {
   content: "";
 }
 
+.icon-cross::before {
+  content: "";
+}
+
 /*= ICONS WITH UNUSUAL STYLING ============================================== */
 .icon-arrow-right::before {
   margin-right: 0;
@@ -1999,6 +2003,16 @@ button.danger:hover, button.danger:active, button.danger:focus,
 .button.danger:active,
 .button.danger:focus {
   background: #831212;
+  color: #FFF;
+}
+
+button.danger-hover:hover, button.danger-hover:active, button.danger-hover:focus,
+.button.danger-hover:hover,
+.button.danger-hover:active,
+.button.danger-hover:focus {
+  -webkit-transition: .5s ease-in;
+  transition: .5s ease-in;
+  background: #AF1B1B;
   color: #FFF;
 }
 
@@ -11767,18 +11781,24 @@ address.contact > img {
   font-size: 1.25rem;
 }
 
+.p-search__tabs .p-search__tab a {
+  font-weight: 600;
+  color: #005EA5;
+  text-decoration: underline;
+}
+
 .p-search__tabs .p-search__tab:hover, .p-search__tabs .p-search__tab:active, .p-search__tabs .p-search__tab:focus {
   opacity: .8;
 }
 
-.p-search__tabs .p-search__tab a {
-  color: #424242;
+.p-search__tabs .p-search__tab:hover a, .p-search__tabs .p-search__tab:active a, .p-search__tabs .p-search__tab:focus a {
+  text-decoration: none;
 }
 
 .p-search__tabs .p-search__tab.active a {
   position: relative;
-  color: #115737;
-  font-weight: 600;
+  color: #424242;
+  text-decoration: none;
 }
 
 .p-search__tabs .p-search__tab.active a:after {
@@ -11790,7 +11810,17 @@ address.contact > img {
   content: '';
   width: 80%;
   height: 4px;
-  background-color: #115737;
+  background-color: #424242;
+}
+
+.p-search__tabs .p-search__tab.active:hover, .p-search__tabs .p-search__tab.active:active, .p-search__tabs .p-search__tab.active:focus {
+  opacity: 1;
+}
+
+.p-search__tabs .p-search__tab.disabled-tab a {
+  color: #8B8B8B;
+  text-decoration: none;
+  cursor: not-allowed;
 }
 
 .p-search__tabs .p-search__tab:not(:last-child)::after {
@@ -11798,7 +11828,7 @@ address.contact > img {
   top: 0;
   right: 0;
   content: '|';
-  color: #115737;
+  color: #8B8B8B;
 }
 
 .p-search__main {
@@ -11859,6 +11889,10 @@ address.contact > img {
 
 .p-search__aside .p-search-filter .p-search-filter-group ul {
   padding-left: 0;
+}
+
+.p-search__aside .p-search-filter .tag:hover span.icon-check::before, .p-search__aside .p-search-filter .tag:active span.icon-check::before, .p-search__aside .p-search-filter .tag:focus span.icon-check::before {
+  content: "";
 }
 
 .p-search__aside .facet_links {

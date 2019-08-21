@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #782b7b4ac823fbae267416e6e29fa7e50d674701 + )  | Tuesday, August 13, 2019, 2:42 AM */
+/** Version: 0.10.13 (build #ece742aed2b8ad99ea66620fc96d5141e07d8f06 + )  | Wednesday, August 21, 2019, 9:24 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -1923,6 +1923,10 @@ button,
   font-weight: 600;
   line-height: 1.6;
   border-radius: 0.125rem;
+  cursor: pointer;
+  border: 0;
+  -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out;
   color: #424242;
   background-color: #DDD;
 }
@@ -2010,8 +2014,6 @@ button.danger-hover:hover, button.danger-hover:active, button.danger-hover:focus
 .button.danger-hover:hover,
 .button.danger-hover:active,
 .button.danger-hover:focus {
-  -webkit-transition: .5s ease-in;
-  transition: .5s ease-in;
   background: #AF1B1B;
   color: #FFF;
 }
@@ -2080,6 +2082,11 @@ button:not(.flat):not(.no-icon)::after,
 button:not(.flat):not(.no-icon)::after,
 .button:not(.flat):not(.no-icon)::after {
   display: inline;
+}
+
+button.muted,
+.button.muted {
+  color: #8B8B8B;
 }
 
 input.button {
@@ -3173,6 +3180,35 @@ ul.meta--labelled .meta__item:last-child {
   margin-right: 0.125em;
   margin-left: 0.3125em;
   font-weight: 700;
+}
+
+/*============================================================================*\
+| ICON BUTTONS
+\*============================================================================*/
+.icon-button {
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 100%;
+}
+
+.icon-button.small {
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+}
+
+.icon-button.medium {
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+}
+
+.icon-button.large {
+  padding: 12px;
+  width: 56px;
+  height: 56px;
 }
 
 /*= OBJECTS (ATOMS SPECIFIED BY CLASS) ============*/

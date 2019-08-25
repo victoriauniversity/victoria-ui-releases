@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #ece742aed2b8ad99ea66620fc96d5141e07d8f06 + )  | Wednesday, August 21, 2019, 9:24 PM */
+/** Version: 0.10.13 (build #8b892ef9b71a838517ea4a5cbd068c53f041ed00 + )  | Sunday, August 25, 2019, 9:54 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -3866,6 +3866,55 @@ aside .list.publications li {
 
 .form.course-search-bar input[type=text] {
   width: 80%;
+}
+
+.form-flex {
+  padding: 1.5rem 1.5rem;
+  background-color: #EEE;
+}
+
+.form-flex .group {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  margin-bottom: .5em;
+  width: 100%;
+}
+
+.form-flex .full-width {
+  width: 100%;
+}
+
+.form-flex .field,
+.form-flex input:not([type=submit]),
+.form-flex textarea {
+  padding: .4rem .6rem;
+  border: 2px solid #CCC;
+}
+
+.form-flex .field.error,
+.form-flex input:not([type=submit]).error,
+.form-flex textarea.error {
+  border: 2px solid #AF1B1B;
+  background-color: #ECCDCD;
+}
+
+.form-flex .field:focus,
+.form-flex input:not([type=submit]):focus,
+.form-flex textarea:focus {
+  outline: none;
+  border: 2px solid #3363B3;
+}
+
+@media (min-width: 61em) {
+  .form-flex .field.field__input--wide,
+  .form-flex input:not([type=submit]).field__input--wide,
+  .form-flex textarea.field__input--wide {
+    width: 300px;
+  }
 }
 
 .group--vspace {

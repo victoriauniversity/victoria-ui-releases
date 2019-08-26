@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #8b892ef9b71a838517ea4a5cbd068c53f041ed00 + )  | Sunday, August 25, 2019, 9:54 PM */
+/** Version: 0.10.13 (build #1afaa8ea42140ea0c5894395c9a5c46ffab5a61e + )  | Monday, August 26, 2019, 3:19 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -3102,7 +3102,7 @@ ul.meta .highlight [class^=icon-]::before {
   margin-right: .35em;
 }
 
-ul.meta .highlight > a {
+ul.meta .highlight > a, ul.meta .highlight > span {
   display: block;
   padding: .2rem .5rem;
   background-color: #edd0d0;

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #62fc80ed6657c2a9d7eed151d46cb937167f1ef2 + )  | Wednesday, September 4, 2019, 11:14 PM */
+/** Version: 0.10.13 (build #804fd088ddc9f22f83f0ea5dd96cb9a9fa0288c3 + )  | Sunday, September 8, 2019, 9:12 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -3122,28 +3122,28 @@ ul.meta .highlight > a:hover, ul.meta .highlight > a:active, ul.meta .highlight 
   text-decoration: underline;
 }
 
-.meta__item {
+.meta-item {
   display: inline-block;
 }
 
-ul.meta--labelled .meta__item {
+ul.meta--labelled .meta-item {
   margin-right: 3rem;
   margin-bottom: 25px;
   padding: 0;
 }
 
-ul.meta--labelled .meta__item:last-child {
+ul.meta--labelled .meta-item:last-child {
   margin-bottom: 0;
 }
 
 @media (max-width: 60.99em) {
-  ul.meta--labelled .meta__item {
+  ul.meta--labelled .meta-item {
     display: block;
   }
 }
 
 @media (min-width: 61em) {
-  ul.meta--grid .meta__item {
+  ul.meta--grid .meta-item {
     margin-right: 0;
     padding-right: 15px;
     width: 24%;
@@ -3151,29 +3151,29 @@ ul.meta--labelled .meta__item:last-child {
   }
 }
 
-.meta__label {
-  color: #64A659;
+.meta-label {
+  color: #8B8B8B;
 }
 
 @media (max-width: 42.99em) {
-  .meta__label {
+  .meta-label {
     position: relative;
     top: 5px;
     float: left;
   }
 }
 
-.meta--labelled .meta__label {
+.meta--labelled .meta-label {
   margin-bottom: 0;
 }
 
 @media (max-width: 42.99em) {
-  .meta__labelText {
+  .meta-labelText {
     display: none;
   }
 }
 
-.meta__data {
+.meta-data {
   font-size: 1.22rem;
 }
 
@@ -11333,6 +11333,7 @@ address.contact > img {
 .c-stack-code {
   color: #000;
   font-family: "Helvetica Neue", "Segoe WP", "Helvetica", "Arial";
+  word-break: break-all;
 }
 
 @media (min-width: 43em) {
@@ -11426,7 +11427,7 @@ address.contact > img {
   padding-bottom: 0.25rem;
   border-top: 0.25rem solid #115737;
   margin-top: 0.75rem;
-  border-color: #64A659;
+  border-color: #115737;
 }
 
 .c-stack-link {

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #802a0cd4a458b71d0c3af58ad4b44a0549d1d470 + )  | Tuesday, September 10, 2019, 8:01 PM */
+/** Version: 0.10.13 (build #b31f3def31b8797ac3d44c72cc9025be89a2622e + )  | Sunday, September 15, 2019, 11:27 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -11324,8 +11324,8 @@ address.contact > img {
 
 @media (min-width: 43em) {
   .c-stack-fig--panel {
-    max-width: 145px;
-    min-width: 141px;
+    max-width: 160px;
+    min-width: 160px;
     border-right: 1px solid #EEE;
   }
 }
@@ -11334,6 +11334,7 @@ address.contact > img {
   color: #000;
   font-family: "Helvetica Neue", "Segoe WP", "Helvetica", "Arial";
   word-break: break-all;
+  font-size: 1.3rem;
 }
 
 @media (min-width: 43em) {
@@ -11344,7 +11345,7 @@ address.contact > img {
 
 .c-stack-figcaption {
   margin-top: 0.75rem;
-  font-size: 85%;
+  font-size: 92.5%;
 }
 
 @media (min-width: 43em) {
@@ -11805,7 +11806,6 @@ address.contact > img {
 .p-search {
   display: -webkit-box;
   display: flex;
-  flex-wrap: wrap;
   -webkit-box-orient: vertical;
   -webkit-box-direction: reverse;
           flex-direction: column-reverse;
@@ -11813,14 +11813,14 @@ address.contact > img {
 
 @media (min-width: 61em) {
   .p-search {
-    -webkit-box-pack: justify;
-            justify-content: space-between;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-            flex-direction: column;
-    flex-direction: row;
     -webkit-box-align: start;
             align-items: start;
+    -webkit-box-pack: justify;
+            justify-content: space-between;
+    flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
   }
 }
 

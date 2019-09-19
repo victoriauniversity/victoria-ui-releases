@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #f018f800d4c685880ed5d13a1e344643129c785b + )  | Tuesday, September 17, 2019, 9:49 PM */
+/** Version: 0.10.13 (build #1aa2d9739507278cff23c83ab13c9b218f954564 + )  | Thursday, September 19, 2019, 10:15 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -2090,8 +2090,8 @@ button:not(.flat):not(.no-icon)::after,
   display: inline;
 }
 
-button.muted,
-.button.muted {
+button.muted:not(.primary),
+.button.muted:not(.primary) {
   color: #8B8B8B;
 }
 
@@ -3879,6 +3879,18 @@ aside .list.publications li {
   background-color: #EEE;
 }
 
+.form-flex fieldset {
+  margin: 2rem 0;
+  padding: 2rem 1rem;
+  border: 1px solid #CCC;
+}
+
+.form-flex legend {
+  padding: .2rem .5rem;
+  color: #424242;
+  border: 1px solid #CCC;
+}
+
 .form-flex .group {
   display: -webkit-box;
   display: flex;
@@ -3888,10 +3900,11 @@ aside .list.publications li {
           justify-content: flex-start;
   margin-bottom: .5em;
   width: 100%;
+  flex-wrap: wrap;
 }
 
-.form-flex .full-width {
-  width: 100%;
+.form-flex .group .error-text {
+  color: #AF1B1B;
 }
 
 .form-flex .field,
@@ -3915,12 +3928,40 @@ aside .list.publications li {
   border: 2px solid #3363B3;
 }
 
-@media (min-width: 61em) {
-  .form-flex .field.field__input--wide,
-  .form-flex input:not([type=submit]).field__input--wide,
-  .form-flex textarea.field__input--wide {
-    width: 300px;
-  }
+.form-flex .field:disabled,
+.form-flex input:not([type=submit]):disabled,
+.form-flex textarea:disabled {
+  color: #AAA;
+  background-color: #DDD;
+}
+
+.form-flex .field + .icon-button,
+.form-flex input:not([type=submit]) + .icon-button,
+.form-flex input:not([type=submit]) + label + .icon-button,
+.form-flex textarea + .icon-button {
+  margin-left: 1rem;
+}
+
+.form-flex .field,
+.form-flex input:not([type=submit]):not([type="checkbox"]),
+.form-flex textarea {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+}
+
+.form-flex input[type="checkbox"] + label {
+  margin-left: 1rem;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+}
+
+.form-flex input:disabled {
+  color: rgba(0, 0, 0, 0.247);
+  background-color: #dadada;
+}
+
+.form-flex .error-text {
+  width: 100%;
 }
 
 .group--vspace {
@@ -11261,6 +11302,12 @@ address.contact > img {
   clear: both;
   display: table;
   content: '';
+}
+
+.c-stack.sticky {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 1rem;
 }
 
 @media (min-width: 43em) {

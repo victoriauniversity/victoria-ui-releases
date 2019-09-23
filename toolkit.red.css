@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #2d3f6584a707031a2e329a034e626e8adf11d3d2 + )  | Friday, September 20, 2019, 3:20 AM */
+/** Version: 0.10.13 (build #0343c81e7b2864730cebfda12a96ed987954ca5f + )  | Monday, September 23, 2019, 11:08 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -3251,7 +3251,7 @@ ul.meta--labelled .meta-item:last-child {
           flex: 0 0 23%;
 }
 
-@media (max-width: 87.99em) {
+@media (max-width: 60.99em) {
   .flash-message.info-row {
     flex-wrap: wrap;
   }
@@ -3280,6 +3280,26 @@ ul.meta--labelled .meta-item:last-child {
 .flash-message.info-row .info-col h5 {
   margin-bottom: 0.3125rem;
   color: inherit;
+}
+
+.content-panel > main .flash-message.info-row {
+  flex-wrap: wrap;
+}
+
+.content-panel > main .flash-message.info-row > *:first-child {
+  flex-basis: 100%;
+  margin-bottom: .5em;
+}
+
+.content-panel > main .flash-message.info-row > *:not(:first-child) {
+  flex-basis: 31%;
+}
+
+@media (max-width: 42.99em) {
+  .content-panel > main .flash-message.info-row > *:not(:first-child) {
+    flex-basis: 100%;
+    margin-bottom: .5em;
+  }
 }
 
 /* ===== PAGINATION =================================================== */

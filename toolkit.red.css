@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #0343c81e7b2864730cebfda12a96ed987954ca5f + )  | Monday, September 23, 2019, 11:08 PM */
+/** Version: 0.10.13 (build #96d37bc9e11f514a73be78c08884b29f10d91798 + )  | Tuesday, September 24, 2019, 3:27 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -3271,9 +3271,11 @@ ul.meta--labelled .meta-item:last-child {
   }
 }
 
-.flash-message.info-row .info-col {
-  padding-bottom: 0.5rem;
-  border-bottom: 0.0625rem solid #555;
+@media (max-width: 42.99em) {
+  .flash-message.info-row .info-col {
+    padding-bottom: 0.5rem;
+    border-bottom: 0.0625rem solid #255C79;
+  }
 }
 
 .flash-message.info-row .info-col h4,

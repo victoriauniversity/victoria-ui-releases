@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #96d37bc9e11f514a73be78c08884b29f10d91798 + )  | Tuesday, September 24, 2019, 3:27 AM */
+/** Version: 0.10.13 (build #bc2f2204c5d185da60e52690f7baebb7d5c519ed + )  | Wednesday, September 25, 2019, 10:40 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -8437,6 +8437,81 @@ address.contact > img {
 
 .footer-secondary.two-columns ul:last-child {
   margin-bottom: 0;
+}
+
+.footer-secondary.two-columns.footer-connect h4 {
+  margin-bottom: .5rem;
+  color: #424242;
+}
+
+.footer-secondary.two-columns.footer-connect .centraliser {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.footer-secondary.two-columns.footer-connect .social {
+  text-align: center;
+}
+
+.footer-secondary.two-columns.footer-connect .social .social-icon img,
+.footer-secondary.two-columns.footer-connect .social .social-icon svg {
+  margin-right: .5rem;
+  height: 3rem;
+  width: 3rem;
+  fill: #424242;
+  padding: .5rem;
+}
+
+.footer-secondary.two-columns.footer-connect .social .social-icon img:hover, .footer-secondary.two-columns.footer-connect .social .social-icon img:active, .footer-secondary.two-columns.footer-connect .social .social-icon img:focus,
+.footer-secondary.two-columns.footer-connect .social .social-icon svg:hover,
+.footer-secondary.two-columns.footer-connect .social .social-icon svg:active,
+.footer-secondary.two-columns.footer-connect .social .social-icon svg:focus {
+  background-color: #eee;
+  border-radius: 12px;
+}
+
+.footer-secondary.two-columns.footer-connect nav a {
+  color: #005EA5;
+}
+
+.footer-secondary.two-columns.footer-connect nav ul {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer-secondary.two-columns.footer-connect nav ul li {
+  margin-right: 1.5rem;
+  width: auto;
+}
+
+@media (max-width: 42.99em) {
+  .footer-secondary.two-columns.footer-connect .centraliser {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+}
+
+.footer-secondary.footer-apply {
+  background-color: #EEE;
+  border-top: solid 1px #ddd;
+}
+
+.footer-secondary.footer-apply .flex-center {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.footer-secondary.footer-apply .flex-center h3 {
+  margin-right: 2rem;
+  color: #424242;
 }
 
 @media (min-width: 43em) {

@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #14ad8fb78adc549d1c96edaaa5918dfe999a26b8 + )  | Monday, September 30, 2019, 1:41 AM */
+/** Version: 0.10.13 (build #a6d4d66023fd10cc02915d6237d41e24b7e2b317 + )  | Monday, September 30, 2019, 10:41 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -2831,7 +2831,7 @@ blockquote.quote {
   flex-basis: 25%;
   -webkit-box-flex: 1;
           flex-grow: 1;
-  min-width: 160px;
+  min-width: 200px;
   text-align: center;
   color: #555;
 }
@@ -2885,7 +2885,45 @@ blockquote.quote {
 }
 
 .quote-flex.inlinequote {
-  border-left: 4px solid #D1E0DA;
+  border-left: 0.25rem solid #D1E0DA;
+}
+
+@media (min-width: 43em) {
+  .centraliser + .block > .quote-flex:not(.text-right) .quote-author {
+    text-align: left;
+  }
+  .centraliser + .block > .quote-flex:not(.text-right) .quote-text {
+    text-align: right;
+  }
+}
+
+@media (min-width: 43em) {
+  .centraliser + .block > .quote-flex:not(.text-right) .quote-author {
+    padding-left: 2rem;
+  }
+  .centraliser + .block > .quote-flex:not(.text-right) .quote-text {
+    padding-right: 2rem;
+    border-right: 4px solid #D1E0DA;
+  }
+}
+
+@media (min-width: 43em) {
+  .centraliser + .block > .quote-flex.text-right .quote-author {
+    text-align: right;
+  }
+  .centraliser + .block > .quote-flex.text-right .quote-text {
+    text-align: left;
+  }
+}
+
+@media (min-width: 43em) {
+  .centraliser + .block > .quote-flex.text-right .quote-author {
+    padding-right: 2rem;
+  }
+  .centraliser + .block > .quote-flex.text-right .quote-text {
+    padding-left: 2rem;
+    border-left: 0.25rem solid #D1E0DA;
+  }
 }
 
 /*============================================================================*\

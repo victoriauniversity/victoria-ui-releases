@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #bc2f2204c5d185da60e52690f7baebb7d5c519ed + )  | Wednesday, September 25, 2019, 10:40 PM */
+/** Version: 0.10.13 (build #14ad8fb78adc549d1c96edaaa5918dfe999a26b8 + )  | Monday, September 30, 2019, 1:41 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -2815,6 +2815,85 @@ blockquote.quote {
   .quote-panel.quote-image.quote-white .quote .quote-content {
     width: 100%;
   }
+}
+
+.formatting .quote-flex h1, .formatting .quote-flex h2, .formatting .quote-flex h3, .formatting .quote-flex h4, .formatting .quote-flex h5, .formatting .quote-flex h6,
+.formatting .quote-flex p,
+.formatting .quote-flex .button {
+  margin: 0;
+}
+
+.quote-flex {
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.quote-flex .quote-author,
+.quote-flex .quote-text {
+  padding: 1rem;
+}
+
+.quote-flex .quote-author {
+  flex-basis: 25%;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  min-width: 160px;
+  text-align: center;
+  color: #555;
+}
+
+.quote-flex .quote-author .quote-author-image {
+  margin-bottom: 1.25rem;
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.quote-flex .quote-author .quote-author-title {
+  margin-bottom: .25rem;
+}
+
+.quote-flex .quote-author .button {
+  margin-top: 1rem;
+}
+
+.quote-flex .quote-text {
+  flex-basis: 75%;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  align-self: center;
+}
+
+.quote-flex.text-right {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+          flex-direction: row-reverse;
+}
+
+.quote-flex.full .quote-author,
+.quote-flex.full .quote-text, .quote-flex.inlinequote .quote-author,
+.quote-flex.inlinequote .quote-text {
+  flex-basis: 100%;
+}
+
+.quote-flex.full .quote-author, .quote-flex.inlinequote .quote-author {
+  text-align: left;
+}
+
+.quote-flex.full .quote-author .quote-author-title::before, .quote-flex.inlinequote .quote-author .quote-author-title::before {
+  display: inline-block;
+  content: '—';
+  margin-right: .5rem;
+}
+
+.quote-flex.full .quote-text, .quote-flex.inlinequote .quote-text {
+  font-size: 1.22rem;
+}
+
+.quote-flex.inlinequote {
+  border-left: 4px solid #D1E0DA;
 }
 
 /*============================================================================*\

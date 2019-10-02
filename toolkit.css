@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #a6d4d66023fd10cc02915d6237d41e24b7e2b317 + )  | Monday, September 30, 2019, 10:41 PM */
+/** Version: 0.10.13 (build #ff03cc00795300ba6d3fd713a83f088f1e5d77e8 + )  | Wednesday, October 2, 2019, 11:47 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -3340,6 +3340,269 @@ ul.meta--labelled .meta-item:last-child {
   padding: 12px;
   width: 56px;
   height: 56px;
+}
+
+/*============================================================================*\
+| Toggles
+\*============================================================================*/
+.international-toggle h4 {
+  color: #424242;
+}
+
+.international-toggle .can-toggle {
+  position: relative;
+  padding: 1rem 3rem;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+}
+
+.international-toggle .can-toggle * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.international-toggle .can-toggle *:before, .international-toggle .can-toggle *:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.international-toggle .can-toggle input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.international-toggle .can-toggle input[type="checkbox"][disabled] ~ label {
+  pointer-events: none;
+}
+
+.international-toggle .can-toggle input[type="checkbox"][disabled] ~ label .can-toggle__switch {
+  opacity: 0.4;
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:before {
+  content: attr(data-unchecked);
+  left: 0;
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  content: attr(data-checked);
+}
+
+.international-toggle .can-toggle label {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  width: 250px;
+}
+
+.international-toggle .can-toggle label .can-toggle__label-text {
+  /* padding-left: 32px;
+        padding-right: 32px; */
+  padding: 0 2rem;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch {
+  position: relative;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch:before {
+  content: attr(data-checked);
+  position: absolute;
+  top: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch:after {
+  content: attr(data-unchecked);
+  position: absolute;
+  z-index: 5;
+  text-transform: uppercase;
+  text-align: center;
+  background: #005EA5;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.international-toggle .can-toggle input[type="checkbox"][disabled] ~ label {
+  color: rgba(119, 119, 119, 0.5);
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch, .international-toggle .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch {
+  /* background-color: #777; */
+  cursor: pointer;
+  outline: 1px dotted #212121;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after {
+  /* color: #5e5e5e; */
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:hover ~ label {
+  color: #6a6a6a;
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+  /* color: #5e5e5e; */
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked ~ label:hover {
+  /* color: rgba(0, 93, 165, 0.7); */
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch {
+  /* background-color: rgba(0, 93, 165, 0.7); */
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  /* color: rgba(0, 93, 165, 0.7); */
+  left: 0;
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch, .international-toggle .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch {
+  /* background-color: rgba(0, 93, 165, 0.7); */
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .international-toggle .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
+  /* color: rgba(0, 93, 165, 0.7); */
+  cursor: pointer;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch {
+  -webkit-transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
+  background: #ddd;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch:before {
+  color: #424242;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch:after {
+  transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1), -webkit-transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+  color: #fff;
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .international-toggle .can-toggle input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(65px, 0, 0);
+  transform: translate3d(65px, 0, 0);
+}
+
+.international-toggle .can-toggle input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .international-toggle .can-toggle input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.international-toggle .can-toggle label {
+  font-size: 14px;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch {
+  height: 36px;
+  -webkit-box-flex: 0;
+          flex: 0 0 134px;
+  border-radius: 4px;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch:before {
+  left: 67px;
+  font-size: 12px;
+  line-height: 36px;
+  width: 67px;
+  padding: 0 12px;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch:after {
+  top: 2px;
+  left: 2px;
+  border-radius: 2px;
+  width: 65px;
+  line-height: 32px;
+  font-size: 12px;
+}
+
+.international-toggle .can-toggle label .can-toggle__switch:hover:after {
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.international-toggle .can-toggle.can-toggle--size-small input[type="checkbox"]:focus ~ label .can-toggle__switch:after, .international-toggle .can-toggle.can-toggle--size-small input[type="checkbox"]:hover ~ label .can-toggle__switch:after {
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.international-toggle .can-toggle.can-toggle--size-small input[type="checkbox"]:checked ~ label .can-toggle__switch:after {
+  -webkit-transform: translate3d(44px, 0, 0);
+  transform: translate3d(44px, 0, 0);
+}
+
+.international-toggle .can-toggle.can-toggle--size-small input[type="checkbox"]:checked:focus ~ label .can-toggle__switch:after, .international-toggle .can-toggle.can-toggle--size-small input[type="checkbox"]:checked:hover ~ label .can-toggle__switch:after {
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+.international-toggle .can-toggle.can-toggle--size-small label {
+  font-size: 13px;
+}
+
+.international-toggle .can-toggle.can-toggle--size-small label .can-toggle__switch {
+  height: 30px;
+  -webkit-box-flex: 0;
+          flex: 0 0 90px;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.international-toggle .can-toggle.can-toggle--size-small label .can-toggle__switch:before {
+  left: 45px;
+  font-size: 12px;
+  line-height: 28px;
+  width: 45px;
+  padding: 0 12px;
+  top: 2px;
+}
+
+.international-toggle .can-toggle.can-toggle--size-small label .can-toggle__switch:after {
+  top: 2px;
+  left: 2px;
+  border-radius: 1px;
+  width: 44px;
+  line-height: 26px;
+  font-size: 12px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.international-toggle .can-toggle.can-toggle--size-small label .can-toggle__switch:hover:after {
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
 }
 
 /*= OBJECTS (ATOMS SPECIFIED BY CLASS) ============*/
@@ -11679,6 +11942,18 @@ address.contact > img {
 @media (max-width: 42.99em) {
   .c-stack-profile .c-stack-body {
     margin-left: calc( 26% + 22px);
+  }
+}
+
+@media (min-width: 43em) {
+  .c-stack-body .meta {
+    display: -webkit-box;
+    display: flex;
+  }
+  .c-stack-body .meta .meta-item {
+    -webkit-box-flex: 1;
+            flex: 1;
+    margin-right: 1.5rem;
   }
 }
 

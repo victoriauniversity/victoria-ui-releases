@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #be8d6c1c2ae8256984660a411cb170325463f41d + )  | Friday, October 11, 2019, 3:20 AM */
+/** Version: 0.10.13 (build #c1b0d51997227fd5cea85e8095a77ac218f031a9 + )  | Monday, October 14, 2019, 3:46 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -3614,8 +3614,6 @@ ul.meta--labelled .meta-item:last-child {
 .flash-message.info-row {
   display: -webkit-box;
   display: flex;
-  -webkit-box-align: center;
-          align-items: center;
   -webkit-box-pack: justify;
           justify-content: space-between;
   padding: 2em 1.2em;
@@ -12157,6 +12155,72 @@ address.contact > img {
 
 .tooltip-popup {
   cursor: pointer;
+}
+
+.accordion {
+  display: grid;
+  padding: 1px;
+  grid-row-gap: 1px;
+  background-color: #DDD;
+}
+
+.accordion details {
+  /* Fallback for IE11 */
+  list-style-type: none !important;
+}
+
+.accordion .accordion details[open] .block * {
+  -webkit-animation: fade .5s ease-in;
+          animation: fade .5s ease-in;
+}
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.accordion .accordion-title {
+  padding: .5rem 1rem;
+  background-color: #EEE;
+  color: #424242;
+  color: #424242;
+  cursor: pointer;
+  font-size: 1.15rem;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .accordion .accordion-title {
+    cursor: auto;
+  }
+}
+
+.accordion .accordion-title:hover,
+.accordion .accordion-title:focus {
+  background-color: #DDD;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .accordion .accordion-title:hover,
+  .accordion .accordion-title:focus {
+    background-color: #EEE;
+  }
+}
+
+.accordion .block {
+  background-color: #FFF;
 }
 
 /* Container Templates

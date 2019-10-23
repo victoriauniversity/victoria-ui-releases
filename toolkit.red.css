@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #c2ad2035aa09028d325d75eae079668f2021ee4a + )  | Wednesday, October 16, 2019, 12:25 AM */
+/** Version: 0.10.13 (build #c670d83f42ce872d0087ca95a6cba43973c3c4c5 + )  | Wednesday, October 23, 2019, 3:52 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -240,9 +240,9 @@
 | PROJECT-ONLY 3RD PARTY IMPORTS
 \*============================================================================*/
 /*= PLAIN CSS ================================================================*/
-/*! Lity - v2.3.1 - 2018-04-20
+/*! Lity - v2.4.0 - 2019-08-10
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2018 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2019 Jan Sorgalla; Licensed MIT */
 .lity {
   z-index: 9990;
   position: fixed;
@@ -12159,6 +12159,24 @@ address.contact > img {
   cursor: pointer;
 }
 
+@-webkit-keyframes accordion-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .accordion {
   display: grid;
   padding: 1px;
@@ -12171,33 +12189,14 @@ address.contact > img {
   list-style-type: none !important;
 }
 
-.accordion .accordion details[open] .block * {
-  -webkit-animation: fade .5s ease-in;
-          animation: fade .5s ease-in;
-}
-
-@-webkit-keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.accordion details[open] .block * {
+  -webkit-animation: accordion-fade .5s ease-in;
+          animation: accordion-fade .5s ease-in;
 }
 
 .accordion .accordion-title {
   padding: .5rem 1rem;
   background-color: #EEE;
-  color: #424242;
   color: #424242;
   cursor: pointer;
   font-size: 1.15rem;
@@ -12222,6 +12221,70 @@ address.contact > img {
 }
 
 .accordion .block {
+  background-color: #FFF;
+}
+
+.accordion-header details {
+  /* Fallback for IE11 */
+  list-style-type: none !important;
+}
+
+.accordion-header details[open] .block * {
+  -webkit-animation: accordion-fade .5s ease-in;
+          animation: accordion-fade .5s ease-in;
+}
+
+.accordion-header .accordion-title::marker {
+  content: ' ';
+  font-family: 'VicIcons';
+  color: #005EA5;
+}
+
+.accordion-header details[open] .accordion-title::marker {
+  content: ' ';
+}
+
+.accordion-header .accordion-title:hover::marker,
+.accordion-header .accordion-title:focus::marker {
+  color: #2B8CC4;
+}
+
+.accordion-header .accordion-title {
+  padding: .5rem 1rem;
+  font-size: 1.728em;
+  font-weight: 600;
+  color: #005EA5;
+  cursor: pointer;
+}
+
+.accordion-header .accordion-title h1,
+.accordion-header .accordion-title h2,
+.accordion-header .accordion-title h3,
+.accordion-header .accordion-title h4,
+.accordion-header .accordion-title h5,
+.accordion-header .accordion-title h6 {
+  display: inline-block;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .accordion-header .accordion-title {
+    cursor: auto;
+  }
+}
+
+.accordion-header .accordion-title:hover,
+.accordion-header .accordion-title:focus {
+  color: #2B8CC4;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .accordion-header .accordion-title:hover,
+  .accordion-header .accordion-title:focus {
+    color: #005EA5;
+  }
+}
+
+.accordion-header .block {
   background-color: #FFF;
 }
 
@@ -13079,8 +13142,19 @@ address.contact > img {
   color: #8B8B8B;
 }
 
-.dialog .filter > label::-moz-placeholder,
-.dialog .filter input[type=search]::-moz-placeholder {
+.dialog .filter > label::-webkit-input-placeholder, .dialog .filter input[type=search]::-webkit-input-placeholder {
+  color: #8B8B8B;
+}
+
+.dialog .filter > label::-moz-placeholder, .dialog .filter input[type=search]::-moz-placeholder {
+  color: #8B8B8B;
+}
+
+.dialog .filter > label:-ms-input-placeholder, .dialog .filter input[type=search]:-ms-input-placeholder {
+  color: #8B8B8B;
+}
+
+.dialog .filter > label::-ms-input-placeholder, .dialog .filter input[type=search]::-ms-input-placeholder {
   color: #8B8B8B;
 }
 

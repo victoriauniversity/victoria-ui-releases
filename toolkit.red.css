@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #d71afb883b722aa08cbe13f422641e412c582917 + )  | Wednesday, October 23, 2019, 9:36 PM */
+/** Version: 0.10.13 (build #6905b042a2c56151feaab4fd3daced3630e600f5 + )  | Thursday, October 24, 2019, 1:30 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -240,9 +240,9 @@
 | PROJECT-ONLY 3RD PARTY IMPORTS
 \*============================================================================*/
 /*= PLAIN CSS ================================================================*/
-/*! Lity - v2.4.0 - 2019-08-10
+/*! Lity - v2.3.1 - 2018-04-20
 * http://sorgalla.com/lity/
-* Copyright (c) 2015-2019 Jan Sorgalla; Licensed MIT */
+* Copyright (c) 2015-2018 Jan Sorgalla; Licensed MIT */
 .lity {
   z-index: 9990;
   position: fixed;
@@ -13136,19 +13136,8 @@ address.contact > img {
   color: #8B8B8B;
 }
 
-.dialog .filter > label::-webkit-input-placeholder, .dialog .filter input[type=search]::-webkit-input-placeholder {
-  color: #8B8B8B;
-}
-
-.dialog .filter > label::-moz-placeholder, .dialog .filter input[type=search]::-moz-placeholder {
-  color: #8B8B8B;
-}
-
-.dialog .filter > label:-ms-input-placeholder, .dialog .filter input[type=search]:-ms-input-placeholder {
-  color: #8B8B8B;
-}
-
-.dialog .filter > label::-ms-input-placeholder, .dialog .filter input[type=search]::-ms-input-placeholder {
+.dialog .filter > label::-moz-placeholder,
+.dialog .filter input[type=search]::-moz-placeholder {
   color: #8B8B8B;
 }
 

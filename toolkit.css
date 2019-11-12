@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #d7a9904cf36a4aca16e238f58d62c9c6affafa6c + )  | Tuesday, November 12, 2019, 2:45 AM */
+/** Version: 0.10.13 (build #42128e2dbd69ac6e01a71b5e9ff810e4de90038e + )  | Tuesday, November 12, 2019, 11:54 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -12494,7 +12494,7 @@ address.contact > img {
   display: flex;
 }
 
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+@media all and (max-width: 42.99em) and (-ms-high-contrast: none), (max-width: 42.99em) and (-ms-high-contrast: active) {
   .p-search.search-results.search-active {
     display: block !important;
   }

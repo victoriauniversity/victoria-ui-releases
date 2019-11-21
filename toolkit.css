@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #42128e2dbd69ac6e01a71b5e9ff810e4de90038e + )  | Tuesday, November 12, 2019, 11:54 PM */
+/** Version: 0.10.13 (build #31f8e0348feda1db41296558790940e3ebfb83ca + )  | Thursday, November 21, 2019, 9:14 PM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -4392,7 +4392,8 @@ aside .list.publications li {
 .form-flex .field + .icon-button,
 .form-flex input:not([type=submit]) + .icon-button,
 .form-flex input:not([type=submit]) + label + .icon-button,
-.form-flex textarea + .icon-button {
+.form-flex textarea + .icon-button,
+.form-flex .select + .icon-button {
   margin-left: 1rem;
 }
 

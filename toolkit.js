@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #d37ef940749fb74fe23a02a4640bb4ecd39669fe + )  | Monday, November 25, 2019, 10:50 PM */
+/** Version: 0.10.13 (build #3c8ce9061f2029445c27afa61e5a42646d002320 + )  | Wednesday, November 27, 2019, 9:23 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -8822,8 +8822,8 @@ function enhanceSidemenu(menuElement) {
 
 
 var ENV_HOSTNAME = {
-  STAGE: 'cms.victoria.ac.nz',
-  PROD: 'www.victoria.ac.nz',
+  STAGE: 'cms.wgtn.ac.nz',
+  PROD: 'www.wgtn.ac.nz',
   LOCAL: 'local.wgtn.ac.nz'
 }; //FIXME: Should be automatically pre-populated from the build/build.config.js
 

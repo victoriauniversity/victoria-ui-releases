@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #76440af08603353034b7b3789bb80f1950020aa4 + )  | Friday, December 13, 2019, 3:15 AM */
+/** Version: 0.10.13 | Wednesday, January 8, 2020, 3:31 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -9336,12 +9336,20 @@ external_jQuery_default()(function () {
       return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
     };
 
-    ;
-    var grad = window.URLSearchParams ? new URLSearchParams(window.location.search).get('grad') : getUrlParameter('grad');
+    var handleSwitchInputClick = function handleSwitchInputClick(event) {
+      window.history.replaceState({}, '', window.location.pathname + '?grad=' + event.target.id);
+    };
+
+    var grad = 'URLSearchParams' in window ? new URLSearchParams(window.location.search).get('grad') : getUrlParameter('grad');
 
     if (grad === 'postgraduate' || grad === 'undergraduate') {
       external_jQuery_default()('#' + grad).click();
     }
+
+    var tabs = external_jQuery_default()('#study-area-tabs .switch-input');
+    tabs.each(function () {
+      this.addEventListener('click', handleSwitchInputClick);
+    });
   }
   /** DOM manipulation */
 

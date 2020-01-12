@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #8e3718f45669117a72ec39633d05d34e943ab537 + )  | Wednesday, January 8, 2020, 2:44 AM */
+/** Version: 0.10.13 | Monday, January 13, 2020, 10:46 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | RE-USABLE SCSS - VARIABLES, MIXINS AND FUNCTIONS
@@ -2973,6 +2973,7 @@ blockquote.quote {
 \*============================================================================*/
 /*= FLASH MESSAGES ===========================================================*/
 .flash-message {
+  margin-top: 1.3rem;
   margin-bottom: 1.3rem;
   padding: 1.25rem;
   color: #FFF;

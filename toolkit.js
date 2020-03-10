@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #00ec046cd24bf782ee81844f9868f1415a317ab8 + )  | Sunday, January 12, 2020, 11:23 PM */
+/** Version: 0.10.13 (build #2d691b8ffaa085012fe1ea14a6e33a3befc41df2 + )  | Tuesday, March 10, 2020, 11:35 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -8803,7 +8803,7 @@ function initSidemenuExpandability() {
 /** Adds necessary classes and expanding/collapsing elements if the item has got submenu. */
 
 
-var btnExpanderHtml = '<span class="btn-expander" title="Toggle subpages"></span>';
+var btnExpanderHtml = '<span class="btn-expander mf-heatmap-click" title="Toggle subpages"></span>';
 
 function enhanceSidemenu(menuElement) {
   menuElement.find('li').each(function () {

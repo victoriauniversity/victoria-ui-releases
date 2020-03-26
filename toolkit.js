@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #f4fcfb59d3bf1b28b4a8ae3eebef8387457a7954 + )  | Thursday, March 19, 2020, 10:15 PM */
+/** Version: 0.10.13 (build #1703245635186afb610a4c07cff4e14184449249 + )  | Thursday, March 26, 2020, 1:21 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6908,7 +6908,7 @@ if (document.querySelectorAll('#search-tab-js').length > 0) {
   } //hide long tabs
 
 
-  $(".toggle").each(function (i, el) {
+  $(".search-facets .toggle").each(function (i, el) {
     var $el = $(el);
     var $totalTags = $(el).next().children().length; // console.log( ` ${$el.text()} ${ $totalTags }` );
     //sets filter state from filter totals

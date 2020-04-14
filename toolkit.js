@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #1703245635186afb610a4c07cff4e14184449249 + )  | Thursday, March 26, 2020, 1:21 AM */
+/** Version: 0.10.13 (build #873f5dc0e641c8b1678348726a5e3cc84e75cd9d + )  | Tuesday, April 14, 2020, 10:45 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -6852,7 +6852,7 @@ if (document.querySelectorAll('#search-tab-js').length > 0) {
       tabState = window.sessionStorage.tabState;
       break;
 
-    case 'study':
+    case 'subjects':
       window.sessionStorage.setItem('tabState', 'wgtn-meta-study-areas');
       tabState = window.sessionStorage.tabState;
       break;
@@ -6864,6 +6864,11 @@ if (document.querySelectorAll('#search-tab-js').length > 0) {
 
     case 'intranet':
       window.sessionStorage.setItem('tabState', 'intranet');
+      tabState = window.sessionStorage.tabState;
+      break;
+
+    case 'qualifications':
+      window.sessionStorage.setItem('tabState', 'wgtn-meta-qualifications');
       tabState = window.sessionStorage.tabState;
       break;
 

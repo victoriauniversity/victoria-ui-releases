@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #873f5dc0e641c8b1678348726a5e3cc84e75cd9d + )  | Tuesday, April 14, 2020, 10:45 PM */
+/** Version: 0.10.13 (build #cfe855b7467dce83295417ea5cf1cc9f2c661a85 + )  | Wednesday, April 15, 2020, 1:44 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -12678,7 +12678,8 @@ address.contact > img {
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
-  margin: -1rem;
+  background-color: #eee;
+  border-radius: 2px;
 }
 
 .search-result .search-result-footer .search-result-footer-item {
@@ -14005,7 +14006,7 @@ address.contact > img {
 }
 
 .search-result .search-result-body {
-  margin: .75rem 0 1rem 0 !important;
+  margin: .75rem 0 .8rem 0 !important;
 }
 
 /*

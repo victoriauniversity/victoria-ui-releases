@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #c585e1a1eb424338db1107d4d095d017fe306e5d + )  | Wednesday, April 29, 2020, 11:40 PM */
+/** Version: 0.10.13 (build #fea17df1ac18e145c0c0e6f23d646c6ae79d290d + )  | Friday, May 8, 2020, 2:44 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -9016,11 +9016,11 @@ function showAdminErrorMessage(errorObject) {
 function addActiveClassToMainMenu() {
   // [url-path-segment]: [nav-item-classname]
   var rootPages = {
-    'future': 'future',
+    'study': 'future',
     'international': 'international',
-    'current': 'current',
+    'students': 'current',
     'research': 'research',
-    'learning-teaching': 'learning-teaching'
+    'engage': 'engage'
   },
       urlPathSegments = window.location.pathname.split('/');
 

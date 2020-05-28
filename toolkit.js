@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #754d32f1e26a0c00f17e7ffb1cfe04765eb0cdb6 + )  | Thursday, May 28, 2020, 9:37 PM */
+/** Version: 0.10.13 (build #a95f20a381c4ab43265ca7d9b8ca83f31e713736 + )  | Thursday, May 28, 2020, 11:23 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -14049,8 +14049,7 @@ function initTray() {
     }, 500);
   });
   $('body').on('click', function (e) {
-    console.log(e.target.className, 'clicked');
-
+    // console.log( e.target.className, 'clicked' );
     if (e.target.className.includes('tray-open')) {
       e.preventDefault();
       toggleTray();

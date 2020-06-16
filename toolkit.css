@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/** Version: 0.10.13 (build #9490ee77bde31b793c45708f1ad4414e96eecc30 + )  | Tuesday, June 16, 2020, 12:05 AM */
+/** Version: 0.10.13 (build #bea1f11662f5e94c9dc44e3e5c952a22d14033b4 + )  | Tuesday, June 16, 2020, 1:47 AM */
 @charset "UTF-8";
 /*============================================================================*\
 | VICTORIA UI TOOLKIT STYLES
@@ -14245,7 +14245,8 @@ address.contact > img {
   max-width: 100px;
   -webkit-box-flex: 1;
           flex-grow: 1;
-  margin: 0 0.75rem 0.75rem 0;
+  margin-right: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .result-list .result .result-header .result-title-sm {
@@ -14266,6 +14267,7 @@ address.contact > img {
 .result-list .result .result-body,
 .result-list .result .result-footer {
   width: 100%;
+  margin: 1.5rem 0;
 }
 
 .result-list .result .meta {
@@ -14286,8 +14288,6 @@ address.contact > img {
     flex-wrap: nowrap;
     /* initial */
     width: 128px;
-    margin: 0;
-    /* initial */
     margin-right: 1.5rem;
     margin-bottom: 1.5rem;
   }

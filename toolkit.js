@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #6ce4e1a91284bd4768c8b491dcfb2af5077faf7b + )  | Thursday, June 25, 2020, 10:35 PM */
+/** Version: 0.10.13 (build #96a8aabac8ff20083517d1b9515ea6637c58cae2 + )  | Sunday, June 28, 2020, 11:38 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -12341,7 +12341,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* 18 */
 /***/ (function(module) {
 
-module.exports = {"name":"production","server":{"protocol":"https","host":"static.victoria.ac.nz","port":443}};
+module.exports = {"name":"production","server":{"protocol":"https","host":"www.wgtn.ac.nz/__data/assets/git_bridge/0005/1778018/dist","port":443}};
 
 /***/ }),
 /* 19 */

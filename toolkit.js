@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #00e4efff738a7491afbb23fe2892f7d019ff18c6 + )  | Monday, August 17, 2020, 10:41 PM */
+/** Version: 0.10.13 (build #f8231c1f02d9021bbb457445e437c961a5f1a4ee + )  | Wednesday, August 19, 2020, 3:13 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -15533,19 +15533,23 @@ external_jQuery_default()(function () {
   ;
   initTray();
   victoriousHeader();
-  var s = skrollr.init({// smoothScrolling: true,
-  }); // if (s.isMobile()) {
-  //   s.destroy();
-  // }
 
-  external_jQuery_default()(window).on('resize', function () {
-    if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      // no reason to destroy on mobile
-      if (external_jQuery_default()(window).width() <= 800) {
-        skrollr.init().destroy(); // skrollr.init() returns the singleton created above
+  if (window.skrollr) {
+    var s = skrollr.init({// smoothScrolling: true,
+    }); // if (s.isMobile()) {
+    //   s.destroy();
+    // }
+
+    external_jQuery_default()(window).on('resize', function () {
+      if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // no reason to destroy on mobile
+        if (external_jQuery_default()(window).width() <= 800) {
+          skrollr.init().destroy(); // skrollr.init() returns the singleton created above
+        }
       }
-    }
-  });
+    });
+  }
+
   initFloatingButtons();
   decodeMailAddresses(); // http://wicky.nilia.ms/enquire.js/
   // TODO: Refactor and extract to its own library

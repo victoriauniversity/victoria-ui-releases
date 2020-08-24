@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #f8231c1f02d9021bbb457445e437c961a5f1a4ee + )  | Wednesday, August 19, 2020, 3:13 AM */
+/** Version: 0.10.13 (build #078c5eb93f792b3a26b664b6ba66a299869e6666 + )  | Monday, August 24, 2020, 1:39 AM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -15489,7 +15489,12 @@ function victoriousHeader() {
       }
     };
     var headroom = new headroom_default.a(header, options);
-    headroom.init();
+    headroom.init(); // toggle issues in nav
+
+    external_jQuery_default()('.past-issues a').on('click', function () {
+      external_jQuery_default()('.issues').slideToggle();
+      external_jQuery_default()(this).find('span').toggleClass('icon-caret-right').toggleClass('icon-caret-down');
+    });
   } else {
     return;
   }

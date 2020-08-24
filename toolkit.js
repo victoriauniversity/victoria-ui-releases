@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #078c5eb93f792b3a26b664b6ba66a299869e6666 + )  | Monday, August 24, 2020, 1:39 AM */
+/** Version: 0.10.13 (build #b5b3187bc782bf19a516b4b3aea8c090734bb373 + )  | Monday, August 24, 2020, 11:49 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -15462,7 +15462,7 @@ function initFloatingButtons() {
 
 function victoriousHeader() {
   if (external_jQuery_default()('.victorious-header').length) {
-    console.log('vistorious test');
+    // console.log('vistorious test');
     var header = document.querySelector('.victorious-header');
     console.log(header.offsetHeight);
     var options = {
@@ -15489,7 +15489,11 @@ function victoriousHeader() {
       }
     };
     var headroom = new headroom_default.a(header, options);
-    headroom.init(); // toggle issues in nav
+
+    if (external_jQuery_default()('.victorious-expand').length) {
+      headroom.init();
+    } // toggle issues in nav
+
 
     external_jQuery_default()('.past-issues a').on('click', function () {
       external_jQuery_default()('.issues').slideToggle();

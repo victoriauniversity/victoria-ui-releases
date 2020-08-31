@@ -1,4 +1,4 @@
-/** Version: 0.10.13 (build #f78d16c2b73e139540db97c1fa733890d5109c1d + )  | Wednesday, August 26, 2020, 4:06 AM */
+/** Version: 0.10.13 (build #31fe35b5892ae58e95261f28e9f915fde5571549 + )  | Monday, August 31, 2020, 9:39 PM */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -13437,12 +13437,12 @@ if (!window.toolkitPopups) {
   } catch (err) {
     // Fallback when the cookies-js is not included - Load from the CDN
     var isScriptLoaded = false;
-    var popups_s = document.createElement('script');
-    popups_s.type = 'text/javascript';
-    popups_s.async = true;
-    popups_s.src = '//cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js';
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js';
 
-    popups_s.onreadystatechange = function () {
+    s.onreadystatechange = function () {
       // After-load handler for IE
       if (isScriptLoaded) return;
 
@@ -13453,7 +13453,7 @@ if (!window.toolkitPopups) {
       }
     };
 
-    popups_s.onload = function () {
+    s.onload = function () {
       // After-load handler for all the other browsers
       if (isScriptLoaded) return;
       cookie = window.Cookies;
@@ -13461,7 +13461,7 @@ if (!window.toolkitPopups) {
       isScriptLoaded = true;
     };
 
-    document.getElementsByTagName('head')[0].appendChild(popups_s);
+    document.getElementsByTagName('head')[0].appendChild(s);
   } // For a global use
 
 
@@ -15543,20 +15543,24 @@ external_jQuery_default()(function () {
   initTray();
   victoriousHeader();
 
-  if (window.skrollr) {
-    var s = skrollr.init({// smoothScrolling: true,
-    }); // if (s.isMobile()) {
+  if (window.skrollr && external_jQuery_default()(window).width() > 800 && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    window.onload = function () {
+      var s = skrollr.init({
+        smoothScrolling: true,
+        render: function render() {// console.log('skrollr init');
+        }
+      });
+    }; // if (s.isMobile()) {
     //   s.destroy();
     // }
+    // $(window).on('resize', () => {
+    //   if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) { // no reason to destroy on mobile
+    //     if ($(window).width() <= 800) {
+    //       skrollr.init().destroy(); // skrollr.init() returns the singleton created above
+    //     }
+    //   }
+    // });
 
-    external_jQuery_default()(window).on('resize', function () {
-      if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        // no reason to destroy on mobile
-        if (external_jQuery_default()(window).width() <= 800) {
-          skrollr.init().destroy(); // skrollr.init() returns the singleton created above
-        }
-      }
-    });
   }
 
   initFloatingButtons();
